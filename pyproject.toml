@@ -6,7 +6,7 @@ description = "Data science projects"
 authors = ["Lindsey Gulden <lindsey.e.gulden@gmail.com>"]
 license = "GNU 3.0"
 readme = "README.md"
-packages = [{ include = "projects" }]
+packages = [{ include = "projects" }, { include = "**/*.py", from = "." }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
