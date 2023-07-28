@@ -96,3 +96,7 @@ badge-format = "svg"
 name = "projects"
 version = "0.1.0"
 description = "Data Science Projects"
+
+[tool.pytest.ini_options]
+testpaths = projects
+minversion = "6.0"
