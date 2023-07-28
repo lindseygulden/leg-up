@@ -1,0 +1,97 @@
+[tool.poetry]
+name = "projects"
+version = "0.1.0"
+description = "Data science projects"
+authors = ["Lindsey Gulden <lindsey.e.gulden@gmail.com>"]
+license = "GNU 3.0"
+readme = "README.md"
+packages = [{ include = "projects" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pre-commit = "^3.3.3"
+pytest = "^7.4.0"
+pylint = "^2.17.5"
+pandas = "^2.0.3"
+matplotlib = "^3.7.2"
+seaborn = "^0.12.2"
+scikit-learn = "^1.3.0"
+notebook = "^7.0.0"
+ipykernel = "^6.25.0"
+black = "^23.7.0"
+isort = "^5.12.0"
+click = "^8.1.6"
+scipy = { version = "^1.11.1", python = ">=3.11,<3.13" }
+xgboost = "^1.7.6"
+requests = "^2.31.0"
+pyyaml = "^6.0.1"
+utils = "^1.0.1"
+
+[tool.poetry.group.dev.dependencies]
+jupyter = "^1.0.0"
+ipykernel = "^6.25.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+line-length = 88
+target-version = ["py38", "py39", "py310", "py311"]
+include = ".py"
+exclude = '''
+^/(
+  (
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | data
+  )/
+  | foo.py           # also separately exclude explicitly named files here
+)
+'''
+
+[tool.isort]
+atomic = true
+profile = "black"
+line_length = 88
+py_version = 311
+skip_gitignore = true
+skip_glob = ["tests/data", "profiling"]
+extend_skip = [".md", ".json", ".csv"]
+known_first_party = ["black", "blib2to3", "blackd", "_black_version"]
+
+[tool.sqlfluff.core]
+templater = "jinja"
+sql_file_exts = ".sql,.sql.j2,.dml,.ddl"
+
+[tool.interrogate]
+ignore-init-method = true
+ignore-init-module = false
+ignore-magic = false
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = true
+ignore-nested-functions = false
+ignore-nested-classes = true
+ignore-setters = false
+fail-under = 95
+exclude = ["setup.py", "docs", "build"]
+ignore-regex = ["^get$", "^mock_.*", ".*BaseClass.*"]
+verbose = 0
+quiet = false
+whitelist-regex = []
+color = true
+generate-badge = "."
+badge-format = "svg"
+name = "projects"
+version = "0.1.0"
+description = "Data Science Projects"
