@@ -2,12 +2,13 @@
 
 # Use multiple processes to speed up Pylint.
 jobs=4
-
+ignore-patterns=(.)*_test\.py,test_(.)*\.py
 
 [MESSAGES CONTROL]
 
 # Disable all to choose the Tests one by one
 #disable=all
+disable=fixme, no-value-for-parameter
 
 # Tests
 #enable=bad-indentation,       # Used when an unexpected number of indentation’s tabulations or spaces has been found.
@@ -27,7 +28,7 @@ score=yes
 
 [FORMAT]
 
-max-line-length=110
+max-line-length=120
 max-args=10
 max-locals=20
 
@@ -35,6 +36,7 @@ max-locals=20
 ignore-comments=yes
 ignore-docstrings=yes
 ignore-imports=yes
+
 # Regexp for a line that is allowed to be longer than the limit.
 ignore-long-lines=^\s*(# )?<?https?://\S+>?$
 
@@ -47,3 +49,75 @@ indent-string='    '
 
 # Maximum number of lines in a module
 max-module-lines=1000
+
+
+[BASIC]
+
+# Naming style matching correct argument names.
+argument-naming-style=snake_case
+
+# Regular expression matching correct argument names. Overrides argument-
+# naming-style. If left empty, argument names will be checked with the set
+# naming style.
+#argument-rgx=
+
+# Naming style matching correct attribute names.
+attr-naming-style=snake_case
+
+# Bad variable names which should always be refused, separated by a comma.
+bad-names=foo,
+          bar,
+          baz,
+          toto,
+          tutu,
+          tata,
+          todo
+
+# Naming style matching correct class attribute names.
+class-attribute-naming-style=any
+
+# Naming style matching correct class constant names.
+class-const-naming-style=UPPER_CASE
+
+# Naming style matching correct class names.
+class-naming-style=PascalCase
+
+# Naming style matching correct constant names.
+const-naming-style=UPPER_CASE
+
+# Naming style matching correct function names.
+function-naming-style=snake_case
+
+# Good variable names which should always be accepted, separated by a comma.
+good-names=i,
+           j,
+           k,
+           n,
+           m,
+           a,
+           b,
+           c,
+           d,
+           f,
+           x,
+           y,
+           fig,
+           ax,
+           ex,
+           _
+
+
+# Include a hint for the correct naming format with invalid-name.
+include-naming-hint=no
+
+# Naming style matching correct inline iteration names.
+inlinevar-naming-style=any
+
+# Naming style matching correct method names.
+method-naming-style=snake_case
+
+# Naming style matching correct module names.
+module-naming-style=snake_case
+
+# Naming style matching correct variable names.
+variable-naming-style=snake_case

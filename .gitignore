@@ -6,6 +6,10 @@ data/cache
 # Ignore jupyter checkpoints
 */.ipynb_checkpoints/*
 
+#ignore csvs, jsons
+*.csv
+*.json
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*

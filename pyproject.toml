@@ -6,7 +6,7 @@ description = "Data science projects"
 authors = ["Lindsey Gulden <lindsey.e.gulden@gmail.com>"]
 license = "GNU 3.0"
 readme = "README.md"
-packages = [{ include = "projects" }, { include = "**/*.py", from = "." }]
+packages = [{ include = "projects" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -98,5 +98,5 @@ version = "0.1.0"
 description = "Data Science Projects"
 
 [tool.pytest.ini_options]
-testpaths = projects
+testpaths = ["projects"]
 minversion = "6.0"

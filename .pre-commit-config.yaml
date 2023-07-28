@@ -10,7 +10,6 @@ repos:
     -   id: check-added-large-files
     -   id: check-json
     -   id: requirements-txt-fixer
-    -   id: name-tests-test
 -   repo: https://github.com/psf/black
     rev: 23.7.0
     hooks:
