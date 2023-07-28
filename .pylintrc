@@ -27,6 +27,14 @@ score=yes
 
 [FORMAT]
 
+max-line-length=110
+max-args=10
+max-locals=20
+
+# when looking for duplicated code:
+ignore-comments=yes
+ignore-docstrings=yes
+ignore-imports=yes
 # Regexp for a line that is allowed to be longer than the limit.
 ignore-long-lines=^\s*(# )?<?https?://\S+>?$
 
