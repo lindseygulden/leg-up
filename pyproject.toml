@@ -1,6 +1,7 @@
 [tool.poetry]
 name = "projects"
 version = "0.1.0"
+repository = "https://github.com/lindseygulden/leg-up"
 description = "Data science projects"
 authors = ["Lindsey Gulden <lindsey.e.gulden@gmail.com>"]
 license = "GNU 3.0"
