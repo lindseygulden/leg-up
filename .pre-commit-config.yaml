@@ -1,0 +1,52 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-added-large-files
+    -   id: check-json
+    -   id: requirements-txt-fixer
+    -   id: name-tests-test
+-   repo: https://github.com/psf/black
+    rev: 23.7.0
+    hooks:
+    -   id: black-jupyter
+        # It is recommended to specify the latest version of Python
+        # supported by your project here, or alternatively use
+        # pre-commit's default_language_version, see
+        # https://pre-commit.com/#top_level-default_language_version
+        language_version: python3.11
+#-   repo: https://gitlab.com/pycqa/flake8
+#    rev: 3.8.4
+#    hooks:
+#    - id: flake8
+-   repo: https://github.com/sqlfluff/sqlfluff
+    rev: 2.1.4
+    hooks:
+    -   id: sqlfluff-lint
+    -   id: sqlfluff-fix
+-   repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+    -   id: isort
+#-   repo: https://github.com/econchick/interrogate
+#    rev: 1.4.0
+#    hooks:
+#    -   id: interrogate
+- repo: local
+  hooks:
+    - id: pylint
+      name: pylint
+      entry: pylint
+      language: system
+      types: [python]
+      args:
+        [
+          "-rn", # Only display messages
+          "-sy", # display the score
+          "--rcfile=.pylintrc", # Link to your config file
+        ]
