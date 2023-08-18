@@ -1,17 +1,132 @@
 """Builds command-line application pulls World Weather Organization's Local Weather History and puts it in csv"""
 import datetime as dt
-
-# import json
+import io
+import json
 from pathlib import Path, PosixPath
 from typing import List, Optional, Union
 
 import click
-
-# import pandas as pd
+import pandas as pd
 import requests
+import validators
+import yaml
 from dateutil.relativedelta import relativedelta
+from schema import And, Optional, Schema, SchemaError, Use
 
 from projects.utils.io import yaml_to_dict
+
+
+def get_and_validate_config(config_file_path: Union[str, PosixPath]) -> dict:
+    """Reads and validates API query configuration file; adds a boolean
+    Args:
+        config_file_path: string or path to configuration yaml file
+    Returns:
+        config: dict containing processed, validated information from yaml input file
+    """
+    # Read in configuration from YAML file
+    config = yaml_to_dict(config_file_path)
+    schema = Schema(
+        {
+            "locations": And(list, lambda x: all([isinstance(xx, str) for x in xx])),
+            "api_key": And(str),
+            Optional(
+                "entry_point",
+                default="https://api.worldweatheronline.com/premium/v1/past-weather.ashx",
+            ): And(str, lambda x: validators.url(x)),
+            "end_date": And(str, lambda x: len(x) == 11),
+            "start_date": And(str, lambda x: len(x) == 11),
+            Optional("timeout_seconds", default=30): And(int, lambda t: t > 0),
+            Optional("frequency", default=1): And(
+                lambda f: f in [1, 3, 6, 12, 24], int
+            ),
+            "daily_weather_variables": And(
+                list,
+                lambda x: all(
+                    [
+                        xx
+                        in [
+                            "date",
+                            "maxtempC",
+                            "maxtempF",
+                            "mintempC",
+                            "mintempF",
+                            "avgtempC",
+                            "avgtempF",
+                            "totalSnow_cm",
+                            "sunHour",
+                            "uvIndex",
+                        ]
+                        for xx in x
+                    ]
+                ),
+            ),
+            "astronomy_variables": And(
+                list,
+                lambda x: all(
+                    [
+                        xx
+                        in [
+                            "sunrise",
+                            "sunset",
+                            "moonrise",
+                            "moonset",
+                            "moon_phase",
+                            "moon_illumination",
+                        ]
+                        for xx in x
+                    ]
+                ),
+            ),
+            "hourly_variables": And(
+                list,
+                lambda x: all(
+                    [
+                        xx
+                        in [
+                            "time",
+                            "tempC",
+                            "tempF",
+                            "windspeedMiles",
+                            "windspeedKmph",
+                            "winddirDegree",
+                            "winddir16Point",
+                            "weatherCode",
+                            "weatherDesc",
+                            "precipMM",
+                            "precipInches",
+                            "humidity",
+                            "visibility",
+                            "visibilityMiles",
+                            "pressure",
+                            "pressureInches",
+                            "cloudcover",
+                            "HeatIndexC",
+                            "HeatIndexF",
+                            "DewPointC",
+                            "DewPointF",
+                            "WindChillC",
+                            "WindChillF",
+                            "WindGustMiles",
+                            "WindGustKmph",
+                            "FeelsLikeC",
+                            "FeelsLikeF",
+                            "uvIndex",
+                        ]
+                        for xx in x
+                    ]
+                ),
+            ),
+        }
+    )
+    schema.validate(config)
+    config["extract_weather_desc"] = False
+    if "weatherDesc" in config["hourly_variables"]:
+        config["hourly_variables"] = [
+            x for x in config["hourly_variables"] if x != "weatherDesc"
+        ]
+        config["extract_weather_desc"] = True
+
+    return config
 
 
 def wwo_format(d: dt.datetime) -> str:
@@ -89,10 +204,47 @@ def write_json_to_file(
         for chunk in api_response.iter_content(chunk_size=128):
             file.write(chunk)
 
-
-def extract_data():
-    """Extracts desired data from returned JSONS and assembles it"""
     return
+
+
+def extract_data(
+    response: requests.Response,
+    daily_weather_variables: list,
+    astronomy_variables: list,
+    hourly_variables: list,
+    extract_weather_desc: bool,
+) -> pd.DataFrame:
+    """Extracts desired data from returned response object and assembles it into a dataframe
+    Args:
+        response: a requests Response object containing formatted weather data
+        daily_weather_variables: a list of strings of weather variables desired in output
+        astronomy_variables: a list of strings of astronomy variables desired in output
+        hourly_variables: a list of strings of hourly weather variables desired in output
+        extract_weather_desc: boolean indicating if user wants to extract text weather description
+    Return:
+        dataframe containing extracted weather from response object
+    """
+
+    weather = json.loads(response.content.decode("utf-8"))["data"]["weather"]
+
+    weather_list = []
+
+    for i in range(len(weather)):
+        weather_dict = {k: weather[i][k] for k in tuple(daily_weather_variables)}
+        weather_dict.update(
+            {k: weather[i]["astronomy"][0][k] for k in tuple(astronomy_variables)}
+        )
+        for h in range(len(weather[i]["hourly"])):
+            weather_dict.update(
+                {k: weather[i]["hourly"][h][k] for k in tuple(hourly_variables)}
+            )
+            if extract_weather_desc:
+                weather_dict.update(
+                    {"weatherDesc": weather[i]["hourly"][h]["weatherDesc"][0]["value"]}
+                )
+            weather_list.append(weather_dict.copy())
+
+    return pd.DataFrame(weather_list)
 
 
 @click.command()
@@ -100,8 +252,7 @@ def extract_data():
 @click.argument("output_path", type=click.Path(exists=True), required=True)
 def get_weather(config_yml: str, output_path: str):
     """Uses command-line arguments to set up a call to the WWO API: assembles data in single csv"""
-    # Read in configuration from YAML file
-    config = yaml_to_dict(config_yml)
+    config = get_config(config_yml)
 
     # Get list of locations
     locations = config["locations"]
@@ -112,6 +263,7 @@ def get_weather(config_yml: str, output_path: str):
     dt_list = split_date_range(query_start_date, query_end_date)
 
     for loc in locations:
+        # for every subset of dates
         for i, dt_start in enumerate(dt_list[:-2]):
             dt_end = dt_list[i + 1]
             request_response = query_wwo_api(
@@ -122,6 +274,10 @@ def get_weather(config_yml: str, output_path: str):
                 config["timeout_seconds"],
                 dt_start,
                 dt_end,
+            )
+
+            date_chunks.append(
+                pd.read_json(io.StringIO(request_response.content.decode("utf-8")))
             )
             write_json_to_file(
                 request_response,
