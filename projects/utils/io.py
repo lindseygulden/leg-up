@@ -1,6 +1,9 @@
 import yaml
 from typing import Union
 from pathlib import PosixPath
+import logging
+
+logging.basicConfig(level=logging.info)
 
 
 def yaml_to_dict(yaml_filepath: Union[str, PosixPath]) -> dict:
@@ -10,14 +13,18 @@ def yaml_to_dict(yaml_filepath: Union[str, PosixPath]) -> dict:
     Returns:
         dictionary: contents of yaml file
     """
-    if (yaml_filepath.split(".")[-1] != "yml") and (
-        yaml_filepath.split(".")[-1] != "yaml"
+
+    if (str(yaml_filepath).split(".")[-1] != "yml") and (
+        str(yaml_filepath).split(".")[-1] != "yaml"
     ):
         raise TypeError(
             "yaml_to_dict requires a yaml file as input (and we're assuming you named it with a .yml or .yaml extension)"
         )
 
     with open(yaml_filepath, "r") as file:
-        dictionary = yaml.safe_load(file)
+        try:
+            dictionary = yaml.safe_load(file)
+        except yaml.YAMLError as e:
+            logging.exception(e)
 
     return dictionary

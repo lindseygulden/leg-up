@@ -2,7 +2,7 @@
 # See https://www.worldweatheronline.com/ for more information and to obtain an API key
 locations: # list of strings that are either US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name
    - '02459'
-api_key: "ceeeafe461a449d3a3d204410232607"  # API key obtained from https://www.worldweatheronline.com/
+api_key: "cbcffe5648e04b07afa203548241202"  # API key obtained from https://www.worldweatheronline.com/
 entry_point: "https://api.worldweatheronline.com/premium/v1/past-weather.ashx"  # not expecting this to change...but you never know
 start_date : "01-JAN-2020"  # date when desired period starts; format: 'dd-MMM-yyyy', e.g., '01-JAN-2020'
 end_date : "31-DEC-2022"  # date when desired period ends;  format: 'dd-MMM-yyyy,  e.g., '01-JAN-2020'

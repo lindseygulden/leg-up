@@ -1,199 +1,77 @@
 """Builds command-line application pulls World Weather Organization's Local Weather History and puts it in csv"""
+
 import datetime as dt
-import io
 import json
+import logging
 from pathlib import Path, PosixPath
-from typing import List, Optional, Union
+from typing import Dict, List, Optional, Union
 
 import click
 import pandas as pd
 import requests
-import validators
-import yaml
+
+
+logging.basicConfig(level=logging.info)
+from abc import ABC, abstractmethod
+
 from dateutil.relativedelta import relativedelta
-from schema import And, Optional, Schema, SchemaError, Use
 
 from projects.utils.io import yaml_to_dict
+from projects.weather.data_reader import DataReader
+from projects.weather.wwo_utils import split_date_range
 
 
-def get_and_validate_config(config_file_path: Union[str, PosixPath]) -> dict:
-    """Reads and validates API query configuration file; adds a boolean
-    Args:
-        config_file_path: string or path to configuration yaml file
-    Returns:
-        config: dict containing processed, validated information from yaml input file
-    """
-    # Read in configuration from YAML file
-    config = yaml_to_dict(config_file_path)
-    schema = Schema(
-        {
-            "locations": And(list, lambda x: all([isinstance(xx, str) for x in xx])),
-            "api_key": And(str),
-            Optional(
-                "entry_point",
-                default="https://api.worldweatheronline.com/premium/v1/past-weather.ashx",
-            ): And(str, lambda x: validators.url(x)),
-            "end_date": And(str, lambda x: len(x) == 11),
-            "start_date": And(str, lambda x: len(x) == 11),
-            Optional("timeout_seconds", default=30): And(int, lambda t: t > 0),
-            Optional("frequency", default=1): And(
-                lambda f: f in [1, 3, 6, 12, 24], int
-            ),
-            "daily_weather_variables": And(
-                list,
-                lambda x: all(
-                    [
-                        xx
-                        in [
-                            "date",
-                            "maxtempC",
-                            "maxtempF",
-                            "mintempC",
-                            "mintempF",
-                            "avgtempC",
-                            "avgtempF",
-                            "totalSnow_cm",
-                            "sunHour",
-                            "uvIndex",
-                        ]
-                        for xx in x
-                    ]
-                ),
-            ),
-            "astronomy_variables": And(
-                list,
-                lambda x: all(
-                    [
-                        xx
-                        in [
-                            "sunrise",
-                            "sunset",
-                            "moonrise",
-                            "moonset",
-                            "moon_phase",
-                            "moon_illumination",
-                        ]
-                        for xx in x
-                    ]
-                ),
-            ),
-            "hourly_variables": And(
-                list,
-                lambda x: all(
-                    [
-                        xx
-                        in [
-                            "time",
-                            "tempC",
-                            "tempF",
-                            "windspeedMiles",
-                            "windspeedKmph",
-                            "winddirDegree",
-                            "winddir16Point",
-                            "weatherCode",
-                            "weatherDesc",
-                            "precipMM",
-                            "precipInches",
-                            "humidity",
-                            "visibility",
-                            "visibilityMiles",
-                            "pressure",
-                            "pressureInches",
-                            "cloudcover",
-                            "HeatIndexC",
-                            "HeatIndexF",
-                            "DewPointC",
-                            "DewPointF",
-                            "WindChillC",
-                            "WindChillF",
-                            "WindGustMiles",
-                            "WindGustKmph",
-                            "FeelsLikeC",
-                            "FeelsLikeF",
-                            "uvIndex",
-                        ]
-                        for xx in x
-                    ]
-                ),
-            ),
-        }
-    )
-    schema.validate(config)
-    config["extract_weather_desc"] = False
-    if "weatherDesc" in config["hourly_variables"]:
-        config["hourly_variables"] = [
-            x for x in config["hourly_variables"] if x != "weatherDesc"
-        ]
-        config["extract_weather_desc"] = True
+class WWODataReader(DataReader):
+    """Reads data from World Weather Online API"""
 
-    return config
+    def __init__(self, config_path):
+        # initialize parent class __init__
+        super().__init__(config_path)
 
+        # assign start date, end date, locations, and the renaming-to-make-it-pythonic dictionary
+        self.start_date = self.config["start_date"]
+        self.end_date = self.config["end_date"]
+        self.locations = self.config["locations"]
+        self.data_renaming_dict = yaml_to_dict(self.config["data_config_file"])
 
-def wwo_format(d: dt.datetime) -> str:
-    """Takes a date-time object and returns a--rather unique--format appropriate for the WWO API"""
-    if not isinstance(d, dt.datetime):
-        raise TypeError("Input argument d must be a python datetime object.")
-    return dt.datetime.strftime(d, "%d-%b-%Y").upper()
+        # assign optional configuration variables
+        for variable, value in {"frequency": 24, "timeout_seconds": 30}:
+            setattr(self, variable, value)
+            if variable in self.config:
+                setattr(self, variable, self.config[variable])
 
+        # import lists of variable names to keep
+        for v in ["astronomy_variables", "hourly_variables", "daily_variables"]:
+            setattr(self, v, [])
+            if v in self.config:
+                setattr(self, v, self.config[v])
 
-def first_day_of_next_month(some_date: dt.datetime) -> dt.datetime:
-    """Returns a datetime specifying the first day of the next month relative to some_date
-    Args:
-        some_date: a datetime object for any date in a month
-    Returns:
-        start_of_next_month: a datetime object for the first day of the month immediately following that of some_date
-    """
-    if not isinstance(some_date, dt.datetime):
-        raise TypeError("Input argument some_date must be a python datetime object.")
+        # once we've assigned all variables in the config file, delete the attribute
+        delattr(self, "config")
 
-    one_month_later = some_date + relativedelta(months=1)
-    start_of_next_month = one_month_later - relativedelta(days=one_month_later.day - 1)
-    return start_of_next_month
+    # pylint: disable=line-too-long
+    def get_data(
+        self,
+        include_loc="yes",
+        fmt="json",
+    ) -> Dict[str, requests.Response]:
+        """Executes an API query to the WWO API according to config parameters
+        Args:
+        Returns:
+        """
+        wwo_response_dict = {}
+        for loc in self.locations:
+            try:
+                wwo_response_dict[loc] = requests.get(
+                    f"{self.entry_point}?key={self.api_key}&date={self.start_date}&enddate={self.end_date}&q={loc}&tp={self.frequency}&format={fmt}&includelocation={include_loc}",
+                    timeout=self.timeout_seconds,
+                )
+            except requests.exceptions.Timeout:
+                logging.info(
+                    f"Timed out for {loc} between {self.start_date} and {self.end_date}"
+                )
 
-
-def split_date_range(
-    dt_start: dt.datetime, dt_end: Optional[dt.datetime]
-) -> List[dt.datetime]:
-    """Builds list of WWO-formatted dates spanning the dates between dt_start and dt_end
-    N.B.: from WWO API documentation: the enddate parameter must have the same month and
-    year as the start date parameter.
-    """
-    if dt_end is not None:
-        dt_list = []
-        dt_now = dt_start
-        while dt_now < dt_end:
-            dt_list.append(wwo_format(dt_now))
-            dt_now = first_day_of_next_month(dt_now)
-        dt_list.append(wwo_format(dt_end))
-        return dt_list
-    return [wwo_format(dt_start)] * 2
-
-
-# pylint: disable=line-too-long
-def query_wwo_api(
-    api_entry_point: str,
-    api_key: str,
-    loc: str,
-    hrs: int,
-    start_date: str,
-    end_date: str,
-    timeout_seconds: int,
-    include_loc="yes",
-    fmt="json",
-) -> requests.Response:
-    """Executes an API query to the WWO API according to config parameters
-    Args:
-    Returns:
-    """
-    try:
-        wwo_response = requests.get(
-            f"{api_entry_point}?key={api_key}&date={start_date}&enddate={end_date}&q={loc}&tp={hrs}&format={fmt}&includelocation={include_loc}",
-            timeout=timeout_seconds,
-        )
-    except requests.exceptions.Timeout:
-        print(f"Timed out for {loc} between {start_date} and {end_date}")
-
-    return wwo_response
+        self.raw_data_dict = wwo_response_dict
 
 
 def write_json_to_file(
@@ -208,7 +86,7 @@ def write_json_to_file(
 
 
 def extract_data(
-    response: requests.Response,
+    df: pd.DataFrame,
     daily_weather_variables: list,
     astronomy_variables: list,
     hourly_variables: list,
@@ -248,12 +126,12 @@ def extract_data(
 
 
 @click.command()
-@click.argument("config_yml", type=click.File("rb"), required=True)
+@click.argument("config_yml", type=click.Path(), required=True)
 @click.argument("output_path", type=click.Path(exists=True), required=True)
 def get_weather(config_yml: str, output_path: str):
     """Uses command-line arguments to set up a call to the WWO API: assembles data in single csv"""
-    config = get_config(config_yml)
-
+    config = yaml_to_dict(config_yml)
+    print(config)
     # Get list of locations
     locations = config["locations"]
 
@@ -262,27 +140,23 @@ def get_weather(config_yml: str, output_path: str):
     query_end_date = dt.datetime.strptime(config["end_date"].title(), "%d-%b-%Y")
     dt_list = split_date_range(query_start_date, query_end_date)
 
+    date_chunks = []
+
     for loc in locations:
         # for every subset of dates
         for i, dt_start in enumerate(dt_list[:-2]):
             dt_end = dt_list[i + 1]
             request_response = query_wwo_api(
-                config["api_entry_point"],
+                config["entry_point"],
                 config["api_key"],
                 loc,
-                config["hours"],
-                config["timeout_seconds"],
+                config["frequency"],
                 dt_start,
                 dt_end,
+                config["timeout_seconds"],
             )
 
-            date_chunks.append(
-                pd.read_json(io.StringIO(request_response.content.decode("utf-8")))
-            )
-            write_json_to_file(
-                request_response,
-                Path(f"{output_path}/raw_json/{loc}_{dt_start}_to_{dt_end}.json"),
-            )
+            df = pd.DataFrame.from_dict(request_response.json())
 
 
 if __name__ == "__main__":
