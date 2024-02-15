@@ -6,9 +6,8 @@ from dateutil.relativedelta import relativedelta
 from projects.utils.io import yaml_to_dict
 
 
-def expand_weather_data(df: pd.DataFrame, data_config_path):
-
-    data_dict = yaml_to_dict(data_config_path)
+def expand_weather_data(df: pd.DataFrame, data_dict):
+    """Pulls data from within different levels of existing dataframe to a single, most-granular level"""
     n_entries = len(df.loc["weather",]["data"])
     w_list = []
     for d in range(n_entries):
@@ -16,16 +15,19 @@ def expand_weather_data(df: pd.DataFrame, data_config_path):
 
     all_weather_df = pd.DataFrame(w_list)
 
-    h_list = []
+    h_list = (
+        []
+    )  # bucket for expanded dfs containing data extracted from each member of the 'hourly_data_list'
     for d in range(n_entries):
         hourly_data_list = all_weather_df.loc[d, "hourly"]
         astronomy_data_list = all_weather_df.loc[d, "astronomy"][0]
         today_date = all_weather_df.loc[d, "date"]
         for hour in hourly_data_list:
+            hour["date"] = today_date
             # add daily variables to hourly variables
-            for v in data_dict["astronomy_variables"].keys():
+            for v in list(data_dict["astronomy_variables"].keys()):
                 hour[v] = astronomy_data_list[v]
-            for v in data_dict["daily_variables"].keys():
+            for v in list(data_dict["daily_variables"].keys()):
                 hour[v] = all_weather_df.loc[d, v]
             h_list.append(hour)
     return pd.DataFrame(h_list)
@@ -60,6 +62,8 @@ def split_date_range(
     N.B.: from WWO API documentation: the enddate parameter must have the same month and
     year as the start date parameter.
     """
+    print(dt_start)
+    print(isinstance(dt_start, dt.datetime))
     if dt_end is not None:
         dt_list = []
         dt_now = dt_start

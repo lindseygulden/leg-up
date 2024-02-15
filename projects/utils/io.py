@@ -3,7 +3,9 @@ from typing import Union
 from pathlib import PosixPath
 import logging
 
-logging.basicConfig(level=logging.info)
+logging.basicConfig()
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 
 def yaml_to_dict(yaml_filepath: Union[str, PosixPath]) -> dict:
