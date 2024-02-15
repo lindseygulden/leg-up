@@ -1,7 +1,34 @@
 import datetime as dt
-from typing import List, Optional
+import pandas as pd
+from typing import List, Optional, Dict
 
 from dateutil.relativedelta import relativedelta
+from projects.utils.io import yaml_to_dict
+
+
+def expand_weather_data(df: pd.DataFrame, data_config_path):
+
+    data_dict = yaml_to_dict(data_config_path)
+    n_entries = len(df.loc["weather",]["data"])
+    w_list = []
+    for d in range(n_entries):
+        w_list.append(df.loc["weather",]["data"][d])
+
+    all_weather_df = pd.DataFrame(w_list)
+
+    h_list = []
+    for d in range(n_entries):
+        hourly_data_list = all_weather_df.loc[d, "hourly"]
+        astronomy_data_list = all_weather_df.loc[d, "astronomy"][0]
+        today_date = all_weather_df.loc[d, "date"]
+        for hour in hourly_data_list:
+            # add daily variables to hourly variables
+            for v in data_dict["astronomy_variables"].keys():
+                hour[v] = astronomy_data_list[v]
+            for v in data_dict["daily_variables"].keys():
+                hour[v] = all_weather_df.loc[d, v]
+            h_list.append(hour)
+    return pd.DataFrame(h_list)
 
 
 def wwo_format(d: dt.datetime) -> str:
@@ -28,7 +55,7 @@ def first_day_of_next_month(some_date: dt.datetime) -> dt.datetime:
 
 def split_date_range(
     dt_start: dt.datetime, dt_end: Optional[dt.datetime]
-) -> List[dt.datetime]:
+) -> Dict[dt.datetime, dt.datetime]:
     """Builds list of WWO-formatted dates spanning the dates between dt_start and dt_end
     N.B.: from WWO API documentation: the enddate parameter must have the same month and
     year as the start date parameter.
@@ -37,8 +64,12 @@ def split_date_range(
         dt_list = []
         dt_now = dt_start
         while dt_now < dt_end:
-            dt_list.append(wwo_format(dt_now))
-            dt_now = first_day_of_next_month(dt_now)
-        dt_list.append(wwo_format(dt_end))
-        return dt_list
-    return [wwo_format(dt_start)] * 2
+            next_mo = first_day_of_next_month(dt_now)
+            dt_list.append(
+                [wwo_format(dt_now), wwo_format(next_mo - dt.timedelta(days=1))]
+            )
+            dt_now = next_mo
+        # replace end date for final date chunk with the correct end date
+        dt_list[-1][1] = wwo_format(dt_end)
+        return dict(dt_list)
+    return dict([wwo_format(dt_start)] * 2)

@@ -1,6 +1,9 @@
 from projects.utils.io import yaml_to_dict
 
 from abc import ABC, abstractmethod
+import logging
+
+logging.basicConfig(level=logging.info)
 
 
 class DataReader(ABC):
@@ -16,10 +19,6 @@ class DataReader(ABC):
 
     @abstractmethod
     def get_data(self):
-        pass
-
-    @abstractmethod
-    def assemble_data(self):
         pass
 
     @abstractmethod
