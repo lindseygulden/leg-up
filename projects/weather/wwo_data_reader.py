@@ -2,7 +2,7 @@
 
 from pathlib import Path, PosixPath
 from typing import Dict, List, Optional, Union, Literal
-
+import datetime as dt
 
 import pandas as pd
 import requests
@@ -19,7 +19,7 @@ from dateutil.relativedelta import relativedelta
 from projects.utils.io import yaml_to_dict
 from projects.weather.data_reader import DataReader
 from projects.weather.wwo_utils import split_date_range, expand_weather_data
-from projects.utils.data import convert_to_datetime
+from projects.utils.data import convert_to_datetime, zero_pad
 
 
 @DataReader.register_subclass("wwo")
@@ -36,6 +36,7 @@ class WWODataReader(DataReader):
         self.end_date = convert_to_datetime(self.config["end_date"])
         self.locations = self.config["locations"]
         self.data_renaming_dict = yaml_to_dict(self.config["data_config_file"])
+        self.columns_to_keep = self.config["columns_to_keep"]
 
         # assign optional configuration variables
         for variable, value in {"frequency": 24, "timeout_seconds": 30}.items():
@@ -92,12 +93,35 @@ class WWODataReader(DataReader):
 
                 granular_df = expand_weather_data(df, self.data_renaming_dict)
 
+                daily_variables = list(
+                    self.data_renaming_dict["daily_variables"].keys()
+                )
+                hourly_variables = list(
+                    self.data_renaming_dict["hourly_variables"].keys()
+                )
+                astronomy_variables = list(
+                    self.data_renaming_dict["astronomy_variables"].keys()
+                )
+
                 granular_data_list.append(
                     granular_df[
-                        self.daily_variables
-                        + self.hourly_variables
-                        + self.astronomy_variables
+                        daily_variables + astronomy_variables + hourly_variables
                     ]
                 )
 
-        self.data_dict[loc] = pd.concat(granular_data_list)
+        combined_df = pd.concat(granular_data_list)
+        for vartype in ["daily_variables", "astronomy_variables", "hourly_variables"]:
+            combined_df.rename(columns=self.data_renaming_dict[vartype], inplace=True)
+
+        if "datetime" in self.columns_to_keep:
+            combined_df["datetime"] = [
+                dt.datetime.combine(
+                    dt.datetime.strptime(d, "%Y-%m-%d").date(),
+                    dt.datetime.strptime(
+                        zero_pad(t, max_string_length=4, front_or_back="front"), "%H%M"
+                    ).time(),
+                )
+                for d, t in zip(combined_df.date, combined_df.time)
+            ]
+        combined_df["location"] = loc
+        self.data_dict[loc] = combined_df[self.columns_to_keep]

@@ -14,10 +14,11 @@ def expand_weather_data(df: pd.DataFrame, data_dict):
         w_list.append(df.loc["weather",]["data"][d])
 
     all_weather_df = pd.DataFrame(w_list)
-
+    all_weather_df.to_csv("~/Desktop/all_weather.csv")
     h_list = (
         []
     )  # bucket for expanded dfs containing data extracted from each member of the 'hourly_data_list'
+
     for d in range(n_entries):
         hourly_data_list = all_weather_df.loc[d, "hourly"]
         astronomy_data_list = all_weather_df.loc[d, "astronomy"][0]
@@ -29,8 +30,9 @@ def expand_weather_data(df: pd.DataFrame, data_dict):
                 hour[v] = astronomy_data_list[v]
             for v in list(data_dict["daily_variables"].keys()):
                 hour[v] = all_weather_df.loc[d, v]
-            h_list.append(hour)
-    return pd.DataFrame(h_list)
+            h_list.append(pd.DataFrame(hour))
+
+    return pd.concat(h_list)
 
 
 def wwo_format(d: dt.datetime) -> str:
