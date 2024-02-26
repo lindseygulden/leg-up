@@ -10,6 +10,9 @@ data/cache
 *.csv
 *.json
 
+# ignore MAC files
+.DS_Store
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
