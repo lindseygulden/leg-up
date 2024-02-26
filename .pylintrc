@@ -1,14 +1,14 @@
 [MASTER]
+init-hook='import sys; sys.path.append("/Users/lindseygulden/dev/leg-up/")'
 
 # Use multiple processes to speed up Pylint.
 jobs=4
 ignore-patterns=(.)*_test\.py,test_(.)*\.py
-
 [MESSAGES CONTROL]
 
 # Disable all to choose the Tests one by one
 #disable=all
-disable=fixme, no-value-for-parameter
+disable=fixme, no-value-for-parameter, wrong-import-position
 
 # Tests
 #enable=bad-indentation,       # Used when an unexpected number of indentation’s tabulations or spaces has been found.
@@ -71,7 +71,9 @@ bad-names=foo,
           toto,
           tutu,
           tata,
-          todo
+          todo,
+          boo,
+          booboo
 
 # Naming style matching correct class attribute names.
 class-attribute-naming-style=any
@@ -101,9 +103,11 @@ good-names=i,
            f,
            x,
            y,
+           v,
            fig,
            ax,
            ex,
+           df,
            _
 
 
@@ -121,3 +125,6 @@ module-naming-style=snake_case
 
 # Naming style matching correct variable names.
 variable-naming-style=snake_case
+
+[DESIGN]
+max-attributes=10

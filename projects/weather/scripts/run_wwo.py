@@ -1,38 +1,46 @@
+"""Command-line script for querying WWO API to get historical weather for a set of locations specified in config yaml"""
+
+from pathlib import Path
+
 import click
+
+from projects.weather.wwo_data_reader import DataReader
 
 
 @click.command()
-@click.argument("config_yml", type=click.Path(), required=True)
-@click.argument("output_path", type=click.Path(exists=True), required=True)
-def get_weather(config_yml: str, output_path: str):
-    """Uses command-line arguments to set up a call to the WWO API: assembles data in single csv"""
-    config = yaml_to_dict(config_yml)
-    print(config)
-    # Get list of locations
-    locations = config["locations"]
+@click.option(
+    "--config",
+    type=click.Path(exists=True, file_okay=True, dir_okay=False),
+    required=True,
+)
+@click.option(
+    "--output_path", type=click.Path(file_okay=False, dir_okay=True), required=True
+)
+def get_weather(config: str, output_path: str):
+    """Uses command-line arguments to set up a call to the WWO API: assembles data in csv(s)
+    Args:
+        config: string/path to configuration yaml file
+        output_path: path do directory
+    Returns:
+        None
+    """
+    # Create a new WWO DataReader object according to details in the config yaml
+    d = DataReader.create("wwo", config)
 
-    # Convert dates to list that is usable by the API
-    query_start_date = dt.datetime.strptime(config["start_date"].title(), "%d-%b-%Y")
-    query_end_date = dt.datetime.strptime(config["end_date"].title(), "%d-%b-%Y")
-    dt_list = split_date_range(query_start_date, query_end_date)
+    # Prepare the API query info
+    d.prep_query()
 
-    date_chunks = []
+    # Obtain data
+    d.get_data()
 
-    for loc in locations:
-        # for every subset of dates
-        for i, dt_start in enumerate(dt_list[:-2]):
-            dt_end = dt_list[i + 1]
-            request_response = query_wwo_api(
-                config["entry_point"],
-                config["api_key"],
-                loc,
-                config["frequency"],
-                dt_start,
-                dt_end,
-                config["timeout_seconds"],
-            )
+    # Format the data into writeable dataframes
+    d.postprocess_data()
 
-            df = pd.DataFrame.from_dict(request_response.json())
+    # if output directory does not yet exist, make it
+    Path(output_path).mkdir(parents=True, exist_ok=True)
+
+    # Write data to the specified output path
+    d.write_data(output_path)
 
 
 if __name__ == "__main__":

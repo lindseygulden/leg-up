@@ -1,28 +1,28 @@
 """ Class for reading data from a remote source, processing it, and writing it locally"""
 
-from projects.utils.io import yaml_to_dict
-from pathlib import Path, PosixPath
-from abc import ABC, abstractmethod
-from typing import Union
 import logging
+from abc import ABC, abstractmethod
+from pathlib import Path, PosixPath
+from typing import Union
 
+import pandas as pd
 
-# Create and configure logger
-logging.basicConfig()
+from projects.utils.io import yaml_to_dict
 
-# Creating an object
-logger = logging.getLogger()
-
-# Setting the threshold of logger to DEBUG
-logger.setLevel(logging.INFO)
+logging.basicConfig(level=logging.INFO)
 
 
 class DataReader(ABC):
+    """Parent class for various remote-source data readers"""
 
     subclasses = {}
 
     @classmethod
-    def register_subclass(cls, data_source):
+    def register_subclass(cls, data_source: str):
+        """creates decorator that automatically registers subclasses
+        To use, decorate the child class definition with @DataReader.register_subclass("[name-of-child-class]")
+        """
+
         def decorator(subclass):
             cls.subclasses[data_source] = subclass
             return subclass
@@ -30,9 +30,10 @@ class DataReader(ABC):
         return decorator
 
     @classmethod
-    def create(cls, data_source, params):
+    def create(cls, data_source: str, params: dict):
+        """Creates a new child class using the abbreviation for the data source (e.g., "wwo")"""
         if data_source not in cls.subclasses:
-            raise ValueError("Bad data source {}".format(data_source))
+            raise ValueError(f"Bad data source {data_source}")
 
         return cls.subclasses[data_source](params)
 
@@ -42,23 +43,36 @@ class DataReader(ABC):
         self.api_key = self.config["api_key"]
         self.output_directory = self.config["output_directory"]
         self.output_file_suffix = self.config["output_file_suffix"]
+        self.data_renaming_dict = (
+            {}
+        )  # dictionary that holds optional variable-renaming values
+        self.data_dict = {}  # dictionary for holding postprocessed dataframes
 
     @abstractmethod
     def prep_query(self):
-        pass
+        """Abstract method for preparing an API query, as needed based on data source"""
 
     @abstractmethod
     def get_data(self):
-        pass
+        """Abstract method for querying API"""
 
     @abstractmethod
     def postprocess_data(self):
-        pass
+        """Abstract method for postprocessing of data obtained by API query (e.g., formatting into dataframe(s))"""
 
-    def write_data(self):
+    def write_data(self, output_directory: Union[str, PosixPath]):
+        """Writes dataframe(s) to specified path(s)"""
         # TODO add checks for presence of directory
+        logging.info("Writing data to %s", self.output_directory)
         for key, df in self.data_dict.items():
             df.to_csv(
-                Path(self.output_directory)
+                Path(output_directory)
                 / Path(f"{str(key)}_{self.output_file_suffix}.csv")
             )
+
+    def _rename_columns(self, df: pd.DataFrame):
+        """Uses renaming dictionary to rename dataframe columns"""
+        vartypes = list(self.data_renaming_dict.keys())
+        for vartype in vartypes:
+            df.rename(columns=self.data_renaming_dict[vartype], inplace=True)
+        return df
