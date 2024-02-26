@@ -8,14 +8,15 @@ from typing import Dict, Literal, Union
 import pandas as pd
 import requests
 
-from projects.utils.data import zero_pad
-from projects.utils.io import yaml_to_dict
-from projects.utils.time_utils import convert_to_datetime, first_day_of_next_month
 from projects.weather.data_reader import DataReader
+from utils.data import zero_pad
+from utils.io import yaml_to_dict
+from utils.time import convert_to_datetime, first_day_of_next_month
 
 logging.basicConfig(level=logging.INFO)
 
 
+# pylint
 @DataReader.register_subclass("wwo")
 class WWODataReader(DataReader):
     """Reads data for specified dates, from specified locations, from World Weather Online API"""

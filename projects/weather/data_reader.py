@@ -7,7 +7,7 @@ from typing import Union
 
 import pandas as pd
 
-from projects.utils.io import yaml_to_dict
+from utils.io import yaml_to_dict
 
 logging.basicConfig(level=logging.INFO)
 
@@ -41,7 +41,6 @@ class DataReader(ABC):
         self.config = yaml_to_dict(config_path)
         self.entry_point = self.config["entry_point"]
         self.api_key = self.config["api_key"]
-        self.output_directory = self.config["output_directory"]
         self.output_file_suffix = self.config["output_file_suffix"]
         self.data_renaming_dict = (
             {}
@@ -63,7 +62,7 @@ class DataReader(ABC):
     def write_data(self, output_directory: Union[str, PosixPath]):
         """Writes dataframe(s) to specified path(s)"""
         # TODO add checks for presence of directory
-        logging.info("Writing data to %s", self.output_directory)
+        logging.info("Writing data to %s", output_directory)
         for key, df in self.data_dict.items():
             df.to_csv(
                 Path(output_directory)
