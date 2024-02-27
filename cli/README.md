@@ -1,5 +1,5 @@
 # Simple command-line interface tool generation for this repository
-Constructed with inspiration from this [RealPython tutorial](https://realpython.com/python-click/#preparing-a-click-app-for-installation-and-use) and this [medium article](https://medium.com/clarityai-engineering/how-to-create-and-distribute-a-minimalist-cli-tool-with-python-poetry-click-and-pipx-c0580af4c026)  showing how to leverage poetry and click to generate simmple command-line-interface capability:
+Constructed with inspiration from this [RealPython tutorial](https://realpython.com/python-click/#preparing-a-click-app-for-installation-and-use) and this [medium article](https://medium.com/clarityai-engineering/how-to-create-and-distribute-a-minimalist-cli-tool-with-python-poetry-click-and-pipx-c0580af4c026)  showing how to leverage poetry and click python libraries to generate simple command-line-interface capability.
 
 # Requirements
 The [click](https://click.palletsprojects.com/en/8.1.x/) library for simple command-line tool generation
