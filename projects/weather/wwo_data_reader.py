@@ -2,6 +2,7 @@
 
 import datetime as dt
 import logging
+from itertools import chain
 from pathlib import PosixPath
 from typing import Dict, Literal, Union
 
@@ -55,7 +56,12 @@ class WWODataReader(DataReader):
             self.timeout_seconds = self.config["timeout_seconds"]
 
         # import lists of variable names to keep
-        for v in ["astronomy_variables", "hourly_variables", "daily_variables"]:
+        for v in [
+            "astronomy_variables",
+            "hourly_variables",
+            "daily_variables",
+            "nearest_area_variables",
+        ]:
             setattr(self, v, [])
             if v in self.config:
                 setattr(self, v, self.config[v])
@@ -88,6 +94,7 @@ class WWODataReader(DataReader):
             logging.info(" Querying WWO API for location %s", loc)
             wwo_response_dict[loc] = {}
 
+            # for each month-long subset of the full date range, query the api
             for start_date, end_date in self.data_chunks.items():
                 try:
                     # pylint: disable=line-too-long
@@ -106,6 +113,17 @@ class WWODataReader(DataReader):
     def postprocess_data(self):
         """Extracts info from json response: each resulting df row contains data for one observation hour"""
 
+        # flatten lists of renamed columns for extracting from raw data
+        column_names = list(
+            chain.from_iterable(
+                [
+                    list(self.data_renaming_dict[k].keys())
+                    for k in self.data_renaming_dict.keys()
+                ]
+            )
+        )
+
+        # Extract weather and location data from raw response objects
         for loc in self.locations:
             logging.info(" Postprocessing obtained data for location %s.", loc)
             granular_data_list = []
@@ -116,13 +134,7 @@ class WWODataReader(DataReader):
 
                 granular_df = self._expand_wwo_weather_data(df)
 
-                granular_data_list.append(
-                    granular_df[
-                        list(self.data_renaming_dict["daily_variables"].keys())
-                        + list(self.data_renaming_dict["astronomy_variables"].keys())
-                        + list(self.data_renaming_dict["hourly_variables"].keys())
-                    ]
-                )
+                granular_data_list.append(granular_df[column_names])
 
             combined_df = pd.concat(granular_data_list)
 
@@ -145,6 +157,22 @@ class WWODataReader(DataReader):
             combined_df["location"] = loc
             self.data_dict[loc] = combined_df[self.columns_to_keep]
 
+    def _extract_nearest_area_info(self, df: pd.DataFrame):
+        """Pulls information about the weather station from which data are reported
+        Args:
+            df: a dataframe containing raw data extracted from the WWO API Response object
+        Returns:
+            flattened_dict: a single-level dictionary containing nearest-area information
+        """
+        flattened_dict = {}
+        for key, value in df.loc["nearest_area",]["data"][0].items():
+            if isinstance(value, list):
+                flattened_dict[key] = value[0][list(value[0].keys())[0]]
+            else:
+                flattened_dict[key] = value
+
+        return flattened_dict
+
     def _expand_wwo_weather_data(self, df: pd.DataFrame):
         """Pulls data from within different levels of existing dataframe to a single, most-granular level
         Args:
@@ -152,6 +180,8 @@ class WWODataReader(DataReader):
         Returns:
             a dataframe containing a row for each sub-daily observation
         """
+
+        # For each entry, extract sub-daily weather information from weather-data list
         n_entries = len(df.loc["weather",]["data"])
         w_list = []
         for d in range(n_entries):
@@ -159,6 +189,13 @@ class WWODataReader(DataReader):
 
         all_weather_df = pd.DataFrame(w_list)
 
+        # Append nearest-area information to dataframe
+        nearest_area_dict = self._extract_nearest_area_info(df)
+
+        for key, value in nearest_area_dict.items():
+            all_weather_df[key] = value
+
+        # Append sub-daily weather information, each sub-daily interval it its own row
         h_list = (
             []
         )  # bucket for expanded dfs containing data extracted from each member of the 'hourly_data_list'
@@ -173,6 +210,10 @@ class WWODataReader(DataReader):
                 # write the daily average variables to this hour's row
                 for v in list(self.data_renaming_dict["daily_variables"].keys()):
                     hour[v] = all_weather_df.loc[d, v]
+                # write the nearest-area information to this hour's row
+                for v in list(self.data_renaming_dict["nearest_area_variables"].keys()):
+                    hour[v] = all_weather_df.loc[d, v]
+
                 h_list.append(pd.DataFrame(hour))
 
         return pd.concat(h_list)

@@ -1,4 +1,11 @@
-
+# DATA DESCRIPTION FOR WWO OUTPUT
+# Contains description of outputs of json-formatted WWO API query response as well as variable renaming
+nearest_area_variables:
+  areaName: area_name
+  country: country
+  region: region
+  latitude: weather_station_latitude
+  longitude: weather_station_longitude
 daily_variables:
   date: date
   maxtempC: max_temp_c
@@ -45,5 +52,3 @@ astronomy_variables:
   moonset: moonset_local_time
   sunrise: sunrise_local_time
   sunset: sunset_local_time
-
-

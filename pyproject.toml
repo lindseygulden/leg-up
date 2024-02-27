@@ -106,3 +106,9 @@ description = "Data Science Projects"
 [tool.pytest.ini_options]
 testpaths = ["projects"]
 minversion = "6.0"
+
+# pyproject.toml
+
+
+[tool.poetry.scripts]
+cli = "cli.run:cli"

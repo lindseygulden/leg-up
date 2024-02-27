@@ -1,0 +1,68 @@
+# This configuration YAML provides information for querying the World Weather Online local history API
+# See https://www.worldweatheronline.com/ for more information and to obtain an API key
+#
+# This file describes parameters for generating a WWODataReader class instance (see wwo_data_reader.py and parent class in data_reader.py)
+# See run_wwo.py for code that implements a command-line application to use this file to read weather data for specified locations
+locations: # list of strings that are either US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name
+   - '42.27,-71.87'
+api_key: "cbcffe5648e04b07afa203548241202"  # API key obtained from https://www.worldweatheronline.com/
+entry_point: "https://api.worldweatheronline.com/premium/v1/past-weather.ashx"  # not expecting this to change...but you never know
+start_date : 2020-01-01  # Date when desired period starts. Enter in YYYY-MM-DD format
+end_date : 2020-01-31  # Date when desired period ends. Enter in YYYY-MM-DD format
+timeout_seconds: 30 # Number of seconds after which to time out the request to the WWO API
+frequency : 1  # Number of hours spanned by observations. Possible values are 1 (returns data every 1 hour), 3 (3 hours), 6 (6 hours), 12 (12 hours (day/night)) or 24 (daily averages)
+output_file_suffix: 'wwo_weather'
+# Path to data configuration file, which contains original names of columns obtained from the WWO API and which groups data according to json response-object file structure
+data_config_file: '/Users/lindseygulden/dev/leg-up/projects/weather/config/data_description.yml'
+# list of variables to write out to final csv
+columns_to_keep:
+- location
+- date
+- max_temp_c
+- max_temp_f
+- min_temp_c
+- min_temp_f
+- avg_temp_c
+- avg_temp_f
+- sun_hour
+- uv_index
+- total_snow_cm
+- dew_point_c
+- dew_point_f
+- feels_like_c
+- feels_like_f
+- heat_index_c
+- heat_index_f
+- wind_chill_c
+- wind_chill_f
+- wind_gust_kmph
+- wind_gust_mph
+- cloud_cover
+- humidity
+- precip_in
+- precip_mm
+- pressure_mb
+- pressure_in
+- temp_c
+- temp_f
+- datetime
+- time
+- visibility_km
+- visibility_mi
+- weather_code
+- weather_desc
+- wind_dir_16_point
+- wind_dir_degree
+- windspeed_kmph
+- windspeed_mph
+- moon_illumination
+- moon_phase
+- moonrise_local_time
+- moonset_local_time
+- sunrise_local_time
+- sunset_local_time
+- area_name
+- region
+- country
+- weather_station_longitude
+- weather_station_latitude

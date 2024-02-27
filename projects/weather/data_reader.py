@@ -64,14 +64,21 @@ class DataReader(ABC):
         # TODO add checks for presence of directory
         logging.info("Writing data to %s", output_directory)
         for key, df in self.data_dict.items():
+            fixed_key = key.replace(",", "_").replace(".", "pt")
             df.to_csv(
                 Path(output_directory)
-                / Path(f"{str(key)}_{self.output_file_suffix}.csv")
+                / Path(f"{str(fixed_key)}_{self.output_file_suffix}.csv")
             )
 
     def _rename_columns(self, df: pd.DataFrame):
-        """Uses renaming dictionary to rename dataframe columns"""
+        """Uses renaming dictionary to rename dataframe columns
+        Args:
+            df: dataframe whose columns will be renamed using self.data_renaming_dict
+        Returns:
+            None
+        """
         vartypes = list(self.data_renaming_dict.keys())
+
         for vartype in vartypes:
             df.rename(columns=self.data_renaming_dict[vartype], inplace=True)
         return df
