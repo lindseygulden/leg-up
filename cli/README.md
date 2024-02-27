@@ -17,6 +17,8 @@ cli = "cli.run:cli"
 ```>> cli wwo --config data/newton_weather.yml --output_path data/results```
 
 # To add new commands/capability:
-1. define a sub-command function, [name_of_new_command], in cli_commands.py,
-2. link it here:
- cli.add_command(cli_commands.[name_of_new_command])
+1. Define a sub-command function, `name-of-new-command`, in [cli_commands.py](https://github.com/lindseygulden/leg-up/blob/447232f3454ac8a340ad04ae176f81c745009b88/cli/cli_commands.py),
+2. Add it to cli in [run.py]():
+```
+cli.add_command(cli_commands.name-of-new-command])
+```
