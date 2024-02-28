@@ -7,6 +7,8 @@ from pandas.testing import assert_frame_equal
 
 from tools.data_reader.data_reader import DataReader
 
+# TODO figure out how to use pytest.fixtures for MockDataReader class
+
 
 class TestDataReader(unittest.TestCase):
     def test_register_subclass(self):
