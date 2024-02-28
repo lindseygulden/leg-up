@@ -7,7 +7,7 @@ from pathlib import Path
 
 import click
 
-from projects.weather.wwo_data_reader import DataReader
+from tools.data_reader.wwo_data_reader import DataReader
 
 
 @click.command()
