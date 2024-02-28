@@ -5,7 +5,7 @@ from unittest.mock import patch
 import pandas as pd
 from pandas.testing import assert_frame_equal
 
-from tools.data_reader import DataReader
+from tools.data_reader.data_reader import DataReader
 
 
 class TestDataReader(unittest.TestCase):
