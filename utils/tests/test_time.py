@@ -3,8 +3,13 @@ import datetime as dt
 import numpy as np
 import pandas as pd
 import pytest
+from numpy.testing import assert_almost_equal
 
-from utils.time import convert_to_datetime, first_day_of_next_month
+from utils.time import (
+    convert_to_datetime,
+    convert_to_decimal_year,
+    first_day_of_next_month,
+)
 
 
 def test_first_day_of_next_month():
@@ -40,4 +45,22 @@ def test_convert_to_datetime():
     else:
         raise AssertionError(
             "Expected ValueError for crappy input to convert_to_datetime, but no exception was raised"
+        )
+
+
+def test_convert_to_decimal_year():
+    assert 2020 == convert_to_decimal_year(dt.datetime(2020, 1, 1))
+    assert_almost_equal(
+        1947.0630136986301, convert_to_decimal_year(dt.date(1947, 1, 24)), decimal=7
+    )
+    assert_almost_equal(
+        2020.0874316939892, convert_to_decimal_year(dt.date(2020, 2, 2)), decimal=7
+    )
+    try:
+        convert_to_decimal_year("1944-01-24")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError(
+            "Expected ValueError for crappy input to convert_to_decimal_year, but no exception was raised"
         )

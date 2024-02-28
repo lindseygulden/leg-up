@@ -1,6 +1,7 @@
 """ Functions for manipulating time data and variables"""
 
 import datetime as dt
+from calendar import isleap
 
 import numpy as np
 import pandas as pd
@@ -35,3 +36,19 @@ def first_day_of_next_month(some_date: dt.datetime) -> dt.datetime:
     one_month_later = some_date + relativedelta(months=1)
     start_of_next_month = one_month_later - relativedelta(days=one_month_later.day - 1)
     return start_of_next_month
+
+
+def convert_to_decimal_year(d: dt.datetime):
+    """Converts a python datetime to a decimal year. Handles leap years. Does not treat sub-daily values.
+    Args:
+        d: the datetime (or date) object to be converted to decimal year
+    Returns:
+        float representing the decimal year for a given day.
+    """
+    if not isinstance(d, dt.datetime) and not isinstance(d, dt.date):
+        raise ValueError(
+            "convert_to_decimal_year requires input of a python datetime.datetime or datetime.date object."
+        )
+    days_in_this_year = 365 + int(isleap(d.year))
+    day_of_year = d.timetuple().tm_yday - 1  # January 1 is day 0
+    return d.year + (day_of_year / days_in_this_year)
