@@ -29,5 +29,8 @@ def cli():
     """Core access point for cli tools in this repository"""
 
 
-# Add new sub commands here
+# Add new sub commands here.
+# Name of new command function should be the same as name of function defined in cli_commands.py
+# For example:
+# cli.add_command(cli_commands.name-of-new-command-function)
 cli.add_command(cli_commands.wwo)

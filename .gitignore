@@ -6,9 +6,10 @@ data/cache
 # Ignore jupyter checkpoints
 */.ipynb_checkpoints/*
 
-#ignore csvs, jsons
+#ignore csvs, jsons, excel files
 *.csv
 *.json
+*.xls*
 
 # ignore MAC files
 .DS_Store

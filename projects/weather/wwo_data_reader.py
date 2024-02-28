@@ -9,7 +9,7 @@ from typing import Dict, Literal, Union
 import pandas as pd
 import requests
 
-from projects.weather.data_reader import DataReader
+from tools.data_reader import DataReader
 from utils.data import zero_pad
 from utils.io import yaml_to_dict
 from utils.time import convert_to_datetime, first_day_of_next_month

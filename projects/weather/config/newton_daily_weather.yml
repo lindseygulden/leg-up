@@ -4,14 +4,14 @@
 # This file describes parameters for generating a WWODataReader class instance (see wwo_data_reader.py and parent class in data_reader.py)
 # See run_wwo.py for code that implements a command-line application to use this file to read weather data for specified locations
 locations: # list of strings that are either US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name
-   - '42.27,-71.87'
+   - '02459'
 api_key: "cbcffe5648e04b07afa203548241202"  # API key obtained from https://www.worldweatheronline.com/
 entry_point: "https://api.worldweatheronline.com/premium/v1/past-weather.ashx"  # not expecting this to change...but you never know
 start_date : 2008-07-01  # Date when desired period starts. Enter in YYYY-MM-DD format
 end_date : 2024-01-31  # Date when desired period ends. Enter in YYYY-MM-DD format
 timeout_seconds: 30 # Number of seconds after which to time out the request to the WWO API
-frequency : 1  # Number of hours spanned by observations. Possible values are 1 (returns data every 1 hour), 3 (3 hours), 6 (6 hours), 12 (12 hours (day/night)) or 24 (daily averages)
-output_file_suffix: 'wwo_hourly_weather'
+frequency : 24  # Number of hours spanned by observations. Possible values are 1 (returns data every 1 hour), 3 (3 hours), 6 (6 hours), 12 (12 hours (day/night)) or 24 (daily averages)
+output_file_suffix: 'wwo_daily_weather'
 # Path to data configuration file, which contains original names of columns obtained from the WWO API and which groups data according to json response-object file structure
 data_config_file: '/Users/lindseygulden/dev/leg-up/projects/weather/config/data_description.yml'
 # list of variables to write out to final csv

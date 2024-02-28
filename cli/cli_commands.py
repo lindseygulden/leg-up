@@ -1,5 +1,6 @@
 """Command-line functions for projects in folder
-Usage:
+To add a new functionality to the interface:
+    1. Define a new sub command below using click decorators (see, for example, def wwo() below)
 """
 
 from pathlib import Path

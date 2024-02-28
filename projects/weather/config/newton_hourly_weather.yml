@@ -7,11 +7,11 @@ locations: # list of strings that are either US Zipcode, UK Postcode, Canada Pos
    - '02459'
 api_key: "cbcffe5648e04b07afa203548241202"  # API key obtained from https://www.worldweatheronline.com/
 entry_point: "https://api.worldweatheronline.com/premium/v1/past-weather.ashx"  # not expecting this to change...but you never know
-start_date : 2014-01-01  # Date when desired period starts. Enter in YYYY-MM-DD format
+start_date : 2008-07-01  # Date when desired period starts. Enter in YYYY-MM-DD format
 end_date : 2024-01-31  # Date when desired period ends. Enter in YYYY-MM-DD format
 timeout_seconds: 30 # Number of seconds after which to time out the request to the WWO API
 frequency : 1  # Number of hours spanned by observations. Possible values are 1 (returns data every 1 hour), 3 (3 hours), 6 (6 hours), 12 (12 hours (day/night)) or 24 (daily averages)
-output_file_suffix: 'wwo_weather'
+output_file_suffix: 'wwo_hourly_weather'
 # Path to data configuration file, which contains original names of columns obtained from the WWO API and which groups data according to json response-object file structure
 data_config_file: '/Users/lindseygulden/dev/leg-up/projects/weather/config/data_description.yml'
 # list of variables to write out to final csv
@@ -61,3 +61,8 @@ columns_to_keep:
 - moonset_local_time
 - sunrise_local_time
 - sunset_local_time
+- area_name
+- region
+- country
+- weather_station_longitude
+- weather_station_latitude
