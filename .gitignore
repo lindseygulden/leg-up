@@ -5,6 +5,7 @@ data/cache
 
 # Ignore jupyter checkpoints
 */.ipynb_checkpoints/*
+.ipynb_checkpoints
 
 #ignore csvs, jsons, excel files
 *.csv
