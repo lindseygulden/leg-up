@@ -1,3 +1,5 @@
+""" Pulls in USGS's distillation of US historical oil & gas wells; processes by county"""
+
 # import fiona # fiona is under geopandas: use it to see layers in a gdb (search 'fiona' below)
 from pathlib import Path, PosixPath
 from typing import Union
@@ -21,6 +23,7 @@ from utils.pandas import lowercase_columns
 def usgs_ihs_well_data(
     data_dir: Union[str, PosixPath], output_file: Union[str, PosixPath]
 ):
+    """Reads raw .gdb file from USGS, lumps well data by year and county, computes intensity, writes out"""
     # Open data soft's US county boundaries data; https://public.opendatasoft.com.geojson'))
     counties_gdf = gpd.read_file(data_dir / Path("us_geo/us-county-boundaries.geojson"))
     counties_gdf = lowercase_columns(counties_gdf)
@@ -33,6 +36,15 @@ def usgs_ihs_well_data(
     # https://doi.org/10.5066/P9UIR5HE. From USGS scientists, source data is IHS Markit
 
     # fiona.listlayers('/Volumes/Samsung_T5/data/oilgas/USOilGasAggregation.gdb')
+    # other layers in the geodatabase are:
+    #        ['USWells_10Mile',
+    #        'USWells_1Mile',
+    #        'USWells_10Mile_1Year',
+    #        'USWells_1Mile_1Year',
+    #        'USProduction_2Mile_1Year',
+    #        'USProduction_10Mile_1Year',
+    #        'USProduction_2Mile',
+    #        'USProduction_10Mile']
     ihs_markit_wells_gdf = gpd.read_file(
         data_dir / "oilgas/USOilGasAggregation.gdb",
         layer="USWells_1Mile_1Year",
@@ -58,6 +70,7 @@ def usgs_ihs_well_data(
     ihs_join_counties_gdf.sort_values(
         by=["grid_id", "intersection_area"], ascending=False, inplace=True
     )
+    # Assign each 1x1-mi grid cell to one and only one county (to prevent double counting)
     ihs_join_counties_gdf.drop_duplicates(
         keep="first", subset=["grid_id", "year"], inplace=True
     )
@@ -70,11 +83,11 @@ def usgs_ihs_well_data(
         ]
     )
     ihs_join_counties_df.to_csv(
-        DATA_DIR
+        data_dir
         / Path("oilgas/processed_data/us_counties_joined_with_ihs_markit_1mi.csv")
     )
 
-    yr_times_well_count_cols = []
+    # names of the columns in the IHS data that count different types of wells
     well_count_cols = [
         "count_well",
         "count_oil_well",
@@ -84,34 +97,57 @@ def usgs_ihs_well_data(
         "count_horizontal_well",
         "count_fractured_well",
     ]
+
+    # use well-count & year columns to compute the mean & median year of O&G development for each county
+    yr_times_well_count_cols = []
     for c in well_count_cols:
         ihs_join_counties_df[f"yr_times_{c}"] = [
             w * y for w, y in zip(ihs_join_counties_df[c], ihs_join_counties_df["year"])
         ]
         yr_times_well_count_cols.append(f"yr_times_{c}")
 
-    ihs_df = (
+    # compute median year of oil and gas drilling by county
+    ihs_median_year_df = (
+        ihs_join_counties_df[yr_times_well_count_cols + ["geoid"]]
+        .groupby("geoid")
+        .median()
+        .reset_index()
+    )
+    ihs_median_year_df.rename(
+        columns={
+            c: "median_" + c.replace("times_count_", "")
+            for c in yr_times_well_count_cols
+        },
+        inplace=True,
+    )
+    # in two steps, compute mean year of oil and gas drilling
+    ihs_mean_year_df = (
         ihs_join_counties_df[yr_times_well_count_cols + well_count_cols + ["geoid"]]
         .groupby("geoid")
         .sum()
         .reset_index()
     )
-
     for c in well_count_cols:
         name_shortened = c.replace("count_", "")
-        ihs_df[f"mean_year_{name_shortened}"] = [
+        ihs_mean_year_df[f"mean_year_{name_shortened}"] = [
             n / d if d > 0 else 0
-            for n, d in zip(ihs_df[f"yr_times_{c}"], ihs_df[f"{c}"])
+            for n, d in zip(ihs_mean_year_df[f"yr_times_{c}"], ihs_mean_year_df[f"{c}"])
         ]
 
-    ihs_df.drop(yr_times_well_count_cols, axis=1, inplace=True)
+    # omit columns needed only for calculation
+    ihs_mean_year_df.drop(yr_times_well_count_cols, axis=1, inplace=True)
 
+    # merge mean and median year calculations into a single dataframe
+    ihs_df = ihs_mean_year_df.merge(ihs_median_year_df, on="geoid")
+
+    # link county-specific oil and gas drilling well timing & count data to county geographic info
     ihs_fips_stats_gdf = (
         counties_gdf[["geoid", "name", "state_name", "area_km2", "geometry"]]
         .merge(ihs_df, how="left", on="geoid")
         .fillna(0)
     )
 
+    # compute well inten
     for c in well_count_cols:
         name_shortened = c.replace("count_", "")
         ihs_fips_stats_gdf[f"{c}_per_km2"] = [
@@ -120,6 +156,9 @@ def usgs_ihs_well_data(
         ihs_fips_stats_gdf[f"mean_exposure_years_{name_shortened}"] = (
             2024 - ihs_fips_stats_gdf[f"mean_year_{name_shortened}"]
         )
+        ihs_fips_stats_gdf[f"median_exposure_years_{name_shortened}"] = (
+            2024 - ihs_fips_stats_gdf[f"median_yr_{name_shortened}"]
+        )
         ihs_fips_stats_gdf[f"intensity_{name_shortened}_yr_per_km2"] = [
             w * y
             for w, y in zip(
@@ -127,5 +166,8 @@ def usgs_ihs_well_data(
                 ihs_fips_stats_gdf[f"mean_exposure_years_{name_shortened}"],
             )
         ]
+    pd.DataFrame(ihs_fips_stats_gdf).to_csv(
+        data_dir / Path(f"oilgas/processed_data/{output_file}")
+    )
 
-    return
+    return ihs_fips_stats_gdf
