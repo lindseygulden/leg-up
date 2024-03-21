@@ -1,11 +1,12 @@
-import click
-import pandas as pd
-import geopandas as gpd
-
 # import fiona # fiona is under geopandas: use it to see layers in a gdb (search 'fiona' below)
 from pathlib import Path, PosixPath
-from utils.pandas import lowercase_columns
 from typing import Union
+
+import click
+import geopandas as gpd
+import pandas as pd
+
+from utils.pandas import lowercase_columns
 
 
 @click.command()
@@ -20,7 +21,6 @@ from typing import Union
 def usgs_ihs_well_data(
     data_dir: Union[str, PosixPath], output_file: Union[str, PosixPath]
 ):
-
     # Open data soft's US county boundaries data; https://public.opendatasoft.com.geojson'))
     counties_gdf = gpd.read_file(data_dir / Path("us_geo/us-county-boundaries.geojson"))
     counties_gdf = lowercase_columns(counties_gdf)
