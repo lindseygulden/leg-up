@@ -4,7 +4,7 @@ from typing import Literal
 
 
 def zero_pad(
-    x, front_or_back: Literal["front", "back"] = "front", max_string_length: int = 2
+    x, front_or_back: Literal["front", "back"] = "front", max_string_length: int = 5
 ):
     """convert a number or its string representation to a zero-padded string of length max_string_length
     Args:
