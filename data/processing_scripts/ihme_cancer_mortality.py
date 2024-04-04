@@ -18,7 +18,7 @@ logging.basicConfig(level=logging.INFO)
 @click.command()
 @click.option(
     "--excel_input",
-    type=click.Path(exists=True, file_okay=False, dir_okay=True),
+    type=click.Path(exists=True, file_okay=True, dir_okay=False),
     required=True,
 )
 @click.option(
