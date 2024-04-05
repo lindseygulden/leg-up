@@ -19,7 +19,7 @@ from utils.pandas import lowercase_columns
     "--data_dir",
     type=click.Path(exists=True, file_okay=False, dir_okay=True),
     required=True,
-)
+)  # note that data_dir should countain both us_geo and oilgas subdirs w/ properly named files (see code below)
 @click.option(
     "--output_file", type=click.Path(file_okay=True, dir_okay=False), required=True
 )
@@ -123,62 +123,69 @@ def usgs_ihs_well_data(
         )  # to avoid screwing up the median and mean computations
         yr_times_well_count_cols.append(f"yr_times_{c}")
 
-    # compute median year of oil and gas drilling by county
-    ihs_median_year_df = (
-        ihs_join_counties_df[yr_times_well_count_cols + ["geoid"]]
-        .groupby("geoid")
-        .median()
-        .reset_index()
-    )
-    ihs_median_year_df.rename(
-        columns={
-            c: "median_" + c.replace("times_count_", "")
-            for c in yr_times_well_count_cols
-        },
-        inplace=True,
-    )
-    # in two steps, compute mean year of oil and gas drilling
-    ihs_mean_year_df = (
+    # compute mean year of oil and gas drilling by county
+    yr_times_well_count_cols = []
+    for c in well_count_cols:
+        ihs_join_counties_df[f"yr_times_{c}"] = [
+            w * y for w, y in zip(ihs_join_counties_df[c], ihs_join_counties_df["year"])
+        ]
+        # ihs_join_counties_df[f"yr_times_{c}"].replace(0, np.nan, inplace=True)
+        yr_times_well_count_cols.append(f"yr_times_{c}")
+
+    # temporary columns for mean year
+    ihs_stats_df = (
         ihs_join_counties_df[yr_times_well_count_cols + well_count_cols + ["geoid"]]
         .groupby("geoid")
         .sum()
         .reset_index()
     )
+
     for c in well_count_cols:
         name_shortened = c.replace("count_", "")
-        ihs_mean_year_df[f"mean_year_{name_shortened}"] = [
-            n / d if d > 0 else 0
-            for n, d in zip(ihs_mean_year_df[f"yr_times_{c}"], ihs_mean_year_df[f"{c}"])
+        ihs_stats_df[f"mean_year_{name_shortened}"] = [
+            n / d if d > 0 else np.nan
+            for n, d in zip(ihs_stats_df[f"yr_times_{c}"], ihs_stats_df[f"{c}"])
         ]
-        ihs_mean_year_df[f"mean_year_{name_shortened}"].replace(0, np.nan, inplace=True)
 
-    # omit columns needed only for calculation
-    ihs_mean_year_df.drop(yr_times_well_count_cols, axis=1, inplace=True)
+    ihs_stats_df.drop(yr_times_well_count_cols, axis=1, inplace=True)
 
-    # merge mean and median year calculations into a single dataframe
-    ihs_df = ihs_mean_year_df.merge(ihs_median_year_df, on="geoid")
-    logging.info(
-        "Finished computing mean and median year of drilling activity in each county"
-    )
-    # link county-specific oil and gas drilling well timing & count data to county geographic info
+    # add columns counting number of wells before various years
+    for y in [1945, 1955, 1965]:
+        ihs_count_before_df = (
+            ihs_join_counties_df[well_count_cols + ["geoid"]]
+            .loc[ihs_join_counties_df.year < y]
+            .groupby("geoid")
+            .sum()
+            .reset_index()
+        )
+        ihs_count_before_df.columns = [
+            x.replace("count_", f"count_{y}_") for x in ihs_count_before_df
+        ]
+
+        ihs_stats_df = ihs_stats_df.merge(ihs_count_before_df, on="geoid")
+
     ihs_fips_stats_gdf = (
         counties_gdf[["geoid", "name", "state_name", "area_km2", "geometry"]]
-        .merge(ihs_df, how="left", on="geoid")
+        .merge(ihs_stats_df, how="left", on="geoid")
         .fillna(0)
     )
+    # normalize count by county area
+    for c in ihs_fips_stats_gdf.columns.values:
+        if "count_" in c:
+            ihs_fips_stats_gdf[f"{c}_per_km2"] = [
+                c / a
+                for c, a in zip(ihs_fips_stats_gdf[c], ihs_fips_stats_gdf["area_km2"])
+            ]
 
-    # compute well inten
+    # finish computing mean exposure year and intensity
     for c in well_count_cols:
         name_shortened = c.replace("count_", "")
-        ihs_fips_stats_gdf[f"{c}_per_km2"] = [
-            c / a for c, a in zip(ihs_fips_stats_gdf[c], ihs_fips_stats_gdf["area_km2"])
+
+        ihs_fips_stats_gdf[f"mean_exposure_years_{name_shortened}"] = [
+            2024 - x if x > 5 else 0
+            for x in ihs_fips_stats_gdf[f"mean_year_{name_shortened}"]
         ]
-        ihs_fips_stats_gdf[f"mean_exposure_years_{name_shortened}"] = (
-            2024 - ihs_fips_stats_gdf[f"mean_year_{name_shortened}"]
-        )
-        ihs_fips_stats_gdf[f"median_exposure_years_{name_shortened}"] = (
-            2024 - ihs_fips_stats_gdf[f"median_yr_{name_shortened}"]
-        )
+
         ihs_fips_stats_gdf[f"intensity_{name_shortened}_yr_per_km2"] = [
             w * y
             for w, y in zip(
