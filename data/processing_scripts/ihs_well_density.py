@@ -150,7 +150,7 @@ def usgs_ihs_well_data(
     ihs_stats_df.drop(yr_times_well_count_cols, axis=1, inplace=True)
 
     # add columns counting number of wells before various years
-    for y in [1945, 1955, 1965]:
+    for y in [1950, 1960, 1970, 1980]:
         ihs_count_before_df = (
             ihs_join_counties_df[well_count_cols + ["geoid"]]
             .loc[ihs_join_counties_df.year < y]

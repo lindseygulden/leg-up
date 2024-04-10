@@ -1,7 +1,9 @@
-""" Pulls in age-adjusted cancer mortality rates from IHME Excel file"""
+""" Pulls in age-adjusted mortality rates from IHME-formatted Excel file"""
 
-# County-scale data for age-adjusted cancer mortality data for 29 cancers
-# data available from https://ghdx.healthdata.org
+# County-scale data for mortality from various causes. Can be used for:
+# age-adjusted cancer mortality data for 29 cancers
+# age-adjusted cardiovascular disease
+# must be in the format of data available from https://ghdx.healthdata.org
 
 import logging
 from pathlib import PosixPath
@@ -24,17 +26,17 @@ logging.basicConfig(level=logging.INFO)
 @click.option(
     "--output_filepath", type=click.Path(file_okay=True, dir_okay=False), required=True
 )
-def cancer_mortality(
+def ihme_mortality_rates(
     excel_input: Union[str, PosixPath], output_filepath: Union[str, PosixPath]
 ):
-    """Reads IHME excel file sheets, extracts 2014 data, merges all cancer types by FIPS, writes to csv"""
+    """Reads IHME excel file sheets, extracts 2014 data, merges disease types by FIPS, writes to csv"""
 
-    logging.info(" --- Reading IHME Excel file containing cancer-mortality-rate data")
+    logging.info(" --- Reading IHME Excel file containing mortality-rate data")
 
     excel_file = pd.ExcelFile(excel_input)
 
     # link excel file's sheet names to cancer-type name
-    cancer_type_sheet_dict = dict(
+    disease_type_sheet_dict = dict(
         zip(
             [
                 x.replace(" cancer", "")
@@ -48,44 +50,44 @@ def cancer_mortality(
         )
     )
     # initialize the output dataframe
-    all_cancers_df = pd.DataFrame()
+    all_diseases_df = pd.DataFrame()
 
-    # loop through cancer mortality data for all cancer types, extract data
-    for cancer_type, sheet_name in cancer_type_sheet_dict.items():
+    # loop through mortality data for all disease types, extract data
+    for disease_type, sheet_name in disease_type_sheet_dict.items():
         sheet = excel_file.parse(sheet_name)
         sheet.columns = sheet.iloc[0, :]
         # extract only the 2014 column (note that the formatted file contains data for several years since 1980)
-        cancer_df = sheet[["FIPS", "Mortality Rate, 2014*"]]
-        cancer_df.columns = ["fips", f"{cancer_type}_2014"]
+        disease_df = sheet[["FIPS", "Mortality Rate, 2014*"]]
+        disease_df.columns = ["fips", f"{disease_type}_2014"]
 
-        cancer_df = cancer_df.iloc[3:, :]
+        disease_df = disease_df.iloc[3:, :]
 
-        cancer_df[f"{cancer_type}_2014"] = [
+        disease_df[f"{disease_type}_2014"] = [
             float(x.split(" (")[0]) if isinstance(x, str) else x
-            for x in cancer_df[f"{cancer_type}_2014"]
+            for x in disease_df[f"{disease_type}_2014"]
         ]
 
         # fix the zero-truncation of the FIPS numbers for counties
-        cancer_df.fips = [
+        disease_df.fips = [
             zero_pad(x, front_or_back="front", max_string_length=5)
-            for x in cancer_df.fips
+            for x in disease_df.fips
         ]
 
-        cancer_df.dropna(inplace=True)
+        disease_df.dropna(inplace=True)
 
         # get rid of the rows for state-wide data (b/c we only want county data)
-        cancer_df = cancer_df.loc[[x[:3] != "000" for x in cancer_df["fips"]]]
+        disease_df = disease_df.loc[[x[:3] != "000" for x in disease_df["fips"]]]
 
-        # merge mortality data for this cancer type to main dataframe
-        if len(all_cancers_df) == 0:
-            all_cancers_df = cancer_df.copy(deep=True)
+        # merge mortality data for this disease to main dataframe
+        if len(all_diseases_df) == 0:
+            all_diseases_df = disease_df.copy(deep=True)
         else:
-            all_cancers_df = all_cancers_df.merge(cancer_df, on="fips", how="outer")
+            all_diseases_df = all_diseases_df.merge(disease_df, on="fips", how="outer")
 
-    all_cancers_df.to_csv(output_filepath)
+    all_diseases_df.to_csv(output_filepath)
     logging.info("--- Processed data written to %s", output_filepath)
-    return all_cancers_df
+    return all_diseases_df
 
 
 if __name__ == "__main__":
-    cancer_mortality()
+    ihme_mortality_rates()
