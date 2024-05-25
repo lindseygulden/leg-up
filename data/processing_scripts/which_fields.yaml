@@ -1,0 +1,427 @@
+# Some identified using https://www.onrr.gov/document/WellStatusCodes.pdf
+# Also got abbreviations from https://www.kgs.ku.edu/Magellan/Elog/status.html
+# https://www.michigan.gov/egle/about/organization/oil-gas-and-minerals/oil-and-gas/oil-and-gas-well-type-and-status
+# https://www.uky.edu/KGS/emsweb/kyogfaq/kyogfaq20.html
+#https://www.conservation.ca.gov/calgem/maps/Documents/GIS-metadata-ReadMe.pdf
+#https://www.latax.state.la.us/Menu_RulesRegulations/Rules%20and%20Regs%20Changes/Proposals/2009/2016%20LMOGA%20Proposal%20LTC%20Changes-Chapter%2025.pdf
+
+well_types:
+  - Oil Well
+  #- Dry Hole
+  - Oil / Gas Well
+  - OIL
+  - GAS
+  - Plugged and Abandoned
+  - OG_R
+  - Gas Well
+  - Oil & Gas
+  - Oil
+  #- Permitted Location
+  - O # assume oil
+  #- Unknown
+  #- DRY
+  - Producing
+  - Gas
+  - G  # assume gas
+  - GW # assume gas well (but this could be groundwater??). in ny in is gas well
+#  - D&A  # dry and abandoned per KGS
+  - OW # per michigan dept. env: orphan well
+  - Injection / Disposal from Oil
+  - Gas Production
+  - OG  # assusming 'oil and gas'
+  #- DH
+  #- Approved Intent to Drill
+  - UN_R
+#  - Not Available
+#  - DA  # assume 'dry and abandoned'
+#  - MTW # per michigan dept env, part 625 test well
+#  - LOC # per KGS: location, status unknown or location never drilled
+  #- LO Offshore only load oil injected into a gas well to enhance production
+  - NT # oklahoma: No type--unknown old well likely without a completion report and/or other documents
+  #- Expired Intent to Drill (C-1)
+  - Injection / Disposal Well
+#  - TRM # per. university of kentucky, terminated permit
+  - OD  # new york oil development
+  - Inactive Well
+  - Authorized Injection Well
+#  - Steamflood
+  - Recompleted
+  - Cyclic Steam
+  - COMB. OIL&GAS
+  #- KCC Fee Fund Plugging
+  - Coal Bed Methane
+  #- UNDETERMINED
+  - Waterflood  # assuming water flood of oil and gas (therefore reaches reservoir)
+  #- DH - Dry Hole
+  - GD # california: gas disposal
+  - INJECTION
+  - Converted to EOR Well
+  - OIL - Production
+  - Injection
+  - NL # not listed (new york)
+  - 2RIn # per oklahoma Enhanced Recovery UIC injection well
+  - TM # per oklahoma: Terminated UIC well--voluntary or mandatory revocation of UIC authorization
+  - 5  # most of these are in LA...produced salt water
+  - Oil well single completion
+  - CBM # coal bed methane (per kgs)
+  # - Observation
+  # - Spudded
+  - Dry Gas
+  - SRI #per KYGS: Secondary recovery input/injection (an EPA Class II injection well)
+  #- ON LIST
+  #- Well Drilled
+  - D #wyoming disposal
+  - IW # new york enhanced oil recorvery -- injection
+  - SWD # kygs: saltwater disposal
+  - Coalbed/Pipeline
+  - I #wyoming injection
+  - GS # per michigan dept. env: gas storage
+  - GAS - Natural Gas - Production
+  - 2DNC # per oklahoma Non-Commercial UIC disposal well
+  - Converted to SWD Well
+  - Shut-In Well (Oil)
+  - WI #kygs: Water injection (an EPA Class II injection well)
+  - GS_R  # I'm guessing gas storage of some sort
+  - Oil And Gas
+  - INJ  # assume injection
+  #- DRY HOLE
+  - Oil Production
+  #- Stratigraphic Test
+  #- Undesignated
+  #- Multi-Purpose
+  - Water Disposal
+  #- Cancelled API Number
+  - Coal Bed
+  #- Injection Authorization Terminated
+  - Injection / Disposal from Oil / Gas
+  - STORAGE WELL
+  - Salt Water Disposal
+  - Plugged with Federal Funds
+  - EOR
+  - Approved for Plugging - CP-1 Received
+#  - DW # new york dry wildcat
+  - GO  #wyoming gas orphaned
+  - Converted to Producing Well
+  #- Storage
+#  - 17  #louisiana: aquifer remediaition (?)
+  - Injection EOR
+ # - ST # onrr: well has been permanently plugged and abandoned or sidetracked
+ # - WSW #water supply well
+  - SWD - Water Injection - Disposal
+#  - ST_R
+  - COALBED METHANE
+  - House Gas
+  - BDW  # brine disposal well
+  - Injection / Disposal from Gas
+  #- CO2
+#  - Core Hole
+  - Gas(Convertional Commercial)
+#  - ERI #electrical resistivity imaging
+  - O&Gexplor
+  - Confidential # new york state?
+  - 9-IW  # also louisiana: water injection
+  - O&G
+  - Shut-in Well (Gas)
+  #- Water Supply Well
+  - 2R Production Well # per oklahoma, 2R is a Legacy UIC well type
+  - Fluid Injection
+  - EOR - Enhanced Oil Recovery - Injection
+  - EX
+#  - 12-S  # louisiana sulphur solution mining
+  - GSO # per michigan dept env: gas storage observation well
+  - Injection(Class II EOR)
+ # - MNB  'part 625 natural ine ?'
+  - Gas Storage
+  # - Core Test
+  - Storage Well
+  - WIW  # per onrr, a well that is used to inject water into the producing formation for enhanced recovery
+#  - BR # NY state brine well
+  - Federal Plugging Project
+  - STFD # OK: Legacy State Funds well--wellstatus now used to capture this
+#  - WS #kygs: Water supply (usually drilled to supply water for drilling mud, but may also refer to a well drilled as an oil and gas test, but that was plugged back and left for the landowner to use as a domestic water supply well)
+  - Water Supply Well from Oil
+  - ER_R
+  - DG # KYGS: domestic gas supply; california Dry Gas
+  - Injection Well Split to Another Dkt
+  - DSP #dynamic solvent process? maybe?
+  - Unplugged Former Injection Well
+  - MSM #per MI dept. env, part 625 solution mininig
+  - Observation Well from Oil / Gas
+  - Observation Well from Oil
+  - SW_R
+  - Gas/Pipeline
+  - Gas(Private Use)
+  - IA # KYGS: improperly abandoned
+  - Water injection single completion
+  - 2DCm #per oklahoma: commercial UIC disposal well
+#  - Water Source #drinking?
+  - MW  # monitoring well monitoring production or fluid levels
+  - Injection - Disposal
+  - Miscellaneous
+  - Gas Condensate
+  - Water Injection
+  - GE
+  - GSW # per OK: Natural Gas (refined) Storage well
+#  - SG #new york stratigraphic
+  - OO
+#  - 5-C # louisiana 'community salt water disposal'
+  #- OBSERVATION
+  - 11-FS # louisiana, but they don't have this on the list: an injection/storage/service type well based on category
+  # - EXP  # expired permit (per kgs)
+  - GASD  # guessing gas disposal
+  - Water alt gas injection
+  - STO # guessing storage: all are colorado wells listed as 'active' in the dataset
+  - P&A #oklahoma: plugged and abandoned
+  - 9-FF #kygs: maybe 'fire flood?' from lousiana: fire flood. fire flooding is 'he process of injecting compressed air into a petroleum reservoir and burning some of the oil so as to drive the rest of the oil into producing wells'
+  - WD # kygs: water disposal
+#  - UIC Application Withdrawn
+#  - UIC Application Dismissed
+  - OBW # kygs: Observation well (usually associated with gas storage or water injection operations)...assuming water
+  - MON - Monitor/Observation
+  - GC # per michigan dept. evn, Gas condensate well
+  - Gas well single completion
+  - Observation Well
+#  - SW # OK: "Service Well--used for pressure maintenance-stratigraphic test holes-etc'"
+  - Injection Indian Lands
+  - Dry Hole-Oil show
+#  - Expired Location
+  - Authorized Inj Well Split From Prior Dkt
+  - Oil and Gas
+  - Oil Show
+#  - TW # per utah: test well
+  - TA #wellbore has not been permanently plugged & abandoned; however, all the completions have been rendered incapable of production
+  - SM_R
+  - OB # per KYGS: Observation well (usually associated with gas storage or water injection operations)
+  - S # shut-in oli or gas well per Utah
+  - 3 # louisiana orphaned injection and mining
+#  - 18  # louisiana subsidence control
+  - MDW # Part 625 Disposal Well per michigan dept env
+  - gas
+  - 2D # per oklahoma: Legacy Underground Injection Control UIC well type
+#  - TH # New york geothermal
+#  - MS # new york monitoring storage
+#  - Pressure Maintenance
+#  - 5-SC # louisiana salt water disposal for salt cavern
+#  - 05 # Wyoming
+#  - 12-B # louisiana brine solution mining
+  - 6 # louisiana annular salt water disposal
+  - Producer
+  - GSR - Gas Storage Reservoir
+  - GI #kygs: Gas injection (usually oilfield repressurization
+#  - 7 # louisiana commercial salt water disposal
+  - Dry Hole-Gas show
+  - TA #per KGS temporarily abandoned but not plugged and abandoned or dry and abandoned
+  - Brine Disposal
+  - Water Supply Well from Oil / Gas
+ # - Brine Mining Well
+  - Storage from Gas
+  - Gas Disposal
+  - M
+  - GST
+# - Air Injection
+  - GASC
+  - Conversion
+#  - BSW  # assuming brine saltwater
+#  - BIW  # assuming brine injection well
+  - 11-L # louisiana liquified petroleum gas storage
+  - CBM - Articulate # coal bed methane gas producer
+#  - OBS # per oklahoma; Obervation well for Gas Storage facility
+  - 10 # louisiana hydrocarbon storage
+  - Oil and Gas Show
+  - 2R # per o,lahoma Legacy UIC well type
+  - LHL # per michigan dept. env: lost hole
+#  - Information well
+  - Dry Hole-Oil and Gas show
+#  - TEST WELL
+  - Re-Plugged (non Fee-Fund)
+  - Gas Storage Wells
+#  - Geothermal
+#  - SEX  # arkansas...hard to tell
+  - Shale Gas
+  - 1  # louisiana hazardous industrial
+  - 9-O  # louisiana ER observation
+  - Conversion/Pipeline
+  - 9-IO  # louisiana enhanced recovery
+  - Horizontal Gas
+  - 9-CO   #louisiana co2 injection, presumably for eor
+#  - 11-FO  # louisiana, not specified. guessing some sort of storage
+  - TRI #kygs: Tertiary recovery input
+  - Gas injection single completion
+  - gas oil
+  - Storage from Oil
+  - 2RSI # per oklahoma UIC Simultaneous Injection well--also produces oil and/or gas to surface
+  - LPG # per michigan dept env: liquefied petroleum gas storage
+  - Gas Injection
+ # - CO2 - Carbon Dioxide - Production
+#  - 25
+  - 2 # louisiana 'nonhazardous industrial'
+  - Storage from Oil / Gas
+  - Horizontal Gas W/PL
+#  - Solution Mining  # assuming this is brine mining?
+  - DM
+  - 01 # Wyoming...can't tell what this is
+#  - Helium
+  - Disposal injection well Class 2
+  - CO2I # assuming co2 injection into reservoir for eor
+  - Water Supply Well from Gas
+#  - Expired Plugging Application (CP-1)
+#  - Vent
+  - 9-IG # louisiana enhanced recovery gas injection
+#  - Service Well
+  - Monitor/Observation
+#  - MM #new york 'monitoring misc'
+#  - WS - Water Source
+  - Gas well dual completion
+#  - Injection Authority Suspended
+#  - MULTIPLE WELL BORE TYPE
+  - oil
+  - Observation Well from Gas
+  - DS # new york disposal
+  - CBMS # assuming relates to coal bed methane (?)
+  - Gas(Coalbed Methane)
+#  - AI # air injection, per kentucky GS
+  - 11-N  # louisiana natural gas storage
+  - Gas Show
+  - GSC - Gas Storage Cavern
+#  - CLA # colorado
+  - LPSW # per oklahoma LPG storage well
+#  - 4
+#  - 12-BI  # louisiana brine soluiton mining
+#  - Brine Mining
+  - PA # onrr: well in which the producing interval has been rendered incapable of production
+  # - Water supply well
+  - GIW #  onrr: well that is used for injecting natural gas and CO2 into a reservoir/formation for pressure maintenance, secondary recovery, or recycling operations.
+  - WASTE DISPOSAL
+  - COI # KYGS: carbon dioxide injection (assuming to reservoir for EOR)
+  - LPG - Liquefied Petroleum Gas Storage
+  - OTI # michigan other injection well
+#  - BR_R  # ohio brine wells: seems mostly by morton and diamond salt company; assume not oil and gas
+#  - DEVELOPMENT
+#  - ST - Stratigraphic
+  - Gas Injection/Withdrawal
+#  - UIC Application Denied
+#  - Storage / Brine Mining
+  - Injection(Class II Disposal)
+  - STR
+  - 11-LI  # louisiana liqufied petroleum gas storage I think
+#  - 30
+  - GasStorage
+  - ND # per oklahoma, legacy (no documents)
+  - LP  # guessing liquified petroleum gas or liquified petroleum gas storage well
+#  - AB #per kentucky, abandoned
+  - OE # oil extension (New york)
+#  - 5-SCC community salt water disposal
+  - GBD # per michigan dept. of env, Gas production and brine disposal
+#  - OTH # per michigan dept of env, 'other well'
+  - FD - Fluid Disposal
+#  - MN_R  # appears to be mostly observation in ohio by tin plate company
+#  - LI #Lithium
+#  - Water Well (Domestic)
+  - MSW # per michigan dept envornment, part 625 storage well
+#  - Monitoring
+  - Horizontal Oil Well
+  # --- below this point, categories have 10 or fewer wells
+#  - HE # assume helium
+#  - Disposal injection well Class 1
+#  - 2-C
+#  - Not Confirmed
+#  - PO
+#  - 9-IGW
+#  - Sulfur Core Test
+#  - IW_R
+#  - Horizontal Coalbed W/PL
+#  - SWI
+#  - WDW  # water disposal, per onrr
+#  - IO
+#  - Gas/Coalbed with Pipeline
+# - 24
+#  - Gas/CB Dual Completion
+#  - Injection / Disposal from Brine Mining
+#  - MB
+#  - CO2S
+#  - Class V Injection
+#  - Exploration
+#  - DF
+#  - Liquefied Gas
+#  - Stratigraphic Test Non Oil/Gas Related (has down-hole log)
+#  - Gas storage well; inject & produce
+#  - Pending Injection Application
+#  - 16
+#  - CORE - Core Test
+#  - ISC
+#  - TAI #kygs: thermal and air injection
+#  - Injection / Disposal from Storage / Oil
+#  - CP # KYGS: Cathodic protection, a well associated with natural gas pipelines and transmission used to ground a pipeline other facility and prevent the build-up of a static electric charge
+#  - 10-I
+#  - DGW - Domestic Gas Well
+#  - Gas Injection/Withdrawl
+  # --- below this point, the different categorizations have fewer than 5 data points in set
+#  - 8
+#  - DO
+#  - SPECIAL
+#  - Injection Authorization Terminated - INACTIVE CODE
+#  - 11-NI
+#  - Unknown Well Type
+#  - GASN
+#  - Injection / Disposl from Storage
+#  - GEO
+#  - MO
+#  - OWD
+#  - Production
+#  - Water Well
+#  - Solution Mining Production Well
+#  - Brine Mining from Oil
+#  - JA
+#  - Inj. / Disposal from Storage / Brine Mining
+#  - Waste Disposal
+#  - WILDCAT
+#  - Observation from Storage
+#  - SWD - AG - Water Injection Disposal (Acid Gas)
+#  - CD
+#  - Coal Bed Natural Gas
+#  - Relief Well for Blowout
+#  - Storage / Gas
+#  - Gas supply well
+#  - Horizontal Coalbed
+#  - OGW
+#  - Geothermal Well
+#  - Water Supply
+#  - NCG - Domestic Use
+#  - O&GHeliumWildcat
+#  - Injection / Disposal from Brine Mining / Gas
+#  - Gas well triple completion
+#  - NR - No Type Required
+#  - HS
+#  - AGD
+#  - SI
+#  - Observation from Storage / Brine Mining
+  #- 22
+#  - 1-C
+#  - Ijnection / Disposal from Storage / Gas
+#  - MWUI
+#  - Service from Oil
+#  - Observation from Storage / Gas
+# - 23
+# - 401 Application Being Processed
+#  - Service from Brine Mining
+#  - BPM - Brine Producing Well
+#  - Water injection dual completion
+#  - Condensate well single comp
+#  - EX - Expired Location
+#  - Stratigraphic
+#  - INJP
+#  - Injection(Water Curtain)
+#  - SFI
+#  - DFP
+#  - NJ
+#  - CI
+#  - SO
+#  - 29
+#  - Service from Storage / Gas
+#  - tw
+#  - GWD
+#  - Oil well dual completion
+#  - OWI
+#  - OGI
+#  - Observation well
+#  - Gas well & Storage well; produce only]

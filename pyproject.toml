@@ -38,6 +38,7 @@ xlrd = "^2.0.1"
 jupyter-black = "^0.3.4"
 pyzmq = "^25.1.2"
 shap = "^0.45.0"
+cashflows = "^0.0.4"
 
 [tool.poetry.group.dev.dependencies]
 jupyter = "^1.0.0"

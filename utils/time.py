@@ -1,7 +1,9 @@
 """ Functions for manipulating time data and variables"""
 
+# pylint: disable=broad-exception-caught
 import datetime as dt
 from calendar import isleap
+from typing import List
 
 import numpy as np
 import pandas as pd
@@ -21,6 +23,16 @@ def convert_to_datetime(x, fmt: str = "%Y-%m-%d"):
     if isinstance(x, dt.datetime):
         return x
     return None  # TODO raise error
+
+
+def convert_multiple_formats_to_datetime(x, formats: List[str]):
+    """Trys from a list of multiple string formats to convert a string to datetime"""
+    for f in formats:
+        try:
+            return convert_to_datetime(x, fmt=f)
+        except Exception:
+            continue
+    return x
 
 
 def first_day_of_next_month(some_date: dt.datetime) -> dt.datetime:
