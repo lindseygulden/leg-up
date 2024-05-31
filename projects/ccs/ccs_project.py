@@ -65,20 +65,19 @@ class CCSProject(Project):
             self.gs_total_unit_revenue_usd_per_tco2 = self.config[
                 "gs_total_unit_revenue_usd_per_tco2"
             ]
-        else:
+        elif self.config["revenue_method"] == "computed":
             self._compute_revenue()
-        # compute bbl of oil sold if co2 is used for eor
-        self.oil_bbl_sold_per_yr = [
-            self.recovery_factor_bbl_oil_per_tco2 * t
-            for t in self.tco2_sequestered_per_yr
-        ]
 
         # once we've assigned all variables in the config file, delete the attribute
         delattr(self, "config")
 
     def _compute_revenue(self):
         """compute annual average discounted revenue"""
-
+        # compute bbl of oil sold if co2 is used for eor
+        self.oil_bbl_sold_per_yr = [
+            self.recovery_factor_bbl_oil_per_tco2 * t
+            for t in self.tco2_sequestered_per_yr
+        ]
         # Compute the effective price per bbl (after taking into account the specified breakeven price per bbl)?
         self.oil_effective_price = [
             b - self.oil_breakeven_price for b in self.oil_prices
