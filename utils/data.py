@@ -3,6 +3,29 @@
 from typing import Literal
 
 
+def rgb_tuple(red: int, green: int, blue: int, denominator=255):
+    """given an integer RGB representation, returns a floating point representation (where R, G, & B fall on [0,1])
+    Args:
+        red: integer specifying red saturation
+        green: integer specifying green saturation
+        blue: integer specifying blue saturation
+        denominator: scale on which the above r/g/b values are specified
+    Returns:
+        tuple with RGB values on a [0,1] range
+    """
+    if red < 0 or blue < 0 or green < 0:
+        raise ValueError(
+            f"input arguments r ({red}), g ({green}), and b ({blue}) must be >= 0"
+        )
+    if red > denominator or blue > denominator or green > denominator:
+        raise ValueError(
+            f"input arguments r, g, and b must be <= denominator (currently {denominator})"
+        )
+    if denominator <= 0:
+        raise ValueError(f"denominator ({denominator}) must be >0")
+    return (red / denominator, green / denominator, blue / denominator)
+
+
 def zero_pad(
     x, front_or_back: Literal["front", "back"] = "front", max_string_length: int = 5
 ):
