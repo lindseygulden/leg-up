@@ -43,8 +43,8 @@ def dict_to_yaml(dictionary: dict, yaml_filepath: Union[str, PosixPath]):
     Returns:
         None
     """
-    if (yaml_filepath.split(".")[-1] != ".yml") and (
-        yaml_filepath.split(".")[-1] != ".yaml"
+    if (yaml_filepath.split(".")[-1] != "yml") and (
+        yaml_filepath.split(".")[-1] != "yaml"
     ):
         raise ValueError(
             f"Specified filepath should end in .yml or .yaml. Current value is {yaml_filepath}"
