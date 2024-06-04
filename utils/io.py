@@ -33,3 +33,21 @@ def yaml_to_dict(yaml_filepath: Union[str, PosixPath]) -> dict:
             logging.exception(excp)
 
     return dictionary
+
+
+def dict_to_yaml(dictionary: dict, yaml_filepath: Union[str, PosixPath]):
+    """writes dictionary in yaml format to specified file location
+    Args:
+        dictionary: dict to be written to yaml
+        yaml_filepath: location to which dictionary will be written in yaml format
+    Returns:
+        None
+    """
+    if (yaml_filepath.split(".")[-1] != ".yml") and (
+        yaml_filepath.split(".")[-1] != ".yaml"
+    ):
+        raise ValueError(
+            f"Specified filepath should end in .yml or .yaml. Current value is {yaml_filepath}"
+        )
+    with open(yaml_filepath, "w", encoding="utf8") as outfile:
+        yaml.dump(dictionary, outfile, default_flow_style=False)
