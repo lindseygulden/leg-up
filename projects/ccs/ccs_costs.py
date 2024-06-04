@@ -1,7 +1,7 @@
 """Functions to extract, process, and update costs for carbon capture, transport, and storage"""
 
-from pathlib import PosixPath
-from typing import List, Union
+from pathlib import Path, PosixPath
+from typing import List, Tuple, Union
 
 import geopandas as gpd
 import pandas as pd
@@ -258,15 +258,17 @@ def compute_industry_storage_costs(
 
 
 def costs(
-    configuration: Union[str, PosixPath],
-):
+    configuration: Union[str, PosixPath], output_dir=None
+) -> Tuple[gpd.GeoDataFrame, pd.DataFrame]:
     """Converts daily prices to USD values in units of USD values for price_year. Computes rolling annual avg
     Args:
-        input_file: location of unconverted pricing data
-        output_file: location to write converted data
-        price_year: price_year to which pricing data is converted (e.g., to convert to 2023 USD, use price_year=2023)
+        configuration: path to Yaml configuration file, which contains file locations, industry names, etc.
+        output_dir: Optional: if defined, function will write out final dataframes to directory
     Returns:
-        price_df: converted price dataframe including rolling annual average price column
+        all_locations_gdf: geodataframe with all locations of facilities considered for transport
+            and storage cost estimates
+        costs_by_industry_df: pandas dataframe containing cost information, updated for 2023 dollars
+            with RHG assumptions, for capture, transport, and storage by industry
     """
 
     # read configuration file
@@ -300,6 +302,12 @@ def costs(
         transport_df, right_index=True, left_index=True
     ).merge(storage_df, right_index=True, left_index=True)
 
+    if output_dir is not None:
+        all_locations_gdf.to_file(
+            Path(output_dir) / "all_industry_facility_locations.geojson",
+            driver="GeoJSON",
+        )
+        costs_by_industry_df.to_csv(Path(output_dir) / "ccs_costs_by_industry.csv")
     return all_locations_gdf, costs_by_industry_df
 
 
