@@ -150,13 +150,13 @@ def get_capture_data(
         ]
         # compute data for triangular distribution sampling
         row_dict["capture_center_usd_per_tco2"] = (
-            row_dict["low"] + row_dict["high"]
+            row_dict["capture_low_usd_per_tco2"] + row_dict["capture_high_usd_per_tco2"]
         ) / 2
         row_dict["capture_center_shifted_high_usd_per_tco2"] = 0.75 * (
-            row_dict["low"] + row_dict["high"]
+            row_dict["capture_low_usd_per_tco2"] + row_dict["capture_high_usd_per_tco2"]
         )
         row_dict["capture_center_shifted_low_usd_per_tco2"] = 0.25 * (
-            row_dict["low"] + row_dict["high"]
+            row_dict["capture_low_usd_per_tco2"] + row_dict["capture_high_usd_per_tco2"]
         )
         capture.append(row_dict)
 
