@@ -25,7 +25,7 @@ def rhg(config_path: Union[str, PosixPath]):
         config_path,
     )
     # import costs data
-    costs_df = pd.read_csv(config["costs_file"])
+    costs_df = pd.read_csv(config["costs_file"], index_col="industry")
     industries = list(costs_df.index)
 
     # import digitized RHG oil cases
@@ -99,13 +99,12 @@ def rhg(config_path: Union[str, PosixPath]):
             "cost_method": "defined",
             "revenue_method": "computed",
         }
-        parameter_list.append(
-            [
-                rhg_low_emissions_pathway_params,
-                rhg_mid_emissions_pathway_params,
-                rhg_high_emissions_pathway_params,
-            ]
-        )
+        parameter_list = parameter_list + [
+            rhg_low_emissions_pathway_params,
+            rhg_mid_emissions_pathway_params,
+            rhg_high_emissions_pathway_params,
+        ]
+
         for params in [
             rhg_low_emissions_pathway_params,
             rhg_mid_emissions_pathway_params,
@@ -166,6 +165,8 @@ def rhg(config_path: Union[str, PosixPath]):
         Path(config["output_dir"])
         / "unit_economics_simulator_inputs_rhg_low_mid_high_scenarios.csv"
     )
+
+    return rhodium_2040_df, scenarios_df, input_parameters_df
 
 
 if __name__ == "__main__":
