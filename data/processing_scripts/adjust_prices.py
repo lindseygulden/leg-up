@@ -24,7 +24,7 @@ from utils.time import convert_multiple_formats_to_datetime
     type=click.Path(file_okay=True, dir_okay=False),
     required=True,
 )
-@click.option("--price_year", type=click.STRING, required=False)
+@click.option("--price_year", type=click.STRING, required=True)
 def brent(
     input_file: Union[str, PosixPath],
     output_file: Union[str, PosixPath],
@@ -46,7 +46,7 @@ def brent(
     ]
     price_df["year"] = [int(d.year) for d in price_df["date"]]
     price_df["usd_cpi_" + str(price_year)] = [
-        cpi.inflate(d, y, to=price_year)
+        cpi.inflate(d, y, to=int(price_year))
         for d, y in zip(price_df["Price"], price_df["year"])
     ]
     # compute rolling annual mean and shift data so that annual rolling mean is centered on proper date
