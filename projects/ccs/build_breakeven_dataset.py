@@ -19,12 +19,20 @@ to be used as part of probabilistic unit-economics simulations"""
 #
 
 
+import click
 import pandas as pd
 
 
-def breakeven(output_file=None, conversion_factor=0.97):
+@click.command()
+@click.option(
+    "--output_file",
+    type=click.Path(file_okay=True, dir_okay=False),
+    required=True,
+)
+def breakeven(output_file):
     """Generates, writes out, and returns a dataframe with parameters for triangular distributions for
     oil breakeven prices"""
+    conversion_factor = 0.97
     breakeven_prices_df = (
         pd.DataFrame(
             {"low": [5, 30], "mid": [39.5, 64.6], "high": [90, 95]},
