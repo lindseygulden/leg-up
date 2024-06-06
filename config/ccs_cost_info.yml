@@ -15,6 +15,7 @@
 # CCS report: https://dualchallenge.npc.org/files/CCUS-Chap_2-030521.pdf
 #
 #
+output_dir: /Volumes/Samsung_T5/data/ccs
 # Path to file with EPA's summary data table from the FLIGHT database
 epa_flight_summary_data: "/Users/lindseygulden/Downloads/epa_flight_2022_co2.csv"
 # NOTE -- for epa_flight_abbr dict, important that double letters come first
@@ -48,8 +49,8 @@ cement: "/Volumes/Samsung_T5/data/ccs/cement.csv"
 # storage region location and cost information (from NPC report)
 npc_storage_region_info: "/Volumes/Samsung_T5/data/ccs/npc_storage_regions_representative_points.csv"
 # capture information, computed with GaffneyCline's cash flow model and modified assumptions
-capture_excel_file: "/Users/lindseygulden/dev/leg-up/projects/ccs/gaffney_cline_assumptions_and_modified_assumptions.xlsx"
-capture_assumptions_sheet_name: "modified_assumptions"
+capture_excel_file: "/Volumes/Samsung_T5/data/ccs/capture_transport_storage_assumption_info.xlsx"
+capture_assumptions_sheet_name: "capture_with_modified_assump"
 capture_unit_cost_row_name: "Total Capture Cost (US$/tonne)"
 industries:
   - ngp

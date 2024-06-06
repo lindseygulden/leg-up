@@ -258,7 +258,7 @@ def compute_industry_storage_costs(
 
 
 def costs(
-    configuration: Union[str, PosixPath], output_dir=None
+    configuration: Union[str, PosixPath]
 ) -> Tuple[gpd.GeoDataFrame, pd.DataFrame]:
     """Converts daily prices to USD values in units of USD values for price_year. Computes rolling annual avg
     Args:
@@ -302,12 +302,13 @@ def costs(
         transport_df, right_index=True, left_index=True
     ).merge(storage_df, right_index=True, left_index=True)
 
-    if output_dir is not None:
-        all_locations_gdf.to_file(
-            Path(output_dir) / "all_industry_facility_locations.geojson",
-            driver="GeoJSON",
-        )
-        costs_by_industry_df.to_csv(Path(output_dir) / "ccs_costs_by_industry.csv")
+    all_locations_gdf.to_file(
+        Path(config["output_dir"]) / "all_industry_facility_locations.geojson",
+        driver="GeoJSON",
+    )
+    costs_by_industry_df.to_csv(
+        Path(config["output_dir"]) / "ccs_costs_by_industry.csv"
+    )
     return all_locations_gdf, costs_by_industry_df
 
 
