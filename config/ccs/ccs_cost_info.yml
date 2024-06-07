@@ -1,4 +1,4 @@
-# Yaml file containing local paths to CCS industry locations
+# Yaml file with data needed to make updated cost estimations for CCS capture, transport, and storage.
 #
 # ----- Industry facility location data sources (obtained June 2024) -----
 # subparts: https://www.epa.gov/ghgreporting/resources-subpart-ghg-reporting
@@ -14,7 +14,7 @@
 # visual center of the five storage regions in figure 2-9 of Chapter 2 of the National Petroleum Council's
 # CCS report: https://dualchallenge.npc.org/files/CCUS-Chap_2-030521.pdf
 #
-#
+# -- directory to which processed data should be written
 output_dir: /Volumes/Samsung_T5/data/ccs
 # Path to file with EPA's summary data table from the FLIGHT database
 epa_flight_summary_data: "/Users/lindseygulden/Downloads/epa_flight_2022_co2.csv"
@@ -46,8 +46,9 @@ ethanol: "/Volumes/Samsung_T5/data/ccs/Ethanol_Plants_US_EIA_4402532010393384397
 ngp: "/Volumes/Samsung_T5/data/ccs/NaturalGas_ProcessingPlants_US_EIA_6278090561902649650.geojson"
 ammonia: "/Volumes/Samsung_T5/data/ccs/ammonia.csv"
 cement: "/Volumes/Samsung_T5/data/ccs/cement.csv"
+#
 # storage region location and cost information (from NPC report)
-npc_storage_region_info: "/Volumes/Samsung_T5/data/ccs/npc_storage_regions_representative_points.csv"
+npc_storage_region_info: "/Volumes/Samsung_T5/data/ccs/npc_storage_regions_representative_points.csv"#
 # capture information, computed with GaffneyCline's cash flow model and modified assumptions
 capture_excel_file: "/Volumes/Samsung_T5/data/ccs/capture_transport_storage_assumption_info.xlsx"
 capture_assumptions_sheet_name: "capture_with_modified_assump"

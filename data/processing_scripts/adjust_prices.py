@@ -25,7 +25,7 @@ from utils.time import convert_multiple_formats_to_datetime
     required=True,
 )
 @click.option("--price_year", type=click.STRING, required=True)
-def brent(
+def adjust_prices(
     input_file: Union[str, PosixPath],
     output_file: Union[str, PosixPath],
     price_year=2023,
@@ -57,4 +57,4 @@ def brent(
 
 
 if __name__ == "__main__":
-    brent()
+    adjust_prices()

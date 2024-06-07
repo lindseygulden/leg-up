@@ -33,54 +33,56 @@ def get_facility_locations(
         ]
 
     # subset/extract locations with iron/steel and hydrogen operations
-    steel_df = flight_df.loc[["iron_steel" in x for x in flight_df.subparts_explained]]
-    hydrogen_df = flight_df.loc[["hydrogen" in x for x in flight_df.subparts_explained]]
+    steel_df = flight_df.loc[
+        ["iron_steel" in x for x in flight_df.subparts_explained]
+    ].copy(deep=True)
+    steel_df["industry"] = "Iron/Steel"
+    hydrogen_df = flight_df.loc[
+        ["hydrogen" in x for x in flight_df.subparts_explained]
+    ].copy(deep=True)
+    del flight_df
+    hydrogen_df.loc[:, "industry"] = "Hydrogen"
 
     # additional industries taken from EIA information and industry-specific info (for cement and ammonia)
     refineries_df = gpd.read_file(config["eia_refineries"])
     refineries_df.columns = [x.lower() for x in refineries_df.columns.values]
+    refineries_df["industry"] = "Refinery"
 
     ethylene_df = gpd.read_file(config["ethylene"])
     ethylene_df.columns = [x.lower() for x in ethylene_df.columns.values]
+    ethylene_df["industry"] = "Ethylene"
 
     ethanol_df = gpd.read_file(config["ethanol"])
     ethanol_df.columns = [x.lower() for x in ethanol_df.columns.values]
+    ethanol_df["industry"] = "Ethanol"
 
     ngp_df = gpd.read_file(config["ngp"])
     ngp_df.columns = [x.lower() for x in ngp_df.columns.values]
+    ngp_df["industry"] = "NG Processing"
 
     ammonia_df = pd.read_csv(config["ammonia"], index_col=[0])
+    ammonia_df["industry"] = "Ammonia"
+
     cement_df = pd.read_csv(config["cement"])
+    cement_df["industry"] = "Cement"
 
     # Assemble all industries into a single df and corresponding geodataframe
     keep_columns = ["industry", "latitude", "longitude"]
-    all_data = []
-    for name, data_df in zip(
-        [
-            "Refinery",
-            "Ethylene",
-            "Ethanol",
-            "NG Processing",
-            "Ammonia",
-            "Cement",
-            "Hydrogen",
-            "Iron/Steel",
-        ],
-        [
-            refineries_df,
-            ethylene_df,
-            ethanol_df,
-            ngp_df,
-            ammonia_df,
-            cement_df,
-            hydrogen_df,
-            steel_df,
-        ],
-    ):
-        data_df["industry"] = name
-        all_data.append(data_df[keep_columns].copy(deep=True))
 
-    all_industries_df = pd.DataFrame(pd.concat(all_data))
+    all_industries_df = pd.DataFrame(
+        pd.concat(
+            [
+                refineries_df[keep_columns],
+                ethylene_df[keep_columns],
+                ethanol_df[keep_columns],
+                ngp_df[keep_columns],
+                ammonia_df[keep_columns],
+                cement_df[keep_columns],
+                hydrogen_df[keep_columns],
+                steel_df[keep_columns],
+            ]
+        )
+    )
     all_industries_df.dropna(inplace=True)  # get rid of the nans
     all_industries_gdf = gpd.GeoDataFrame(
         all_industries_df,
@@ -112,16 +114,23 @@ def compute_distances(
     distance_cols = ["km_to_" + region for region in regions]
 
     # identify the closest storage location and the distance to that location
-    loc_gdf["min_dist"] = loc_gdf[distance_cols].min(axis=1)
+    loc_gdf["dist_to_storage_km"] = loc_gdf[distance_cols].min(axis=1)
     loc_gdf["storage_region"] = loc_gdf[distance_cols].idxmin(axis=1)
     # fix name of storage region by removing 'km_to_' prefix
     loc_gdf["storage_region"] = [
         x.replace("km_to_", "") for x in loc_gdf["storage_region"]
     ]
     loc_gdf = loc_gdf[
-        ["latitude", "longitude", "storage_region", "min_dist", "industry", "geometry"]
+        [
+            "latitude",
+            "longitude",
+            "storage_region",
+            "dist_to_storage_km",
+            "industry",
+            "geometry",
+        ]
     ]
-    loc_gdf.rename(columns={"min_dist": "dist_to_storage_km"}, inplace=True)
+
     return loc_gdf
 
 
