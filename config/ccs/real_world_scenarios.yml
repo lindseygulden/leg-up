@@ -10,6 +10,7 @@ brent_since_yrs:
 - 1987
 - 2014
 discount_rate: 0.12
+# scalar by which to multiply transport and storage cost prices for obtaining 'right' side of triangular distribution
 high_end_scalar: 1.25
 industries:
 - NG Processing
@@ -21,8 +22,9 @@ industries:
 - Iron/Steel
 - Ethylene
 inflation_rate: 0.025
+# scalar by which to multiply transport and storage cost prices for obtaining 'left' side of triangular distribution
 low_end_scalar: 0.75
-nsamples: 2000
+nsamples: 2000 # number of ensemble members
 project_length_yrs: 15
 scenario_name: realistic simulations for testing ccs profitability
 tco2_sequestered_per_yr:
