@@ -1,0 +1,6 @@
+Each year, the FracTracker Alliance compiles a national well file, using data from the various state regulatory agencies from oil and gas producing states.  
+
+There are a number of changes from previous editions, which has an impact on the total number of wells in the dataset.  This year’s compilation was created in consultation with Earthworks, for the purpose of informing the Oil and Gas Threat Map project (http://oilandgasthreatmap.com/threat-map/).  The scope was more restrictive than previous editions, focusing only on wells that we were reasonably confident were actively producing oil and gas wells, thus excluding wells with inactive or uncertain statuses, as well salt water disposal (SWD) and other Class II injection (INJ) well types.  
+
+There are additional facilities included in this dataset as well.  Earthworks was able to determine the latitude and longitude coordinates of a number of compressors and other processing plants, which are included in the dataset.
+In all, the facility counts are reduced from about 1.7 million in 2015 to about 1.2 million in 2016, but this is more a reflection of definition than substantial changes in the active well inventory in the US.

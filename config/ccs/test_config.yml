@@ -1,0 +1,9 @@
+# This configuration YAML provides information for a CCS project simulation
+industry: 'ethanol'
+applications: ['EOR','storage']  #must be list
+project_length_yrs: 15
+product_unit: 'tCO2'
+financial_unit: 'usd'
+output_file_suffix: 'output_file_suffix.csv'
+unit_cost: -90  #cost is negative stream
+unit_revenue: 92 # revenue is positive stream
