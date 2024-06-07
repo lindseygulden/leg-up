@@ -1,4 +1,5 @@
-# Yaml config file to keep parameters for real-world simulations of UES June 2024
+# Yaml config file for real-world simulations of UES as part of RHG CCS analysis
+# June 2024
 #
 # -- paths
 path_to_brent_data: /Volumes/Samsung_T5/data/oilgas/brent_oil_prices_2023_dollars.csv
