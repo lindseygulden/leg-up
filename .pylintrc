@@ -91,7 +91,8 @@ const-naming-style=UPPER_CASE
 function-naming-style=snake_case
 
 # Good variable names which should always be accepted, separated by a comma.
-good-names=i,
+good-names=h,
+           i,
            j,
            k,
            n,
@@ -108,6 +109,10 @@ good-names=i,
            ax,
            ex,
            df,
+           gdf,
+           hr,
+           ii,
+           jj,
            _
 
 
