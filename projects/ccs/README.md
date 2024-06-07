@@ -4,15 +4,18 @@ Files written in early June, 2024 for the Science Roundtable.
 Lindsey Gulden
 
 ## What's here?
-These are files used to support analysis and extension of Rhodium Group's 2024 projections for future adoption of CCS for inudstrial decarbonization in the US. Included is code to build a companion, 'doppelganger' simulator that mirrors what is described in the Rhodium Group report
+These are files used to support analysis and extension of Rhodium Group's 2024 projections for future adoption of CCS for industrial decarbonization in the United States. Included is code to build a companion, 'doppelganger' simulator that mirrors what is used to generate the CCS capacity projections reported in the May 2024 Rhodium Group report [Expanding the Industrial Decarbonization Toolkit](https://rhg.com/research/expanding-the-industrial-decarbonization-toolkit/)
+
 ### Configuration information stored in YAML files
-[CCS cost calculation configuration yaml](https://github.com/lindseygulden/leg-up/blob/07ccc2d3fb55f31d743def47164884838505cc5d/config/ccs_cost_info.yml)
+Configuration files house paths to data files, modeling parameters, etc.
+[CCS cost calculation configuration yaml](https://github.com/lindseygulden/leg-up/blob/5ac5a2a468c74c8fedd4940e05a09455f15ec9ca/config/ccs/ccs_cost_info.yml)
 
-[CCS RHG Emissions Scenarios simulation configuration yaml](https://github.com/lindseygulden/leg-up/blob/07ccc2d3fb55f31d743def47164884838505cc5d/config/rhg_scenarios.yml)
+[CCS RHG Emissions Scenarios simulation configuration yaml](https://github.com/lindseygulden/leg-up/blob/5ac5a2a468c74c8fedd4940e05a09455f15ec9ca/config/ccs/rhg_scenarios.yml)
 
-[UES ‘real world’ ensemble simulation configuration information yaml](https://github.com/lindseygulden/leg-up/blob/07ccc2d3fb55f31d743def47164884838505cc5d/config/real_world_scenarios.yml)
+[UES ‘real world’ ensemble simulation configuration information yaml](https://github.com/lindseygulden/leg-up/blob/5ac5a2a468c74c8fedd4940e05a09455f15ec9ca/config/ccs/real_world_scenarios.yml)
 
-### Unit-economics simulator base clase and CCS subclass (aspirational?)
+### Python Objects used at core of simulations
+We define a unit-economics simulator base class and CCS subclass
 [Abstract base class (Project) for unit-economics project-economics simulation](https://github.com/lindseygulden/leg-up/blob/07ccc2d3fb55f31d743def47164884838505cc5d/projects/ccs/project.py)
 
 [CCSProject: Subclass for Project parent class that represents a Carbon Capture and Sequestration project](https://github.com/lindseygulden/leg-up/blob/07ccc2d3fb55f31d743def47164884838505cc5d/projects/ccs/ccs_project.py)
@@ -35,8 +38,8 @@ Uses randomly sampled oil prices, capture/transport/storage costs, and oil break
 
 [Functions to extract, process, and update costs for carbon capture, transport, and storage](https://github.com/lindseygulden/leg-up/blob/07ccc2d3fb55f31d743def47164884838505cc5d/projects/ccs/ccs_costs.py)
 
-A (hacky!) script for running cost and location computation, RHG ensembles, and the UES ‘realistic’ ensembles (i.e., the whole enchilada)
-https://github.com/lindseygulden/leg-up/blob/07ccc2d3fb55f31d743def47164884838505cc5d/projects/ccs/run.py
+### Running the whole enchilada
+[Script to running cost and location computation, RHG ensembles, and the UES ‘realistic’ ensembles](https://github.com/lindseygulden/leg-up/blob/07ccc2d3fb55f31d743def47164884838505cc5d/projects/ccs/run.py)
 
-Jupyter notbook for constructing figures and post-processing:
-https://github.com/lindseygulden/leg-up/blob/07ccc2d3fb55f31d743def47164884838505cc5d/projects/ccs/notebooks/figures_and_postprocessing_ccs_profitability_analysis.ipynb
+### Figures and tables for presenting results
+[Jupyter notbook for constructing figures and post-processing](https://github.com/lindseygulden/leg-up/blob/07ccc2d3fb55f31d743def47164884838505cc5d/projects/ccs/notebooks/figures_and_postprocessing_ccs_profitability_analysis.ipynb)
