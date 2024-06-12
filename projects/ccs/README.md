@@ -8,6 +8,8 @@ These are files used to support analysis and extension of Rhodium Group's 2024 p
 
 ### Configuration information stored in YAML files
 Configuration files house paths to data files, modeling parameters, etc.
+[Paths to data used in Jupyter notebook figure plotting, table generation, etc](https://github.com/lindseygulden/leg-up/blob/main/config/ccs/fig_data_locs.yml)
+
 [CCS cost calculation configuration yaml](https://github.com/lindseygulden/leg-up/blob/main/config/ccs/ccs_cost_info.yml)
 
 [CCS RHG Emissions Scenarios simulation configuration yaml](https://github.com/lindseygulden/leg-up/blob/main/config/ccs/rhg_scenarios.yml)
