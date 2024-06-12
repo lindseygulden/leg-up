@@ -1,4 +1,4 @@
-# yaml configuration file specifying assumptions used in unit economics simulator to represent
+# yaml configuration file specifying assumptions used in unit economics simulator to represent the
 # three different Rhodium Group 'emissions pathway' scenarios
 output_dir: /Volumes/Samsung_T5/data/ccs/
 costs_file: /Volumes/Samsung_T5/data/ccs/ccs_costs_by_industry.csv
