@@ -2,6 +2,7 @@
 # three different Rhodium Group 'emissions pathway' scenarios
 output_dir: /Volumes/Samsung_T5/data/ccs/
 costs_file: /Volumes/Samsung_T5/data/ccs/ccs_costs_by_industry.csv
+rhg_2040_projections_file: /Volumes/Samsung_T5/data/ccs/rhodium_2024_projected_total_installed_ccs_capacity_in_2040.csv
 discount_rate: 0.12
 high_inflation_rate: 0.021
 high_price_scalar: 1.25
