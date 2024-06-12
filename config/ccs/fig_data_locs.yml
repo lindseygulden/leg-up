@@ -1,4 +1,4 @@
-# paths to processed/output data used for figures and table generation in 
+# paths to processed/output data used for figures and table generation in
 # projects/ccs/notebooks/figures_and_postprocessing_ccs_profitability_analysis.ipynb
 ccs_costs_file: /Volumes/Samsung_T5/data/ccs/ccs_costs_by_industry.csv
 path_to_brent_data: /Volumes/Samsung_T5/data/ccs/brent_oil_prices_2023_dollars.csv
