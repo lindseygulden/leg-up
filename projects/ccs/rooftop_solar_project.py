@@ -19,13 +19,15 @@ class RooftopSolarProject(Project):
         self.type = "rooftop_solar"
         self.region = self.config["region"]
         self.state = self.config["state"]
+        self.tilt = self.config["tilt"]
+        self.azimuth = self.config["azimuth"]
+        self.system_size_kw = self.config["kw"]
         self.installation_cost_usd = self.config["installation_cost_usd"]
 
         # If yearly time series of tco2 sequestered is provided, use that as basis for project and project length
         self.kwh_per_yr = self.config["kwh_per_yr"]
         self.tco2_per_kwh = self.config["tco2_per_kwh"]
         self.usd_per_kwh = self.config["usd_per_kwh"]
-        self.total_length_project = self.config["total_length_project"]
 
         self.avg_discounted_unit_value_solar_usd_per_yr = (
             self._compute_discounted_annual_avg_revenue()
@@ -51,10 +53,11 @@ class RooftopSolarProject(Project):
         """compute annual average discounted revenue of solar energy produced"""
 
         # compute average value of solar production (per year)
-        return self._avg_discounted_unit_cash_flow(
+        discounted_annual_revenue = self._avg_discounted_unit_cash_flow(
             self.kwh_per_yr,
-            [self.usd_per_kwh] * self.total_length_project,
+            [self.usd_per_kwh] * self.project_length_yrs,
         )
+        return discounted_annual_revenue
 
     def _compute_usd_per_yr(self) -> float:
         """Computes nominal expenditure in today's USD for value of kwh per year"""
@@ -67,7 +70,7 @@ class RooftopSolarProject(Project):
             total_tco2: the total tco2 emissions that are averted over the lifetime of the project
         """
         tco2_per_year = self.tco2_per_kwh * self.kwh_per_yr
-        total_tco2 = tco2_per_year * self.total_length_project
+        total_tco2 = tco2_per_year * self.project_length_yrs
 
         return (tco2_per_year, total_tco2)
 
@@ -75,10 +78,11 @@ class RooftopSolarProject(Project):
         """compute annual-average discounted cost of solar array"""
         # TODO eliminate hard coding for spending (currently all spending is in year 1)
 
-        return self._avg_discounted_unit_cash_flow(
+        discounted_unit_cost = self._avg_discounted_unit_cash_flow(
             self.installation_cost_usd,
-            [1] + [0] * (self.total_length_project - 1),
+            [1] + [0] * (self.project_length_yrs - 1),
         )
+        return discounted_unit_cost
 
     def _compute_price_of_tco2_removal(self) -> float:
         """Computes the total cost of tco2 removal"""
