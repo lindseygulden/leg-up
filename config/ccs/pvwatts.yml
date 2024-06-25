@@ -1,0 +1,52 @@
+# Configuration details for use in the get_pvwatts_solar_data.py click/command-line script
+apikey: sc5eQctHpzZgZ92Qev2fiqA75xn5tOPrD2rFgreq
+#apikey: 3qRDxKdJwbcCn4qWw38qXXszeLcAdgIYnZ0deZdM
+#apikey: 4heOlh2Jq5a2a4fAVThYU6vRGcMLZFc585EkMq9i
+azimuths:
+- 105.0
+- 123.75
+- 142.5
+- 161.25
+- 180.0
+- 198.75
+- 217.5
+- 236.25
+- 255.0
+kw: 6
+state_locations: /Volumes/Samsung_T5/data/us_geo/state_lat_lon_with_CA_TX_expansions.csv
+outfile: /Volumes/Samsung_T5/data/ccs/regsions_solar_production_6kw_api_v8.csv
+states_to_get:
+- MT
+- ND
+- SD
+- NE
+- UT
+- CO
+- WY
+- KS
+- OK
+- NM
+- TXW
+- CO
+- TXE
+- LA
+- MS
+- AL
+- FL
+- AR
+- IL
+- IN
+- MI
+- OH
+- WV
+- KY
+- TN
+- PA
+- NY
+- CA
+- CALA
+- CASF
+tilts:
+- 18
+- 27
+- 36
