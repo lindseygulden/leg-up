@@ -54,7 +54,7 @@ class RooftopSolarProject(Project):
 
         # compute average value of solar production (per year)
         discounted_annual_revenue = self._avg_discounted_unit_cash_flow(
-            self.kwh_per_yr,
+            [self.kwh_per_yr] * self.project_length_yrs,
             [self.usd_per_kwh] * self.project_length_yrs,
         )
         return discounted_annual_revenue
@@ -79,7 +79,7 @@ class RooftopSolarProject(Project):
         # TODO eliminate hard coding for spending (currently all spending is in year 1)
 
         discounted_unit_cost = self._avg_discounted_unit_cash_flow(
-            self.installation_cost_usd,
+            [self.installation_cost_usd] + [0] * (self.project_length_yrs - 1),
             [1] + [0] * (self.project_length_yrs - 1),
         )
         return discounted_unit_cost
