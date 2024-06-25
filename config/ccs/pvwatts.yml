@@ -1,6 +1,6 @@
 # Configuration details for use in the get_pvwatts_solar_data.py click/command-line script
-apikey: sc5eQctHpzZgZ92Qev2fiqA75xn5tOPrD2rFgreq
-#apikey: 3qRDxKdJwbcCn4qWw38qXXszeLcAdgIYnZ0deZdM
+#apikey: sc5eQctHpzZgZ92Qev2fiqA75xn5tOPrD2rFgreq
+apikey: 3qRDxKdJwbcCn4qWw38qXXszeLcAdgIYnZ0deZdM
 #apikey: 4heOlh2Jq5a2a4fAVThYU6vRGcMLZFc585EkMq9i
 azimuths:
 - 105.0
