@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 class Project(ABC):
-    """Parent class for various project simulations"""
+    """Parent class for various project simulations connected to CCS evaluations"""
 
     def __init__(self, params: Union[Union[str, PosixPath], dict]):
         if isinstance(params, dict):
