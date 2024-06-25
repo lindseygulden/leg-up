@@ -42,6 +42,7 @@ cashflows = "^0.0.4"
 numpy-financial = "^1.0.0"
 cpi = "^1.1.5"
 geopy = "^2.4.1"
+newsapi-python = "^0.2.7"
 
 [tool.poetry.group.dev.dependencies]
 jupyter = "^1.0.0"

@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 class Project(ABC):
-    """Parent class for various project simulations"""
+    """Parent class for various project simulations connected to CCS evaluations"""
 
     def __init__(self, params: Union[Union[str, PosixPath], dict]):
         if isinstance(params, dict):
@@ -71,10 +71,18 @@ class Project(ABC):
             raise TypeError("Inflation rate must be either a float or a list of floats")
         return inflated_revenue_stream
 
-    def _avg_discounted_unit_revenue(self, unit_per_period, price_usd_per_unit):
-        """computes time-period-average discounted unit revenue
+    def _avg_discounted_unit_cash_flow(self, unit_per_period, price_per_unit):
+        """computes time-period-average discounted unit cash flow
         Args:
-            unit_per_period:"""
-        gross_revenue = [b * p for b, p in zip(unit_per_period, price_usd_per_unit)]
-        inflated_gross_revenue = self.inflate(gross_revenue)
-        return self.avg_npv(inflated_gross_revenue)
+            unit_per_period: list of floats, specifying amount of item sold/bought per period
+            price_per_unit: list of floats, specifying amount of cash exchanged per unit
+        Returns:
+            the time-averaged present value of the inflation-adjusted cash flow
+        """
+        if len(unit_per_period) != len(price_per_unit):
+            raise ValueError(
+                "Arguments specifying units exchanged and price per unit must be equal-lengthed lists"
+            )
+        cash_flow = [b * p for b, p in zip(unit_per_period, price_per_unit)]
+        inflated_cash_flow = self.inflate(cash_flow)
+        return self.avg_npv(inflated_cash_flow)
