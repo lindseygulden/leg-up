@@ -1,4 +1,3 @@
-# pylint: disable=no-member
 """
 Dear Hypo,
 Thanks for the opportunity to review this script. Following are a few comments/questions/suggestions.
@@ -8,48 +7,38 @@ Lindsey
 
 
 1.  Comments regarding calibration data:
-    a.  Requirements say "most recent calibration data for the device at the time of the scan", which I
-        interpret to mean that the calibration date must be the latest calibration that occurred BEFORE
-        the scan date. 'Suggest adding an additional 'WHERE' clause in the calibration SQL query
-        to find calibrations whose dates are <= the scan's date.
+    a.  Requirements say "most recent calibration data for the device at the time of the scan", which I interpret
+        to mean that the calibration date must be the latest calibration that occurred BEFORE the scan date. 'Suggest adding
+        an additional 'WHERE' clause in the calibration SQL query to find calibrations whose dates are <= the scan's date.
         See https://www.sqlite.org/lang_datefunc.html for more info on representing dates.
-    b.  To increase re-usability of the script, consider changing the version to a string variable
-        read in from the 'device' column of the dataframe read in from the scans.json data
+    b.  To increase re-usability of the script, consider changing the version to a string variable read in from the 'device' column
+        of the dataframe read in from the scans.json data
 2.  Comments regarding data and wavelength:
-    a.  The length of each DN array in scans.json is 1920; the length of the latest 4v9 calibration
-        arrays are 1845. Given these array-length mismatches, the script doesn't run as written.
-        To fix: I presume we need to know which observations in the calibration data correspond
-        to which wavelengths, which is a nice segue to the next comment...
-    b.  Do we have access to additional metadata from the calibrations that will allow us to assign
-        the calibrated shutter_reflectance and stray_reflectance values to specific wavelengths?
-        (So far as I can tell, the calibration data are not labeled by wavelength --
-        'SELECT * FROM calibrations' yields no additional info.) I'm assuming we can treat the order
-        of the 'wavelength' array in scans.json as labels for the corresponding 'DN' array in a given
-        row, but it is not clear to me how to align the scan data and the calibration data when the
-        lengths of the arrays differ (as is the case here). Assuming these wavelength data are
-        available in a different table, to guard against error, consider adjusting the script to ensure
-        pairing of same-wavelength data.
+    a.  The length of each DN array in scans.json is 1920; the length of the latest 4v9 calibration arrays are 1845. Given
+        these array-length mismatches, the script doesn't run as written. To fix: I presume we need to know
+        which observations in the calibration data correspond to which wavelengths, which is a nice segue to the next comment...
+    b.  Do we have access to additional metadata from the calibrations that will allow us to assign the calibrated shutter_reflectance
+        and stray_reflectance values to specific wavelengths? (So far as I can tell, the calibration data are
+        not labeled by wavelength -- 'SELECT * FROM calibrations' yields no additional info.) I'm assuming we can treat the order
+        of the 'wavelength' array in scans.json as labels for the corresponding 'DN' array in a given row, but it is not clear
+        to me how to align the scan data and the calibration data when the lengths of the arrays differ (as is the case here).
+        Assuming these wavelength data are available in a different table, to guard against error, consider adjusting the script
+        to ensure pairing of same-wavelength data.
 3.  Comments regarding computation of reflectance:
-    a.  As written, the formula for reflectance of a shutter-open scan does not seem to match
-        what is listed in the requirements. I've provided my interpretation of the requirements
-        inline in the code below.
-    b.  Is there ever a situation in which dn_shutter_closed is 0? If so, the equation provided
-        in the requirements will give a 'divide by zero' error
+    a.  As written, the formula for reflectance of a shutter-open scan does not seem to match what is listed in the requirements.
+        I've provided my interpretation of the requirements inline in the code below.
+    b.  Is there ever a situation in which dn_shutter_closed is 0? If so, the equation provided in the requirements will give a 'divide by zero' error
 4.  General structure/style/implementation comments:
-    a.  Consider turning this script into a module/function(s) such that it can either be called
-        via the command line or programmatically; functionalizing the capability will also make it
-        easier to implement error checking (e.g., poorly formatted data, missing data, etc.)
-    b.  Do we have any already-computed results that we could use to build a unit test for this
-        script?
-    c.  Depending on how frequently we'd like to use the script: consider turning this into a
-        command-line script with the click library (https://click.palletsprojects.com/en/8.1.x/)
-    d.  The structure below works if a given scan.json dataset does not contain scans from different
-        devices and/or different dates; if that may change in the future, consider restructuring the code
-        to identify the proper calibration data for each row of the scans dataframe
-    e.  Ideally include an explanation of the code, module docstring, etc. Perhaps include the
-        details presented in the requirements
-    f.  Nit: depending on (e) above, consider renaming variables (in code and/or documentation) to match
-        each other
+    a.  Consider turning this script into a module/function(s) such that it can either be called via the command line or programmatically;
+        functionalizing the capability will also make it easier to implement error checking (e.g., poorly formatted data, missing data, etc.)
+    b.  Do we have any already-computed results that we could use to build a unit test for this script?
+    c.  Depending on how frequently we'd like to use the script: consider turning this into a command-line script with
+        the click library (https://click.palletsprojects.com/en/8.1.x/)
+    d.  The structure below works if a given scan.json dataset does not contain scans from different devices and/or different dates;
+        if that may change in the future, consider restructuring the code to identify the proper calibration data for each row of the
+        scans dataframe
+    e.  Ideally include an explanation of the code, module docstring, etc. Perhaps include the details presented in the requirements
+    f.  Nit: depending on (e) above, consider renaming variables (in code and/or documentation) to match each other
 """
 
 import json
@@ -74,7 +63,7 @@ for wavelength in zip(*shutter_closed_scans["DN"]):
 # LEG and changing WHERE clause to WHERE device_id = '{device_id}' AND calibrated_at <= date('{scan_date}')
 calibration = (
     pd.read_sql(
-        """
+        f"""
         SELECT shutter_reflectance, stray_reflectance
         FROM calibrations
         WHERE device_id = '4v9'
@@ -91,8 +80,7 @@ calibration = (
 scans["reflectance"] = None
 
 # LEG Especially if scanning datasets will become lengthy/numerous,
-# LEG consider a more efficient implementation of this loop (e.g. apply.
-# LEG see https://www.learndatasci.com/solutions/how-iterate-over-rows-pandas/)
+# LEG consider a more efficient implementation of this loop (e.g. apply. see https://www.learndatasci.com/solutions/how-iterate-over-rows-pandas/)
 for i, scan in scans.iterrows():
     # LEG Replace this with something similar to what you did above? (e.g., open_scans=scans[scans['shutter']=='OPEN'])
     if scan["shutter"] != "OPEN":
