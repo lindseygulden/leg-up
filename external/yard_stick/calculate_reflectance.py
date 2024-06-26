@@ -5,7 +5,6 @@ I've also added a few minor suggestions/questions throughout the code itself wit
 I'm happy to hop on a call to discuss any/all if that would be useful to you.
 Lindsey
 
-
 1.  Comments regarding calibration data:
     a.  Requirements say "most recent calibration data for the device at the time of the scan", which I interpret
         to mean that the calibration date must be the latest calibration that occurred BEFORE the scan date. 'Suggest adding
