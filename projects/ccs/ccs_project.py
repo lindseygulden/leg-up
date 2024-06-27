@@ -85,16 +85,21 @@ class CCSProject(Project):
 
         # What is the unit revenue coming from oil production caused by injecting co2 for EOR?
         # (in units of usd per tco2)?
-        self.revenue_from_oil_sold_usd_per_tco2 = self._avg_discounted_unit_cash_flow(
-            self.oil_bbl_sold_per_yr, self.oil_effective_price
+        self.revenue_from_oil_sold_usd_per_tco2 = self.pv(
+            self.discount_rate - self.inflation_rate,
+            [b * p for b, p in zip(self.oil_bbl_sold_per_yr, self.oil_effective_price)],
         )
 
         # What is the unit revenue coming from the 45q payment?
-        self.revenue_from_eor_subsidy_usd_per_tco2 = (
-            self._avg_discounted_unit_cash_flow(
-                self.tco2_sequestered_per_yr,
-                [self.eor_credit_per_tco2] * self.total_length_project,
-            )
+        self.revenue_from_eor_subsidy_usd_per_tco2 = self.pv(
+            self.discount_rate - self.inflation_rate,
+            [
+                c * p
+                for c, p in zip(
+                    self.tco2_sequestered_per_yr,
+                    [self.eor_credit_per_tco2] * self.total_length_project,
+                )
+            ],
         )
 
         self.eor_total_unit_revenue_usd_per_tco2 = (
@@ -102,7 +107,8 @@ class CCSProject(Project):
             + self.revenue_from_oil_sold_usd_per_tco2
         )
 
-        self.gs_total_unit_revenue_usd_per_tco2 = self._avg_discounted_unit_cash_flow(
+        self.gs_total_unit_revenue_usd_per_tco2 = self.pv(
+            self.discount_rate - self.inflation_rate,
             self.tco2_sequestered_per_yr,
             [self.gs_credit_per_tco2] * self.total_length_project,
         )

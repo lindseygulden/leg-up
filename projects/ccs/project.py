@@ -44,6 +44,38 @@ class Project(ABC):
             return_str = return_str + (f"   - {k}: {v}\n")
         return return_str
 
+    def pv(self, rate, data_stream: List[float]) -> float:
+        """computes the discounted present value of a data (cash?) stream
+        Args:
+            data_stream: stream to be discounted at the internal attribute self.discount_rate
+        Returns:
+            float that is the present value of the future stream
+        """
+        return npf.npv(rate, data_stream)
+
+    def unit_conversion(
+        self,
+        data_start_unit: Union[List[float], float],
+        conversion_factor: Union[List[float], float],
+    ) -> Union[List[float], float]:
+        # TODO add error checking for lack of floats, either standalone or w/i list
+        if isinstance(data_start_unit, list) and not isinstance(
+            conversion_factor, list
+        ):
+            return [d * conversion_factor for d in data_start_unit]
+        if isinstance(data_start_unit, list) and isinstance(conversion_factor, list):
+            if len(data_start_unit) != len(conversion_factor):
+                raise ValueError(
+                    "If data to be converted and conversion factor are both lists, they must be the same length"
+                )
+            return [d * c for d, c in zip(data_start_unit, conversion_factor)]
+        if not isinstance(data_start_unit, list) and isinstance(
+            conversion_factor, list
+        ):
+            # TODO raise warning ... or maybe error? is there a case where conversion_factor is list but data_start_unit isn't?
+            return [data_start_unit * c for c in conversion_factor]
+        return data_start_unit * conversion_factor
+
     def avg_npv(self, cash_stream: List[float]):
         """computes the time-period avg. npv of a cash stream
         Args:
