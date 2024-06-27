@@ -76,16 +76,6 @@ class Project(ABC):
             return [data_start_unit * c for c in conversion_factor]
         return data_start_unit * conversion_factor
 
-    def avg_npv(self, cash_stream: List[float]):
-        """computes the time-period avg. npv of a cash stream
-        Args:
-            discount_rate: rate (between [0,1]) of discount for future values
-            fv: each value is the future value of a cash flow stream for a given time period period
-        Returns:
-            float that is the time-period-averaged net present value of the future cash stream
-        """
-        return npf.npv(self.discount_rate, cash_stream) / len(cash_stream)
-
     def inflate(self, revenue_stream: List[float]):
         """computes impact of inflation on a revenue stream expressed in today's dollars"""
         if isinstance(self.inflation_rate, list):
@@ -102,19 +92,3 @@ class Project(ABC):
         else:
             raise TypeError("Inflation rate must be either a float or a list of floats")
         return inflated_revenue_stream
-
-    def _avg_discounted_unit_cash_flow(self, unit_per_period, price_per_unit):
-        """computes time-period-average discounted unit cash flow
-        Args:
-            unit_per_period: list of floats, specifying amount of item sold/bought per period
-            price_per_unit: list of floats, specifying amount of cash exchanged per unit
-        Returns:
-            the time-averaged present value of the inflation-adjusted cash flow
-        """
-        if len(unit_per_period) != len(price_per_unit):
-            raise ValueError(
-                "Arguments specifying units exchanged and price per unit must be equal-lengthed lists"
-            )
-        cash_flow = [b * p for b, p in zip(unit_per_period, price_per_unit)]
-        inflated_cash_flow = self.inflate(cash_flow)
-        return self.avg_npv(inflated_cash_flow)

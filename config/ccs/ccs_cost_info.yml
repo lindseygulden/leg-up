@@ -17,7 +17,7 @@
 # -- directory to which processed data should be written
 output_dir: /Volumes/Samsung_T5/data/ccs
 # Path to file with EPA's summary data table from the FLIGHT database
-epa_flight_summary_data: "/Users/lindseygulden/Downloads/epa_flight_2022_co2.csv"
+epa_flight_summary_data: /Volumes/Samsung_T5/data/ccs/epa_flight_2022_co2.csv
 # NOTE -- for epa_flight_abbr dict, important that double letters come first
 epa_flight_abbr:
   AA: pulp and paper
