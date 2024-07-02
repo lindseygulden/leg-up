@@ -75,7 +75,7 @@ def rooftop_solar_ensemble(config):
         all_df.at[i, "pv_govt_expense_usd_per_tco2"] = s.pv_govt_expense_usd_per_tco2
         all_df.at[i, "pv_solar_revenue_usd"] = s.pv_solar_revenue_usd
         all_df.at[i, "pv_solar_usd_per_tco2"] = s.pv_solar_usd_per_tco2
-
+        all_df.at[i, "npv_homeowner_usd_per_tco2"] = s.npv_homeowner_usd_per_tco2
     # compute the fraction of scenarios in which the homeowner has > 0 npv
     all_df["npv_to_homeowner_gt_0"] = [x > 0 for x in all_df.npv_homeowner_usd]
 

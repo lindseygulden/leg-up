@@ -81,7 +81,7 @@ class RooftopSolarProject(Project):
         self.npv_homeowner_usd = (
             self.pv_solar_revenue_usd - self.pv_homeowner_expense_usd
         )
-        
+
         # express present value in terms of units of co2 and per year
         self.pv_total_expense_usd_per_tco2 = self.pv_total_expense_usd / self.total_tco2
         self.pv_homeowner_expense_usd_per_tco2 = (
@@ -89,6 +89,7 @@ class RooftopSolarProject(Project):
         )
         self.pv_govt_expense_usd_per_tco2 = self.pv_govt_expense_usd / self.total_tco2
         self.pv_solar_usd_per_tco2 = self.pv_solar_revenue_usd / self.total_tco2
+        self.npv_homeowner_usd_per_tco2 = self.npv_homeowner_usd / self.total_tco2
 
         # once we've assigned all variables in the config file, delete the attribute
         delattr(self, "config")

@@ -6,6 +6,6 @@ output_file: /Volumes/Samsung_T5/data/ccs/comparison_case_for_solar.csv
 which_install_scenario: 'avg_install_usd'
 inflation_rate: 0.025
 discount_rate: 0.12
-bond_interest_rate: 0.0428
+bond_interest_rate: 0.045
 project_length_yrs: 25
 
