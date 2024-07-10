@@ -1,16 +1,11 @@
-import pandas as pd
-from projects.ccs.rooftop_solar_project import RooftopSolarProject
-import click
+""" Command-line script to run cash flow analyses of rooftop solar using subclass defined in rooftop_solar_project.py"""
+
 import logging
-from pathlib import PosixPath
-from typing import Union
 
 import click
 import pandas as pd
 
-from projects.ccs.ccs_costs import costs
-from projects.ccs.ensembles import ues_ensemble
-from projects.ccs.rhg_scenarios import rhg
+from projects.ccs.rooftop_solar_project import RooftopSolarProject
 from utils.io import yaml_to_dict
 
 logging.basicConfig(level=logging.INFO)
@@ -23,6 +18,7 @@ logging.basicConfig(level=logging.INFO)
     required=True,
 )
 def rooftop_solar_ensemble(config):
+    """Sets up and runs an ensemble of simulations of the carbon-emissions and cash flow of rooftop solar projects"""
     config = yaml_to_dict(config)
     all_df = pd.read_csv(config["solar_kwh_data_file"], index_col=[0])
 
@@ -40,6 +36,9 @@ def rooftop_solar_ensemble(config):
     shared_params = {}
     shared_params["inflation_rate"] = config["inflation_rate"]
     shared_params["discount_rate"] = config["discount_rate"]
+    shared_params["discount_rate_real"] = (
+        (1 + shared_params["discount_rate"]) / (1 + shared_params["inflation_rate"])
+    ) - 1
     shared_params["tco2_per_kwh"] = list(
         time_varying_carbon_intensity_df["carbon intensity"]
     )
@@ -47,7 +46,7 @@ def rooftop_solar_ensemble(config):
     shared_params["bond_interest_rate"] = config["bond_interest_rate"]
 
     for i, row in all_df.iterrows():
-        s = RooftopSolarProject(
+        solar_array = RooftopSolarProject(
             row[
                 [
                     "kwh_per_yr",
@@ -64,18 +63,22 @@ def rooftop_solar_ensemble(config):
             ].to_dict()
             | shared_params
         )
-        all_df.at[i, "npv"] = s.npv
-        all_df.at[i, "total_co2"] = s.total_tco2
-        all_df.at[i, "pv_homeowner_expense_usd"] = s.pv_homeowner_expense_usd
-        all_df.at[i, "pv_homeowner_expense_usd_per_tco2"] = (
-            s.pv_homeowner_expense_usd_per_tco2
-        )
-        all_df.at[i, "npv_homeowner_usd"] = s.npv_homeowner_usd
-        all_df.at[i, "pv_govt_expense_usd"] = s.pv_govt_expense_usd
-        all_df.at[i, "pv_govt_expense_usd_per_tco2"] = s.pv_govt_expense_usd_per_tco2
-        all_df.at[i, "pv_solar_revenue_usd"] = s.pv_solar_revenue_usd
-        all_df.at[i, "pv_solar_usd_per_tco2"] = s.pv_solar_usd_per_tco2
-        all_df.at[i, "npv_homeowner_usd_per_tco2"] = s.npv_homeowner_usd_per_tco2
+        all_df.at[i, "npv"] = solar_array.npv
+        all_df.at[i, "total_co2"] = solar_array.total_tco2
+        all_df.at[i, "pv_homeowner_expense_usd"] = solar_array.pv_homeowner_expense_usd
+        all_df.at[
+            i, "pv_homeowner_expense_usd_per_tco2"
+        ] = solar_array.pv_homeowner_expense_usd_per_tco2
+        all_df.at[i, "npv_homeowner_usd"] = solar_array.npv_homeowner_usd
+        all_df.at[i, "pv_govt_expense_usd"] = solar_array.pv_govt_expense_usd
+        all_df.at[
+            i, "pv_govt_expense_usd_per_tco2"
+        ] = solar_array.pv_govt_expense_usd_per_tco2
+        all_df.at[i, "pv_solar_revenue_usd"] = solar_array.pv_solar_revenue_usd
+        all_df.at[i, "pv_solar_usd_per_tco2"] = solar_array.pv_solar_usd_per_tco2
+        all_df.at[
+            i, "npv_homeowner_usd_per_tco2"
+        ] = solar_array.npv_homeowner_usd_per_tco2
     # compute the fraction of scenarios in which the homeowner has > 0 npv
     all_df["npv_to_homeowner_gt_0"] = [x > 0 for x in all_df.npv_homeowner_usd]
 

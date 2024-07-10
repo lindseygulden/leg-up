@@ -1,5 +1,6 @@
 """bespoke script for compiling solar production, electricity rate, carbon intensity and PV array installation cost"""
 
+# --- NB: this has hard-coded paths in it -- must be updated if running somewhere other than Lindsey's machine --
 from pathlib import Path
 
 import pandas as pd
@@ -27,7 +28,7 @@ def all_solar_data():
 
     # get data obtained from the PVWatts (NREL) api for 6kw arrays
     solar_df = pd.read_csv(
-        DATA_DIR / Path("ccs/regsions_solar_production_6kw_api_v8.csv"),
+        DATA_DIR / Path("ccs/pvwatts_v8_query_results_6kw_9_azimuth_3_tilts.csv"),
         index_col=[0],
     )
 

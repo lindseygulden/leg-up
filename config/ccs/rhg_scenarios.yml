@@ -8,7 +8,7 @@ high_inflation_rate: 0.021
 high_price_scalar: 1.25
 low_inflation_rate: 0.017
 low_price_scalar: 0.75
-oil_breakeven_price: 20
+oil_breakeven_price: 30
 project_length_yrs: 15
 rhg_oil_cases_file: /Volumes/Samsung_T5/data/ccs/rhg_oil_price_cases_brent_crude_2023_usd.csv
 tco2_sequestered_per_yr:

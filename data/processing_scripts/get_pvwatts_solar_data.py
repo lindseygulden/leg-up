@@ -1,4 +1,4 @@
-"""Command-line script to query the PVWatts v8 API for various lat/lons"""
+"""Command-line script to query the PVWatts v8 API for various lat/lons, azimuths, and roof tilts"""
 
 import logging
 from pathlib import PosixPath

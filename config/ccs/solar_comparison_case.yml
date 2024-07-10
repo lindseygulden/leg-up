@@ -1,5 +1,6 @@
-# this file contains data for the rooftop solar comparison
-solar_kwh_data_file: /Volumes/Samsung_T5/data/ccs/6kw_solar_npc_states_3tilts_9azimuths.csv
+# this file contains data for the rooftop solar comparison.
+# to be used as the configuration file for run_rooftop_solar.py
+solar_kwh_data_file: /Volumes/Samsung_T5/data/ccs/pvwatts_v8_query_results_6kw_9_azimuth_3_tilts.csv
 time_varying_carbon_intensity_file: /Volumes/Samsung_T5/data/ccs/us_fossil_fuel_carbon_intensity_projections.csv
 output_file: /Volumes/Samsung_T5/data/ccs/comparison_case_for_solar.csv
 # pick from 'avg_install_usd','low_install_usd', and 'high_install_usd'
@@ -8,4 +9,3 @@ inflation_rate: 0.025
 discount_rate: 0.12
 bond_interest_rate: 0.045
 project_length_yrs: 25
-
