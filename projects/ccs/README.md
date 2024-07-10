@@ -60,6 +60,7 @@ Uses randomly sampled oil prices, capture/transport/storage costs, and oil break
 
 ### Running the whole enchilada
 [Script to running cost and location computation, RHG ensembles, and the UES ‘realistic’ ensembles](https://github.com/lindseygulden/leg-up/blob/main/projects/ccs/run_ccs_analysis.py)
+
 [Script to run ensemble of rooftop photovoltaic array simulations for cash flow and emissions reduction](https://github.com/lindseygulden/leg-up/blob/main/projects/ccs/run_rooftop_solar.py)
 
 ### Figures and tables for presenting results
