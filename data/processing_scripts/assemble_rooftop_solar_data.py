@@ -1,5 +1,6 @@
 """bespoke script for compiling solar production, electricity rate, carbon intensity and PV array installation cost"""
 
+# --- NB: this has hard-coded paths in it -- must be updated if running somewhere other than Lindsey's machine --
 from pathlib import Path
 
 import pandas as pd
@@ -27,7 +28,7 @@ def all_solar_data():
 
     # get data obtained from the PVWatts (NREL) api for 6kw arrays
     solar_df = pd.read_csv(
-        DATA_DIR / Path("ccs/regsions_solar_production_6kw_api_v8.csv"),
+        DATA_DIR / Path("ccs/pvwatts_v8_query_results_6kw_9_azimuth_3_tilts.csv"),
         index_col=[0],
     )
 
@@ -42,8 +43,7 @@ def all_solar_data():
         DATA_DIR
         / Path("ccs/us_state_power_sector_carbon_intensity_2023_carnegie_mellon.csv")
     )
-    carbon_df=pd.read_csv(DATA_DIR / Path('ccs/us_fossil_fuel_carbon_intensity_projections.csv'))
-    
+
     # get lat/lon data for states
     state_df = pd.read_csv(
         DATA_DIR / Path("us_geo/state_lat_lon_with_CA_TX_expansions.csv")
@@ -127,6 +127,7 @@ def all_solar_data():
             "region",
             "tco2/kwh",
             "cents_per_kwh",
+            "avg_install_cost_2024_usd",
             "min_cost_2024_usd",
             "max_cost_2024_usd",
         ]
@@ -144,6 +145,7 @@ def all_solar_data():
         "region",
         "tco2_per_kwh",
         "cents_per_kwh",
+        "avg_install_usd",
         "low_install_usd",
         "high_install_usd",
     ]
@@ -162,15 +164,13 @@ def all_solar_data():
             "tco2_per_kwh",
             "cents_per_kwh",
         ],
-        value_vars=["low_install_usd", "high_install_usd"],
+        value_vars=["low_install_usd", "high_install_usd", "avg_install_usd"],
         value_name="installation_cost_usd",
         var_name="installation_cost_scenario",
     )
     # convert from cents to dollars
     all_df["usd_per_kwh"] = all_df["cents_per_kwh"] / 100
     all_df.drop("cents_per_kwh", inplace=True, axis=1)
-
-
 
     # write out
     all_df.to_csv(DATA_DIR / Path("ccs/6kw_solar_npc_states_3tilts_9azimuths.csv"))

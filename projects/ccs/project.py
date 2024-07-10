@@ -24,6 +24,11 @@ class Project(ABC):
         self.project_length_yrs = self.config["project_length_yrs"]
         self.inflation_rate = self.config["inflation_rate"]
         self.discount_rate = self.config["discount_rate"]
+        self.discount_rate_real = (
+            (1 + self.discount_rate) / (1 + self.inflation_rate)
+        ) - 1
+        if "discount_rate_real" in self.config:
+            self.discount_rate_real = self.config["discount_rate_real"]
 
         self.project_name = "project"
         if "project_name" in self.config:
@@ -58,6 +63,13 @@ class Project(ABC):
         data_start_unit: Union[List[float], float],
         conversion_factor: Union[List[float], float],
     ) -> Union[List[float], float]:
+        """Helper method for converting values between units
+        Args:
+            data_start_unit: a list of floats or a float containing the data in the first unit
+            conversion_factor: a list of floats or a float containing conversion factor(s) for data
+        Returns:
+            A list of floats or float with the original data converted to the new units
+        """
         # TODO add error checking for lack of floats, either standalone or w/i list
         if isinstance(data_start_unit, list) and not isinstance(
             conversion_factor, list
@@ -72,19 +84,9 @@ class Project(ABC):
         if not isinstance(data_start_unit, list) and isinstance(
             conversion_factor, list
         ):
-            # TODO raise warning ... or maybe error? is there a case where conversion_factor is list but data_start_unit isn't?
+            # TODO raise warning ... or maybe error? can conversion_factor be a list when data_start_unit isn't?
             return [data_start_unit * c for c in conversion_factor]
         return data_start_unit * conversion_factor
-
-    def avg_npv(self, cash_stream: List[float]):
-        """computes the time-period avg. npv of a cash stream
-        Args:
-            discount_rate: rate (between [0,1]) of discount for future values
-            fv: each value is the future value of a cash flow stream for a given time period period
-        Returns:
-            float that is the time-period-averaged net present value of the future cash stream
-        """
-        return npf.npv(self.discount_rate, cash_stream) / len(cash_stream)
 
     def inflate(self, revenue_stream: List[float]):
         """computes impact of inflation on a revenue stream expressed in today's dollars"""
@@ -102,19 +104,3 @@ class Project(ABC):
         else:
             raise TypeError("Inflation rate must be either a float or a list of floats")
         return inflated_revenue_stream
-
-    def _avg_discounted_unit_cash_flow(self, unit_per_period, price_per_unit):
-        """computes time-period-average discounted unit cash flow
-        Args:
-            unit_per_period: list of floats, specifying amount of item sold/bought per period
-            price_per_unit: list of floats, specifying amount of cash exchanged per unit
-        Returns:
-            the time-averaged present value of the inflation-adjusted cash flow
-        """
-        if len(unit_per_period) != len(price_per_unit):
-            raise ValueError(
-                "Arguments specifying units exchanged and price per unit must be equal-lengthed lists"
-            )
-        cash_flow = [b * p for b, p in zip(unit_per_period, price_per_unit)]
-        inflated_cash_flow = self.inflate(cash_flow)
-        return self.avg_npv(inflated_cash_flow)

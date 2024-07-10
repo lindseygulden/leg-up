@@ -85,6 +85,12 @@ def ues_ensemble(
                     row_dict["scenario"] = params["scenario"]
 
                     project = CCSProject(params)
+                    row_dict["pv_gs_subsidy_unit_revenue_usd_per_tco2"] = (
+                        project.gs_subsidy_unit_revenue_usd_per_tco2
+                    )
+                    row_dict["pv_eor_subsidy_unit_revenue_usd_per_tco2"] = (
+                        project.eor_subsidy_unit_revenue_usd_per_tco2
+                    )
                     row_dict["total_eor_usd_per_tco2"] = project.total_eor_usd_per_tco2
                     row_dict["total_gs_usd_per_tco2"] = project.total_gs_usd_per_tco2
                     scenario_list.append(row_dict)

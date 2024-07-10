@@ -5,6 +5,8 @@ import logging
 from pathlib import PosixPath
 from typing import Union
 
+import numpy as np
+
 from projects.ccs.project import Project
 
 logging.basicConfig(level=logging.INFO)
@@ -51,6 +53,9 @@ class CCSProject(Project):
             self.total_length_project = self.config["total_length_project"]
             self.tco2_sequestered_per_yr = [0] * 3 + [1] * self.total_length_project - 3
 
+        # compute total tons tco2 sequestered over project (for unit-value calculations)
+        self.total_tco2 = np.sum(self.tco2_sequestered_per_yr)
+
         # TODO add error checking/handling for alignment of length of oil prices and tco2
         self.oil_prices = self.config["oil_prices"]
         self.oil_breakeven_price = self.config["oil_breakeven_price"]
@@ -74,10 +79,10 @@ class CCSProject(Project):
     def _compute_revenue(self):
         """compute annual average discounted revenue"""
         # compute bbl of oil sold if co2 is used for eor
-        self.oil_bbl_sold_per_yr = [
-            self.recovery_factor_bbl_oil_per_tco2 * t
-            for t in self.tco2_sequestered_per_yr
-        ]
+        self.oil_bbl_sold_per_yr = self.unit_conversion(
+            self.tco2_sequestered_per_yr, self.recovery_factor_bbl_oil_per_tco2
+        )
+
         # Compute the effective price per bbl (after taking into account the specified breakeven price per bbl)?
         self.oil_effective_price = [
             b - self.oil_breakeven_price for b in self.oil_prices
@@ -85,14 +90,14 @@ class CCSProject(Project):
 
         # What is the unit revenue coming from oil production caused by injecting co2 for EOR?
         # (in units of usd per tco2)?
-        self.revenue_from_oil_sold_usd_per_tco2 = self.pv(
-            self.discount_rate - self.inflation_rate,
-            [b * p for b, p in zip(self.oil_bbl_sold_per_yr, self.oil_effective_price)],
+        self.pv_revenue_from_oil_sold_usd = self.pv(
+            self.discount_rate_real,
+            self.unit_conversion(self.oil_bbl_sold_per_yr, self.oil_effective_price),
         )
 
         # What is the unit revenue coming from the 45q payment?
-        self.revenue_from_eor_subsidy_usd_per_tco2 = self.pv(
-            self.discount_rate - self.inflation_rate,
+        self.pv_revenue_from_eor_subsidy_usd = self.pv(
+            self.discount_rate_real,
             [
                 c * p
                 for c, p in zip(
@@ -103,14 +108,19 @@ class CCSProject(Project):
         )
 
         self.eor_total_unit_revenue_usd_per_tco2 = (
-            self.revenue_from_eor_subsidy_usd_per_tco2
-            + self.revenue_from_oil_sold_usd_per_tco2
+            self.pv_revenue_from_eor_subsidy_usd + self.pv_revenue_from_oil_sold_usd
+        ) / self.total_tco2
+        # compute pv of subsidy payments for eor in units of usd/tco2
+        self.eor_subsidy_unit_revenue_usd_per_tco2 = (
+            self.pv_revenue_from_eor_subsidy_usd / self.total_tco2
         )
-
-        self.gs_total_unit_revenue_usd_per_tco2 = self.pv(
-            self.discount_rate - self.inflation_rate,
-            self.tco2_sequestered_per_yr,
-            [self.gs_credit_per_tco2] * self.total_length_project,
+        # compute pv of subsidy payments for gs in units of usd/tco2
+        self.pv_gs_total_unit_revenue_usd = self.pv(
+            self.discount_rate_real,
+            self.unit_conversion(self.tco2_sequestered_per_yr, self.gs_credit_per_tco2),
+        )
+        self.gs_subsidy_unit_revenue_usd_per_tco2 = (
+            self.pv_gs_total_unit_revenue_usd / self.total_tco2
         )
 
         self.total_eor_usd_per_tco2 = (
@@ -121,7 +131,7 @@ class CCSProject(Project):
         )
 
         self.total_gs_usd_per_tco2 = (
-            self.gs_total_unit_revenue_usd_per_tco2
+            self.gs_subsidy_unit_revenue_usd_per_tco2
             - self.capture_cost_usd_per_tco2
             - self.transport_cost_usd_per_tco2
             - self.storage_cost_usd_per_tco2
