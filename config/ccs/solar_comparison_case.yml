@@ -1,4 +1,4 @@
-# this file contains data for the rooftop solar comparison.
+# this file contains data used to set up/run the rooftop solar project cases
 # to be used as the configuration file for run_rooftop_solar.py
 solar_kwh_data_file: /Volumes/Samsung_T5/data/ccs/pvwatts_v8_query_results_6kw_9_azimuth_3_tilts.csv
 time_varying_carbon_intensity_file: /Volumes/Samsung_T5/data/ccs/us_fossil_fuel_carbon_intensity_projections.csv
