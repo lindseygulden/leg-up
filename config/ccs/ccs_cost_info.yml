@@ -14,7 +14,7 @@
 # visual center of the five storage regions in figure 2-9 of Chapter 2 of the National Petroleum Council's
 # CCS report: https://dualchallenge.npc.org/files/CCUS-Chap_2-030521.pdf
 #
-# -- directory to which processed data should be written
+# --- directory to which processed data should be written ---
 output_dir: /Volumes/Samsung_T5/data/ccs
 # Path to file with EPA's summary data table from the FLIGHT database
 epa_flight_summary_data: /Volumes/Samsung_T5/data/ccs/epa_flight_2022_co2.csv
