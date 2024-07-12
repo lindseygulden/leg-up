@@ -1,5 +1,6 @@
 # paths to processed/output data used for figures and table generation in
 # projects/ccs/notebooks/figures_and_postprocessing_ccs_profitability_analysis.ipynb
+solar_project_results_file: /Volumes/Samsung_T5/data/ccs/comparison_case_for_solar.csv
 ccs_costs_file: /Volumes/Samsung_T5/data/ccs/ccs_costs_by_industry.csv
 path_to_brent_data: /Volumes/Samsung_T5/data/ccs/brent_oil_prices_2023_dollars.csv
 path_to_breakeven_data: /Volumes/Samsung_T5/data/ccs/breakeven_triangular_distribution_parameters_2023_usd_per_bbl.csv

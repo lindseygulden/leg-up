@@ -4,7 +4,9 @@
 import logging
 from pathlib import PosixPath
 from typing import Union
+
 import numpy as np
+
 from projects.ccs.project import Project
 
 logging.basicConfig(level=logging.INFO)
@@ -89,13 +91,13 @@ class CCSProject(Project):
         # What is the unit revenue coming from oil production caused by injecting co2 for EOR?
         # (in units of usd per tco2)?
         self.pv_revenue_from_oil_sold_usd = self.pv(
-            self.discount_rate - self.inflation_rate,
+            self.discount_rate_real,
             self.unit_conversion(self.oil_bbl_sold_per_yr, self.oil_effective_price),
         )
 
         # What is the unit revenue coming from the 45q payment?
         self.pv_revenue_from_eor_subsidy_usd = self.pv(
-            self.discount_rate - self.inflation_rate,
+            self.discount_rate_real,
             [
                 c * p
                 for c, p in zip(
@@ -114,7 +116,7 @@ class CCSProject(Project):
         )
         # compute pv of subsidy payments for gs in units of usd/tco2
         self.pv_gs_total_unit_revenue_usd = self.pv(
-            self.discount_rate - self.inflation_rate,
+            self.discount_rate_real,
             self.unit_conversion(self.tco2_sequestered_per_yr, self.gs_credit_per_tco2),
         )
         self.gs_subsidy_unit_revenue_usd_per_tco2 = (

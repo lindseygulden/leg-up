@@ -24,6 +24,11 @@ class Project(ABC):
         self.project_length_yrs = self.config["project_length_yrs"]
         self.inflation_rate = self.config["inflation_rate"]
         self.discount_rate = self.config["discount_rate"]
+        self.discount_rate_real = (
+            (1 + self.discount_rate) / (1 + self.inflation_rate)
+        ) - 1
+        if "discount_rate_real" in self.config:
+            self.discount_rate_real = self.config["discount_rate_real"]
 
         self.project_name = "project"
         if "project_name" in self.config:
@@ -58,6 +63,13 @@ class Project(ABC):
         data_start_unit: Union[List[float], float],
         conversion_factor: Union[List[float], float],
     ) -> Union[List[float], float]:
+        """Helper method for converting values between units
+        Args:
+            data_start_unit: a list of floats or a float containing the data in the first unit
+            conversion_factor: a list of floats or a float containing conversion factor(s) for data
+        Returns:
+            A list of floats or float with the original data converted to the new units
+        """
         # TODO add error checking for lack of floats, either standalone or w/i list
         if isinstance(data_start_unit, list) and not isinstance(
             conversion_factor, list
@@ -72,7 +84,7 @@ class Project(ABC):
         if not isinstance(data_start_unit, list) and isinstance(
             conversion_factor, list
         ):
-            # TODO raise warning ... or maybe error? is there a case where conversion_factor is list but data_start_unit isn't?
+            # TODO raise warning ... or maybe error? can conversion_factor be a list when data_start_unit isn't?
             return [data_start_unit * c for c in conversion_factor]
         return data_start_unit * conversion_factor
 
