@@ -1,10 +1,12 @@
 # paths to processed/output data used for figures and table generation in
 # projects/ccs/notebooks/figures_and_postprocessing_ccs_profitability_analysis.ipynb
+solar_project_results_file: /Volumes/Samsung_T5/data/ccs/comparison_case_for_solar.csv
 ccs_costs_file: /Volumes/Samsung_T5/data/ccs/ccs_costs_by_industry.csv
 path_to_brent_data: /Volumes/Samsung_T5/data/ccs/brent_oil_prices_2023_dollars.csv
 path_to_breakeven_data: /Volumes/Samsung_T5/data/ccs/breakeven_triangular_distribution_parameters_2023_usd_per_bbl.csv
 rhg_oil_cases_file: /Volumes/Samsung_T5/data/ccs/rhg_oil_price_cases_brent_crude_2023_usd.csv
 rhg_2040_projections_file: /Volumes/Samsung_T5/data/ccs/rhodium_2024_projected_total_installed_ccs_capacity_in_2040.csv
+rhg_scenarios_with_ues: /Volumes/Samsung_T5/data/ccs/unit_economics_simulator_ccs_present_unit_value_by_industry_rhg_low_mid_high_scenarios.csv
 path_to_ues_simulations: /Volumes/Samsung_T5/data/ccs/ues_simulations.csv
 path_to_all_facility_locations_data: /Volumes/Samsung_T5/data/ccs/all_industry_facility_locations.geojson
 path_to_npc_storage_regions_data: /Volumes/Samsung_T5/data/ccs/npc_storage_regions_representative_points.geojson
