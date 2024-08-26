@@ -44,6 +44,11 @@ cpi = "^1.1.5"
 geopy = "^2.4.1"
 newsapi-python = "^0.2.7"
 
+transformers = "^4.44.0"
+openai = "^1.40.2"
+gamsapi = "^47.4.0"
+flatten-json = "^0.1.14"
+name-matching = "^0.8.12"
 [tool.poetry.group.dev.dependencies]
 jupyter = "^1.0.0"
 ipykernel = "^6.25.0"

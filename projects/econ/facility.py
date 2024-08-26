@@ -1,7 +1,7 @@
 """ Abstract base class for facility """
 
 import logging
-from abc import ABC
+from abc import ABC,abstractmethod
 from pathlib import PosixPath
 from typing import List, Union
 
@@ -13,91 +13,103 @@ logging.basicConfig(level=logging.INFO)
 class Facility(ABC):
     """Parent class for CCS facility operations"""
 
-    def __init__(self, params: Union[Union[str, PosixPath], dict]):
-        if isinstance(params, dict):
-            self.config = params
-        else:
-            self.config = yaml_to_dict(params)
+        """Parent class for various thermodynamic funcitons describing energy needed for CO2 separation"""
 
-        self.frac_co2_captured = self.config["frac_co2_captured"] # α
-        self.frac_captured_co2_used_for_eor = self.config["frac_captured_co2_used_for_eor"] # 𝛽 
-        
-        self.electricity_price_usd_per_mwh = self.config["electricity_price_usd_per_mwh"] # Pe
-        self.gas_to_produce_electricity_tch4_per_mwh = self.config["gas_to_produce_electricity_tch4_per_mwh"] # Eg
-        self.cost_of_natural_gas_usd_per_tch4 = self.config["cost_of_natural_gas_usd_per_tch4"] # Cg
-        self.q45_subsidy_usd_per_tco2 = self.config["q45_subsidy_usd_per_tco2"] # (Qseq and Qeor)
-        self.carbon_intensity_natural_gas_tco2_per_tch4 = self.config["carbon_intensity_natural_gas_tco2_per_tch4"] # Gg
-        self.eor_recovery_factor_bbl_per_tco2 = self.config["eor_recovery_factor_bbl_per_tco2"] # Θ
-        self.fraction_of_grid_power_produced_from_ng = self.config["fraction_of_grid_power_produced_from_ng"] # 𝜸
-        self.oil_price_usd_per_bbl = self.config["oil_price_usd_per_bbl"] # Cc
-        self.carbon_intensity_oil_tco2_per_bbl = self.config["carbon_intensity_oil_tco2_per_bbl"] # Gc
+    subclasses = {}
 
-
-
-        if "project_name" in self.config:
-            self.project_name = self.config["project_name"]
-
-        
-
-    def describe(self):
-        """describes data in the project"""
-        return_str = "{self.project_n}:\n"
-        for k, v in self.__dict__.items():
-            return_str = return_str + (f"   - {k}: {v}\n")
-        return return_str
-
-    def pv(self, rate, data_stream: List[float]) -> float:
-        """computes the discounted present value of a data (cash?) stream
-        Args:
-            data_stream: stream to be discounted at the internal attribute self.discount_rate
-        Returns:
-            float that is the present value of the future stream
+    @classmethod
+    def register_subclass(cls, facility_type: str):
+        """creates decorator that automatically registers subclasses
+        To use, decorate the child class definition with @Facility.register_subclass("[name-of-child-class]")
         """
-        return npf.npv(rate, data_stream)
 
-    def unit_conversion(
-        self,
-        data_start_unit: Union[List[float], float],
-        conversion_factor: Union[List[float], float],
-    ) -> Union[List[float], float]:
-        """Helper method for converting values between units
-        Args:
-            data_start_unit: a list of floats or a float containing the data in the first unit
-            conversion_factor: a list of floats or a float containing conversion factor(s) for data
+        def decorator(subclass):
+            cls.subclasses[facility_type] = subclass
+            return subclass
+
+        return decorator
+
+    @classmethod
+    def create(
+        cls, facility_type: str, config: Union[dict,Union[str,PosixPath]]
+    ):
+        """Creates a new child class using the facility_type (e.g., "ng_power_plant")"""
+        if facility_type not in cls.subclasses:
+            raise ValueError(f"Bad facility_type {facility_type}")
+        if isinstance(config,dict):
+            return cls.subclasses[facility_type](config)
+        return cls.subclasses[facility_type](yaml_to_dict(config))
+
+    def __init__(self, config:dict):
+
+        # constants
+        self.carbon_intensity_oil_tco2_per_bbl = config["carbon_intensity_oil_tco2_per_bbl"] # Gc
+        
+
+        # variables
+        self.frac_co2_captured = config["frac_co2_captured"] # α
+        self.frac_captured_co2_used_for_eor = config["frac_captured_co2_used_for_eor"] # 𝛽 
+        
+
+        self.q45_subsidy_usd_per_tco2 = config["q45_subsidy_usd_per_tco2"] # (Qseq and Qeor)
+        
+        self.eor_recovery_factor_bbl_per_tco2 = config["eor_recovery_factor_bbl_per_tco2"] # Θ
+        
+        self.oil_price_usd_per_bbl = config["oil_price_usd_per_bbl"] # Cc
+        
+        self.energy_function_mwh_per_tco2=EnergyFunction.create(self.config['energy_function'],self.config['energy_function_parameters'])  # f(α)
+
+    @abstractmethod
+    def compute_gross_profit(self):
+        pass
+
+    @abstractmethod
+    def compute_emissions(self):
+        pass
+
+@Facility.register_subclass("ng_power_plant")
+class NGPowerPlantFacility(Facility):
+    def __init__(self, config):
+        # initialize parent class __init__
+        super().__init__(config)
+        self.facility_type = "ng_power_plant"
+        
+        self.electricity_price_usd_per_mwh = config["electricity_price_usd_per_mwh"] # Pe
+        self.gas_to_produce_electricity_tch4_per_mwh = config["gas_to_produce_electricity_tch4_per_mwh"] # Eg
+        self.cost_of_natural_gas_usd_per_tch4 = config["cost_of_natural_gas_usd_per_tch4"] # Cg
+        self.fraction_of_grid_power_produced_from_ng = config["fraction_of_grid_power_produced_from_ng"] # 𝜸
+        self.carbon_intensity_natural_gas_tco2_per_tch4 = config["carbon_intensity_natural_gas_tco2_per_tch4"] # Gg
+
+        attributes = self.__dict__
+        if (self.electricity_price_usd_per_mwh <0) | (self.cost_of_natural_gas_usd_per_tch4 <0):
+            raise ValueError(
+                "Price of electricity and natural gas must be >= $0"
+            )
+        #TODO more error checking
+    
+    def _power_sales_profit(self):
+        return self.electricity_price_usd_per_mwh - self.gas_to_produce_electricity_tch4_per_mwh*self.cost_of_natural_gas_usd_per_tch4
+
+    def _ccs_profit(self,alpha):
+        '''Computes the profit [USD/MWh] from the storage of carbon dioxide
+        Args: 
+            alpha: fraction of emitted carbon dioxide that is injected for CCS
         Returns:
-            A list of floats or float with the original data converted to the new units
-        """
-        # TODO add error checking for lack of floats, either standalone or w/i list
-        if isinstance(data_start_unit, list) and not isinstance(
-            conversion_factor, list
-        ):
-            return [d * conversion_factor for d in data_start_unit]
-        if isinstance(data_start_unit, list) and isinstance(conversion_factor, list):
-            if len(data_start_unit) != len(conversion_factor):
-                raise ValueError(
-                    "If data to be converted and conversion factor are both lists, they must be the same length"
-                )
-            return [d * c for d, c in zip(data_start_unit, conversion_factor)]
-        if not isinstance(data_start_unit, list) and isinstance(
-            conversion_factor, list
-        ):
-            # TODO raise warning ... or maybe error? can conversion_factor be a list when data_start_unit isn't?
-            return [data_start_unit * c for c in conversion_factor]
-        return data_start_unit * conversion_factor
+            ccs_net_profit_usd_per_mwh: amount profited (positve is income to operator) from subsidies
+        '''
+        cost_of_storage_usd_per_tco2 = self.energy_function_mwh_per_tco2.evaluate(alpha)*self.electricity_price_usd_per_mwh
+        
+        self.ccs_net_profit_usd_per_mwh=tco2_captured_per_mwh*(self.q45_subsidy_usd_per_tco2 - cost_of_storage_usd_per_tco2)
+       
 
-    def inflate(self, revenue_stream: List[float]):
-        """computes impact of inflation on a revenue stream expressed in today's dollars"""
-        if isinstance(self.inflation_rate, list):
-            # TODO add error checking to check for same-length lists and/or handle different lengths
-            inflated_revenue_stream = [
-                -1 * npf.fv(self.inflation_rate, i + 1, 0, x)
-                for i, x in zip(self.inflation_rate, revenue_stream)
-            ]
-        elif isinstance(self.inflation_rate, float):  # assumed constant inflation rate
-            inflated_revenue_stream = [
-                -1 * npf.fv(self.inflation_rate, i + 1, 0, x)
-                for i, x in enumerate(revenue_stream)
-            ]
-        else:
-            raise TypeError("Inflation rate must be either a float or a list of floats")
-        return inflated_revenue_stream
+    def _eor_profit(self,alpha):
+        
+        self.eor_profit_usd_per_bbl alpha * self.eor_recovery_factor_bbl_per_tco2 * self.oil_price_usd_per_bbl
+    def compute_gross_profit(self,fa):
+
+        # intermediate variable for multiple calculations:
+        self.tco2_captured_per_mwh =  alpha*self.gas_to_produce_electricity_tch4_per_mwh*self.carbon_intensity_natural_gas_tco2_per_tch4
+        
+        self.profit_from_power_sales_usd_per_mwh=self._power_sales_profit(self)
+        self.profit_from_ccs_usd_per_mwh=self._ccs_profit(self)
+        self.profit_from_eor_usd_per_mwh=self._eor_profit(self)
