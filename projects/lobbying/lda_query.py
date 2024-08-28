@@ -146,14 +146,15 @@ def streamline_description(replace_dict: Dict[str, str], x_df: pd.DataFrame):
 def consolidate_rows(
     replace_dict: Dict[str, str],
     row_list: List[dict],
-    govt_entities: List[str],
 ):
     """Consolidates rows corresponding to filing activities into a single dataframe"""
-    tmp_df = pd.DataFrame(row_list)
-    entities_influenced = tmp_df[govt_entities].sum()
-    zeroed = list(entities_influenced[entities_influenced == 0].index)
-    ccs_df = tmp_df[[x for x in tmp_df.columns.values if x not in zeroed]].copy()
+    ccs_df = pd.DataFrame(row_list)
+    print("---")
+    print(len(ccs_df))
+
     ccs_df = ccs_df.drop_duplicates(subset=ccs_df.columns.difference(["filing_id"]))
+    print(len(ccs_df))
+    print("---")
     ccs_unique_filing_ids = list(
         ccs_df.filing_id.unique()
     )  # keep a list of the non-duplicate filing ids
@@ -201,16 +202,23 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
     lobbyists_df = None  # initialize data frame for storing lobbyist data
 
     issues_string = assemble_issue_search_string(config_info["search_term_list_path"])
-    # figure out total number of filings, compute number of page requests needed to get all filings
-    query_all_filings = f"{config_info['filings_endpoint']}?filing_specific_lobbying_issues={issues_string}"
-    f = authenticated_session.get(query_all_filings, timeout=60)
 
+    # issues_string = '"clean coal"OR"carbon capture"OR"co2 capture"OR"carbon dioxide capture"OR"capture and store"OR"capture and storage"OR"capture transportation and storage"OR"capture transport and storage"OR"capture transport utilization and storage"OR"capture transport use and storage"OR"capture transport use and sequestration"OR"capture transport utilization and sequestration"OR"capture transport and store"OR"capture of carbon dioxide"OR"capture of co2"OR"hydrogen hub"OR"hydrogen hubs"OR"clean hydrogen"OR"hydrogen","greenhouse"OR"blue hydrogen"OR"capture and sequestration"OR"capture utilization and sequestration"OR"capture use and storage"OR"capture use and sequestration"OR"CCS"OR"CC&S"OR"CCUS"OR"45Q"OR"45V"OR"enhanced oil recovery"OR"EOR"OR"carbon management"OR"low carbon solutions"OR"carbon dioxide pipelines"OR"carbon dioxide pipeline"OR"co2 pipeline"OR"co2 pipelines"OR"class vi","permitting"OR"class vi","permit"OR"class vi","primacy"OR"primacy","louisiana"OR"primacy","texas"OR"primacy","gulf"OR"primacy","117-169"'
+
+    # figure out total number of filings, compute number of page requests needed to get all filings
+    f = authenticated_session.get(
+        config_info["filings_endpoint"],
+        params={
+            "filing_specific_lobbying_issues": f"{issues_string}",
+        },
+        timeout=60,
+    )
     # each page contains 25 filings: use total number of filings to compute total number of pages
-    n_pages = int(ceil(f.json()["count"] + 1) / 25)
+    n_pages = ceil(f.json()["count"] / 25)
 
     # compute number of file subsets ('chunks') for writing out and not overloading memory
     chunk_size = config_info["chunk_size"]
-    n_chunks = int(ceil(n_pages / chunk_size))
+    n_chunks = ceil(n_pages / chunk_size)
 
     logging.info(
         " ----- Preparing %s files for lobbying activities and lobbyists -----",
@@ -220,14 +228,21 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
     which_chunk = 1
     filing_id = 0  # initialize unique id for filing documents
 
-    for page in range(1, n_pages):
+    for page in range(1, n_pages + 1):
         # initialize holders for upcoming subset's information ('chunk')
         row_list = []  # each row holds info for one lobbying activity
         lobby_list = []  # initialize holder for lobbyist info
-        logging.info(" Querying page %s of %s pages", str(page), str(n_pages - 1))
-        query = query_all_filings + f"&page={page}"
+        logging.info(" Querying page %s of %s pages", str(page), str(n_pages))
+
         while True:
-            f = authenticated_session.get(query, timeout=60)
+            f = authenticated_session.get(
+                config_info["filings_endpoint"],
+                params={
+                    "filing_specific_lobbying_issues": f"{issues_string}",
+                    "page": page,
+                },
+                timeout=60,
+            )
             if "results" in f.json():
                 break
             n_wait_seconds = int(f.json()["detail"].split(" ")[-2])
@@ -261,24 +276,22 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
 
                 row_dict.clear()
             filing_id += 1  # each result
-        if ((page % chunk_size) == 0) | (page == (n_pages - 1)):
+        # if we have the number of pages in a subset or we're at the end of the pages...
+        if ((page % chunk_size) == 0) | (page == n_pages):
             ccs_df, ccs_unique_filing_ids = consolidate_rows(
                 yaml_to_dict(config_info["description_replace_dict_path"]),
                 row_list,
-                govt_entities,
             )
             # write out CCS lobbying info for this subset ('chunk')
             filename_prefix = config_info["output_filename_prefix"]
             ccs_df.to_csv(
-                Path(output_dir)
-                / Path(f"{filename_prefix}_{which_chunk}_of_{n_chunks}.csv")
+                Path(output_dir) / Path(f"{filename_prefix}_{which_chunk}.csv")
             )
             # write out lobbyist data  for this subset ('chunk')
             lobbyists_df = pd.DataFrame(lobby_list)
             filename_prefix = config_info["lobbyist_filename_prefix"]
             lobbyists_df.loc[lobbyists_df.filing_id.isin(ccs_unique_filing_ids)].to_csv(
-                Path(output_dir)
-                / Path(f"{filename_prefix}_{which_chunk}_of_{n_chunks}.csv")
+                Path(output_dir) / Path(f"{filename_prefix}_{which_chunk}.csv")
             )
 
             logging.info(
