@@ -1,6 +1,9 @@
 """Utilities for parsing lobbying disclosure documents"""
 
 from math import floor
+from typing import List
+
+import pandas as pd
 
 
 def which_congress(which_year, based_on_year=True):
@@ -25,3 +28,16 @@ def terms_present(phrase, term_list):
         if str(term).lower() in str(phrase).lower():
             return 1
     return 0
+
+
+def get_list_govt_entities(entity_endpoint: str, session: object):
+    """Queries constants endpoint to get a standardized list of government entities"""
+    govt_entities = session.get(entity_endpoint, timeout=60)
+    entity_df = pd.DataFrame(govt_entities.json())
+    entities = sorted([x.lower() for x in list(entity_df["name"])])
+    return entities
+
+
+def remove_unwanted_filing_types(discard_filing_types: List[str], df: pd.DataFrame):
+    """removes filing types listed in discard_filing_types from dataframe df"""
+    return df.loc[[not x in discard_filing_types for x in df.filing_type]].copy()
