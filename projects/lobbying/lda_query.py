@@ -166,30 +166,31 @@ def consolidate_rows(
     return ccs_df, ccs_unique_filing_ids
 
 
-def filings_query_page(
-    session: object, filings_endpoint: str, issues_string: str, page: int
-):
-    """queries filing enpoint for a given page with a given set of issues"""
+def lda_get_query(session: object, endpoint: str, params: dict, timeout=100):
+    """queries filing enpoint for a given page with a given set of get-request parameters"""
     # TODO make params an argument
     while True:
         f = session.get(
-            filings_endpoint,
-            params={
-                "filing_specific_lobbying_issues": f"{issues_string}",
-                "page": page,
-            },
-            timeout=100,
+            endpoint,
+            params=params,
+            timeout=timeout,
         )
         if "results" in f.json():
             results = f.json()["results"]
             break
         n_wait_seconds = int(f.json()["detail"].split(" ")[-2])
-        logging.info(" Throttled: waiting for %s", str(n_wait_seconds))
+        logging.info(" Throttled: waiting for %s seconds.", str(n_wait_seconds))
         sleep(n_wait_seconds)
     return results
 
 
-def write_out_subset(output_dir, which_chunk, lobby_list, row_list, config_info):
+def write_out_subset(
+    output_dir: Union[str, PosixPath],
+    which_chunk: int,
+    lobby_list: List[dict],
+    row_list: List[dict],
+    config_info: dict,
+):
     """writies this subset's lobbying info and lobbying activity info to csvs"""
     ccs_df, ccs_unique_filing_ids = consolidate_rows(
         yaml_to_dict(config_info["description_replace_dict_path"]),
@@ -235,15 +236,13 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
     govt_entities = get_list_govt_entities(
         config_info["entity_endpoint"], session=authenticated_session
     )
-
+    # set up get parameters dictionary
     issues_string = assemble_issue_search_string(config_info["search_term_list_path"])
-
+    params = {"filing_specific_lobbying_issues": f"{issues_string}"}
     # figure out total number of filings, compute number of page requests needed to get all filings
     f = authenticated_session.get(
         config_info["filings_endpoint"],
-        params={
-            "filing_specific_lobbying_issues": f"{issues_string}",
-        },
+        params=params,
         timeout=100,
     )
     # each page contains 25 filings: use total number of filings to compute total number of pages
@@ -262,14 +261,17 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
     filing_id = 0  # initialize unique id for filing documents
     row_list = []  # each row holds info for one lobbying activity
     lobby_list = []  # initialize holder for lobbyist info
+
     for page in range(1, n_pages + 1):
         # initialize holders for upcoming subset's information ('chunk')
 
         logging.info(" Querying page %s of %s pages", str(page), str(n_pages))
 
         # query api for this page of results
-        results = filings_query_page(
-            authenticated_session, config_info["filings_endpoint"], issues_string, page
+        results = lda_get_query(
+            authenticated_session,
+            config_info["filings_endpoint"],
+            params | {"page": page},
         )
 
         # extract data from each filing form returned from query
