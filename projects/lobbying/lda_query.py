@@ -149,12 +149,9 @@ def consolidate_rows(
 ):
     """Consolidates rows corresponding to filing activities into a single dataframe"""
     ccs_df = pd.DataFrame(row_list)
-    print("---")
-    print(len(ccs_df))
 
-    ccs_df = ccs_df.drop_duplicates(subset=ccs_df.columns.difference(["filing_id"]))
-    print(len(ccs_df))
-    print("---")
+    # ccs_df = ccs_df.drop_duplicates(subset=ccs_df.columns.difference(["filing_id"]))
+
     ccs_unique_filing_ids = list(
         ccs_df.filing_id.unique()
     )  # keep a list of the non-duplicate filing ids
@@ -167,6 +164,46 @@ def consolidate_rows(
     ccs_df = streamline_description(replace_dict, ccs_df)
 
     return ccs_df, ccs_unique_filing_ids
+
+
+def filings_query_page(
+    session: object, filings_endpoint: str, issues_string: str, page: int
+):
+    """queries filing enpoint for a given page with a given set of issues"""
+    # TODO make params an argument
+    while True:
+        f = session.get(
+            filings_endpoint,
+            params={
+                "filing_specific_lobbying_issues": f"{issues_string}",
+                "page": page,
+            },
+            timeout=100,
+        )
+        if "results" in f.json():
+            results = f.json()["results"]
+            break
+        n_wait_seconds = int(f.json()["detail"].split(" ")[-2])
+        logging.info(" Throttled: waiting for %s", str(n_wait_seconds))
+        sleep(n_wait_seconds)
+    return results
+
+
+def write_out_subset(output_dir, which_chunk, lobby_list, row_list, config_info):
+    """writies this subset's lobbying info and lobbying activity info to csvs"""
+    ccs_df, ccs_unique_filing_ids = consolidate_rows(
+        yaml_to_dict(config_info["description_replace_dict_path"]),
+        row_list,
+    )
+    # write out CCS lobbying info for this subset ('chunk')
+    filename_prefix = config_info["output_filename_prefix"]
+    ccs_df.to_csv(Path(output_dir) / Path(f"{filename_prefix}_{which_chunk}.csv"))
+    # write out lobbyist data  for this subset ('chunk')
+    lobbyists_df = pd.DataFrame(lobby_list)
+    filename_prefix = config_info["lobbyist_filename_prefix"]
+    lobbyists_df.loc[lobbyists_df.filing_id.isin(ccs_unique_filing_ids)].to_csv(
+        Path(output_dir) / Path(f"{filename_prefix}_{which_chunk}.csv")
+    )
 
 
 @click.command()
@@ -199,11 +236,7 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
         config_info["entity_endpoint"], session=authenticated_session
     )
 
-    lobbyists_df = None  # initialize data frame for storing lobbyist data
-
     issues_string = assemble_issue_search_string(config_info["search_term_list_path"])
-
-    # issues_string = '"clean coal"OR"carbon capture"OR"co2 capture"OR"carbon dioxide capture"OR"capture and store"OR"capture and storage"OR"capture transportation and storage"OR"capture transport and storage"OR"capture transport utilization and storage"OR"capture transport use and storage"OR"capture transport use and sequestration"OR"capture transport utilization and sequestration"OR"capture transport and store"OR"capture of carbon dioxide"OR"capture of co2"OR"hydrogen hub"OR"hydrogen hubs"OR"clean hydrogen"OR"hydrogen","greenhouse"OR"blue hydrogen"OR"capture and sequestration"OR"capture utilization and sequestration"OR"capture use and storage"OR"capture use and sequestration"OR"CCS"OR"CC&S"OR"CCUS"OR"45Q"OR"45V"OR"enhanced oil recovery"OR"EOR"OR"carbon management"OR"low carbon solutions"OR"carbon dioxide pipelines"OR"carbon dioxide pipeline"OR"co2 pipeline"OR"co2 pipelines"OR"class vi","permitting"OR"class vi","permit"OR"class vi","primacy"OR"primacy","louisiana"OR"primacy","texas"OR"primacy","gulf"OR"primacy","117-169"'
 
     # figure out total number of filings, compute number of page requests needed to get all filings
     f = authenticated_session.get(
@@ -211,7 +244,7 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
         params={
             "filing_specific_lobbying_issues": f"{issues_string}",
         },
-        timeout=60,
+        timeout=100,
     )
     # each page contains 25 filings: use total number of filings to compute total number of pages
     n_pages = ceil(f.json()["count"] / 25)
@@ -227,31 +260,21 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
     # initialize counting variables for subsets of queried pages ('chunks')
     which_chunk = 1
     filing_id = 0  # initialize unique id for filing documents
-
+    row_list = []  # each row holds info for one lobbying activity
+    lobby_list = []  # initialize holder for lobbyist info
     for page in range(1, n_pages + 1):
         # initialize holders for upcoming subset's information ('chunk')
-        row_list = []  # each row holds info for one lobbying activity
-        lobby_list = []  # initialize holder for lobbyist info
+
         logging.info(" Querying page %s of %s pages", str(page), str(n_pages))
 
-        while True:
-            f = authenticated_session.get(
-                config_info["filings_endpoint"],
-                params={
-                    "filing_specific_lobbying_issues": f"{issues_string}",
-                    "page": page,
-                },
-                timeout=60,
-            )
-            if "results" in f.json():
-                break
-            n_wait_seconds = int(f.json()["detail"].split(" ")[-2])
-            print(f"waiting for {n_wait_seconds}")
-            sleep(n_wait_seconds)
-        results = f.json()["results"]
+        # query api for this page of results
+        results = filings_query_page(
+            authenticated_session, config_info["filings_endpoint"], issues_string, page
+        )
 
         # extract data from each filing form returned from query
         for result in results:
+            # TODO functionalize this
             row_dict_base = initialize_row(govt_entities, result, filing_id)
             activities = result["lobbying_activities"]
 
@@ -274,26 +297,10 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
 
                 row_list.append(row_dict.copy())
 
-                row_dict.clear()
             filing_id += 1  # each result
         # if we have the number of pages in a subset or we're at the end of the pages...
         if ((page % chunk_size) == 0) | (page == n_pages):
-            ccs_df, ccs_unique_filing_ids = consolidate_rows(
-                yaml_to_dict(config_info["description_replace_dict_path"]),
-                row_list,
-            )
-            # write out CCS lobbying info for this subset ('chunk')
-            filename_prefix = config_info["output_filename_prefix"]
-            ccs_df.to_csv(
-                Path(output_dir) / Path(f"{filename_prefix}_{which_chunk}.csv")
-            )
-            # write out lobbyist data  for this subset ('chunk')
-            lobbyists_df = pd.DataFrame(lobby_list)
-            filename_prefix = config_info["lobbyist_filename_prefix"]
-            lobbyists_df.loc[lobbyists_df.filing_id.isin(ccs_unique_filing_ids)].to_csv(
-                Path(output_dir) / Path(f"{filename_prefix}_{which_chunk}.csv")
-            )
-
+            write_out_subset(output_dir, which_chunk, lobby_list, row_list, config_info)
             logging.info(
                 " Writing %s of %s subsets ('chunks') to CSV",
                 str(which_chunk),
@@ -301,6 +308,9 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
             )
             # increase chunk counter for next subset
             which_chunk += 1
+            # re-initialize row and lobby lists for next subset/chunk:
+            row_list = []  # each row holds info for one lobbying activity
+            lobby_list = []  # initialize holder for lobbyist info
 
     logging.info(
         " ----- Finished writing all %s subsets ('chunks') to CSVs ----- ",
