@@ -120,11 +120,16 @@ def parse_lobbyists(lobbyists: dict, details: dict) -> List[dict]:
 
     # unpack lobbyists list
     for lobbyist in lobbyists:
+        if isinstance(lobbyist["lobbyist"]["last_name"], None):
+            lobbyist["lobbyist"]["last_name"] = ""
+        if isinstance(lobbyist["lobbyist"]["first_name"], None):
+            lobbyist["lobbyist"]["first_name"] = ""
         lobby_dict["name"] = (
             lobbyist["lobbyist"]["last_name"]
             + ", "
             + lobbyist["lobbyist"]["first_name"]
         )
+
         lobby_dict["covered_position"] = "None"
         if "covered_position" in lobbyist:
             lobby_dict["covered_position"] = lobbyist["covered_position"]
