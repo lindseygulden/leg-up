@@ -1,0 +1,128 @@
+mostly_ccs_provisions:
+- '"Carbon Capture and Storage Early Deployment Act"' #2008 & 2009 by boucher
+- '"Carbon Capture and Storage Technology Act"' #2007
+- '"Carbon Capture and Storage Research Development and Demonstration Act"' #2007; 110-140
+- '"110-140"'
+- '"Advanced Clean Coal Technology Investment in Our Nation Act"' #2015
+- '"Responsible Use of Coal Act"' #2009
+- '"ACCTION Act"' #2015
+- '"Utilizing Significant Emissions with Innovative Technologies' #2020 S. 4074
+- '" USE IT"'
+- '"116-260"'
+- '"Carbon Capture Modernization Act"' #2017 S1281
+- '"Fossil Energy Research and Development Act' # 2020: mostly ccs, with a bit of methane leak detection 
+- '"Boxer Substitute Amendment"' #  to SB3036
+- '"Boxer Amendment"' # to SB3036
+- '"Boxer-Kerry"'
+- '"Boxer Kerry"'
+- '"Storing CO2 and Lowering Emissions Act"' # introduced by Veasey of texas
+- '"SCALE Act"'
+- '"CCU Parity"'
+- '"Department of Energy Clean Hydrogen and Fuel Cell Research Development and Demonstration Act"'
+contains_ccs_provisions:
+- '"Moving Forward Act"' #2020 introduced by Defazio (D-OR)
+- '"National Defense Authorization Act for Fiscal Year 2021"'
+- '"Making appropriations for energy and water development and related agencies for the fiscal year ending September 30"' #2021 (yes, that's a bill name) -- more money to FERD
+- '"Defense Commerce Justice Science Energy and Water Development Financial Services and General Government Labor Health and Human Services Education Transportation Housing and Urban Development Appropriations Act"' #contains CCS $ given to Fossil energy research and development
+- '"New Direction for Energy Independence National Security and Consumer Protection Act"' #2007
+- '"Energy Savings Act of 2007"'  #promotes biofuels, energy efficiency, CCS and other purposes
+- '"Energy Policy Act of 2005"' #109-58
+- '"109-58"'
+- '"Housing and Economic Recovery Act of 2008"' # original versions had CCS provisions in it
+- '" ACELA "'
+- '" SEA Act of 2008"' #increases funding for CCS research
+- '"American Clean Energy Leadership Act"' #2009
+- '"National Conservation, Environment, and Energy Independence Act"' #2008 money for ccs demonstration projects
+- '" LEASE Act of 2008"' #2008 money for ccs demonstration projects
+- '"Invest in Energy Independence Act"' #2008 money for ccs demo projects
+- '"Invest in Energy Security Act"' #2008 money for ccs demo projects
+- '"American Conservation and Clean Energy Independence Act"' # tim murphy, repubolican of PA: 2009; makes ccs eligbile for big govt loans
+- '"American Clean Energy and Security Act"' #2007 (?) and 2009; aka Waxman Markey-- didn't use 'ACES' b/c there are lots of other 'ACES' refs not dealing with CCS
+- '"Waxman-Markey"'
+- '"Waxman Markey"'
+- '"American Recovery and Reinvestment Act"' #2009, 111-5 
+- '" ARRA "' # abbrev for previous (111-5)
+- '"111-5"'
+- '"Consolidated Appropriations Act of 2021"'
+- '"116-260"' #PL number of Consolidated Appropriations Act of 2021
+- '"North American Energy Security and Infrastructure Act"' #2016
+- '"Energy Policy Modernization Act"' #2015 (seems to be a previous version of NAESIA above)
+- '"Bipartisan Budget Act of 2018"' #115-123
+- '"115-123"' #PL number of Bipartisan Budget Act of 2018
+- '"Infrastructure Investment and Jobs Act"' # 2021 (117-58)
+- '" IIJA "' # 2021 (117-58)
+- '"117-58"'
+- '"Inflation Reduction Act"' #2022 117-169
+- '"IRA of 2022"' # 117-169
+- '"117-169"'
+- '"100 by '50"' # name of a 2017 act introduced by polis
+- '"IMPACT Act"' # contains carbon capture provisions for cement
+- '"Limit Save Grow Act"' #2023: introduced version in the house (Arrington) had change to carbon oxide sequestration
+- '" SUPER Act"' # 2021 contains provisions for carbon capture for steel making
+- '"United States Innovation and Competition Act"' #2021 introduced by Johnson (D-TX) -- some versions have CCS for steelmaking provisions
+- '"Energy Infrastructure Act"' #2021 introduced by manchin: deals with CCS
+- '"CHIPS and Science Act"' # 2021: includes the provisions for carbon capture in steelmaking. Became 117-167
+- '"117-167"'
+- '"Clean Energy Future Through Innovation Act"' #2021: includes bunches on CCUS: from WV republican sneator McKinley
+- '"Consolidated Appropriations Act of 2021"' #(116-260)
+- '"Consolidated Appropriations Act 2021"' #(116-260)
+- '"116-260"'
+- '"American Energy Opportunity Act"'
+- '"Infrastructure Jobs and Energy Independence Act"' #2011 -- makes CCS projects eligible for huge govt assistance
+- '"Upstate Works Act"' #2011 makes ccs eligbile for big govt loans
+- '"Investments for Manufacturing Progress and Clean Technology Act"' # 2009  makes ccs eligbile for loans
+- '"Reports Reduction Act of 2016"' # got rid of a report: 'Carbon Capture and Sequestration Research, Development, and Demonstration Program Report.--Section 963(c) of the Energy Policy Act of 2005 (42 U.S.C. 16293(c)) is amended by striking paragraph (6).'
+- '"American Energy Innovation Act"' #2009, also in 2015
+- '"Clean Energy Innovation and Deployment Act"' #2021
+- '"Lieberman-Warner"' #' Climate Security Act"'
+- '"Lieberman Warner"'
+- '"Clean Energy Jobs and American Power Act"' #2009
+- '"Climate Leadership and Environmental Action for our Nation's Future Act"'
+- '"CLEAN Future Act"'
+- '"Consolidated Appropriations Act of 2016"' #(114-113) # allowed for govt loans for fossil fuel plants that use ccs
+- '"Consolidated Appropriations Act 2016"' #(114-113)
+- '"114-113"'
+####
+
+
+- '"Energy Improvement and Extension Act"' #2008
+- '"110-343"' # PL number of Energy Improvement and Extension Act
+
+- '"Clean Energy Standard Act"' #2009 SB 1462
+
+- '"Consolidated and Further Continuing Appropriations Act"' #2015 113-295
+- '"113-295"'
+
+
+
+
+
+
+- '"Energy Independence and Security Act"' #2007, 110-140 AKA EISA
+- '" EISA "' #110-140
+- '"110-140"'
+
+
+- '"Tax Cuts and Jobs Act of 2017"' #115-97
+- '"115-97"'
+- '"Tax Relief Unemployment Insurance Reauthorization and Job Creation Act"' #2010, PL 111-312
+- '"111-312"'
+- '"Energy and Water Development and Related Agencies Appropriations Act"' #2017 115-31
+- '"115-31"'
+- '"Energy and Water Appropriations Act"'
+ccs_bills = [
+
+    "Clean Energy for America Act",
+    "Consolidated Appropriations Act",
+    "Clean Coal-Derived Fuels for Energy Security Act",
+
+    "FUTURE Act",
+
+    "Electricity Security and Affordability Act",
+    "HR6172",
+
+
+    "Infrastructure Investment and Jobs Act",
+    "Reconciliation Act of 2022",
+    "110-343"
+]
