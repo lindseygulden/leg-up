@@ -1,6 +1,8 @@
 ' H ': ' HR'
 ' S ': ' SB'
 /S: / SB
+C C SB: CCS
+C C U SB: CCUS
 CC SB: CCS
 CCU SB: CCUS
 H. Con. Res.: HCR
@@ -24,7 +26,7 @@ PL: ' PL'
 Public Law: PL
 'Public Law No.:': PL
 'Public Law No:': PL
-'S ': ' SB'
+' S ': ' SB'
 S.: ' SB'
 S. Con. Res.: SCR
 S. J. Res.: SJR

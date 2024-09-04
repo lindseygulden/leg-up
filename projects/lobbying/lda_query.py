@@ -17,10 +17,18 @@ from utils.io import yaml_to_dict
 logging.basicConfig(level=logging.INFO)
 
 
-def assemble_issue_search_string(term_list_path: Union[str, PosixPath]):
+def assemble_issue_search_string(
+    term_list_path: Union[str, PosixPath], law_list_path: Union[str, PosixPath]
+):
     """joins terms in term lists with an OR and returns as a single string for use in get query"""
     term_list_dict = yaml_to_dict(term_list_path)
-    return "OR".join(term_list_dict["search_term_list"])
+    law_list_dict = yaml_to_dict(law_list_path)
+    search_string = "OR".join(
+        term_list_dict["search_term_list"]
+        + law_list_dict["mostly_ccs_provisions"]
+        # + law_list_dict["contains_ccs_provisions"]
+    )
+    return search_string
 
 
 def parse_dollars_spent(income, expense):
@@ -66,7 +74,13 @@ def initialize_row(govt_entities, result, filing_id):
         result["dt_posted"]
     )  # timestamps are in iso format
     # rest of result keys
-    for result_key in ["url", "filing_period", "filing_type", "posted_by_name"]:
+    for result_key in [
+        "filing_uuid",
+        "url",
+        "filing_period",
+        "filing_type",
+        "posted_by_name",
+    ]:
         initialize_row_dict[result_key] = result[result_key]
     # registrant/lobbyist keys
     for registrant_key in ["id", "name", "contact_name"]:
@@ -115,6 +129,7 @@ def parse_lobbyists(lobbyists: dict, details: dict) -> List[dict]:
         "filing_year",
         "filing_id",
         "url",
+        "filing_uuid",
     ]:
         lobby_dict[details_key] = details[details_key]
 
@@ -242,7 +257,9 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
         config_info["entity_endpoint"], session=authenticated_session
     )
     # set up get parameters dictionary
-    issues_string = assemble_issue_search_string(config_info["search_term_list_path"])
+    issues_string = assemble_issue_search_string(
+        config_info["search_term_list_path"], config_info["law_list_path"]
+    )
     params = {"filing_specific_lobbying_issues": f"{issues_string}"}
     # figure out total number of filings, compute number of page requests needed to get all filings
     f = authenticated_session.get(
