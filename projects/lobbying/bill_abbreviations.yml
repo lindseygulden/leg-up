@@ -1,0 +1,38 @@
+' H ': ' HR'
+' S ': ' SB'
+/S: / SB
+C C SB: CCS
+C C U SB: CCUS
+CC SB: CCS
+CCU SB: CCUS
+H. Con. Res.: HCR
+H. J. Res: HJR
+H. J. Res.: HJR
+H. R.: ' HR'
+H.Con.Res: HCR
+H.J. Res: HJR
+H.J. Res.: HJR
+H.J.Res.: HJR
+H.R: ' HR'
+H.R.: ' HR'
+'HCR ': HCR
+'HJR ': HJR
+'HR ': HR
+HR.: ' HR'
+P. L.: PL
+P.L.: PL
+PL: ' PL'
+'PL ': PL
+Public Law: PL
+'Public Law No.:': PL
+'Public Law No:': PL
+' S ': ' SB'
+S.: ' SB'
+S. Con. Res.: SCR
+S. J. Res.: SJR
+S.Con.Res.: SCR
+'SB ': SB
+'SCR ': SCR
+'SJR ': SJR
+U SB: US
+U. SB: US

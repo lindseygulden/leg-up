@@ -1,0 +1,11 @@
+authentication_endpoint: https://lda.senate.gov/api/auth/login/
+chunk_size: 30
+description_replace_dict_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/bill_abbreviations.yml
+entity_endpoint: https://lda.senate.gov/api/v1/constants/filing/governmententities/
+filings_endpoint: https://lda.senate.gov/api/v1/filings/
+lda_apikey: b6c22528b6697dc3bf1fbf9ff5200d28d9991889
+lda_username: lindseyegulden
+lobbyist_filename_prefix: ccs_lobbyists
+output_filename_prefix: ccs_lda_filings
+search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list.yml
+law_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/ccs_laws.yml
