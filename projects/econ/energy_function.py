@@ -3,7 +3,7 @@
 import logging
 from abc import ABC, abstractmethod
 from pathlib import PosixPath
-from typing import List, Union, Dict, Optional
+from typing import Dict, List, Optional, Union
 
 from utils.io import yaml_to_dict
 
@@ -38,7 +38,6 @@ class EnergyFunction(ABC):
         return cls.subclasses[function_name](params)
 
     def __init__(self, params: Union[None, Dict[str, float]]):
-
         # set private parameter values (values in the function that are not meant to be changed)
         if params is not None:
             if not isinstance(params, dict):
