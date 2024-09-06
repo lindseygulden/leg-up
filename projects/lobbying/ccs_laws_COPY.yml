@@ -35,7 +35,7 @@ contains_ccs_provisions:
 - '"Energy Savings Act of 2007"'  #promotes biofuels, energy efficiency, CCS and other purposes
 - '"Energy Policy Act of 2005"' #109-58
 - '"109-58"'
-- '"Housing and Economic Recovery"' # original versions had CCS provisions in it
+- '"Housing and Economic Recovery Act of 2008"' # original versions had CCS provisions in it
 - '"Energy Improvement and Extension"' #2008 Bailout bill Divison B https://www.congress.gov/bill/110th-congress/house-bill/1424/titles?s=2&r=5&q=%7B%22search%22%3A%22%5C%22Energy+Improvement+and+Extension+Act%5C%22%22%7D
 - '"110-343"' # PL number of Energy Improvement and Extension Act
 - '"Bailout Bill","sequestration"'
@@ -67,7 +67,7 @@ contains_ccs_provisions:
 - '"IRA"' # 117-169
 - '"100 by 50"' # name of a 2017 act introduced by polis
 - '"IMPACT Act"' # contains carbon capture provisions for cement
-- '"Limit Save Grow"' #2023: introduced version in the house (Arrington) had change to carbon oxide sequestration
+- '"Limit Save Grow Act"' #2023: introduced version in the house (Arrington) had change to carbon oxide sequestration
 - '" SUPER Act"' # 2021 contains provisions for carbon capture for steel making
 - '"Innovation and Competition"' #2021 introduced by Johnson (D-TX) -- some versions have CCS for steelmaking provisions
 - '"Energy Infrastructure Act"' #2021 introduced by manchin: deals with CCS
@@ -77,7 +77,7 @@ contains_ccs_provisions:
 - '"Clean Energy Future Through Innovation"' #2021: includes bunches on CCUS: from WV republican sneator McKinley
 - '"American Energy Opportunity"'
 - '"Infrastructure Jobs and Energy Independence"' #2011 -- makes CCS projects eligible for huge govt assistance
-- '"Upstate Works"' #2011 makes ccs eligbile for big govt loans
+- '"Upstate Works Act"' #2011 makes ccs eligbile for big govt loans
 - '"Investments for Manufacturing Progress and Clean Technology"' # 2009  makes ccs eligbile for loans
 - '"Reports Reduction Act of 2016"' # got rid of a report: 'Carbon Capture and Sequestration Research, Development, and Demonstration Program Report.--Section 963(c) of the Energy Policy Act of 2005 (42 U.S.C. 16293(c)) is amended by striking paragraph (6).'
 - '"American Energy Innovation Act"' #2009, also in 2015
@@ -89,6 +89,3 @@ contains_ccs_provisions:
 - '"CLEAN Future Act"'
 - '"Consolidated Appropriations Act, 2016"' #(114-113)
 - '"114-113"'
-tmp:
-- '"End Polluter Welfare Act"'
-- '" FUTURE Act"'

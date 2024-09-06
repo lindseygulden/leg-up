@@ -9,3 +9,4 @@ lobbyist_filename_prefix: ccs_lobbyists
 output_filename_prefix: ccs_lda_filings
 search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list.yml
 law_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/ccs_laws.yml
+organization_name_handling_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/organization_name_handling.yml
