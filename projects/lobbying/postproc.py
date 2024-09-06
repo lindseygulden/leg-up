@@ -1,4 +1,5 @@
 """functions to postprocess files read in from LDA API"""
+
 import requests
 import pandas as pd
 from flatten_json import flatten
@@ -190,10 +191,17 @@ def get_search_terms(search_term_list: List[str]):
     return terms
 
 
-def postproc():
-    config_info = yaml_to_dict(
-        "/Users/lindseygulden/dev/leg-up-private/projects/lobbying/config_ccs_lda.yml"
-    )
+@click.command()
+@click.option(
+    "--config",
+    type=click.Path(exists=True, file_okay=True, dir_okay=False),
+    required=True,
+)
+@click.option(
+    "--output_filepath", type=click.Path(file_okay=True, dir_okay=False), required=True
+)
+def postproc(config: Union[str, PosixPath], output_filepath: Union[str, PosixPath]):
+    config_info = yaml_to_dict(config)
     groupby_cols = [
         "filing_year",
         "filing_period",
@@ -247,6 +255,8 @@ def postproc():
 
     ccs_df = pd.concat(df_list)
     ccs_df = get_latest_filings(ccs_df, groupby_cols)
+
+    ccs_df.to_csv(output_filepath)
     return ccs_df
 
 
