@@ -12,11 +12,53 @@ import re
 import datetime as dt
 from cleanco import basename
 from json import dumps
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Union
+from pathlib import PosixPath
 import pandas as pd
 import re
 from cleanco import basename
 import click
+
+
+def invert_sector_dict(sectors_path: Union[str, PosixPath]) -> Dict[str, str]:
+    """reads in the sector assignment yaml to dict; inverts dict s.t. each company is a key"""
+    sector_assignments = yaml_to_dict(sectors_path)
+
+    all_companies = []
+    for _, value in sector_assignments.items():
+        all_companies = all_companies + value
+    print(all_companies)
+
+    company_sector_dict = {}
+    for k, vv in sector_assignments.items():
+        for v in vv:
+            company_sector_dict = company_sector_dict | {v: k}
+
+    return company_sector_dict
+
+
+def apportion_filing_dollars_to_specific_activities(df: pd.DataFrame):
+    """bespoke function: apportions total lobbying USD (on filing) to specific activities, using 2 methods"""
+    df["activity_apportioned_usd"] = [
+        usd / number_lobbying
+        for usd, number_lobbying in zip(
+            df.dollars_spent_lobbying, df.total_number_lobbying_activities
+        )
+    ]
+    df["lobbyist_apportioned_usd"] = [
+        (
+            usd * (n_activity_lobbyists / total_lobbyists)
+            if total_lobbyists > 0
+            else activity_apportioned
+        )
+        for usd, n_activity_lobbyists, total_lobbyists, activity_apportioned in zip(
+            df.dollars_spent_lobbying,
+            df.n_lobbyists_for_activity,
+            df.total_number_of_lobbyists_on_filing,
+            df.activity_apportioned_usd,
+        )
+    ]
+    return df
 
 
 def get_list_govt_entities(entity_endpoint: str, session: object):

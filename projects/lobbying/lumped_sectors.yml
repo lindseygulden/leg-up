@@ -1,0 +1,30 @@
+lumped_sector_assignments:
+  auto and transportation: TRANSPORT
+  biofuels: ALTERNATIVE_ENERGY
+  business advocacy: BUSINESS ADVOCACY
+  carbon management services: CARBON
+  ccs: CARBON
+  cement: NON-FF-INDUSTRY
+  chemicals: CHEMICALS
+  clean hydrogen: OIL AND GAS
+  coal: COAL
+  engineering consulting: OTHER
+  environmental: OTHER
+  finance: OTHER
+  food and agriculture: AGRICULTURE
+  government: OTHER
+  green hydrogen: ALTERNATIVE_ENERGY
+  higher education: OTHER
+  independent research organization: OTHER
+  iron and steel: NON-FF-INDUSTRY
+  labor union: OTHER
+  mining: NON-FF-INDUSTRY
+  nuclear: ALTERNATIVE_ENERGY
+  oil and gas: OIL AND GAS
+  oilfield services: OIL AND GAS
+  other: OTHER
+  paper products: NON-FF-INDUSTRY
+  pipelines: OIL AND GAS
+  power generation and utilities: UTILITY
+  railway: TRANSPORT
+  renewable energy: ALTERNATIVE_ENERGY
