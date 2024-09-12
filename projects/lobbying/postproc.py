@@ -20,14 +20,14 @@ from cleanco import basename
 import click
 
 
-def invert_sector_dict(sectors_path: Union[str, PosixPath]) -> Dict[str, str]:
+def invert_sector_dict(sectors_path) -> Dict[str, str]:
     """reads in the sector assignment yaml to dict; inverts dict s.t. each company is a key"""
     sector_assignments = yaml_to_dict(sectors_path)
 
     all_companies = []
     for _, value in sector_assignments.items():
         all_companies = all_companies + value
-    print(all_companies)
+    # print(all_companies)
 
     company_sector_dict = {}
     for k, vv in sector_assignments.items():
