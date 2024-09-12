@@ -582,6 +582,8 @@ oil and gas:
   - chemical
   - coal
   - engine
+  - renewable
+  - alternative
   - power
   - electric
   - refinery
@@ -591,9 +593,13 @@ oil and gas:
   - petrochemical
   keep:
   - oil and gas
+  - energy
   - oil company
   - LNG
   - natural gas
+  - midstream
+  - downstream
+  - upstream
   - exploration and production
   - petroleum
 oilfield services:
@@ -707,6 +713,7 @@ remove these organizations:
   - retirement account
   - bitcoin
   - crypto
+  - kids
   - Network security
   - residential construction
   - IT security
