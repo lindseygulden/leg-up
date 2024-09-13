@@ -45,6 +45,7 @@ auto and transportation:
   - automobile engine
   - gasoline engine
   - ' EV '
+  - aviation
   - bus servic
   - air transport
   - auto
@@ -628,9 +629,12 @@ paper products:
 pipelines:
   exclude:
   - exploration
+  - upstream
+  - downstream
   - production
   - electric
   keep:
+  - midstream
   - pipe line
   - pipeline
   - NEUVENTUS
