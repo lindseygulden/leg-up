@@ -210,6 +210,7 @@ land transit:
 - ROUTING COMPANY # PUBLIC TRANSIT
 - SKF # parts and lubes
 - PACCAR # large commercial trucks
+- ZERO EMISSIONS TRANSPORTATION ASSOCIATION #ev
 fuel cell:
 - BLOOM ENERGY
 - HYDROGEN FUEL CELL BUS COUNCIL
@@ -3957,6 +3958,8 @@ hvac:
 - HEATING AIRCONDITIONING REFRIGERATION DISTRIBUTORS INTERNATIONAL
 - DAIKIN
 remove these organizations:
+- ''
+- ' '
 - RIDE #lgbtq
 - SAILDRONE #defense
 - VIN #? vingroup 
