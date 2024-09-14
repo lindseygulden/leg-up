@@ -103,13 +103,17 @@ def terms_present(phrase, term_list, find_any=True):
     """
     if not isinstance(phrase, str):
         raise TypeError("phrase must be a string")
-
+    if not isinstance(term_list, list):
+        raise TypeError(
+            "term_list must be a list of strings (even if it is a list of length 1)"
+        )
     if phrase is None:
         return 0
     n_present = 0
+
     for term in term_list:
         if not isinstance(term, str):
-            raise TypeError(" all terms in term_list must be strings")
+            raise TypeError(f"Failed on {term}: all terms in term_list must be strings")
         if term.lower() in phrase.lower():
             if find_any:
                 return 1
