@@ -6,11 +6,13 @@ mostly_ccs_provisions:
 - '"Enhancing Fossil Fuel Energy Carbon Technology Act"' #2019 introduced by Manchin
 - '"Carbon Capture Modernization Act"'
 - '"EFFECT Act"'
+- '"110-140"'
 - '"Advanced Clean Coal Technology Investment in Our Nation Act"' #2015
 - '"Responsible Use of Coal Act"' #2009
 - '"ACCTION Act"' #2015
 - '"Utilizing Significant Emissions with Innovative Technologies' #2020 S. 4074
-- '" USE IT Act"'
+- '" USE IT"'
+- '"116-260"'
 - '"Carbon Capture Modernization Act"' #2017 S1281
 - '"Fossil Energy Research and Development Act' # 2020: mostly ccs, with a bit of methane leak detection 
 - '"Boxer Substitute Amendment"' #  to SB3036
@@ -23,8 +25,6 @@ mostly_ccs_provisions:
 - '"Department of Energy Clean Hydrogen and Fuel Cell Research Development and Demonstration Act"'
 - '"Energy Sector Innovation Credit Act"' #2021: mostly new stuff for CCS, 'clean' hydrogen, production of electricity from those. introduced by tom reed r-ny
 contains_ccs_provisions:
-- '"110-140"' # Energy Independence and Security act of 2007
-- '"116-260"' # consolidated apprpriations act of 2021
 - '"Clean Energy for America"' # all versions (2017,2019,2021) introduced by Wyden and contain CCS provisions
 - '"Clean Energy Standard"' #both the 2010 version and the 2019 version contain ccs provisons. introduced by Lujan, D-NM in the House
 - '"Moving Forward Act"' #2020 introduced by Defazio (D-OR)
