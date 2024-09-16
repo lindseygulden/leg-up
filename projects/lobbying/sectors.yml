@@ -1,5 +1,6 @@
 air transit:
 - VOLANSI
+- NORTHROP GRUMMAN
 - RAVN ALASKA # airline
 - SUPERNAL #ev
 - ABX AIR AIR TRANSPORT
@@ -21,6 +22,7 @@ air transit:
 - AIRTRAN AIRWAYS
 - ALASKA AEROSPACE DEVELOPMENT
 - ALASKA AIRLINES
+- AEROJET ROCKETDYNE
 - AMERICAN AIRLINES
 - AMERICAN ASSOCIATION OF AIRPORT EXECUTIVES
 - ASTAR AIR CARGO
@@ -50,6 +52,7 @@ air transit:
 - WEST STAR AVIATION
 - WESTINGHOUSE AIR BRAKE TECHNOLOGIES
 land transit:
+- NATSO # truck stop and travel center trade
 - BORGWARNER
 - CODA HOLDINGS #ev
 - TIRE INDUSTRY ASSOCIATION
@@ -728,6 +731,7 @@ coal:
 - WESTMORELAND COAL
 - WMPI PTY
 engineering, technology, and consulting:
+- DNV
 - TEXTRON # unmanned aircraft
 - HITACHI
 - HILL INTERNATIONAL
@@ -3960,12 +3964,12 @@ hvac:
 remove these organizations:
 - ''
 - ' '
+- NATURES FUEL #drink powder?
 - RIDE #lgbtq
 - SAILDRONE #defense
 - VIN #? vingroup 
 - COALITION FOR AUTO REPAIR EQUALITY
 - MARSS SAM # military ships?
-- AEROJET ROCKETDYNE
 - ASSOCIATION FOR UNCREWED VEHICLE SYSTEMS INTERNATIONAL #military drone
 - ASSOCIATION FOR UNMANNED VEHICLES SYSTEMS INTL # military/drones
 - VERITY NOW
@@ -4658,9 +4662,6 @@ remove these organizations:
 - PGA TOUR
 - RAYTHEON
 - OAKLEY
-- NORTHROP GRUMMAN
-- NORTHROP GRUMMAN SYSTEMS # defense
-- NATURES FUEL  # powerdered drink additive
 - NATIONAL SHOOTING SPORTS
 - NATIONAL TROOPER COALITION
 - NATIONAL WOMENS LAW CENTER
@@ -4795,11 +4796,9 @@ remove these organizations:
 - GENERAL DYNAMICS # mostly aerospace
 - LEONARDO ELECTRONICS US #defense, aerospace, security
 - MILTEC # defense and aerospace
-- ORBITAL ATK # now northrop grummon -- aerospace and defense
 - BRIDGER AEROSPACE HOLDINGS # aerial firefighting, fire management
 - COUNCIL ON FEDERAL PROCUREMENT OF ARCHITECTURAL ENGINEERING SVC
 - NEW YORK HALL OF SCIENCE
-- NATSO # national association of truck stop operators
 - AMERICAN BAR ASSOCIATION
 - ASSOCIATION OF PROCUREMENT TECHNICAL ASSISTANCE CENTERS
 - OUTDOOR RECREATION ROUNDTABLE ASSOCIATION
@@ -4811,9 +4810,6 @@ remove these organizations:
 - LOCKHEED MARTIN # weapons...
 - PERCEPTICS #Vehicle identification and license plate recognition technology
 - CARMA TECHNOLOGY # Vehicle Occupancy Verification
-- DNV
-- DES NORSKE VERITAS CLASSIFICATION AMERICAS #classification and certification
-- DNV GL
 - NATIONAL MATH AND SCIENCE INITIATIVE
 - MES FIRE
 - MAJOR CITIES CHIEFS ASSOCIATION
