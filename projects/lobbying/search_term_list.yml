@@ -97,14 +97,30 @@ search_term_list:
 - '"life cycle analysis","co2"'
 - '"monitoring reporting and verification","co2"'
 probably_ccs:
+- - capture
+  - carbon
+- - capture
+  - co2
+- - section 45
+  - tax
+- - biomass
+  - energy
+- biofuel
+- biodiesel
+- renewable natural gas
+- biomethanol
+- waste to energy
 - 'industrial decarbonization'
-- 'demonstration'
+#- 'demonstration project'
 - 'validation and testing'
 - 'lowemissions fuel'
 - 'low emissions fuel'
-- 'zeroemissions fuel'
-- 'zero emissions fuel'
-- 'sequestration'
+- - 'sequestration'
+  - 'carbon'
+- - 'sequestration'
+  - 'capture'
+- - 'sequestration'
+  - 'tax credit'
 - 'class vi'
 - 'class six'
 - 'classvi'
@@ -113,35 +129,93 @@ probably_ccs:
 - 'negativeemission'
 - 'hydrogen'
 - ' CDR '
-- 'co2 injection'
-- 'capture'
+- - 'capture'
+  - 'carbon'
 - 'tertiary oil recovery'
 - 'tertiary recovery'
 - 'co2 flooding'
-- 'carbon management'
-- 'carbonmanagement'
 - ' DAC '
 - 'direct air capture'
+- - 'tax credit'
+  - carbon
+- - 'tax credit'
+  - hydrogen
+- - 'tax credit'
+  - capture
+- - 'zeroemission'
+  - 'fuel'
+- - 'zero emission'
+  - 'fuel'
+- - 'alternative fuel'
+  - waste
+- - 'alternative fuel'
+  - bio
+- - 'alternative fuel'
+  - agric
+- - 'alternative fuel'
+  - crop
+- - 'alternative fuel'
+  - corn
+- ethanol
+- - 'lowcarbon'
+  - cement
+- - 'low carbon'
+  - cement
+- - 'lowemission'
+  - cement
+- - 'low emission'
+  - cement
+- - 'lowcarbon'
+  - fuel
+- - 'low carbon'
+  - fuel
+- - 'lowemission'
+  - fuel
+- - 'low emission'
+  - fuel
+- - 'lowcarbon'
+  - concrete
+- - 'low carbon'
+  - concrete
+- - 'lowemission'
+  - concrete
+- - 'low emission'
+  - concrete
 maybe_ccs:
 - 'lowcarbon'
 - 'low carbon'
 - 'lowemission'
-- 'zeroemission'
 - 'low emission'
-- 'oil and gas'
-- 'energy innovation'
-- 'energy technology'
-- 'innovative technology'
-- 'FERD'
-- 'fossil energy'
-- 'fossilenergy'
-- 'tax credit'
+#- 'oil and gas'
+#- 'energy innovation'
+#- 'energy technology'
+- - 'innovative technology'
+  - energy
+  - climate
+- ' FERD '
+- - 'fossil energy'
+  - innovation
+- - 'fossil energy'
+  - tax credit
+- - 'fossilenergy'
+  - innovation
+- - 'fossilenergy'
+  - tax credit
 - 'fuel cell'
 - 'fuelcell'
-- 'carbon dioxide'
-- 'co2'
-- 'c02'
-
+#- 'carbon dioxide'
+#- 'co2'
+#- 'c02'
+not_ccs:
+- ' drone '
+- 'hospital'
+- 'health care'
+- 'healthcare'
+- 'immigration'
+- 'green hydrogen'
+- 'renewable energy technology'
+- 'building codes'
+- 'real estate'
         
 
 
