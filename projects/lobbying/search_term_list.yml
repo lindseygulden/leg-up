@@ -185,32 +185,23 @@ probably_ccs:
   - concrete
 - - 'low emission'
   - concrete
+- carbon solution
 maybe_ccs:
 - 'lowcarbon'
 - 'low carbon'
 - 'lowemission'
 - 'low emission'
-#- 'oil and gas'
-#- 'energy innovation'
-#- 'energy technology'
+- energy innovation
+- carbon recycling
+- sustainable carbon solutions
+- climate solutions
+- clean energy technology
+- negative emission
 - - 'innovative technology'
   - energy
   - climate
 - ' FERD '
-- - 'fossil energy'
-  - innovation
-- - 'fossil energy'
-  - tax credit
-- - 'fossilenergy'
-  - innovation
-- - 'fossilenergy'
-  - tax credit
-- 'fuel cell'
-- 'fuelcell'
 - 'air capture'
-#- 'carbon dioxide'
-#- 'co2'
-#- 'c02'
 not_ccs:
 - ' drone '
 - 'hospital'
@@ -218,6 +209,8 @@ not_ccs:
 - 'healthcare'
 - 'immigration'
 - 'green hydrogen'
+- 'solar energy'
+- 'wind energy'
 - 'renewable energy technology'
 - 'building codes'
 - 'real estate'
