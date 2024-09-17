@@ -10,6 +10,9 @@ search_term_list:
 - '"c02 pipe"' 
 - '"co2 pipe"'
 - '"capture of carbon oxides"'
+- '"capture carbon dioxide"'
+- '"capture carbon oxide"'
+- '"capture co2"'
 - '"carbon dioxide capture"'
 - '"capture and store"'
 - '"carbon utilization"'
@@ -86,6 +89,7 @@ search_term_list:
 - '"classvi","permit"'
 - '"classvi","primacy"'
 - '"primacy","louisiana"'
+- '"primacy","permit"'
 - '"primacy","texas"'
 - '"primacy","gulf"'
 - '"primacy","117-169"'
@@ -122,15 +126,20 @@ search_term_list:
 - '" DAC ","sequestration"'
 - '"zeroemission fuel"'
 - '"zero emission fuel"'
+- '"renewable natural gas","capture"'
+- '"renewable natural gas","sequestration"'
+- '"renewable natural gas","storage"'
+- '"renewable natural gas","zeroemission"'
+- '"renewable natural gas","zero emission"'
+- '" RNG ","capture"'
+- '" RNG ","sequestration"'
+- '" RNG ","storage"'
+- '" RNG ","zeroemission"'
+- '" RNG ","zero emission"'
+- '"pipeline safety","carbon dioxide"'
+- '"pipeline safety","co2"'
 probably_ccs:
-- - 'life cycle analysis'
-  - 'carbon'
-- - 'monitoring reporting and verification'
-  - 'carbon'
-- - 'life cycle analysis'
-  - 'co2'
-- - 'monitoring reporting and verification'
-  - 'co2'
+- sustainable aviation
 - removal of carbon
 - removal of co2
 - - capture
@@ -139,11 +148,22 @@ probably_ccs:
   - co2
 - - section 45
   - tax
-- - biomass
-  - energy
-- biofuel
-- biodiesel
-- renewable natural gas
+- - biofuel
+  - low emission
+- - biofuel
+  - lowemission
+- - biofuel
+  - zero emission
+- - biofuel
+  - zeroemission
+- - biodiesel
+  - low emission
+- - biodiesel
+  - lowemission
+- - biodiesel
+  - zero emission
+- - biodiesel
+  - zeroemission
 - biomethanol
 - waste to energy
 #- 'demonstration project'
@@ -171,8 +191,6 @@ probably_ccs:
 - ' DAC '
 - 'direct air capture'
 - - 'tax credit'
-  - carbon
-- - 'tax credit'
   - hydrogen
 - - 'tax credit'
   - capture
@@ -180,6 +198,32 @@ probably_ccs:
   - 'fuel'
 - - 'zero emission'
   - 'fuel'
+- - 'lowcarbon'
+  - cement
+- - 'low carbon'
+  - cement
+- - 'lowemission'
+  - cement
+- - 'low emission'
+  - cement
+- - 'lowcarbon'
+  - concrete
+- - 'low carbon'
+  - concrete
+- - 'lowemission'
+  - concrete
+- - 'low emission'
+  - concrete
+- carbon solution
+- - primacy
+  - well
+maybe_ccs:
+- - 'lowemission'
+  - fuel
+- - 'low emission'
+  - fuel
+- - biomass
+  - energy
 - - 'alternative fuel'
   - waste
 - - 'alternative fuel'
@@ -191,32 +235,18 @@ probably_ccs:
 - - 'alternative fuel'
   - corn
 - ethanol
+- - 'life cycle analysis'
+  - 'carbon'
+- - 'monitoring reporting and verification'
+  - 'carbon'
+- - 'life cycle analysis'
+  - 'co2'
+- - 'monitoring reporting and verification'
+  - 'co2'
 - - 'lowcarbon'
-  - cement
-- - 'low carbon'
-  - cement
-- - 'lowemission'
-  - cement
-- - 'low emission'
-  - cement
-- - 'lowcarbon'
   - fuel
 - - 'low carbon'
   - fuel
-- - 'lowemission'
-  - fuel
-- - 'low emission'
-  - fuel
-- - 'lowcarbon'
-  - concrete
-- - 'low carbon'
-  - concrete
-- - 'lowemission'
-  - concrete
-- - 'low emission'
-  - concrete
-- carbon solution
-maybe_ccs:
 - 'lowcarbon'
 - 'low carbon'
 - 'lowemission'

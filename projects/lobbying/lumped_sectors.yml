@@ -37,32 +37,32 @@ lightly_lumped:
   water: OTHER
   hvac: OTHER
   individuals: OTHER
-really_lumped:
+very_lumped:
   land transit: TRANSPORT
   air transit: TRANSPORT
   water transit: TRANSPORT
   fuel cell: TRANSPORT
   biofuels: AG-AND-BIOFUEL
-  business advocacy: BUSINESS ADVOCACY
-  carbon: CARBON
-  ccs: CARBON
+  business advocacy: OTHER
+  carbon: OTHER
+  ccs: OTHER
   cement: NON-FF-INDUSTRY
   chemicals, refining, and plastics: CHEMICALS
   clean hydrogen: FOSSIL FUEL
   coal: FOSSIL FUEL
-  engineering, technology, and consulting: ENGINEERING-TECH-SERVICES
+  engineering, technology, and consulting: OTHER
   environmental: OTHER
   finance: OTHER
   food and agriculture: AG-AND-BIOFUEL
   government: OTHER
-  green hydrogen: RENEWABLES
+  green hydrogen: OTHER
   higher education: OTHER
   independent research organization: OTHER
   think tanks and issue advocacy: OTHER
   iron and steel: NON-FF-INDUSTRY
   labor union: OTHER
   mining and metals: NON-FF-INDUSTRY
-  nuclear: RENEWABLES
+  nuclear: OTHER
   oil and gas: FOSSIL FUEL
   oilfield services: FOSSIL FUEL
   other: OTHER
@@ -71,7 +71,7 @@ really_lumped:
   pipelines: FOSSIL FUEL
   power generation and utilities: UTILITY
   railway: TRANSPORT
-  renewable energy: RENEWABLES
+  renewable energy: OTHER
   remove these organizations: REMOVE
   water: OTHER
   hvac: OTHER
