@@ -97,6 +97,10 @@ search_term_list:
 - '"life cycle analysis","co2"'
 - '"monitoring reporting and verification","co2"'
 probably_ccs:
+- geological storage
+- geological sequestration
+- removal of carbon
+- removal of co2
 - - capture
   - carbon
 - - capture
@@ -203,6 +207,7 @@ maybe_ccs:
   - tax credit
 - 'fuel cell'
 - 'fuelcell'
+- 'air capture'
 #- 'carbon dioxide'
 #- 'co2'
 #- 'c02'
@@ -216,6 +221,10 @@ not_ccs:
 - 'renewable energy technology'
 - 'building codes'
 - 'real estate'
+- realtor
+- REIT
+- medicine
+- medical
         
 
 
