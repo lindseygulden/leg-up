@@ -5,8 +5,8 @@ lightly_lumped:
   fuel cell: ALTERNATIVE_FUELS
   biofuels: ALTERNATIVE_FUELS
   business advocacy: BUSINESS ADVOCACY
-  carbon: CARBON
-  ccs: CARBON
+  carbon: CARBON MANAGEMENT
+  ccs: CARBON MANAGMENT
   cement: NON-FF-INDUSTRY
   chemicals, refining, and plastics: CHEMICALS
   clean hydrogen: FOSSIL FUEL
@@ -30,13 +30,16 @@ lightly_lumped:
   paper products: NON-FF-INDUSTRY
   professional societies: EMPLOYEES
   pipelines: FOSSIL FUEL
-  power generation and utilities: UTILITY
   railway: TRANSPORT
   renewable energy: RENEWABLES
   remove these organizations: REMOVE
   water: OTHER
   hvac: OTHER
   individuals: OTHER
+  independent power producers: INVESTOR-OWNED-POWER-SECTOR
+  investor owned utilities: INVESTOR-OWNED-POWER-SECTOR
+  municipal and cooperative utilities: MUNICIPAL-UTILITIES
+  power sector general: REMOVE
 very_lumped:
   land transit: TRANSPORT
   air transit: TRANSPORT
@@ -44,8 +47,8 @@ very_lumped:
   fuel cell: TRANSPORT
   biofuels: AG-AND-BIOFUEL
   business advocacy: OTHER
-  carbon: OTHER
-  ccs: OTHER
+  carbon: CARBON MANAGEMENT
+  ccs: CARBON MANAGEMENT
   cement: NON-FF-INDUSTRY
   chemicals, refining, and plastics: CHEMICALS
   clean hydrogen: FOSSIL FUEL
@@ -69,7 +72,10 @@ very_lumped:
   paper products: NON-FF-INDUSTRY
   professional societies: OTHER
   pipelines: FOSSIL FUEL
-  power generation and utilities: UTILITY
+  independent power producers: POWER-UTILITIES
+  investor owned utilities: POWER-UTILITIES
+  municipal and cooperative utilities: POWER-UTILITIES
+  power sector general: REMOVE
   railway: TRANSPORT
   renewable energy: OTHER
   remove these organizations: REMOVE
