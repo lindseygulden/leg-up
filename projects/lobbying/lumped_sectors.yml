@@ -2,18 +2,18 @@ lightly_lumped:
   land transit: TRANSPORT
   air transit: TRANSPORT
   water transit: TRANSPORT
-  fuel cell: ALTERNATIVE_FUELS
-  biofuels: ALTERNATIVE_FUELS
-  business advocacy: BUSINESS ADVOCACY
+  fuel cell: TRANSPORT
+  biofuels: BIOFUEL
+  business advocacy: BUSINESS-ADVOCACY
   carbon: CARBON MANAGEMENT
-  ccs: CARBON MANAGMENT
+  ccs: CARBON MANAGEMENT
   cement: NON-FF-INDUSTRY
   chemicals, refining, and plastics: CHEMICALS
   clean hydrogen: FOSSIL FUEL
   coal: FOSSIL FUEL
-  engineering, technology, and consulting: ENGINEERING-TECH-SERVICES
+  engineering, technology, and consulting: ENGINEERING-CONSULTING-SERVICES
   environmental: NONPROFIT
-  finance: OTHER
+  finance: FINANCE
   food and agriculture: AGRICULTURE
   government: OTHER
   green hydrogen: RENEWABLES
@@ -40,13 +40,14 @@ lightly_lumped:
   investor owned utilities: INVESTOR-OWNED-POWER-SECTOR
   municipal and cooperative utilities: MUNICIPAL-UTILITIES
   power sector general: REMOVE
+  energy technology: ENERGY-TECH
 very_lumped:
   land transit: TRANSPORT
   air transit: TRANSPORT
   water transit: TRANSPORT
   fuel cell: TRANSPORT
   biofuels: AG-AND-BIOFUEL
-  business advocacy: OTHER
+  business advocacy: BUSINESS-ADVOCACY
   carbon: CARBON MANAGEMENT
   ccs: CARBON MANAGEMENT
   cement: NON-FF-INDUSTRY
@@ -81,4 +82,5 @@ very_lumped:
   remove these organizations: REMOVE
   water: OTHER
   hvac: OTHER
+  energy technology: ENERGY-TECH
   individuals: OTHER
