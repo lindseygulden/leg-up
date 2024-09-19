@@ -1,0 +1,39 @@
+senate:
+  107: democrats
+  108: republicans
+  109: republicans
+  110: democrats
+  111: democrats
+  112: democrats
+  113: democrats
+  114: republicans
+  115: republicans
+  116: republicans
+  117: democrats
+  118: democrats
+house:
+  107: republicans
+  108: republicans
+  109: republicans
+  110: democrats
+  111: democrats
+  112: republicans
+  113: republicans
+  114: republicans
+  115: republicans
+  116: democrats
+  117: democrats
+  118: republicans
+white_house:
+  107: republicans #Bush
+  108: republicans 
+  109: republicans
+  110: republicans
+  111: democrats #Obama
+  112: democrats
+  113: democrats
+  114: democrats
+  115: republicans #Trump
+  116: republicans
+  117: democrats # Biden
+  118: democrats
