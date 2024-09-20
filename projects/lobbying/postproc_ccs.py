@@ -1,23 +1,31 @@
-'''script to read in files read out by ccs'''
-import requests
+"""script to read in files read out by ccs"""
+
 import pandas as pd
-from flatten_json import flatten
 from utils.io import yaml_to_dict
-import numpy as np
-from typing import List, Tuple, Dict, Union
-from itertools import compress
+
+from typing import Union
 import pandas as pd
-import re
-import datetime as dt
-from cleanco import basename
+
 from json import dumps
-from typing import List, Tuple, Dict, Union
+
+from os import listdir
+from os.path import isfile, join
+
 from pathlib import PosixPath
 import pandas as pd
-import re
-from cleanco import basename
+import logging
 import click
-from projects.lobbying.postproc import invert_sector_dict
+from utils.api import api_authenticate
+from projects.lobbying.postproc import (
+    parse_client_names,
+    get_smarties,
+    get_list_govt_entities,
+    substitute,
+    get_latest_filings,
+    terms_present,
+)
+
+logging.basicConfig(level=logging.INFO)
 
 
 @click.command()
@@ -27,92 +35,108 @@ from projects.lobbying.postproc import invert_sector_dict
     required=True,
 )
 @click.option(
-    "--output_filepath", type=click.Path(file_okay=True, dir_okay=False), required=True
+    "--input_dir", type=click.Path(file_okay=False, dir_okay=True), required=True
 )
-def postproc(config: Union[str, PosixPath], output_filepath: Union[str, PosixPath]):
+@click.option(
+    "--output_file", type=click.Path(file_okay=True, dir_okay=False), required=False
+)
+def postprocess_ccs(
+    config: Union[str, PosixPath],
+    input_dir: Union[str, PosixPath],
+    output_file: Union[str, PosixPath] = "compiled.csv",
+):
+    """Reads CSVs in input_dir (i.e, the LDA API outputs), processes them, & writes compilation to output_file"""
     config_info = yaml_to_dict(config)
-    
-    config_info = yaml_to_dict(
-    "/Users/lindseygulden/dev/leg-up-private/projects/lobbying/config_ccs_lda.yml"
-)
-groupby_cols = [
-    "filing_year",
-    "filing_period",
-    "client_id",
-    "registrant_id",
-    "activity_id",
-]
-entities = get_list_govt_entities(
-    config_info["entity_endpoint"],
-    session=api_authenticate(
-        config_info["authentication_endpoint"],
-        config_info["lda_username"],
-        config_info["lda_apikey"],
-    ),
-)
-# remove_sector_descriptions = yaml_to_dict(
-#    "/Users/lindseygulden/dev/leg-up-private/projects/lobbying/sector_company_description_terms.yml"
-# )["remove"]
-remove_sector_descriptions = yaml_to_dict(
-    "/Users/lindseygulden/dev/leg-up-private/projects/lobbying/sector_descriptions.yml"
-)["remove these organizations"]["keep"]
-df_list = []
-rename_dict = {}
-for i in range(1, 5):  # 19):  # 159):
-    api_results_df = pd.read_csv(
-        # f"/Volumes/Samsung_T5/data/lobbying/ccslaws/ccs_lda_filings_{i}.csv",
-        # f"/Volumes/Samsung_T5/data/lobbying/ccs/ccs_lda_filings_{i}.csv",
-        f"/Volumes/Samsung_T5/data/lobbying/ccs_additional/ccs_lda_filings_{i}.csv",
-        index_col=[0],
-        # parse_dates=["filing_dt_posted"],
-        dtype={"filing_year": int},
-        low_memory=False,
+
+    groupby_cols = config_info["groupby_columns"]
+
+    entities = get_list_govt_entities(
+        config_info["entity_endpoint"],
+        session=api_authenticate(
+            config_info["authentication_endpoint"],
+            config_info["lda_username"],
+            config_info["lda_apikey"],
+        ),
     )
-    # remove unwanted filing types
-    api_results_df = api_results_df.loc[
-        [x[0] != "R" for x in api_results_df.filing_type]
+    # get all csv files in input directory
+    input_files = [
+        join(input_dir, f)
+        for f in listdir(input_dir)
+        if isfile(join(input_dir, f)) and (f.split(".")[-1] == "csv")
     ]
+    print(input_files)
+    logging.info(
+        " ----- Reading, postprocessing, and compiling the %s files in %s ",
+        str(len(input_files)),
+        str(input_dir),
+    )
+    df_list = []
+    rename_dict = {}
+    for file in input_files:
+        logging.info("  %s", str(file))
+        api_results_df = pd.read_csv(
+            file,
+            index_col=[0],
+            dtype={"filing_year": int},
+            low_memory=False,
+        )
+        # remove unwanted filing types
+        api_results_df = api_results_df.loc[
+            [x[0] != "R" for x in api_results_df.filing_type]
+        ]
 
-    # parse company names, remove unwanted names, add to list
-    df, this_rename_dict = parse_client_names(
-        api_results_df, yaml_to_dict(config_info["organization_name_handling_path"])
+        # parse company names, remove unwanted names, add to list
+        df, this_rename_dict = parse_client_names(
+            api_results_df, yaml_to_dict(config_info["organization_name_handling_path"])
+        )
+
+        # append the rename dictionary to the whole thing
+        rename_dict = rename_dict | this_rename_dict
+        # compress entities into a single string column and get rid of entity columns
+        df["entities"] = df[entities].T.apply(
+            lambda x: dumps(get_smarties(x, entities))
+        )
+        df.drop(entities, axis=1, inplace=True)
+        df["clean_description"] = [
+            substitute(d, use_basename=True) for d in df["description"]
+        ]
+        df["clean_client_general_description"] = [
+            substitute(d, use_basename=False) for d in df["client_general_description"]
+        ]
+
+        remove_sector_descriptions = yaml_to_dict(
+            config_info["sector_description_file"]
+        )[config_info["remove_org_key"][0]][config_info["remove_org_key"][1]]
+
+        df["client_rename"] = [
+            "remove" if terms_present(x, remove_sector_descriptions) else n
+            for x, n in zip(df.clean_client_general_description, df.client_rename)
+        ]
+
+        df = get_latest_filings(df, groupby_cols)
+        df = df.loc[df.client_rename != "remove"]
+        df_list.append(df)
+
+    ccs_df = pd.concat(df_list)
+    ccs_df = get_latest_filings(ccs_df, groupby_cols)
+    # fill in nans/nones with empty string for description and rename of client
+    ccs_df.clean_client_general_description = (
+        ccs_df.clean_client_general_description.fillna("")
+    )
+    ccs_df.client_rename = ccs_df.client_rename.fillna("")
+
+    ccs_df["batch"] = ""
+    if "batch_name" in config_info:
+        ccs_df["batch"] = config_info["batch_name"]
+    ccs_df.to_csv(output_file, index=False)
+
+    if output_file == "compiled.csv":
+        output_file = join(input_dir, output_file)
+    logging.info(
+        " ----- Postprocessed file written to %s ",
+        str(output_file),
     )
 
-    # append the rename dictionary to the whole thing
-    rename_dict = rename_dict | this_rename_dict
-    # compress entities into a single string column and get rid of entity columns
-    df["entities"] = df[entities].T.apply(lambda x: dumps(get_smarties(x, entities)))
-    df.drop(entities, axis=1, inplace=True)
-    df["clean_description"] = [
-        substitute(d, use_basename=True) for d in df["description"]
-    ]
-    df["clean_client_general_description"] = [
-        substitute(d, use_basename=False) for d in df["client_general_description"]
-    ]
-    df["client_rename"] = [
-        "remove" if terms_present(x, remove_sector_descriptions) else n
-        for x, n in zip(df.clean_client_general_description, df.client_rename)
-    ]
-    df["client_rename"] = [
-        "remove" if terms_present(x, remove_sector_descriptions) else x
-        for x in df.client_rename
-    ]
 
-    df = get_latest_filings(df, groupby_cols)
-    df = df.loc[df.client_rename != "remove"]
-    df_list.append(df)
-
-ccs_df = pd.concat(df_list)
-ccs_df = get_latest_filings(ccs_df, groupby_cols)
-# fill in nans/nones with empty string for description and rename of client
-ccs_df.clean_client_general_description = (
-    ccs_df.clean_client_general_description.fillna("")
-)
-ccs_df.client_rename = ccs_df.client_rename.fillna("")
-
-ccs_df["batch"] = "additional"
-ccs_df.to_csv("/Volumes/Samsung_T5/data/lobbying/ccs/ccs_additional_compiled.csv")
-# ccs_df["batch"] = "ccs description and/or ccs specific laws and bills"
-# ccs_df.to_csv("/Volumes/Samsung_T5/data/lobbying/ccs/ccs_compiled.csv")
-# ccs_df["batch"] = "relevant laws"
-# ccs_df.to_csv("/Volumes/Samsung_T5/data/lobbying/ccs/ccslaws_compiled.csv")
+if __name__ == "__main__":
+    postprocess_ccs()

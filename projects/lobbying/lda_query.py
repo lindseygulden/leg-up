@@ -24,7 +24,7 @@ def assemble_issue_search_string(
     term_list_dict = yaml_to_dict(term_list_path)
     law_list_dict = yaml_to_dict(law_list_path)
     search_string = "OR".join(
-        term_list_dict["search_term_list"] + law_list_dict["mostly_ccs_provisions"]
+        term_list_dict["search_term_list"]  # + law_list_dict["mostly_ccs_provisions"]
     )
     # law_list_dict["contains_ccs_provisions"]
     return search_string
@@ -272,7 +272,10 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
     )
     # each page contains 25 filings: use total number of filings to compute total number of pages
 
-    n_pages = ceil(f.json()["count"] / 25)
+    try:
+        n_pages = ceil(f.json()["count"] / 25)
+    except BaseException as e:
+        logging.info("ERROR: %s", f.text)
 
     # compute number of file subsets ('chunks') for writing out and not overloading memory
     chunk_size = config_info["chunk_size"]
@@ -287,7 +290,7 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
     filing_id = 0  # initialize unique id for filing documents
     row_list = []  # each row holds info for one lobbying activity
     lobby_list = []  # initialize holder for lobbyist info
-    #which_chunk = 146  # for laws
+    # which_chunk = 146  # for laws
     for page in range(1, n_pages + 1):
         # initialize holders for upcoming subset's information ('chunk')
 

@@ -6,8 +6,18 @@ filings_endpoint: https://lda.senate.gov/api/v1/filings/
 lda_apikey: b6c22528b6697dc3bf1fbf9ff5200d28d9991889
 lda_username: lindseyegulden
 lobbyist_filename_prefix: ccs_lobbyists
-output_filename_prefix: ccs_lda_filings
+output_filename_prefix: ccs_lda_filings_ccsterms
 search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list.yml
 #search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/additional_search_terms.yml
 law_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/ccs_laws.yml
 organization_name_handling_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/organization_name_handling.yml
+sector_description_file: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/sector_descriptions.yml
+remove_org_key:
+  - remove these organizations
+  - keep
+groupby_columns:
+  - filing_year
+  - filing_period
+  - client_id
+  - registrant_id
+  - activity_id
