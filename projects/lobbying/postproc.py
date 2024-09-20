@@ -1,4 +1,4 @@
-"""functions to postprocess files read in from LDA API"""
+"""utility functions to postprocess files read in from LDA API"""
 
 import requests
 import pandas as pd
@@ -17,7 +17,6 @@ from pathlib import PosixPath
 import pandas as pd
 import re
 from cleanco import basename
-import click
 
 
 def invert_sector_dict(sectors_path) -> Dict[str, str]:
@@ -177,8 +176,12 @@ def parse_client_names(
     for co in config["use_these_name_subsets_for_organiztions"]:
         client_names = [co if co in x else x for x in client_names]
 
-    # bespoke replacements and handling of mergers
+    # bespoke replacements of terms
     for key, value in config["replace_names_on_left_with_names_on_right"].items():
+        client_names = [x.replace(key, value) for x in client_names]
+
+    # bespoke company name handling, handling of mergers
+    for key, value in config["company_name_replacements"].items():
         client_names = [x.replace(key, value) for x in client_names]
 
     # make a renaming dictionary
@@ -235,76 +238,3 @@ def get_search_terms(search_term_list: List[str]):
     terms = [[substitute(t) for t in tt] for tt in terms]
 
     return terms
-
-
-@click.command()
-@click.option(
-    "--config",
-    type=click.Path(exists=True, file_okay=True, dir_okay=False),
-    required=True,
-)
-@click.option(
-    "--output_filepath", type=click.Path(file_okay=True, dir_okay=False), required=True
-)
-def postproc(config: Union[str, PosixPath], output_filepath: Union[str, PosixPath]):
-    config_info = yaml_to_dict(config)
-    groupby_cols = [
-        "filing_year",
-        "filing_period",
-        "client_id",
-        "registrant_id",
-        "activity_id",
-    ]
-    entities = get_list_govt_entities(
-        config_info["entity_endpoint"],
-        session=api_authenticate(
-            config_info["authentication_endpoint"],
-            config_info["lda_username"],
-            config_info["lda_apikey"],
-        ),
-    )
-    df_list = []
-    rename_dict = {}
-    for i in range(1, 50):
-        api_results_df = pd.read_csv(
-            f"/Volumes/Samsung_T5/data/lobbying/ccslaws/ccs_lda_filings_{i}.csv",
-            index_col=[0],
-            # parse_dates=["filing_dt_posted"],
-            dtype={"filing_year": int},
-            low_memory=False,
-        )
-        # remove unwanted filing types
-        api_results_df = api_results_df.loc[
-            [x[0] != "R" for x in api_results_df.filing_type]
-        ]
-
-        # parse company names, remove unwanted names, add to list
-        df, this_rename_dict = parse_client_names(
-            api_results_df, yaml_to_dict(config_info["organization_name_handling_path"])
-        )
-
-        # append the rename dictionary to the whole thing
-        rename_dict = rename_dict | this_rename_dict
-        # compress entities into a single string column and get rid of entity columns
-        df["entities"] = df[entities].T.apply(
-            lambda x: dumps(get_smarties(x, entities))
-        )
-        df.drop(entities, axis=1, inplace=True)
-        df["clean_description"] = [
-            substitute(d, use_basename=True) for d in df["description"]
-        ]
-        df["clean_client_general_description"] = [
-            substitute(d, use_basename=False) for d in df["client_general_description"]
-        ]
-        df = get_latest_filings(df, groupby_cols)
-        df_list.append(df)
-
-    ccs_df = pd.concat(df_list)
-    ccs_df = get_latest_filings(ccs_df, groupby_cols)
-
-    ccs_df.to_csv(output_filepath)
-    return ccs_df
-
-
-if __name__ == "__main__":
-    postproc()
