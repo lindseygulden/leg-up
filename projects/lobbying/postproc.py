@@ -1,6 +1,6 @@
 """utility functions to postprocess files read in from LDA API"""
 
-import requests
+# import requests
 import pandas as pd
 from flatten_json import flatten
 from utils.io import yaml_to_dict
@@ -17,77 +17,6 @@ from pathlib import PosixPath
 import pandas as pd
 import re
 from cleanco import basename
-
-
-def invert_sector_dict(sectors_path) -> Dict[str, str]:
-    """reads in the sector assignment yaml to dict; inverts dict s.t. each company is a key"""
-    sector_assignments = yaml_to_dict(sectors_path)
-
-    all_companies = []
-    for _, value in sector_assignments.items():
-        all_companies = all_companies + value
-    # print(all_companies)
-
-    company_sector_dict = {}
-    for k, vv in sector_assignments.items():
-        for v in vv:
-            company_sector_dict = company_sector_dict | {v: k}
-
-    return company_sector_dict
-
-
-def apportion_filing_dollars_to_specific_activities(df: pd.DataFrame):
-    """bespoke function: apportions total lobbying USD (on filing) to specific activities, using 2 methods"""
-    df["activity_apportioned_usd"] = [
-        usd / number_lobbying
-        for usd, number_lobbying in zip(
-            df.dollars_spent_lobbying, df.total_number_lobbying_activities
-        )
-    ]
-    df["lobbyist_apportioned_usd"] = [
-        (
-            usd * (n_activity_lobbyists / total_lobbyists)
-            if total_lobbyists > 0
-            else activity_apportioned
-        )
-        for usd, n_activity_lobbyists, total_lobbyists, activity_apportioned in zip(
-            df.dollars_spent_lobbying,
-            df.n_lobbyists_for_activity,
-            df.total_number_of_lobbyists_on_filing,
-            df.activity_apportioned_usd,
-        )
-    ]
-    return df
-
-
-def get_list_govt_entities(entity_endpoint: str, session: object):
-    """Queries constants endpoint to get a standardized list of government entities"""
-    govt_entities = session.get(entity_endpoint, timeout=60)
-    entity_df = pd.DataFrame(govt_entities.json())
-    entities = sorted([x.lower() for x in list(entity_df["name"])])
-    return entities
-
-
-def api_authenticate(
-    authentication_endpoint,
-    username,
-    apikey,
-    username_key="username",
-    password_key="password",
-):
-    """logs in to the api using provided authentication endpoint and credentials"""
-    authenticated_session = requests.Session()
-
-    authenticated_session.post(
-        authentication_endpoint,
-        json={
-            username_key: username,
-            password_key: apikey,
-        },
-        timeout=60,
-    )
-
-    return authenticated_session
 
 
 def terms_present(phrase, term_list, find_any=True):
@@ -111,15 +40,26 @@ def terms_present(phrase, term_list, find_any=True):
     n_present = 0
 
     for term in term_list:
-        if not isinstance(term, str):
-            raise TypeError(f"Failed on {term}: all terms in term_list must be strings")
-        if term.lower() in phrase.lower():
+        if isinstance(term, list):
+            if terms_present(phrase, term, find_any=False):
+                if find_any:
+                    return 1
+                n_present += 1
+        elif term.lower() in phrase.lower():
             if find_any:
                 return 1
             n_present += 1
     if n_present == len(term_list):
         return 1
     return 0
+
+
+def get_list_govt_entities(entity_endpoint: str, session: object):
+    """Queries constants endpoint to get a standardized list of government entities"""
+    govt_entities = session.get(entity_endpoint, timeout=60)
+    entity_df = pd.DataFrame(govt_entities.json())
+    entities = sorted([x.lower() for x in list(entity_df["name"])])
+    return entities
 
 
 def substitute(
@@ -176,12 +116,8 @@ def parse_client_names(
     for co in config["use_these_name_subsets_for_organiztions"]:
         client_names = [co if co in x else x for x in client_names]
 
-    # bespoke replacements of terms
+    # bespoke replacements and handling of mergers
     for key, value in config["replace_names_on_left_with_names_on_right"].items():
-        client_names = [x.replace(key, value) for x in client_names]
-
-    # bespoke company name handling, handling of mergers
-    for key, value in config["company_name_replacements"].items():
         client_names = [x.replace(key, value) for x in client_names]
 
     # make a renaming dictionary
@@ -190,7 +126,11 @@ def parse_client_names(
     # add the 'remove' companies to the rename dictionary
     remove_companies = config["remove_companies_containing_these_terms"]
     for x in client_name_rename_dict.keys():
-        if terms_present(client_name_rename_dict[x], remove_companies, find_any=True):
+        if terms_present(
+            client_name_rename_dict[x],
+            remove_companies,
+            find_any=True,
+        ):
             client_name_rename_dict[x] = "remove"
 
     # make new column with renames
@@ -225,16 +165,18 @@ def get_latest_filings(
     return df
 
 
-def get_search_terms(search_term_list: List[str]):
-    """extracts search terms from list used for LDA API query and puts them into lists for use here"""
+def invert_sector_dict(sectors_path) -> Dict[str, str]:
+    """reads in the sector assignment yaml to dict; inverts dict s.t. each company is a key"""
+    sector_assignments = yaml_to_dict(sectors_path)
 
-    terms = []
-    for t in search_term_list:
-        if "," in t:
-            terms.append(t.replace('"', "").split(","))
-        else:
-            terms.append([t.replace('"', "")])
+    all_companies = []
+    for _, value in sector_assignments.items():
+        all_companies = all_companies + value
+    # print(all_companies)
 
-    terms = [[substitute(t) for t in tt] for tt in terms]
+    company_sector_dict = {}
+    for k, vv in sector_assignments.items():
+        for v in vv:
+            company_sector_dict = company_sector_dict | {v: k}
 
-    return terms
+    return company_sector_dict
