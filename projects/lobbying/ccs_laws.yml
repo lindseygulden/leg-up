@@ -25,23 +25,33 @@ mostly_ccs_provisions:
 - '"Department of Energy Clean Hydrogen and Fuel Cell Research"'
 - '"Energy Sector Innovation Credit Act"' #2021: mostly new stuff for CCS, 'clean' hydrogen, production of electricity from those. introduced by tom reed r-ny
 - '"Energy Innovation and Carbon Dividend Act","capture"'
-- '"Energy Innovation and Carbon Dividend Act","sequest"'
-- '"Methane Reduction and Econ","capture"'
-- '"Methane Reduction and Econ","sequest"'
-- '"Methane Reduction and Econ","credit"'
-- '"Methane Reduction and Econ","45"'
+- '"Energy Innovation and Carbon Dividend Act","sequestration"'
+- '"Energy Innovation and Carbon Dividend Act","CCS"'
+- '"Energy Innovation and Carbon Dividend Act","CCUS"'
+- '"Methane Reduction and Economic Growth Act","capture"'
+- '"Methane Reduction and Economic Growth Act","sequestration"'
+- '"Methane Reduction and Economic Growth Act","credit"'
 - '"POPP Act","capture"'
 - '"POPP Act","hydrogen"'
-- '"POPP Act","sequest"'
+- '"POPP Act","sequestration"'
 - '"POPP Act","utilization"'
-- '"Blue Collar and Green","capture"'
-- '"Blue Collar and Green","sequest"'
-- '"Blue Collar and Green","ethanol"'
-- '"Blue Collar and Green","blue ammonia"'
-- '"U.S.-Israel Partnership and Abraham","carbon"'
-- '"U.S.-Israel Partnership and Abraham","sequest"'
-- '"U.S.-Israel Partnership and Abraham","storage"'
+- '"POPP Act","CCS"'
+- '"POPP Act","CCUS"'
+- '"POPP Act","CCUS"'
+- '"Blue Collar and Green Collar Jobs Development Act","capture"'
+- '"Blue Collar and Green Collar Jobs Development Act","CCUS"'
+- '"Blue Collar and Green Collar Jobs Development Act","CCS"'
+- '"Blue Collar and Green Collar Jobs Development Act","storage and use"'
+- '"Blue Collar and Green Collar Jobs Development Act","sequestration"'
+- '"Blue Collar and Green Collar Jobs Development Act","co2"'
+- '"U.S.-Israel Partnership and Abraham Accords Enhancement Act","carbon"'
+- '"U.S.-Israel Partnership and Abraham Accords Enhancement Act","sequestration"'
+- '"U.S.-Israel Partnership and Abraham Accords Enhancement Act","CCS"'
+- '"U.S.-Israel Partnership and Abraham Accords Enhancement Act","CCUS"'
+- '"U.S.-Israel Partnership and Abraham Accords Enhancement Act","storage and use"'
 - '"Americas Act","capture"'
+- '"Americas Act","CCUS"'
+- '"Americas Act","CCS"'
 - '"Americas Act","storage and use"'
 - '"Americas Act","sequestration"'
 - '"Bailout Bill","sequestration"'
@@ -61,13 +71,13 @@ mostly_ccs_provisions:
 - '"117-169","capture"'
 - '"IRA","capture"' # 117-169
 - '"Bipartisan Budget Act of 2018","45"' #115-123
-- '"115-123","45"' #PL number of Bipartisan Budget Act of 2018
+- '"115-123","45Q"' #PL number of Bipartisan Budget Act of 2018
 - '"Infrastructure Investment and Jobs","45"' # 2021 (117-58)
-- '" IIJA ","45"' # 2021 (117-58)
-- '"117-58","45"'
-- '"Inflation Reduction Act","45"' #2022 117-169
-- '"117-169","45"'
-- '"IRA","45"' # 117-169
+- '" IIJA ","45Q"' # 2021 (117-58)
+- '"117-58","45Q"'
+- '"Inflation Reduction Act","45Q"' #2022 117-169
+- '"117-169","45Q"'
+- '"IRA","45Q"' # 117-169
 - '"100 by 50","capture"' # name of a 2017 act introduced by polis
 - '"IMPACT Act","capture"' # contains carbon capture provisions for cement
 - '"Limit Save Grow","capture"' #2023: introduced version in the house (Arrington) had change to carbon oxide sequestration
@@ -93,6 +103,32 @@ mostly_ccs_provisions:
 - '"Consolidated Appropriations Act, 2016","capture"' #(114-113)
 - '"114-113","capture"'
 - '"End Polluter Welfare Act","capture"'
+- '"Inflation Reduction Act","capture"'
+- '"Inflation Reduction Act","pipeline safety"'
+- '" IIJA ","pipeline safety"'
+- '"Inflation Reduction Act","steel"'
+- '"Inflation Reduction Act","cement"'
+- '"Inflation Reduction Act","power generation"'
+- '"Inflation Reduction Act","generation"'
+- '"Inflation Reduction Act","coal"'
+- '"Infrastructure Investment and Jobs","ethanol"'
+- '"Infrastructure Investment and Jobs","ammonia"'
+- '"Infrastructure Investment and Jobs","pipeline safety"'
+- '"Infrastructure Investment and Jobs","steel"'
+- '"Infrastructure Investment and Jobs","cement"'
+- '"Infrastructure Investment and Jobs","coal"'
+- '"11758","ethanol"'
+- '"11758","ammonia"'
+- '"11758","pipeline safety"'
+- '"11758","steel"'
+- '"11758","cement"'
+- '"11758","coal"' # 2021 (117-58)
+- '"117169","ethanol"'
+- '"117169","ammonia"'
+- '"117169","pipeline safety"'
+- '"117169","steel"'
+- '"117169","cement"'
+- '"117169","coal"' # 2021 (117-58)
 contains_ccs_provisions:
 - '"110-140"' # Energy Independence and Security act of 2007
 - '"116-260"' # consolidated apprpriations act of 2021
