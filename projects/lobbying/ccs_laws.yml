@@ -1,30 +1,98 @@
 mostly_ccs_provisions:
 - '"Carbon Capture and Storage Early Deployment Act"' #2008 & 2009 by boucher
-- '"Carbon Capture Utilization and Storage Tax Credit Amendments Act"' #2020 and 2021 introduction by Smith and Capito
+- '"Carbon Capture Utilization and Storage Tax"' #2020 and 2021 introduction by Smith and Capito
 - '"Carbon Capture and Storage Technology Act"' #2007
-- '"Carbon Capture and Storage Research Development and Demonstration Act"' #2007; 110-140
-- '"Enhancing Fossil Fuel Energy Carbon Technology Act"' #2019 introduced by Manchin
+- '"Carbon Capture and Storage Research Development"' #2007; 110-140
+- '"Enhancing Fossil Fuel Energy Carbon Technology"' #2019 introduced by Manchin
 - '"Carbon Capture Modernization Act"'
 - '"EFFECT Act"'
-- '"Advanced Clean Coal Technology Investment in Our Nation Act"' #2015
+- '"Advanced Clean Coal Technology Investment"' #2015
 - '"Responsible Use of Coal Act"' #2009
 - '"ACCTION Act"' #2015
-- '"Utilizing Significant Emissions with Innovative Technologies' #2020 S. 4074
+- '"Utilizing Significant Emissions with Innovative' #2020 S. 4074
 - '" USE IT Act"'
-- '"Carbon Capture Modernization Act"' #2017 S1281
-- '"Fossil Energy Research and Development Act' # 2020: mostly ccs, with a bit of methane leak detection 
+- '"Carbon Capture Modernization "' #2017 S1281
+- '"Fossil Energy Research and Development ' # 2020: mostly ccs, with a bit of methane leak detection 
 - '"Boxer Substitute Amendment"' #  to SB3036
 - '"CREST Act"'
-- '"Carbon Dioxide Removal Research and Development Act"'
 #- '"Boxer Amendment"' # to SB3036
 - '"Boxer-Kerry"'
 - '"Boxer Kerry"'
-- '"Storing CO2 and Lowering Emissions Act"' # introduced by Veasey of texas
+- '"Storing CO2 and Lowering Emissions"' # introduced by Veasey of texas
 - '"SCALE Act"'
 - '"CCU Parity"'
-- '"Carbon Dioxide Removal Research and Development Act"'
-- '"Department of Energy Clean Hydrogen and Fuel Cell Research Development and Demonstration Act"'
+- '"Carbon Dioxide Removal Research"'
+- '"Department of Energy Clean Hydrogen and Fuel Cell Research"'
 - '"Energy Sector Innovation Credit Act"' #2021: mostly new stuff for CCS, 'clean' hydrogen, production of electricity from those. introduced by tom reed r-ny
+- '"Energy Innovation and Carbon Dividend Act","capture"'
+- '"Energy Innovation and Carbon Dividend Act","sequest"'
+- '"Methane Reduction and Econ","capture"'
+- '"Methane Reduction and Econ","sequest"'
+- '"Methane Reduction and Econ","credit"'
+- '"Methane Reduction and Econ","45"'
+- '"POPP Act","capture"'
+- '"POPP Act","hydrogen"'
+- '"POPP Act","sequest"'
+- '"POPP Act","utilization"'
+- '"Blue Collar and Green","capture"'
+- '"Blue Collar and Green","sequest"'
+- '"Blue Collar and Green","ethanol"'
+- '"Blue Collar and Green","blue ammonia"'
+- '"U.S.-Israel Partnership and Abraham","carbon"'
+- '"U.S.-Israel Partnership and Abraham","sequest"'
+- '"U.S.-Israel Partnership and Abraham","storage"'
+- '"Americas Act","capture"'
+- '"Americas Act","storage and use"'
+- '"Americas Act","sequestration"'
+- '"Bailout Bill","sequestration"'
+- '"Bailout Bill","capture"'
+- '"American Recovery and Reinvestment","capture"' #2009, 111-5 
+- '" ARRA ","capture"' # abbrev for previous (111-5)
+- '"111-5","capture"'
+- '"Consolidated Appropriations Act, 2021","capture"'
+- '"Energy Act of 2020","capture"'
+- '"116-260","capture"' #PL number of Consolidated Appropriations Act of 2021
+- '"North American Energy Security and Infrastructure","capture"' #2016
+- '"Energy Policy Modernization Act","capture"' #2015 (seems to be a previous version of NAESIA above)
+- '"Infrastructure Investment and Jobs","capture"' # 2021 (117-58)
+- '" IIJA ","capture"' # 2021 (117-58)
+- '"117-58","capture"'
+- '"Inflation Reduction Act","capture"' #2022 117-169
+- '"117-169","capture"'
+- '"IRA","capture"' # 117-169
+- '"Bipartisan Budget Act of 2018","45"' #115-123
+- '"115-123","45"' #PL number of Bipartisan Budget Act of 2018
+- '"Infrastructure Investment and Jobs","45"' # 2021 (117-58)
+- '" IIJA ","45"' # 2021 (117-58)
+- '"117-58","45"'
+- '"Inflation Reduction Act","45"' #2022 117-169
+- '"117-169","45"'
+- '"IRA","45"' # 117-169
+- '"100 by 50","capture"' # name of a 2017 act introduced by polis
+- '"IMPACT Act","capture"' # contains carbon capture provisions for cement
+- '"Limit Save Grow","capture"' #2023: introduced version in the house (Arrington) had change to carbon oxide sequestration
+- '" SUPER Act","capture"' # 2021 contains provisions for carbon capture for steel making
+- '"Innovation and Competition","capture"' #2021 introduced by Johnson (D-TX) -- some versions have CCS for steelmaking provisions
+- '"Energy Infrastructure Act","capture"' #2021 introduced by manchin: deals with CCS
+- '"CHIPS and Science","capture"-"semi"' # 2021: includes the provisions for carbon capture in steelmaking. Became 117-167
+- '"117-167","capture"'
+- '"Electricity Security and Affordability","capture"' #2014 passed house; introduced r whitfield r-ky
+- '"Clean Energy Future Through Innovation","capture"' #2021: includes bunches on CCUS: from WV republican sneator McKinley
+- '"American Energy Opportunity","capture"'
+- '"Infrastructure Jobs and Energy Independence","capture"' #2011 -- makes CCS projects eligible for huge govt assistance
+- '"Upstate Works","capture"' #2011 makes ccs eligbile for big govt loans
+- '"Investments for Manufacturing Progress and Clean Technology","capture"' # 2009  makes ccs eligbile for loans
+- '"Reports Reduction Act of 2016","capture"' # got rid of a report: 'Carbon Capture and Sequestration Research, Development, and Demonstration Program Report.--Section 963(c) of the Energy Policy Act of 2005 (42 U.S.C. 16293(c)) is amended by striking paragraph (6).'
+- '"American Energy Innovation Act","capture"' #2009, also in 2015
+- '"Clean Energy Innovation and Deployment","capture"' #2021
+- '"Lieberman-Warner","capture"' #' Climate Security Act"'
+- '"Lieberman Warner","capture"'
+- '"Clean Energy Jobs and American Power","capture"' #2009
+- '"Climate Leadership and Environmental","capture"'
+- '"CLEAN Future Act","capture"'
+- '"Consolidated Appropriations Act, 2016","capture"' #(114-113)
+- '"114-113","capture"'
+- '"End Polluter Welfare Act","capture"'
 contains_ccs_provisions:
 - '"110-140"' # Energy Independence and Security act of 2007
 - '"116-260"' # consolidated apprpriations act of 2021
@@ -34,15 +102,13 @@ contains_ccs_provisions:
 - '"National Defense Authorization Act for Fiscal Year 2021"'
 - '"Making appropriations for energy and water development and related"' #2021 (yes, that's a bill name) -- more money to FERD
 - '"Defense Commerce Justice Science Energy and Water Development"' #real act has much longer name: contains CCS $ given to Fossil energy research and development
-- '"New Direction for Energy Independence National Security and Consumer Protection"' #2007
+- '"New Direction for Energy Independence National Security"' #2007
 - '"Energy Savings Act of 2007"'  #promotes biofuels, energy efficiency, CCS and other purposes
 - '"Energy Policy Act of 2005"' #109-58
 - '"109-58"'
 - '"Housing and Economic Recovery"' # original versions had CCS provisions in it
 - '"Energy Improvement and Extension"' #2008 Bailout bill Divison B https://www.congress.gov/bill/110th-congress/house-bill/1424/titles?s=2&r=5&q=%7B%22search%22%3A%22%5C%22Energy+Improvement+and+Extension+Act%5C%22%22%7D
 - '"110-343"' # PL number of Energy Improvement and Extension Act
-- '"Bailout Bill","sequestration"'
-- '"Bailout Bill","capture"'
 - '" ACELA "'
 - '" SEA Act of 2008"' #increases funding for CCS research
 - '"American Clean Energy Leadership "' #2009
