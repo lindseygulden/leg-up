@@ -38,7 +38,7 @@ logging.basicConfig(level=logging.INFO)
     "--input_dir", type=click.Path(file_okay=False, dir_okay=True), required=True
 )
 @click.option(
-    "--output_file", type=click.Path(file_okay=True, dir_okay=False), required=False
+    "--output_file", type=click.Path(file_okay=True, dir_okay=False), required=True
 )
 def postprocess_ccs(
     config: Union[str, PosixPath],
@@ -64,7 +64,6 @@ def postprocess_ccs(
         for f in listdir(input_dir)
         if isfile(join(input_dir, f)) and (f.split(".")[-1] == "csv")
     ]
-    print(input_files)
     logging.info(
         " ----- Reading, postprocessing, and compiling the %s files in %s ",
         str(len(input_files)),
@@ -130,8 +129,6 @@ def postprocess_ccs(
         ccs_df["batch"] = config_info["batch_name"]
     ccs_df.to_csv(output_file, index=False)
 
-    if output_file == "compiled.csv":
-        output_file = join(input_dir, output_file)
     logging.info(
         " ----- Postprocessed file written to %s ",
         str(output_file),

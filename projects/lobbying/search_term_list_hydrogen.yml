@@ -1,0 +1,198 @@
+# search terms for use in the lda querying interface. Note that all terms below will be joined with an 'OR'
+search_term_list:
+- '"section 45","hydrogen"'
+- '"lowcarbon","hydrogen"'
+- '"low carbon","hydrogen"'
+- '"section 45","electricity"'
+- '"lowcarbon","electricity"'
+- '"low carbon","electricity"'
+- '"section 45","electric"'
+- '"lowcarbon","electric"'
+- '"low carbon","electric"'
+- '"Inflation Reduction Act","hydrogen"'
+- '"Infrastructure Investment and Jobs","hydrogen"'
+- '"Infrastructure Investment and Jobs","electricity"'
+- '"Infrastructure Investment and Jobs","electric"'
+- '"11758","hydrogen"'
+- '"11758","electricity"'
+- '"11758","electric"'
+- '"117169","hydrogen"'
+- '"117169","electricity"'
+- '"117169","electric"'
+- '"capture","electric"'
+- '"capture","electricity"'
+laws_restricted_by_terms:
+- '"Energy Innovation and Carbon Dividend Act","capture"'
+- '"Energy Innovation and Carbon Dividend Act","sequestration"'
+- '"Energy Innovation and Carbon Dividend Act","CCS"'
+- '"Energy Innovation and Carbon Dividend Act","CCUS"'
+- '"Methane Reduction and Economic Growth Act","capture"'
+- '"Methane Reduction and Economic Growth Act","sequestration"'
+- '"Methane Reduction and Economic Growth Act","credit"'
+- '"Methane Reduction and Economic Growth Act","45"'
+- '"POPP Act","capture"'
+- '"POPP Act","hydrogen"'
+- '"POPP Act","sequestration"'
+- '"POPP Act","utilization"'
+- '"POPP Act","CCS"'
+- '"POPP Act","CCUS"'
+- '"POPP Act","CCUS"'
+- '"Blue Collar and Green Collar Jobs Development Act","capture"'
+- '"Blue Collar and Green Collar Jobs Development Act","CCUS"'
+- '"Blue Collar and Green Collar Jobs Development Act","CCS"'
+- '"Blue Collar and Green Collar Jobs Development Act","storage and use"'
+- '"Blue Collar and Green Collar Jobs Development Act","sequestration"'
+- '"Blue Collar and Green Collar Jobs Development Act","co2"'
+- '"U.S.-Israel Partnership and Abraham Accords Enhancement Act","carbon"'
+- '"U.S.-Israel Partnership and Abraham Accords Enhancement Act","sequestration"'
+- '"U.S.-Israel Partnership and Abraham Accords Enhancement Act","CCS"'
+- '"U.S.-Israel Partnership and Abraham Accords Enhancement Act","CCUS"'
+- '"U.S.-Israel Partnership and Abraham Accords Enhancement Act","storage and use"'
+- '"Americas Act","capture"'
+- '"Americas Act","CCUS"'
+- '"Americas Act","CCS"'
+- '"Americas Act","storage and use"'
+- '"Americas Act","sequestration"'
+probably_ccs:
+- sustainable aviation
+- removal of carbon
+- removal of co2
+- - capture
+  - carbon
+- - capture
+  - co2
+- - section 45
+  - tax
+- - biofuel
+  - low emission
+- - biofuel
+  - lowemission
+- - biofuel
+  - zero emission
+- - biofuel
+  - zeroemission
+- - biodiesel
+  - low emission
+- - biodiesel
+  - lowemission
+- - biodiesel
+  - zero emission
+- - biodiesel
+  - zeroemission
+- biomethanol
+- waste to energy
+#- 'demonstration project'
+- 'lowemissions fuel'
+- 'low emissions fuel'
+- - 'sequestration'
+  - 'carbon'
+- - 'sequestration'
+  - 'capture'
+- - 'sequestration'
+  - 'tax credit'
+- 'class vi'
+- 'class six'
+- 'classvi'
+- 'primacy'
+- 'negative emission'
+- 'negativeemission'
+- 'hydrogen'
+- ' CDR '
+- - 'capture'
+  - 'carbon'
+- 'tertiary oil recovery'
+- 'tertiary recovery'
+- 'co2 flooding'
+- ' DAC '
+- 'direct air capture'
+- - 'tax credit'
+  - hydrogen
+- - 'tax credit'
+  - capture
+- - 'zeroemission'
+  - 'fuel'
+- - 'zero emission'
+  - 'fuel'
+- - 'lowcarbon'
+  - cement
+- - 'low carbon'
+  - cement
+- - 'lowemission'
+  - cement
+- - 'low emission'
+  - cement
+- - 'lowcarbon'
+  - concrete
+- - 'low carbon'
+  - concrete
+- - 'lowemission'
+  - concrete
+- - 'low emission'
+  - concrete
+- carbon solution
+- - primacy
+  - well
+maybe_ccs:
+- - 'lowemission'
+  - fuel
+- - 'low emission'
+  - fuel
+- - biomass
+  - energy
+- - 'alternative fuel'
+  - waste
+- - 'alternative fuel'
+  - bio
+- - 'alternative fuel'
+  - agric
+- - 'alternative fuel'
+  - crop
+- - 'alternative fuel'
+  - corn
+- ethanol
+- - 'life cycle analysis'
+  - 'carbon'
+- - 'monitoring reporting and verification'
+  - 'carbon'
+- - 'life cycle analysis'
+  - 'co2'
+- - 'monitoring reporting and verification'
+  - 'co2'
+- - 'lowcarbon'
+  - fuel
+- - 'low carbon'
+  - fuel
+- 'lowcarbon'
+- 'low carbon'
+- 'lowemission'
+- 'low emission'
+- energy innovation
+- carbon recycling
+- sustainable carbon solutions
+- climate solutions
+- clean energy technology
+- negative emission
+- - 'innovative technology'
+  - energy
+  - climate
+- ' FERD '
+- 'air capture'
+not_ccs:
+- ' drone '
+- 'hospital'
+- 'health care'
+- 'healthcare'
+- 'immigration'
+- 'green hydrogen'
+- 'solar energy'
+- 'wind energy'
+- 'renewable energy technology'
+- 'building codes'
+- 'real estate'
+- realtor
+- REIT
+- medicine
+- medical
+        
+
+
