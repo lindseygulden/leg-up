@@ -101,9 +101,7 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     ccs_bills = get_ccs_bills(config_info)
 
     # for simple dictionaries defined in the search term lists (not ccs, probably ccs, and maybe ccs)
-    search_terms = yaml_to_dict(config_info["search_term_list_path"])[
-        "search_term_list"
-    ]
+    search_term_dict = yaml_to_dict(config_info["search_term_list_path"])
 
     # get rid of nans in lobbying activity description
     df.clean_description = df.clean_description.fillna(" ")
@@ -127,17 +125,17 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
 
     # are some of the terms that negate it being likely ccs (e.g., 'healthcare') present?
     df["not_ccs"] = [
-        terms_present(x, search_terms["not_ccs"]) for x in df.clean_description
+        terms_present(x, search_term_dict["not_ccs"]) for x in df.clean_description
     ]
 
     # are terms that indicate this is probably--but not definitely ccs present?
     df["terms_probably_ccs"] = [
-        terms_present(x, search_terms["probably_ccs"]) for x in df.clean_description
+        terms_present(x, search_term_dict["probably_ccs"]) for x in df.clean_description
     ]
 
     # are terms that indicate this is probably--but not definitely ccs present?
     df["terms_maybe_ccs"] = [
-        terms_present(x, search_terms["maybe_ccs"]) for x in df.clean_description
+        terms_present(x, search_term_dict["maybe_ccs"]) for x in df.clean_description
     ]
 
     # classify something as very likely CCS if it has a ccs description, is a ccs company,
