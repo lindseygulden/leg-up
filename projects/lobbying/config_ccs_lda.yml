@@ -5,11 +5,13 @@ entity_endpoint: https://lda.senate.gov/api/v1/constants/filing/governmententiti
 filings_endpoint: https://lda.senate.gov/api/v1/filings/
 lda_apikey: b6c22528b6697dc3bf1fbf9ff5200d28d9991889
 lda_username: lindseyegulden
-lobbyist_filename_prefix: ccs_lda_lobbyists_revised_terms
+#lobbyist_filename_prefix: ccs_lda_lobbyists_revised_terms
+lobbyist_filename_prefix: ccs_lda_lobbyists_revised_laws
 #lobbyist_filename_prefix: ccs_lobbyists_specific_laws
 #lobbyist_filename_prefix: ccs_lobbyists_iron_no_ccs
 #lobbyist_filename_prefix: ccs_lobbyists_hydrogen
-output_filename_prefix: ccs_lda_filings_revised_terms
+o3utput_filename_prefix: ccs_lda_filings_revised_terms
+output_filename_prefix: ccs_lda_filings_revised_laws
 #output_filename_prefix: ccs_lda_filings_hydrogen
 #output_filename_prefix: ccs_lda_filings_iron_no_ccs
 #output_filename_prefix: ccs_lda_filings_ccs_specific_laws
