@@ -164,6 +164,10 @@ search_term_list:
 - '"capture","cement"'
 #- '"capture","coal"' # 2021 (117-58)
 probably_ccs:
+- low emission steel
+- low emissions steel
+- zero emission steel
+- zero emissions steel
 - low carbon steel
 - low carbon ammonia
 - low carbon cement
@@ -196,7 +200,14 @@ probably_ccs:
   - zero emission
 - - biodiesel
   - zeroemission
-- biomethanol
+- - biofuel
+  - capture
+- - biodiesel
+  - capture
+- - biomass
+  - capture
+- - biomethanol
+  - capture
 - waste to energy
 #- 'demonstration project'
 - 'lowemissions fuel'
