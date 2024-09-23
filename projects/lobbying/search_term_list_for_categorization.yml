@@ -213,6 +213,8 @@ probably_ccs:
 - 'primacy'
 - 'negative emission'
 - 'negativeemission'
+- 'hydrogen'
+- ' CDR '
 - - 'capture'
   - 'carbon'
 - 'tertiary oil recovery'

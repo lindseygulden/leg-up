@@ -1,4 +1,4 @@
-"""script to read in files read out by ccs"""
+"""script to read in files read out by ccs and compile them into a single csv"""
 
 import pandas as pd
 from utils.io import yaml_to_dict
@@ -16,7 +16,7 @@ import pandas as pd
 import logging
 import click
 from utils.api import api_authenticate
-from projects.lobbying.postproc import (
+from projects.lobbying.postproc_utils import (
     parse_client_names,
     get_smarties,
     get_list_govt_entities,
@@ -40,7 +40,7 @@ logging.basicConfig(level=logging.INFO)
 @click.option(
     "--output_file", type=click.Path(file_okay=True, dir_okay=False), required=True
 )
-def postprocess_ccs(
+def compile_ccs_files(
     config: Union[str, PosixPath],
     input_dir: Union[str, PosixPath],
     output_file: Union[str, PosixPath] = "compiled.csv",
@@ -130,10 +130,10 @@ def postprocess_ccs(
     ccs_df.to_csv(output_file, index=False)
 
     logging.info(
-        " ----- Postprocessed file written to %s ",
+        " ----- Compiled file written to %s ",
         str(output_file),
     )
 
 
 if __name__ == "__main__":
-    postprocess_ccs()
+    compile_ccs_files()

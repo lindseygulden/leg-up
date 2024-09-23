@@ -146,7 +146,10 @@ def get_smarties(
     row: Union[pd.Series, List[Union[bool, int]]], names: List[str]
 ) -> List[str]:
     if isinstance(row, pd.Series):
-        return list(compress(names, row[names].values.tolist()))
+        if len(row) == 0:
+            return []
+        else:
+            return list(compress(names, row[names].values.tolist()))
     if isinstance(row, list):
         return list(compress(names, row))
     raise TypeError("get_smarties argument 'row' must be a Pandas Series or a list")

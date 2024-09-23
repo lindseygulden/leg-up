@@ -1,4 +1,8 @@
 mostly_ccs_provisions:
+- '"CO2 Regulatory Certainty"'
+- '"C02 Regulatory Certainty"'
+- '"Carbon Capture Improvement Act"'
+- '"Accelerating Carbon Capture and Sequestration Act"'
 - '"Carbon Capture and Storage Early Deployment Act"' #2008 & 2009 by boucher
 - '"Carbon Capture Utilization and Storage Tax"' #2020 and 2021 introduction by Smith and Capito
 - '"Carbon Capture and Storage Technology Act"' #2007
@@ -100,6 +104,8 @@ mostly_ccs_provisions:
 - '"Clean Energy Jobs and American Power","capture"' #2009
 - '"Climate Leadership and Environmental","capture"'
 - '"CLEAN Future Act","capture"'
+- '" CREATE Act","storage"'
+- '" CREATE Act","sequestration"'
 - '"Consolidated Appropriations Act, 2016","capture"' #(114-113)
 - '"114-113","capture"'
 - '"End Polluter Welfare Act","capture"'
@@ -117,18 +123,17 @@ mostly_ccs_provisions:
 - '"Infrastructure Investment and Jobs","steel"'
 - '"Infrastructure Investment and Jobs","cement"'
 - '"Infrastructure Investment and Jobs","coal"'
-- '"11758","ethanol"'
-- '"11758","ammonia"'
-- '"11758","pipeline safety"'
-- '"11758","steel"'
-- '"11758","cement"'
-- '"11758","coal"' # 2021 (117-58)
-- '"117169","ethanol"'
-- '"117169","ammonia"'
-- '"117169","pipeline safety"'
-- '"117169","steel"'
-- '"117169","cement"'
-- '"117169","coal"' # 2021 (117-58)
+- '"117-58","pipeline safety"'
+- '"117-58","steel"'
+- '"117-58","cement"'
+#- '"117-58","coal"' # 2021 (117-58)
+#- '"117-169","ethanol"'
+- '"117-169","hydrogen","natural gas"'
+- '"117-58","hydrogen","natural gas"'
+- '"117-169","pipeline safety"'
+- '"117-169","steel"'
+- '"117-169","cement"'
+#- '"117-169","coal"' # 2021 (117-58)
 contains_ccs_provisions:
 - '"110-140"' # Energy Independence and Security act of 2007
 - '"116-260"' # consolidated apprpriations act of 2021
