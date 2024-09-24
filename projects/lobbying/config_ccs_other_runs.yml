@@ -92,7 +92,7 @@ subset_and_order_of_writeout_columns: # does not include entity binary column na
   - who_is_lobbying
   - dollars_spent_lobbying
   - lobbying_activity_usd
-  - affiliated_organizations_present
+  - executive_entities_lobbied
   - very_likely_ccs
   - likely_ccs
   - potentially_ccs

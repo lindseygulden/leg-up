@@ -81,6 +81,9 @@ subset_and_order_of_writeout_columns: # does not include entity binary column na
   - who_is_lobbying
   - dollars_spent_lobbying
   - lobbying_activity_usd
+  - n_entities_lobbied
+  - legistlative_entities_lobbied
+  - executive_entities_lobbied
   - affiliated_organizations_present
   - very_likely_ccs
   - likely_ccs
@@ -101,6 +104,7 @@ subset_and_order_of_writeout_columns: # does not include entity binary column na
   - contains_ccs_description
   - ccs_company
   - ccs_bills
+  - bill_contains_some_ccs
   - not_ccs
   - terms_probably_ccs
   - terms_maybe_ccs

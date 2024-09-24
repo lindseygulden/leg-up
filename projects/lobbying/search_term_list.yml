@@ -58,9 +58,9 @@ search_term_list:
 - '"hydrogen hubs"'
 - '"clean hydrogen"'
 - '"blue hydrogen"'
-- '"CCS"'
-- '"CC&S"'
-- '"CCUS"'
+- '" CCS"'
+- '" CC&S"'
+- '" CCUS"'
 - '" CCU "'
 - '"section 45","capture"'
 - '"section 45","sequestration"'
@@ -161,7 +161,7 @@ search_term_list:
 - '"capture","ethanol"'
 #- '"capture","ammonia"'
 - '"capture","steel"'
-- '"capture","cement"'
+- '"capture"," cement"'
 #- '"capture","coal"' # 2021 (117-58)
 probably_ccs:
 - low emission steel
@@ -240,13 +240,13 @@ probably_ccs:
 - - 'zero emission'
   - 'fuel'
 - - 'lowcarbon'
-  - cement
+  - ' cement'
 - - 'low carbon'
-  - cement
+  - ' cement'
 - - 'lowemission'
-  - cement
+  - ' cement'
 - - 'low emission'
-  - cement
+  - ' cement'
 - - 'lowcarbon'
   - concrete
 - - 'low carbon'
@@ -319,6 +319,6 @@ not_ccs:
 - REIT
 - medicine
 - medical
-        
+- FCC
 
 

@@ -72,7 +72,7 @@ mostly_ccs_provisions:
 - '"Infrastructure Jobs and Energy","capture"' #2011 -- makes CCS projects eligible for huge govt assistance
 - '"Upstate Works","capture"' #2011 makes ccs eligbile for big govt loans
 - '"Investments for Manufacturing","capture"' # 2009  makes ccs eligbile for loans
-- '"Reduction Act of 2016","capture"' # got rid of a report: 'Carbon Capture and Sequestration Research, Development, and Demonstration Program Report.--Section 963(c) of the Energy Policy Act of 2005 (42 U.S.C. 16293(c)) is amended by striking paragraph (6).'
+#- '"Reduction Act of 2016","capture"' # got rid of a report: 'Carbon Capture and Sequestration Research, Development, and Demonstration Program Report.--Section 963(c) of the Energy Policy Act of 2005 (42 U.S.C. 16293(c)) is amended by striking paragraph (6).'
 - '"American Energy Innovation","capture"' #2009, also in 2015
 - '"Clean Energy Innovation and Deployment","capture"' #2021
 - '"Lieberman-Warner","capture"' #' Climate Security Act"'
@@ -89,20 +89,20 @@ mostly_ccs_provisions:
 - '"Inflation Reduction","pipeline safety"'
 - '" IIJA ","pipeline safety"'
 - '"Inflation Reduction","steel"'
-- '"Inflation Reduction","cement"'
+- '"Inflation Reduction"," cement"'
 - '"Infrastructure Investment","pipeline safety"'
 - '"Infrastructure Investment","steel"'
-- '"Infrastructure Investment","cement"'
+- '"Infrastructure Investment"," cement"'
 - '"117-58","pipeline safety"'
 - '"117-58","steel"'
-- '"117-58","cement"'
+- '"117-58"," cement"'
 #- '"117-58","coal"' # 2021 (117-58)
 #- '"117-169","ethanol"'
 - '"117-169","hydrogen","natural gas"'
 - '"117-58","hydrogen","natural gas"'
 - '"117-169","pipeline safety"'
 - '"117-169","steel"'
-- '"117-169","cement"'
+- '"117-169"," cement"'
 #- '"117-169","coal"' # 2021 (117-58)
 contains_ccs_provisions:
 - '"110-140"' # Energy Independence and Security act of 2007

@@ -2,7 +2,7 @@
 
 import pandas as pd
 from utils.io import yaml_to_dict
-
+import numpy as np
 from typing import Union, Tuple, List
 import pandas as pd
 
@@ -63,22 +63,20 @@ def get_term_lists(config_info: dict) -> Tuple[List[str], List[List[str]]]:
         else:
             terms.append([t.replace('"', "")])
 
-    # terms = [[substitute(t) for t in tt] for tt in terms]
-
     single_terms = []
     multiple_terms = []
     for x in terms:
         if len(x) == 1:
-            single_terms.append(substitute(x[0], use_basename=False))
+            single_terms.append(x[0])
         else:
-            multiple_terms.append([substitute(xx, use_basename=False) for xx in x])
+            multiple_terms.append(x)
 
     return (single_terms, multiple_terms)
 
 
-def get_ccs_bills(config_info: dict):
+def get_ccs_bills(config_info: dict, which_laws: str):
     # get names of CCS bills
-    ccs_bills = yaml_to_dict(config_info["law_list_path"])["mostly_ccs_provisions"]
+    ccs_bills = yaml_to_dict(config_info["law_list_path"])[which_laws]
     ccs_bills = [substitute(x, use_basename=False) for x in ccs_bills]
     return ccs_bills
 
@@ -98,7 +96,10 @@ def assign_sectors(df: pd.DataFrame, config_info: dict):
 def identify_ccs(df: pd.DataFrame, config_info: dict):
     """Use terms, law names, & sectors to identify very-likely, likely, and potentially ccs activities"""
     single_terms, multiple_terms = get_term_lists(config_info)
-    ccs_bills = get_ccs_bills(config_info)
+    ccs_bills = get_ccs_bills(config_info, "mostly_ccs_provisions")
+    larger_bills_with_ccs_provisions = get_ccs_bills(
+        config_info, "contains_ccs_provisions"
+    )
 
     # for simple dictionaries defined in the search term lists (not ccs, probably ccs, and maybe ccs)
     search_term_dict = yaml_to_dict(config_info["search_term_list_path"])
@@ -122,7 +123,9 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
 
     # is a ccs bill or a ccs-heavy bill with keyword terms (e.g. 'capture') directly mentioned?
     df["ccs_bills"] = [terms_present(x, ccs_bills) for x in df.clean_description]
-
+    df["bill_contains_some_ccs"] = [
+        terms_present(x, larger_bills_with_ccs_provisions) for x in df.clean_description
+    ]
     # are some of the terms that negate it being likely ccs (e.g., 'healthcare') present?
     df["not_ccs"] = [
         terms_present(x, search_term_dict["not_ccs"]) for x in df.clean_description
@@ -178,7 +181,7 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     df["could_be_ccs"] = [
         (
             1
-            if (probably and (not lca) and (sector in config_info["core_ff_sectors"]))
+            if (maybe and (not lca) and (sector in config_info["core_ff_sectors"]))
             else 0
         )
         for maybe, sector, lca in zip(
@@ -272,10 +275,7 @@ def expand_and_tabulate_entities(
         for xx in df.entity_expanded
     ]
     df["executive_entities_lobbied"] = [
-        t - l
-        for t, l in zip(
-            cleaned_df.n_entities_lobbied, cleaned_df.legistlative_entities_lobbied
-        )
+        t - l for t, l in zip(df.n_entities_lobbied, df.legistlative_entities_lobbied)
     ]
     # make binary variables for each govt. entity
     for e in entities:
@@ -315,21 +315,21 @@ def postprocess_ccs(
     config_info = yaml_to_dict(config)
 
     all_df = pd.read_csv(input_file)
-
+    logging.info(" >>> Replacing company names")
     all_df = adjust_company_names(all_df, config_info)
-
+    logging.info(" >>> Assigning companies to sectors")
     all_df = assign_sectors(all_df, config_info)
-
+    logging.info(" >>> Identifying CCS lobbying activities")
     all_df = identify_ccs(all_df, config_info)
-
+    logging.info(" >>> Subsetting CCS lobbying activities")
     ccs_df = subset_to_ccs_only(all_df, config_info)
-
+    logging.info(" >>> Apportioning dollars to individual lobbying activities")
     ccs_df = apportion_filing_dollars_to_activities(ccs_df, config_info)
 
     ccs_df, entities = expand_and_tabulate_entities(ccs_df, config_info)
 
     ccs_df = add_political_party(ccs_df, config_info)
-
+    logging.info(" >>> Writing out data")
     ccs_df[config_info["subset_and_order_of_writeout_columns"] + entities].to_csv(
         output_file, index=False
     )
