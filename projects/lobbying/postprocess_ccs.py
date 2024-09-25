@@ -29,6 +29,23 @@ from projects.lobbying.postproc_utils import (
 logging.basicConfig(level=logging.INFO)
 
 
+def quarter_to_decimal(q: str) -> float:
+    """converts string quarter to decimal fraction of year"""
+    if q == "second_quarter":
+        return 135 / 365.25
+    if q == "third_quarter":
+        return 227 / 365.25
+    if q == "first_quarter":
+        return 46 / 365.25
+    if q == "fourth_quarter":
+        return 319 / 365.25
+    if q == "year_end":
+        return 274 / 265.25
+    if q == "mid_year":
+        return 91 / 365.25
+    raise ValueError("%s quarter string is not one of accepted strings.", q)
+
+
 def adjust_company_names(ccs_df: pd.DataFrame, config_info: dict):
     """Fills nans, replaces company names according to replacmeents specified in yaml"""
     ccs_df[config_info["clean_client_description_col"]] = ccs_df[
