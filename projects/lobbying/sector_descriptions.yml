@@ -1,3 +1,6 @@
+# terms used for first-pass segmentation of organizations and companies into sectors.
+# note that the organization-to-sector assignments were manually reviewed/adjusted 
+# after the initial pass
 auto and transportation:
   exclude:
   - automatic

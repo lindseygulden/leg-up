@@ -6,6 +6,20 @@ from typing import List
 import pandas as pd
 
 
+def assemble_issue_search_string(
+    term_list_path: Union[str, PosixPath], law_list_path: Union[str, PosixPath]
+):
+    """joins terms in term lists with an OR and returns as a single string for use in get query"""
+    term_list_dict = yaml_to_dict(term_list_path)
+    law_list_dict = yaml_to_dict(law_list_path)
+    search_string = "OR".join(
+        term_list_dict["search_term_list"]  # +
+        # law_list_dict["mostly_ccs_provisions"]
+    )
+    # law_list_dict["contains_ccs_provisions"]
+    return search_string
+
+
 def which_congress(which_year, based_on_year=True):
     """assigns a given year to the congress that was in session during that year"""
     if not based_on_year:

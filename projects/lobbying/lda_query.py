@@ -10,25 +10,15 @@ from typing import Dict, List, Union
 import click
 import pandas as pd
 
-from projects.lobbying.lobbying_utils import get_list_govt_entities, which_congress
+from projects.lobbying.lda_query_utils import (
+    get_list_govt_entities,
+    which_congress,
+    assemble_issue_search_string,
+)
 from utils.api import api_authenticate
 from utils.io import yaml_to_dict
 
 logging.basicConfig(level=logging.INFO)
-
-
-def assemble_issue_search_string(
-    term_list_path: Union[str, PosixPath], law_list_path: Union[str, PosixPath]
-):
-    """joins terms in term lists with an OR and returns as a single string for use in get query"""
-    term_list_dict = yaml_to_dict(term_list_path)
-    law_list_dict = yaml_to_dict(law_list_path)
-    search_string = "OR".join(
-        # term_list_dict["search_term_list"]  # +
-        law_list_dict["mostly_ccs_provisions"]
-    )
-    # law_list_dict["contains_ccs_provisions"]
-    return search_string
 
 
 def parse_dollars_spent(income, expense):

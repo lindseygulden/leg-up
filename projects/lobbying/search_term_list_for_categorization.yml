@@ -1,5 +1,7 @@
 # search terms for use in the lda querying interface. Note that all terms below will be joined with an 'OR'
 search_term_list:
+- '"45Z"'
+- '"45 Z"'
 - '"carbon capture"'
 - '"co2 capture"'
 - '"c02 capture"'
@@ -295,7 +297,7 @@ maybe_ccs:
 - ' FERD '
 - 'air capture'
 not_ccs:
-- ' drone '
+- ' drone'
 - 'hospital'
 - 'health care'
 - 'healthcare'
