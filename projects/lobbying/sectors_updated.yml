@@ -1,3 +1,4 @@
+# mapping of consolidated companies names into most-granular sector categorizations
 air transit:
 - JOBY AVIATION #ev plane
 - QUANTUM XYZ # ev plane
@@ -228,7 +229,7 @@ land transit:
 - ZERO EMISSIONS TRANSPORTATION ASSOCIATION #ev
 fuel cell:
 - ULTIUM CELLS
-- ZEROAVIA # air craft hydrogen electric ev? 
+- ZEROAVIA # air craft hydrogen electric ev?
 - PLUG POWER
 - BLOOM ENERGY
 - LILLIPUTIAN SYSTEMS
@@ -1052,7 +1053,7 @@ environmental:
 - CENTER FOR FOOD SAFETY
 - TRUST FOR PUBLIC LAND
 - APPALACHIAN TRAIL CONSERVANCY
-- LTC ACTION
+- LINDEN TRUST FOR CONSERVATION
 - NATURAL RESOURCES DEFENSE COUNCIL
 - MJBA COALITIONS
 - NATIONAL PARKS CONSERVATION ASSOCIATION
@@ -3461,7 +3462,7 @@ independent power producers:
 - COGENTRIX ENERGY
 - RWE
 # https://en.wikipedia.org/wiki/Investor-owned_utilities_in_the_United_States
-investor owned utilities: 
+investor owned utilities:
 - NORTHWEST NATURAL HOLDING COMPANY
 - COALITION FOR EQUITABLE REGULATION AND TAXATION # no detail on internet -- energy companies?
 - SOUTHERN CALIFORNIA EDISON

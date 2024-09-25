@@ -16,7 +16,7 @@ mostly_ccs_provisions:
 - '"Utilizing Significant Emissions' #2020 S. 4074
 - '" USE IT Act"'
 - '"Carbon Capture Modernization "' #2017 S1281
-- '"Fossil Energy Research and Development ' # 2020: mostly ccs, with a bit of methane leak detection 
+- '"Fossil Energy Research and Development ' # 2020: mostly ccs, with a bit of methane leak detection
 - '"Boxer Substitute Amendment"' #  to SB3036
 - '"CREST Act"'
 #- '"Boxer Amendment"' # to SB3036
@@ -36,7 +36,7 @@ mostly_ccs_provisions:
 - '"Blue Collar and Green","CCS"'
 - '"Blue Collar and Green","sequestration"'
 - '"Blue Collar and Green","co2"'
-- '"Recovery and Reinvestment","capture"' #2009, 111-5 
+- '"Recovery and Reinvestment","capture"' #2009, 111-5
 - '" ARRA ","capture"' # abbrev for previous (111-5)
 - '"111-5","capture"'
 - '"Consolidated Appropriations Act, 2021","capture"'
@@ -96,15 +96,17 @@ mostly_ccs_provisions:
 - '"117-58","pipeline safety"'
 - '"117-58","steel"'
 - '"117-58"," cement"'
-#- '"117-58","coal"' # 2021 (117-58)
-#- '"117-169","ethanol"'
-- '"117-169","hydrogen","natural gas"'
-- '"117-58","hydrogen","natural gas"'
 - '"117-169","pipeline safety"'
 - '"117-169","steel"'
 - '"117-169"," cement"'
+- '"MARKET CHOICE Act","capture"'
+- '"HR 5376","capture"'
 #- '"117-169","coal"' # 2021 (117-58)
 contains_ccs_provisions:
+- '"HR 5376"' # 117th congress: inflation reduction act
+#- '"permitting reform"'
+- '"HR 3684"' #117th congress IIJA
+- '"MARKET CHOICE Act"' #contains ccs provisions
 - '"110-140"' # Energy Independence and Security act of 2007
 - '"116-260"' # consolidated apprpriations act of 2021
 - '"Clean Energy for America"' # all versions (2017,2019,2021) introduced by Wyden and contain CCS provisions
@@ -129,7 +131,7 @@ contains_ccs_provisions:
 - '"American Clean Energy and Security"' #2007 (?) and 2009; aka Waxman Markey-- didn't use 'ACES' b/c there are lots of other 'ACES' refs not dealing with CCS
 - '"Waxman-Markey"'
 - '"Waxman Markey"'
-- '"American Recovery and Reinvestment"' #2009, 111-5 
+- '"American Recovery and Reinvestment"' #2009, 111-5
 - '" ARRA "' # abbrev for previous (111-5)
 - '"111-5"'
 - '"Consolidated Appropriations Act, 2021"'

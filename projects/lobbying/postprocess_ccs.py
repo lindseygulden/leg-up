@@ -1,49 +1,38 @@
 """script to read in files read out by ccs and compile them into a single csv"""
 
-import pandas as pd
-from utils.io import yaml_to_dict
-import numpy as np
-from typing import Union, Tuple, List
-import pandas as pd
-
-from json import dumps
-
-from os import listdir
-from os.path import isfile, join
-
-from pathlib import PosixPath
-import pandas as pd
 import logging
+from pathlib import PosixPath
+from typing import List, Tuple, Union
+
 import click
-from utils.api import api_authenticate
+import numpy as np
+import pandas as pd
+
 from projects.lobbying.postproc_utils import (
-    parse_client_names,
-    get_smarties,
-    get_list_govt_entities,
-    substitute,
-    get_latest_filings,
     invert_sector_dict,
+    substitute,
     terms_present,
 )
+from utils.io import yaml_to_dict
 
 logging.basicConfig(level=logging.INFO)
 
 
-def quarter_to_decimal(q: str) -> float:
+def quarter_to_decimal(quart: str) -> float:
     """converts string quarter to decimal fraction of year"""
-    if q == "second_quarter":
+    if quart == "second_quarter":
         return 135 / 365.25
-    if q == "third_quarter":
+    if quart == "third_quarter":
         return 227 / 365.25
-    if q == "first_quarter":
+    if quart == "first_quarter":
         return 46 / 365.25
-    if q == "fourth_quarter":
+    if quart == "fourth_quarter":
         return 319 / 365.25
-    if q == "year_end":
+    if quart == "year_end":
         return 274 / 265.25
-    if q == "mid_year":
+    if quart == "mid_year":
         return 91 / 365.25
-    raise ValueError("%s quarter string is not one of accepted strings.", q)
+    raise ValueError("%s quarter string is not one of accepted strings.", quart)
 
 
 def adjust_company_names(ccs_df: pd.DataFrame, config_info: dict):
@@ -133,7 +122,8 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     # if description of lobbying activity contains either terms from the single-term list
     # or from the multi-term list, indicate that the activity contains a ccs description
     df["contains_ccs_description"] = [
-        max(sgl, mlt) for sgl, mlt in zip(df["ccs_single"], df["ccs_multiple"])
+        1 if (sgl + mlt) > 0 else 0
+        for sgl, mlt in zip(df["ccs_single"], df["ccs_multiple"])
     ]
     # is this a company dedicated to CCS tech and operations?
     df["ccs_company"] = [1 if x == "ccs" else 0 for x in df.sector]
@@ -237,7 +227,7 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     return df
 
 
-def apportion_filing_dollars_to_activities(df: pd.DataFrame, config_info: dict):
+def apportion_filing_dollars_to_activities(df: pd.DataFrame):
     """apportion total lobbying dollars spent (on filing) to individual lobbying activities"""
 
     # basic method: aportion using total number of activities

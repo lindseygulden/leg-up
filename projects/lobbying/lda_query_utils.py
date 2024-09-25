@@ -1,9 +1,12 @@
 """Utilities for parsing lobbying disclosure documents"""
 
 from math import floor
-from typing import List
+from pathlib import PosixPath
+from typing import List, Union
 
 import pandas as pd
+
+from utils.io import yaml_to_dict
 
 
 def assemble_issue_search_string(
@@ -11,12 +14,7 @@ def assemble_issue_search_string(
 ):
     """joins terms in term lists with an OR and returns as a single string for use in get query"""
     term_list_dict = yaml_to_dict(term_list_path)
-    law_list_dict = yaml_to_dict(law_list_path)
-    search_string = "OR".join(
-        term_list_dict["search_term_list"]  # +
-        # law_list_dict["mostly_ccs_provisions"]
-    )
-    # law_list_dict["contains_ccs_provisions"]
+    search_string = "OR".join(term_list_dict["search_term_list"])
     return search_string
 
 
