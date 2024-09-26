@@ -17,6 +17,7 @@ company_rename_col: client_rename
 company_sector_assignments: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/sectors_updated.yml
 path_to_lumped_sector_info: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/lumped_sectors.yml
 political_party_congress_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/party_control_congress.yml
+remove_sector_name: REMOVE
 remove_org_key:
   - remove these organizations
   - keep

@@ -1,3 +1,4 @@
+# pylint: disable=use-a-generator
 """script to read in files read out by ccs and compile them into a single csv"""
 
 import logging
@@ -7,6 +8,7 @@ from typing import List, Tuple, Union
 import click
 import numpy as np
 import pandas as pd
+from asteval import Interpreter
 
 from projects.lobbying.postproc_utils import (
     invert_sector_dict,
@@ -32,7 +34,7 @@ def quarter_to_decimal(quart: str) -> float:
         return 274 / 265.25
     if quart == "mid_year":
         return 91 / 365.25
-    raise ValueError("%s quarter string is not one of accepted strings.", quart)
+    raise ValueError(f"{quart} quarter string is not one of accepted values.")
 
 
 def adjust_company_names(ccs_df: pd.DataFrame, config_info: dict):
@@ -63,11 +65,11 @@ def get_term_lists(config_info: dict) -> Tuple[List[str], List[List[str]]]:
     ]
 
     terms = []
-    for t in search_terms:
-        if "," in t:
-            terms.append(t.replace('"', "").split(","))
+    for term in search_terms:
+        if "," in term:
+            terms.append(term.replace('"', "").split(","))
         else:
-            terms.append([t.replace('"', "")])
+            terms.append([term.replace('"', "")])
 
     single_terms = []
     multiple_terms = []
@@ -81,7 +83,7 @@ def get_term_lists(config_info: dict) -> Tuple[List[str], List[List[str]]]:
 
 
 def get_ccs_bills(config_info: dict, which_laws: str):
-    # get names of CCS bills
+    """get names of CCS bills from the appropriate yaml file"""
     ccs_bills = yaml_to_dict(config_info["law_list_path"])[which_laws]
     ccs_bills = [substitute(x, use_basename=False) for x in ccs_bills]
     return ccs_bills
@@ -257,25 +259,25 @@ def apportion_filing_dollars_to_activities(df: pd.DataFrame):
 
 
 def subset_to_ccs_only(df: pd.DataFrame, config_info: dict):
+    """Get rid of the rows that likely don't have much to do with CCS"""
     cleaned_df = df.loc[
-        (df.lumped_sector != "REMOVE")
+        (df.lumped_sector != config_info["remove_sector_name"])
         & ((df.very_likely_ccs == 1) | (df.likely_ccs == 1) | (df.potentially_ccs == 1))
     ].copy(deep=True)
 
     return cleaned_df
 
 
-def expand_and_tabulate_entities(
-    df, config_info: dict
-) -> Tuple[pd.DataFrame, List[str]]:
+def expand_and_tabulate_entities(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[str]]:
     """Use entity string to expand and tabulate counts of lobbying activities"""
+    aeval = Interpreter()
     entities = set()
     for i in df.entities:
-        entities = entities.union(set(eval(i)))
+        entities = entities.union(set(aeval(i)))
     entities = list(entities)
 
     # expand the json string of the entity list
-    df["entity_expanded"] = [eval(x) for x in df.entities]
+    df["entity_expanded"] = [aeval(x) for x in df.entities]
     df["n_entities_lobbied"] = [len(x) for x in df.entity_expanded]
     df["legistlative_entities_lobbied"] = [
         np.sum([("congress" in x) | ("house" in x) | ("senate" in x) for x in xx])
@@ -285,8 +287,10 @@ def expand_and_tabulate_entities(
         t - l for t, l in zip(df.n_entities_lobbied, df.legistlative_entities_lobbied)
     ]
     # make binary variables for each govt. entity
-    for e in entities:
-        df[e] = [1 if e in entity_list else 0 for entity_list in df.entity_expanded]
+    for entity in entities:
+        df[entity] = [
+            1 if entity in entity_list else 0 for entity_list in df.entity_expanded
+        ]
     return df, entities
 
 
@@ -331,9 +335,9 @@ def postprocess_ccs(
     logging.info(" >>> Subsetting CCS lobbying activities")
     ccs_df = subset_to_ccs_only(all_df, config_info)
     logging.info(" >>> Apportioning dollars to individual lobbying activities")
-    ccs_df = apportion_filing_dollars_to_activities(ccs_df, config_info)
+    ccs_df = apportion_filing_dollars_to_activities(ccs_df)
 
-    ccs_df, entities = expand_and_tabulate_entities(ccs_df, config_info)
+    ccs_df, entities = expand_and_tabulate_entities(ccs_df)
 
     ccs_df = add_political_party(ccs_df, config_info)
     logging.info(" >>> Writing out data")
