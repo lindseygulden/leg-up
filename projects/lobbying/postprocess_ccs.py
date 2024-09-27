@@ -93,6 +93,7 @@ def assign_sectors(df: pd.DataFrame, config_info: dict):
     """Given info in yamls, assigns companies to sectors and lumped sectors; adds new columns to df"""
     inverted_sector_dict = invert_sector_dict(config_info["company_sector_assignments"])
     lumped_sector_dict = yaml_to_dict(config_info["path_to_lumped_sector_info"])
+
     df["sector"] = [
         inverted_sector_dict[x] for x in df[config_info["company_rename_col"]]
     ]
@@ -105,6 +106,7 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     """Use terms, law names, & sectors to identify very-likely, likely, and potentially ccs activities"""
     single_terms, multiple_terms = get_term_lists(config_info)
     ccs_bills = get_ccs_bills(config_info, "mostly_ccs_provisions")
+    ccs_bill_numbers = get_ccs_bills(config_info, "congress_bill_nos")
     larger_bills_with_ccs_provisions = get_ccs_bills(
         config_info, "contains_ccs_provisions"
     )
@@ -132,6 +134,13 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
 
     # is a ccs bill or a ccs-heavy bill with keyword terms (e.g. 'capture') directly mentioned?
     df["ccs_bills"] = [terms_present(x, ccs_bills) for x in df.clean_description]
+
+    bills = config_info[""]
+    df["ccs_by_number_only"] = [
+        1 if terms_present(d, ccs_bill_numbers[which_congress]) else 0
+        for d, which_congress in zip(df.clean_description, df.which_congress)
+    ]
+
     df["bill_contains_some_ccs"] = [
         terms_present(x, larger_bills_with_ccs_provisions) for x in df.clean_description
     ]

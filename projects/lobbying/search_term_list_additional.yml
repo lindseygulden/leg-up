@@ -1,0 +1,31 @@
+# search terms for use in the lda querying interface. Note that all terms below will be joined with an 'OR'
+search_term_list:
+- '"FutureGen"'
+- '"class vi" -"truck"'
+- '" co pipelines"'
+- '"well","permitting reform",-"natural gas pipeline"' # 117th congress: inflation reduction act
+# climate leadership and envirnnomental action for our nations future (cLEAN) 2021 Hr 1512
+- '"S 1201" -fossil -effect -"power plant" -employee -grid -health -terrorists -"Climate Leadership" -education -"Clean Distributed" -"clean power act"'
+# HR 1166 isn't used to refer to this..som ewith S 383
+- '"S 383" -"federal skills" -CCS -CCUS -proliferation -"health" -"Wild and Scenic" -combat -"critical minerals" -"Indian Trust" -USE -"Utilizing Significant" -TARP -relief -television'
+# S383 is useit act from 2019-2020
+# S1201, Manchin's EFFECT act: was 2019 and 2020
+- '"S 799" -"CCS" -"CCUS" -"motorized vehicles" -"Fair Access to Science" -"television" -"telecommunications" -"wireless" -"infants" -"sequester" -"obesity" -"securities" -"health care" -"healthcare" -"Protecting Americans with" -"advertising" -"medicaid" -"Community Choice" -"privacy" -"medicare" -"SCALE" -"Storing CO2 and Lowering Emissions"'
+# Scale Act, S 799, is 2021/2022
+- '"S 962" -pakistan -"Voices of Freedom" -"energy bonds" -AmericaCures -cures -"Capture and Storage" -"law enforcement" -embassy -health -medical'
+# Carbon Capture and Storage Research Development is S 962 in 2007/2008
+- '"S 407" -military -farmer -"public lands" -Antiquities -veterans -hospital -safe -indian -"National Monument" -river -ammunition -defense -rivers -"Carbon Capture" -" Air America" -rail -railroads -railroad -railway'
+# carbon capture modernization act is S 407 i 2019-2020
+- '"S 986" -"carbon capture" -CCUS -CCS -veterans -theft -"helping families" -"foster care" -"not corporations" -rum -distillers -"Capture Utilization" -"STOP Act" -combat -LIHEAP -"Congressional Trade"'
+#- '"ACCESS Act"' # Accelerating carbon capture and extending secure storage through 45q; hr 1062 2021-2022
+- '"HR 6258" -"s 3107" -disabilities -"Financial Services" -"AQUAA" -"Financial Service" -"Capture and Storage" -nutrition -S3107 -capture -CCS -transparency -"fit for life" -obesity -"cyberfraud" -"tax system"'
+# 'Carbon Capture and Storage Early Deployment Act HR 6258 2008'
+- '"Clean H2"' #s 1807 doesn't have any just by iself
+- '"h2 hubs"'
+# S1167 end polluter welfare not referred to with just s 1167
+- '"S 2602" -sweaters -motorsports -"alpine" -"energy star" -"retirement" -"Fossil Energy Research" -"utilizing" -USE -"internet"'
+- '"H.R. 1761" -species -exploitation -Podiatric -"sex offense" -gun -pilots -Criminal -firearm -medicare -HELLPP -"Occupational Therapy"'
+- '"Clean Energy Hydrogen Innovation Act"'
+- '"S 699" -"carbon capture" -women -identity -nutrition -"work opportunity" -"court" -"mental health" -Lautenberg -"American opportunity"'
+- '"S. 1502" -Rivers -Federalism -"carbon capture" -"capital"' #Carbon Capture and Sequestration Stewardship Trust Fund Act of 2009
+- '"energy innovation", -CCS -CCUS -"carbon capture" -"child care" -"tobacco" -"workforce development" -"energy innovation hub" -"supply chains" -"Renewable Energy Innovation" -humanities -"critical materials" -"energy innovation hubs" -nuclear -health'

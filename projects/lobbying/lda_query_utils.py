@@ -14,6 +14,10 @@ def assemble_issue_search_string(
 ):
     """joins terms in term lists with an OR and returns as a single string for use in get query"""
     term_list_dict = yaml_to_dict(term_list_path)
+    #term_list_dict = yaml_to_dict(
+    #    "/Users/lindseygulden/dev/leg-up-private/projects/lobbying/ccs_laws.yml"
+    #)
+    #search_string = "OR".join(term_list_dict["mostly_ccs_provisions"])
     search_string = "OR".join(term_list_dict["search_term_list"])
     return search_string
 
