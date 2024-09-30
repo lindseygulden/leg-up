@@ -1,9 +1,15 @@
 mostly_ccs_provisions:
 - '"CO2 Regulatory"'
+- '"Coal with Carbon Capture and Sequestration Act of 2015"' #S. 1285, 
+- '"Coordinated Action To Capture Harmful Emissions Act"'
+- '"Expanding Carbon Capture through Enhanced Oil Recovery Act"'
+- '"CATCH Act"' #HR 3538
 - '"C02 Regulatory"'
 - '"Carbon Capture Improvement"' #HR 3861
-- '"Accelerating Carbon Capture"' #access act HR 1062
-- '"ACCESS Act"'
+- '"Accelerating Carbon Capture"' #access 45q act HR 1062
+- '"ACCESS 45Q Act"'
+#- '"A bill to amend the Energy Policy Act of 2005 to require the Secretary of Energy to consider the objective of improving the conversion, use, and storage of carbon dioxide produced from fossil fuels in carrying out research and development programs under that Act'
+- '"improving the conversion, use, and storage of carbon dioxide"' # S1282 introduced by manchin in 2015
 - '"Capture and Storage Early"' #2008 & 2009 by boucher
 - '"Capture Utilization and Storage Tax"' # s986 #2020 and 2021 introduction by Smith and Capito
 - '"Capture and Storage Technology"' #2007
@@ -11,9 +17,9 @@ mostly_ccs_provisions:
 - '"Enhancing Fossil Fuel Energy Carbon Technology"' #2019 introduced by Manchin
 - '"Carbon Capture Modernization"' 
 - '" EFFECT Act"' #Manchin 2019
-- '"Advanced Clean Coal Technology"' #2015
+- '"Advanced Clean Coal Technology"' #2014: S. 2152: ACCTION
+- '"ACCTION Act"' #2014 and 15?
 - '"Responsible Use of Coal Act"' #2009
-- '"ACCTION Act"' #2015
 - '"Utilizing Significant Emissions' # S 383 and HR 1166 2019-2020 (116th congress)
 - '" USE IT Act"'
 - '"Fossil Energy Research and Development ' # 2020: mostly ccs, with a bit of methane leak detection
@@ -30,19 +36,18 @@ mostly_ccs_provisions:
 - '"Energy Sector Innovation Credit Act"' #2021: mostly new stuff for CCS, 'clean' hydrogen, production of electricity from those. introduced by tom reed r-ny
 - '"Energy Innovation and Carbon","capture"'
 - '"Energy Innovation and Carbon","sequestration"'
-- '"Methane Reduction and Economic","capture"'
-- '"Methane Reduction and Economic","sequestration"'
-- '"Blue Collar and Green","capture"'
-- '"Blue Collar and Green","CCUS"'
-- '"Blue Collar and Green","CCS"'
-- '"Blue Collar and Green","sequestration"'
-- '"Blue Collar and Green","co2"'
-- '"Recovery and Reinvestment","capture"' #2009, 111-5
-- '" ARRA ","capture"' # abbrev for previous (111-5)
+- '"Clean Energy for America","hydrogen"' # all versions (2017,2019,2021) introduced by Wyden and contain CCS provisions
+#- '"Methane Reduction and Economic","capture"'
+#- '"Blue Collar and Green","capture"'
+- '"American Recovery and Reinvestment","capture"' #2009, 111-5
+- '" ARRA ","capture"'
+- '"American Recovery and Reinvestment","section 45"' #2009, 111-5
+- '" ARRA ","section 45"'
+- '"111-5","section 45"'
 - '"111-5","capture"'
-- '"Clean H2"'
+- '"Clean H2"' # Clean H2 Production Act S 1807
 - '"Consolidated Appropriations Act, 2021","capture"'
-- '"Energy Act of 2020","capture"'
+#- '"Energy Act of 2020","capture"'
 - '"116-260","capture"' #PL number of Consolidated Appropriations Act of 2021
 - '"Energy Security and Infrastructure","capture"' #2016
 - '"Energy Policy Modernization","capture"' #2015 (seems to be a previous version of NAESIA above)
@@ -52,24 +57,25 @@ mostly_ccs_provisions:
 - '"Inflation Reduction","capture"' #2022 117-169
 - '"117-169","capture"'
 - '"IRA","capture"' # 117-169
-- '"Budget Act of 2018","45"' #115-123
-- '"115-123","45Q"' #PL number of Bipartisan Budget Act of 2018
-- '"Infrastructure Investment and Jobs","45"' # 2021 (117-58)
-- '" IIJA ","45Q"' # 2021 (117-58)
-- '"117-58","45Q"'
-- '"Inflation Reduction","45Q"' #2022 117-169
-- '"117-169","45Q"'
-- '"IRA","45Q"' # 117-169
-- '"100 by 50","capture"' # name of a 2017 act introduced by polis
-- '"IMPACT Act","capture"' # contains carbon capture provisions for cement
+- '"Budget Act of 2018","section 45"' #115-123
+#- '"115-123","45Q"' #PL number of Bipartisan Budget Act of 2018
+- '"Infrastructure Investment and Jobs","section 45"' # 2021 (117-58)
+- '" IIJA ","section 45"' # 2021 (117-58)
+- '"117-58","section 45"'
+- '"Inflation Reduction","section 45"' #2022 117-169
+- '"117-169","section 45"'
+- '"IRA","section 45"' # 117-169
+#- '"100 by 50","capture"' # name of a 2017 act introduced by polis
+#- '"IMPACT Act","capture"' # contains carbon capture provisions for cement
 - '"Limit Save Grow","capture"' #2023: introduced version in the house (Arrington) had change to carbon oxide sequestration
 - '" SUPER Act","capture"' # 2021 contains provisions for carbon capture for steel making
 - '"Innovation and Competition","capture"' #2021 introduced by Johnson (D-TX) -- some versions have CCS for steelmaking provisions
 - '"Energy Infrastructure","capture"' #2021 introduced by manchin: deals with CCS
-- '"CHIPS and Science","capture"-"semi"' # 2021: includes the provisions for carbon capture in steelmaking. Became 117-167
+#- '"CHIPS and Science","capture"-"semi"' # 2021: includes the provisions for carbon capture in steelmaking. Became 117-167
 - '"117-167","capture"'
 - '"Electricity Security and Affordability","capture"' #2014 passed house; introduced r whitfield r-ky
 - '"Clean Energy Future Through","capture"' #2021: includes bunches on CCUS: from WV republican sneator McKinley
+- '"Clean Energy for America","capture"' # all versions (2017,2019,2021) introduced by Wyden and contain CCS provisions
 - '"American Energy Opportunity","capture"'
 - '"Infrastructure Jobs and Energy","capture"' #2011 -- makes CCS projects eligible for huge govt assistance
 - '"Upstate Works","capture"' #2011 makes ccs eligbile for big govt loans
@@ -100,24 +106,17 @@ mostly_ccs_provisions:
 - '"117-58"," cement"'
 - '"117-169","pipeline safety"'
 - '"117-169","steel"'
-- '"117-169"," cement"'
 - '"MARKET CHOICE Act","capture"'
 - '"HR 5376","capture"'
 contains_ccs_provisions_terms:
-- '"Boxer-Kerry","capture"'
-- '"Boxer Kerry","capture"'
-- '"Boxer-Kerry","demonstration"'
-- '"Boxer Kerry","demonstration"'
-- '"Boxer-Kerry","sequestration"'
-- '"Boxer Kerry","sequestration"'
-- '"MARKET CHOICE Act","capture"' #contains ccs provisions
-- '"MARKET CHOICE Act","advanced coal"' #contains ccs provisions
-- '"MARKET CHOICE Act","sequestration"' #contains ccs provisions
+- '"Boxer-Kerry"'
+- '"Boxer Kerry"'
+- '"MARKET CHOICE Act"'
 - '"110-140"' # Energy Independence and Security act of 2007
 - '"116-260"' # consolidated apprpriations act of 2021
-- '"Clean Energy for America","hydrogen"' # all versions (2017,2019,2021) introduced by Wyden and contain CCS provisions
-- '"Clean Energy for America","escalate"' # all versions (2017,2019,2021) introduced by Wyden and contain CCS provisions
-- '"Clean Energy for America","capture"' # all versions (2017,2019,2021) introduced by Wyden and contain CCS provisions
+- '"Clean Energy for America"' # all versions (2017,2019,2021) introduced by Wyden and contain CCS provisions
+
+
 - '"Clean Energy for America","carbon oxide"'
 - '"Clean Energy for America","sequestration"'
 - '"Clean Energy Standard","power plant"' #both the 2010 version and the 2019 version contain ccs provisons. introduced by Lujan, D-NM in the House
@@ -278,14 +277,22 @@ contains_ccs_provisions:
 - '"Americas Act"'
 congress_bill_nos:
   117:
+  - S 2118 # clean energy for america act of 2022
+  - S 1298 #"Clean energy for America Act of 2021"
   - H.R. 1761 #CCUS Innovation Act
   - HR 1788 #clean energy hydrogen innovation act
   - S 1201 # United States Climate Leadership in International Mitigation, Adaptation, and Technology Enhancement Act of 2021
   - S 799 # SCALE Act
   - S 986 # Carbon Capture, Utilization, and Storage Tax Credit Amendments Act of 2021
+  - S 2288
   116:
   - S 383 # USE IT Act
   - S 407 # Carbon Capture Modernization Act
+  114:
+  - S 1282 # "Manchin's very long name "conversion, use, and storage of carbon" act
+  113:
+  - S 2152 # Advanced Clean Coal Technology act of 2014 "
+  - S 2288 #S 2288 is Expanding Carbon Capture through Enhanced Oil Recovery act"
   112:
   - S 699
   111:

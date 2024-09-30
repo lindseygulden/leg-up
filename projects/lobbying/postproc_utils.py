@@ -1,19 +1,14 @@
 """utility functions to postprocess files read in from LDA API"""
 
-# import requests
 import pandas as pd
-from flatten_json import flatten
 from utils.io import yaml_to_dict
-import numpy as np
 from typing import List, Tuple, Dict, Union
 from itertools import compress
 import pandas as pd
 import re
 import datetime as dt
 from cleanco import basename
-from json import dumps
 from typing import List, Tuple, Dict, Union
-from pathlib import PosixPath
 import pandas as pd
 import re
 from cleanco import basename

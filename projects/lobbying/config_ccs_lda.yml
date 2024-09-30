@@ -5,10 +5,11 @@ entity_endpoint: https://lda.senate.gov/api/v1/constants/filing/governmententiti
 filings_endpoint: https://lda.senate.gov/api/v1/filings/
 lda_apikey: b6c22528b6697dc3bf1fbf9ff5200d28d9991889
 lda_username: lindseyegulden
-lobbyist_filename_prefix: ccs_lda_lobbyists_ccsterms_saturday
-output_filename_prefix: ccs_lda_filings_ccsterms_saturday
-search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list.yml
+lobbyist_filename_prefix: ccs_lda_lobbyists_ccslaws4
+output_filename_prefix: ccs_lda_filings_ccslaws4
+#search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list.yml
 #search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_ccs_laws2.yml
+search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_ccs_laws4.yml
 #search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list_additional2.yml
 law_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/ccs_laws.yml
 organization_name_handling_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/organization_name_handling.yml
