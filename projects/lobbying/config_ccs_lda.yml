@@ -9,8 +9,9 @@ lobbyist_filename_prefix: ccs_lda_lobbyists_ccslaws4
 output_filename_prefix: ccs_lda_filings_ccslaws4
 #search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list.yml
 #search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_ccs_laws2.yml
-search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_ccs_laws4.yml
+#search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_ccs_laws4.yml
 #search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list_additional2.yml
+search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list_for_postproc.yml
 law_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/ccs_laws.yml
 organization_name_handling_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/organization_name_handling.yml
 sector_description_file: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/sector_descriptions.yml

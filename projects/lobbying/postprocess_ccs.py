@@ -57,12 +57,12 @@ def adjust_company_names(ccs_df: pd.DataFrame, config_info: dict):
     return ccs_df
 
 
-def get_term_lists(config_info: dict) -> Tuple[List[str], List[List[str]]]:
+def get_term_lists(list_path:str,list_key:str) -> Tuple[List[str], List[List[str]]]:
     """Gets and processes term lists describing CCS"""
 
-    search_terms = yaml_to_dict(config_info["search_term_list_path"])[
-        "search_term_list"
-    ]
+    search_terms = yaml_to_dict(list_path)[list_key]
+        
+    
 
     terms = []
     for term in search_terms:
@@ -85,7 +85,7 @@ def get_term_lists(config_info: dict) -> Tuple[List[str], List[List[str]]]:
 def get_ccs_bills(config_info: dict, which_laws: str):
     """get names of CCS bills from the appropriate yaml file"""
     ccs_bills = yaml_to_dict(config_info["law_list_path"])[which_laws]
-    ccs_bills = [substitute(x, use_basename=False) for x in ccs_bills]
+    
     return ccs_bills
 
 
@@ -104,12 +104,16 @@ def assign_sectors(df: pd.DataFrame, config_info: dict):
 
 def identify_ccs(df: pd.DataFrame, config_info: dict):
     """Use terms, law names, & sectors to identify very-likely, likely, and potentially ccs activities"""
-    single_terms, multiple_terms = get_term_lists(config_info)
-    ccs_bills = get_ccs_bills(config_info, "mostly_ccs_provisions")
-    ccs_bill_numbers = get_ccs_bills(config_info, "congress_bill_nos")
-    larger_bills_with_ccs_provisions = get_ccs_bills(
-        config_info, "contains_ccs_provisions"
-    )
+    single_terms, multiple_terms = get_term_lists(config_info["search_term_list_path"],"search_term_list")
+    _,law_with_ccs_term=get_term_lists(config_info['law_list_path'],"ccs_law_with_ccs_term")
+    ccs_bills,_ = get_term_lists(config_info['law_list_path'], "mostly_ccs_provisions")
+    ccs_bills = [substitute(x, use_basename=False) for x in ccs_bills]
+    
+    law_with_ccs_provisions,_ = get_term_lists(config_info['law_list_path'],"contains_ccs_provisions")
+    law_with_ccs_provisions = [substitute(x, use_basename=False) for x in law_with_ccs_provisions]
+
+    # get dictionary with congress number/bill number for CCS bills
+    ccs_bill_numbers = yaml_to_dict(config_info['search_term_list_path'])["congress_bill_nos"]
 
     # for simple dictionaries defined in the search term lists (not ccs, probably ccs, and maybe ccs)
     search_term_dict = yaml_to_dict(config_info["search_term_list_path"])
@@ -129,20 +133,25 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
         1 if (sgl + mlt) > 0 else 0
         for sgl, mlt in zip(df["ccs_single"], df["ccs_multiple"])
     ]
+    # identify descriptions in which there is a specific larger law (with ccs provisions) paired
+    # with a specific phrase
+    df['law_with_ccs_term']== [
+        any([terms_present(x, y, find_any=False) for y in law_with_ccs_term])
+        for x in df.clean_description
+    ]
     # is this a company dedicated to CCS tech and operations?
     df["ccs_company"] = [1 if x == "ccs" else 0 for x in df.sector]
 
     # is a ccs bill or a ccs-heavy bill with keyword terms (e.g. 'capture') directly mentioned?
     df["ccs_bills"] = [terms_present(x, ccs_bills) for x in df.clean_description]
 
-    bills = config_info[""]
     df["ccs_by_number_only"] = [
         1 if terms_present(d, ccs_bill_numbers[which_congress]) else 0
         for d, which_congress in zip(df.clean_description, df.which_congress)
     ]
 
     df["bill_contains_some_ccs"] = [
-        terms_present(x, larger_bills_with_ccs_provisions) for x in df.clean_description
+        terms_present(x, law_with_ccs_provisions) for x in df.clean_description
     ]
     # are some of the terms that negate it being likely ccs (e.g., 'healthcare') present?
     df["not_ccs"] = [

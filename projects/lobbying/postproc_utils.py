@@ -13,7 +13,6 @@ import pandas as pd
 import re
 from cleanco import basename
 
-
 def terms_present(phrase, term_list, find_any=True):
     """utility function to see if terms in terms_list are present in a given phrase
     Args:
@@ -37,17 +36,15 @@ def terms_present(phrase, term_list, find_any=True):
     for term in term_list:
         if isinstance(term, list):
             if terms_present(phrase, term, find_any=False):
-                if find_any:
-                    return 1
                 n_present += 1
         elif term.lower() in phrase.lower():
-            if find_any:
-                return 1
             n_present += 1
-    if n_present == len(term_list):
-        return 1
-    return 0
-
+    if find_any == False:  # find all
+        if len(term_list) == n_present:
+            return 1
+        else:
+            return 0
+    return n_present
 
 def get_list_govt_entities(entity_endpoint: str, session: object):
     """Queries constants endpoint to get a standardized list of government entities"""
