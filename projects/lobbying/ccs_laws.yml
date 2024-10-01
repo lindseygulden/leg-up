@@ -232,34 +232,90 @@ contains_ccs_provisions:
 - '"Americas Act"'
 - '"Investments for Manufacturing"'
 congress_bill_nos:
+  118:
+  - HR 1262 #CCU Parity Act
+  - S 542 #CCU Parity Act
   117:
+  - S 1017 #Clean Hydrogen Production Incentives Act of 2021"'
+  - S 1807 #Clean H2 Production Act"'
+  - S 2200 #Advancing the Clean Hydrogen Future Act of 2021"'
+  - HR 4909 #Clean Hydrogen Energy Act"'
+  - HR 5192 #Clean Hydrogen Production and Investment Tax Credit Act of 2021"'
+  - HR 5965 #Clean Hydrogen Deployment Act of 2021"'
+  - HR 9496 #Department of Energy Clean Hydrogen and Fuel Cell Research, Development, and Demonstration Act of 2022'
+  - S 1017 #Clean Hydrogen Production Incentives Act of 2021
+  - HR 6249 #End Polluter Welfare for Enhanced Oil Recovery Act
+  - S 2475 # Energy Sector Innovation Credit Act --hydrogen credot
+  - HR 4720 # Energy Sector Innovation Credit Act -- hydrogen credit
+  - HR 5194 # Carbon Capture and Sequestration Expansion Act
   - S 2118 # clean energy for america act of 2022
   - S 1298 #"Clean energy for America Act of 2021"
   - H.R. 1761 #CCUS Innovation Act
+  - HR 1760 #Carbon Capture Modernization Act
+  - S 661 #Carbon Capture Modernization Act
+  - HR 1062 #ACCESS 45Q 
   - HR 1788 #clean energy hydrogen innovation act
   - S 1201 # United States Climate Leadership in International Mitigation, Adaptation, and Technology Enhancement Act of 2021
   - S 799 # SCALE Act
   - S 986 # Carbon Capture, Utilization, and Storage Tax Credit Amendments Act of 2021
   - S 2288
+  - S 1829 #Carbon Capture Improvement Act of 2021
   116:
+  - HR 5156 #Carbon Capture and Sequestration Extension Act of 2019
+  - S 4696 #45Q Carbon Capture, Utilization, and Storage Tax Credit Amendments Act
   - S 383 # USE IT Act
+  - HR 1166 # USE IT Act
   - S 407 # Carbon Capture Modernization Act
+  - HR 3861 #Carbon Capture Improvement Act of 2019
+  - HR 1796 #Carbon Capture Modernization Act
+  - S 407 #Carbon Capture Modernization Act
+  115: 
+  - HR 5159 #Clean coal jobs act of 2018
+  - HR 7347 #USE IT Act
+  - S 2602 #USE IT Act
+  - HR 6457 #Carbon Utilization act of 2018
+  - S 2997 #Carbon Utilization act of 2018
+  - S 2803 #Fossil Energy Utilization, Enhancement, and Leadership Act of 2018
+  - HR 5745 #Fossil Energy Research and Development Act of 2018
+  - HR 3761 #Carbon Capture Act
+  - S 1535 #FUTURE ACT
+  - HR 2296 #Advancing CCUS technology act
+  - HR 2011 #carbon capture improvement act
+  - S 843 #carbon capture improvement act
   114:
+  - S 3179 #Carbon Capture Utilization and Storage Act
+  - HR 4704 #Advancing CCUS Technology Act
+  - HR 4622 #Carbon Capture Act
+  - HR 3392 #Carbon Capture Research and Development
+  - S 2305 #carbon capture improvement act of 2015
+  - S 1285 #Coal with Carbon Capture and Sequestration Act of 2015
   - S 1282 # "Manchin's very long name "conversion, use, and storage of carbon" act
   113:
+  - S 2287 #Carbon Capture and Sequestration Deployment Act of 2014
   - S 2152 # Advanced Clean Coal Technology act of 2014 "
   - S 2288 #S 2288 is Expanding Carbon Capture through Enhanced Oil Recovery act"
   112:
-  - S 699
+  - HR 1868 #Clean Coal-Derived Fuels for Energy Security Act of 2011
+  - S 699 #Department of Energy Carbon Capture and Sequestration Program Amendments Act of 2011
   111:
   - S 3591 # Carbon Capture and Sequestration Deployment Act of 2010
   - S 3590 # Carbon Capture and Sequestration Deployment Revenue Act of 2010
   - HR 1847 #H.R. 1847, Clean Coal-Derived Fuels for Energy Security Act of 2009.
   - HR 1689 #H.R. 1689, Carbon Capture and Storage Early Deployment Act.
-  - S 3589 
+  - S 3589 #Carbon Capture and Sequestration Deployment Act of 2010
   - S 1502 #Carbon Capture and Sequestration Stewardship Trust Fund Act of 2009
   - S 1013 # Department of Energy Carbon Capture and Sequestration Program Amendments Act of 2009
   110:
   - HR 6258 #THE CARBON CAPTURE AND STORAGE EARLY DEPLOYMENT ACT
   - S 962 #Carbon Capture and Storage Research Development
   - S962 # Carbon Capture and Storage Research Development
+  - HR 6170 #Clean Coal-Derived Fuels for Energy Security Act of 2008
+  - HR 6756 #Carbon Reduction Technology Bridge Act of 2008
+  - S 1227 #Clean Coal Act of 2007
+  109: 
+  - S 1133 #Clean Coal Research, Development, Demonstration, and Deployment Act of 2005
+  - S 957 #Clean Coal Power Initiative Act
+  108: []
+  107: []
+  106: []
+  105: []
