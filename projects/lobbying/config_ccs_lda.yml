@@ -110,6 +110,8 @@ subset_and_order_of_writeout_columns: # does not include entity binary column na
   - ccs_company
   - ccs_bills
   - bill_contains_some_ccs
+  - bill_with_ccs_term
+  - ccs_bills_number_only
   - not_ccs
   - terms_probably_ccs
   - terms_maybe_ccs

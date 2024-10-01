@@ -105,7 +105,8 @@ def assign_sectors(df: pd.DataFrame, config_info: dict):
 def identify_ccs(df: pd.DataFrame, config_info: dict):
     """Use terms, law names, & sectors to identify very-likely, likely, and potentially ccs activities"""
     single_terms, multiple_terms = get_term_lists(config_info["postproc_term_list_path"],"search_term_list")
-    _,law_with_ccs_term=get_term_lists(config_info['law_list_path'],"ccs_law_with_ccs_term")
+    _,bill_with_ccs_term=get_term_lists(config_info['law_list_path'],"ccs_law_with_ccs_term")
+    bill_with_ccs_term = [[substitute(x,use_basename=False) for x in xx] for xx in bill_with_ccs_term]
     ccs_bills,_ = get_term_lists(config_info['law_list_path'], "mostly_ccs_provisions")
     ccs_bills = [substitute(x, use_basename=False) for x in ccs_bills]
     
@@ -135,8 +136,8 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     ]
     # identify descriptions in which there is a specific larger law (with ccs provisions) paired
     # with a specific phrase
-    df['law_with_ccs_term']= [
-        any([terms_present(x, y, find_any=False) for y in law_with_ccs_term])
+    df['bill_with_ccs_term']= [
+        any([terms_present(x, y, find_any=False) for y in bill_with_ccs_term])
         for x in df.clean_description
     ]
     # is this a company dedicated to CCS tech and operations?
@@ -145,7 +146,7 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     # is a ccs bill or a ccs-heavy bill with keyword terms (e.g. 'capture') directly mentioned?
     df["ccs_bills"] = [terms_present(x, ccs_bills) for x in df.clean_description]
 
-    df["ccs_by_number_only"] = [
+    df["ccs_bills_number_only"] = [
         1 if terms_present(d, ccs_bill_numbers[which_congress]) else 0
         for d, which_congress in zip(df.clean_description, df.which_congress)
     ]
@@ -173,7 +174,7 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     df["very_likely_ccs"] = [
         1 if ((d + b +bn+ c) > 0) & (n == 0) else 0
         for d, b, bn,c, n in zip(
-            df.contains_ccs_description, df.ccs_bills, df.ccs_by_number_only, df.ccs_company, df.not_ccs
+            df.contains_ccs_description, df.ccs_bills, df.ccs_bills_number_only, df.ccs_company, df.not_ccs
         )
     ]
 
@@ -203,7 +204,7 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
             df.ccs_company,
             df.not_ccs,
             df.leaning_ccs,  # maybes that are likely ccs b/c of industry
-            df.law_with_ccs_term
+            df.bill_with_ccs_term
         )
     ]
     df["could_be_ccs"] = [
