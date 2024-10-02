@@ -40,124 +40,105 @@ mostly_ccs_provisions:
 - '"Clean H2"' # Clean H2 Production Act S 1807
 - '"Energy Sector Innovation Credit Act"' #2021: mostly new stuff for CCS, 'clean' hydrogen, production of electricity from those. introduced by tom reed r-ny
 ccs_law_with_ccs_term:
+- '" ARRA ","capture"'
+- '" ARRA ","section 45"'
+- '" CREATE Act","sequestration"'
+- '" CREATE Act","storage"'
+- '" IIJA ","capture"'
+- '" IIJA ","hydrogen","clean"'
+- '" IIJA ","hydrogen","methane"'
+- '" IIJA ","hydrogen","natural gas"'
+- '" IIJA ","pipeline safety"'
+- '" IIJA ","section 45"'
+- '"110-140", "capture"'
+- '"110-140", "section 45"'
+- '"111-5","capture"'
+- '"111-5","section 45"'
+- '"114-113","capture"'
+- '"116-260","capture"'
+- '"116-260","section 45"'
+- '"117-167","capture"'
+- '"117-169","capture"'
+- '"117-169","hydrogen","clean"'
+- '"117-169","hydrogen","methane"'
+- '"117-169","hydrogen","natural gas"'
+- '"117-169","pipeline safety"'
+- '"117-169","section 45"'
+- '"117-58","capture"'
+- '"117-58","hydrogen","clean"'
+- '"117-58","hydrogen","methane"'
+- '"117-58","hydrogen","natural gas"'
+- '"117-58","pipeline safety"'
+- '"117-58","section 45"'
+- '"American Energy Innovation","capture"'
+- '"American Energy Opportunity","capture"'
+- '"American Recovery and Reinvestment","capture"'
+- '"American Recovery and Reinvestment","section 45"'
+- '"Budget Act of 2018","section 45"'
+- '"CLEAN Future Act","capture"'
+- '"Clean Energy Future Through","capture"'
+- '"Clean Energy Innovation and Deployment","capture"'
+- '"Clean Energy Standard","capture"'
+- '"Clean Energy for America","capture"'
+- '"Clean Energy for America","carbon oxide"'
+- '"Clean Energy for America","hydrogen"'
+- '"Clean Energy for America","sequestration"'
+- '"Climate Leadership and Environmental","capture"'
+- '"Consolidated Appropriations Act, 2016","capture"'
+- '"Consolidated Appropriations Act, 2021","capture"'
+- '"Electricity Security and Affordability","capture"'
 - '"Energy Innovation and Carbon","capture"'
 - '"Energy Innovation and Carbon","sequestration"'
-- '"Clean Energy for America","hydrogen"' # all versions (2017,2019,2021) introduced by Wyden and contain CCS provisions
-- '"American Recovery and Reinvestment","capture"' #2009, 111-5
-- '" ARRA ","capture"'
-- '"American Recovery and Reinvestment","section 45"' #2009, 111-5
-- '" ARRA ","section 45"'
-- '"111-5","section 45"'
-- '"111-5","capture"'
-- '"Consolidated Appropriations Act, 2021","capture"'
-#- '"Energy Act of 2020","capture"'
-- '"116-260","capture"' #PL number of Consolidated Appropriations Act of 2021
-- '"Energy Security and Infrastructure","capture"' #2016
-- '"Energy Policy Modernization","capture"' #2015 (seems to be a previous version of NAESIA above)
-- '"Infrastructure Investment and Jobs","capture"' # 2021 (117-58)
-- '" IIJA ","capture"' # 2021 (117-58)
-- '"117-58","capture"'
-- '"Inflation Reduction","capture"' #2022 117-169
-- '"117-169","capture"'
-- '"IRA","capture"' # 117-169
-- '"Budget Act of 2018","section 45"' #115-123
-- '"Infrastructure Investment and Jobs","section 45"' # 2021 (117-58)
-- '" IIJA ","section 45"' # 2021 (117-58)
-- '"117-58","section 45"'
-- '"Inflation Reduction","section 45"' #2022 117-169
-- '"117-169","section 45"'
-- '"IRA","section 45"' # 117-169
-- '" SUPER Act","decarbonization"' #,"capture"' # 2021 contains provisions for carbon capture for steel making
-- '" SUPER Act","greenhouse gas"' #,"capture"' # 2021 contains provisions for carbon capture for steel making
-- '" SUPER Act","steelmaking emissions"' #,"capture"' # 2021 contains provisions for carbon capture for steel making
-- '"Innovation and Competition","capture"' #2021 introduced by Johnson (D-TX) -- some versions have CCS for steelmaking provisions
-- '"117-167","capture"'
-- '"Electricity Security and Affordability","capture"' #2014 passed house; introduced r whitfield r-ky
-- '"Clean Energy Future Through","capture"' #2021: includes bunches on CCUS: from WV republican sneator McKinley
-- '"Clean Energy for America","capture"' # all versions (2017,2019,2021) introduced by Wyden and contain CCS provisions
-- '"American Energy Opportunity","capture"'
-- '"American Energy Innovation","capture"' #2009, also in 2015
-- '"Clean Energy Innovation and Deployment","capture"' #2021
-- '"Lieberman-Warner","capture"' #' Climate Security Act"'
-- '"Lieberman Warner","capture"'
-- '"Energy Jobs and American Power","capture"' #2009
-- '"Climate Leadership and Environmental","capture"' #hr 1512 2021
-- '"CLEAN Future Act","capture"'
-- '" CREATE Act","storage"'
-- '" CREATE Act","sequestration"'
-- '"Consolidated Appropriations Act, 2016","capture"' #(114-113)
-- '"114-113","capture"'
-- '"Polluter Welfare","capture"'
+- '"Energy Jobs and American Power","capture"'
+- '"Energy Policy Modernization","capture"'
+- '"Energy Security and Infrastructure","capture"'
+- '"HR 3684","hydrogen","clean"'
+- '"HR 3684","hydrogen","methane"'
+- '"HR 3684","hydrogen","natural gas"'
+- '"HR 5376","capture"'
+- '"HR 5376","hydrogen","clean"'
+- '"HR 5376","hydrogen","methane"'
+- '"HR 5376","hydrogen","natural gas"'
+- '"H.R. 3684","hydrogen","clean"'
+- '"H.R. 3684","hydrogen","methane"'
+- '"H.R. 3684","hydrogen","natural gas"'
+- '"H.R. 5376","capture"'
+- '"H.R. 5376","hydrogen","clean"'
+- '"H.R. 5376","hydrogen","methane"'
+- '"H.R. 5376","hydrogen","natural gas"'
+- '"H.R.3684","hydrogen","clean"'
+- '"H.R.3684","hydrogen","methane"'
+- '"H.R.3684","hydrogen","natural gas"'
+- '"H.R.5376","capture"'
+- '"H.R.5376","hydrogen","clean"'
+- '"H.R.5376","hydrogen","methane"'
+- '"H.R.5376","hydrogen","natural gas"'
+- '"IRA","capture"'
+- '"IRA","section 45"'
+- '"Inflation Reduction Act","hydrogen","clean"'
+- '"Inflation Reduction Act","hydrogen","methane"'
+- '"Inflation Reduction Act","hydrogen","natural gas"'
+- '"Inflation Reduction"," cement"'
 - '"Inflation Reduction","capture"'
 - '"Inflation Reduction","pipeline safety"'
-- '" IIJA ","pipeline safety"'
+- '"Inflation Reduction","section 45"'
 - '"Inflation Reduction","steel"'
-- '"Inflation Reduction"," cement"'
+- '"Infrastructure Investment and Jobs","capture"'
+- '"Infrastructure Investment and Jobs","hydrogen","clean"'
+- '"Infrastructure Investment and Jobs","hydrogen","methane"'
+- '"Infrastructure Investment and Jobs","hydrogen","natural gas"'
+- '"Infrastructure Investment and Jobs","section 45"'
+- '"Infrastructure Investment"," cement"'
 - '"Infrastructure Investment","pipeline safety"'
 - '"Infrastructure Investment","steel"'
-- '"Infrastructure Investment"," cement"'
-- '"117-58","pipeline safety"'
-- '"117-58","steel"'
-- '"117-58"," cement"'
-- '"117-169","pipeline safety"'
-- '"117-169","steel"'
+- '"Innovation and Competition","capture"'
+- '"Lieberman Warner","capture"'
+- '"Lieberman-Warner","capture"'
 - '"MARKET CHOICE Act","capture"'
-- '"HR 5376","capture"'
-- '"Clean Energy for America","carbon oxide"'
-- '"Clean Energy for America","sequestration"'
-- '"Inflation Reduction Act","hydrogen","clean"'
-- '"Inflation Reduction Act","hydrogen","natural gas"'
-- '"Inflation Reduction Act","hydrogen","methane"'
-- '"Infrastructure Investment and Jobs","hydrogen","clean"'
-- '"Infrastructure Investment and Jobs","hydrogen","natural gas"'
-- '"Infrastructure Investment and Jobs","hydrogen","methane"'
-- '" IIJA ","hydrogen","clean"'
-- '" IIJA ","hydrogen","natural gas"'
-- '" IIJA ","hydrogen","methane"'
-- '"117-58","hydrogen","natural gas"'
-- '"117-169","hydrogen","natural gas"'
-- '"117-58","hydrogen","clean"'
-- '"117-169","hydrogen","clean"'
-- '"117-58","hydrogen","methane"'
-- '"117-169","hydrogen","methane"'
-- '"HR 5376","hydrogen","clean"'
-- '"HR 3684","hydrogen","clean"'
-- '"HR 5376","hydrogen","natural gas"'
-- '"HR 3684","hydrogen","natural gas"'
-- '"HR 5376","hydrogen","methane"'
-- '"HR 3684","hydrogen","methane"'
-- '" IIJA ","hydrogen","clean"'
-- '"117-58","hydrogen","clean"'
-- '"117-169","hydrogen","clean"'
-- '"Inflation Reduction Act","permitting"'
-- '"Infrastructure Investment and Jobs","permitting"'
-- '" IIJA ","permitting"'
-- '"117-58","permitting"'
-- '"117-169","permitting"'
-- '"HR 5376","permitting"'
-- '"HR 3684","permitting"'
-- '"Inflation Reduction Act","permit"'
-- '"Infrastructure Investment and Jobs","permit"'
-- '" IIJA ","permit"'
-- '"117-58","permit"'
-- '"117-169","permit"'
-- '"HR 5376","permit"'
-- '"HR 3684","permit"'
-- '"110-140", "capture"' # Energy Independence and Security act of 2007
-- '"116-260","capture"' # consolidated apprpriations act of 2021
-- '"110-140", "section 45"' # Energy Independence and Security act of 2007
-- '"116-260","section 45"' # consolidated apprpriations act of 2021
-- '"American Recovery and Reinvestment","section 45"' #2009, 111-5
-- '" ARRA ","section 45"'
-- '"111-5","section 45"'
-- '"111-5","capture"'
-- '"Moving Forward Act","carbon dioxide"' #2020 introduced by Defazio (D-OR)
-- '"Moving Forward Act","co2"' #2020 introduced by Defazio (D-OR)
-#- '"National Defense Authorization Act for Fiscal Year 2021","capture"'
-- '"American Recovery and Reinvestment","capture"' #2009, 111-5
-- '" ARRA ","capture"'
-- '"Clean Energy Standard","capture"' #both the 2010 version and the 2019 version contain ccs provisons. introduced by Lujan, D-NM in the House
-- '"Moving Forward Act","capture"' #2020 introduced by Defazio (D-OR)
+- '"Moving Forward Act","capture"'
+- '"Moving Forward Act","carbon dioxide"'
+- '"Moving Forward Act","co2"'
+- '"Polluter Welfare","capture"'
 contains_ccs_provisions:
 - '"GREEN Act"' #H.R.848
 - '"Science for the Future Act"' # DOE Science for the future act S. 3699
