@@ -3,11 +3,12 @@
 search_term_list:
 - '"Petra Nova"' #ccs project
 - '" co pipelines"'
-- '"negative emissions"'
-- '"energy innovation"'
+#- '"negative emissions"'
+#- '"energy innovation"'
 - '"capture","hydrogen"'
 - '"FutureGen"'
 - '"well","permitting reform"'
+#- '"permitting reform","hydrogen"'
 - '"section 45","hydrogen"'
 - '"low carbon","hydrogen"'
 - '"steel","hydrogen"'
@@ -29,7 +30,7 @@ search_term_list:
 - '"carbon dioxide storage"'
 - '"carbon storage"'
 - '"store carbon dioxide"'
-- '"store co2"'
+#- '"store co2"'
 - '"co2 storage"'
 - '"storage of co2"'
 - '"storage of carbon dioxide"'
@@ -53,7 +54,7 @@ search_term_list:
 - '"capture","utilization and sequestration"'
 - '"capture","use and storage"'
 - '"capture","use and sequestration"'
-- '"capture","transport","store"'
+#- '"capture","transport","store"'
 - '"carbon","transportation and storage"'
 - '"co2","transportation and storage"'
 - '"geologic sequestration"'
@@ -64,7 +65,7 @@ search_term_list:
 - '"carbon dioxide","sequestration"'
 - '"carbon oxide","sequestration"'
 - '"carbon oxides","sequestration"'
-- '"carbon removal","sequestration"'
+#- '"carbon removal","sequestration"'
 - '"carbon removal","utilization"'
 - '"carbon removal","storage"'
 - '"hydrogen hub"'
@@ -90,7 +91,7 @@ search_term_list:
 - '"clean-coal"'
 - '"advanced coal technology"'
 - '"advanced coal technologies"'
-- '"dioxide removal","air capture"'
+#- '"dioxide removal","air capture"'
 - '"dioxide removal","storage"'
 - '"oil recovery","carbon dioxide"'
 - '"oil recovery","co2"'
@@ -98,11 +99,11 @@ search_term_list:
 - '"oil recovery","carbon removal"'
 - '"enhanced oil recovery"'
 - '" EOR "'
-- '"carbon management"'
-- '"management of carbon"'
-- '"co2 management"'
-- '"carbon dioxide management"'
-- '"low carbon solutions"'
+# - '"carbon management"'
+# - '"management of carbon"'
+# - '"co2 management"'
+# - '"carbon dioxide management"'
+#- '"low carbon solutions"'
 - '"carbon dioxide","pipeline"'
 - '"carbon dioxide","pipelines"'
 - '"co2","pipeline"'
@@ -137,10 +138,26 @@ search_term_list:
 - '" RNG ","zero"'
 - '"capture","hub"'
 - '"capture","hubs"'
-- '"capture","ethanol"'
-- '"capture","steel"'
-- '"capture","cement"'
 probably_ccs:
+- - permitting reform
+  - hydrogen
+- energy innovation
+- negative emissions
+- low carbon solutions
+- carbon management
+- management of carbon
+- carbon dioxide management
+- co2 management
+- - capture
+  - ethanol
+- - capture
+  - steel
+- - capture
+  - cement
+- - carbon removal
+  - sequestration
+- - dioxide removal
+  - air capture"
 - low carbon steel
 - low carbon ammonia
 - low carbon cement

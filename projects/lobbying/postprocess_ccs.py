@@ -147,7 +147,7 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     df["ccs_bills"] = [terms_present(x, ccs_bills) for x in df.clean_description]
 
     df["ccs_bills_number_only"] = [
-        1 if terms_present(d, ccs_bill_numbers[which_congress]) else 0
+        1 if (terms_present(d, ccs_bill_numbers[which_congress]) | terms_present(d, [x.replace(' ','') for x in ccs_bill_numbers[which_congress]])) else 0
         for d, which_congress in zip(df.clean_description, df.which_congress)
     ]
 
