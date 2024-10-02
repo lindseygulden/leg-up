@@ -131,16 +131,19 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     df.clean_description = df.clean_description.fillna(" ")
 
     # is ccs described in the lobbying description? (intermediate variables)
-    df["ccs_single"] = [terms_present(x, single_terms) for x in df.clean_description]
-    df["ccs_multiple"] = [
-        any([terms_present(x, y, find_any=False) for y in multiple_terms])
+    df["ccs_single_terms"] = [
+        terms_present(x, single_terms) for x in df.clean_description
+    ]
+    df["ccs_multiple_terms"] = [
+        np.sum([terms_present(x, y, find_any=False) for y in multiple_terms])
         for x in df.clean_description
     ]
+    df["total_number_ccs_terms"] = df.ccs_single_terms + df.ccs_multiple_terms
     # if description of lobbying activity contains either terms from the single-term list
     # or from the multi-term list, indicate that the activity contains a ccs description
     df["contains_ccs_description"] = [
         1 if (sgl + mlt) > 0 else 0
-        for sgl, mlt in zip(df["ccs_single"], df["ccs_multiple"])
+        for sgl, mlt in zip(df["ccs_single_terms"], df["ccs_multiple_terms"])
     ]
     # identify descriptions in which there is a specific larger law (with ccs provisions) paired
     # with a specific phrase
