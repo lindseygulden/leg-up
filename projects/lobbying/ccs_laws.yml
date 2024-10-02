@@ -1,5 +1,8 @@
 mostly_ccs_provisions:
+- '"NET Zero Act"' #hr 5205 117th congress
+- '"RECOUPS Act"' #2020: Redeeming Effectiveness to Carbon Oxide Utilization Plus Sequestration Act of 2020
 - '"CO2 Regulatory"'
+- '"C02 Regulatory"'
 - '"Pipeline Safety Modernization and Expansion Act"'
 - '"Pipeline Efficiency and Safety Act"'
 - '"PIPES Act"'
@@ -7,7 +10,6 @@ mostly_ccs_provisions:
 - '"Coordinated Action To Capture Harmful Emissions Act"'
 - '"Expanding Carbon Capture through Enhanced Oil Recovery Act"'
 - '"CATCH Act"' #HR 3538
-- '"C02 Regulatory"'
 - '"Carbon Capture Improvement"' #HR 3861
 - '"Accelerating Carbon Capture"' #access 45q act HR 1062
 - '"ACCESS 45Q Act"'
@@ -157,6 +159,8 @@ ccs_law_with_ccs_term:
 - '"Clean Energy Standard","capture"' #both the 2010 version and the 2019 version contain ccs provisons. introduced by Lujan, D-NM in the House
 - '"Moving Forward Act","capture"' #2020 introduced by Defazio (D-OR)
 contains_ccs_provisions:
+- '"GREEN Act"' #H.R.848
+- '"Science for the Future Act"' # DOE Science for the future act S. 3699
 - '"Boxer-Kerry"'
 - '"Boxer Kerry"'
 - '"MARKET CHOICE Act"'
@@ -233,16 +237,24 @@ contains_ccs_provisions:
 - '"Investments for Manufacturing"'
 congress_bill_nos:
   118:
+  - HR 9838 #To amend the Internal Revenue Code of 1986 to provide for an end date for the credit for certain qualified carbon oxide, and for other purposes.
+  - S 5212 #A bill to amend the Internal Revenue Code of 1986 to modify the carbon oxide sequestration credit to ensure parity for different uses and utilizations of qualified carbon oxide
+  - HR 4824 #Carbon Sequestration Collaboration Act
   - HR 1262 #CCU Parity Act
   - S 542 #CCU Parity Act
+  - S 2002 #CREATE Act of 2023 #'Carbon Removal, Efficient Agencies, Technology Expertise Act"'
   117:
+  - HR 2633 #To amend the Internal Revenue Code of 1986 to increase and expand the credit for carbon oxide sequestration
+  - S 2230 #A bill to amend the Internal Revenue Code of 1986 to enhance the carbon oxide sequestration credit
+  - HR 5205 #Net Zero Act of 2021
+  - HR 5179 # Net zero act of 2021
   - S 1017 #Clean Hydrogen Production Incentives Act of 2021"'
   - S 1807 #Clean H2 Production Act"'
   - S 2200 #Advancing the Clean Hydrogen Future Act of 2021"'
   - HR 4909 #Clean Hydrogen Energy Act"'
   - HR 5192 #Clean Hydrogen Production and Investment Tax Credit Act of 2021"'
   - HR 5965 #Clean Hydrogen Deployment Act of 2021"'
-  - HR 9496 #Department of Energy Clean Hydrogen and Fuel Cell Research, Development, and Demonstration Act of 2022'
+  - HR 9446 #Department of Energy Clean Hydrogen and Fuel Cell Research, Development, and Demonstration Act of 2022'
   - S 1017 #Clean Hydrogen Production Incentives Act of 2021
   - HR 6249 #End Polluter Welfare for Enhanced Oil Recovery Act
   - S 2475 # Energy Sector Innovation Credit Act --hydrogen credot
@@ -250,7 +262,7 @@ congress_bill_nos:
   - HR 5194 # Carbon Capture and Sequestration Expansion Act
   - S 2118 # clean energy for america act of 2022
   - S 1298 #"Clean energy for America Act of 2021"
-  - H.R. 1761 #CCUS Innovation Act
+  - HR 1761 #CCUS Innovation Act
   - HR 1760 #Carbon Capture Modernization Act
   - S 661 #Carbon Capture Modernization Act
   - HR 1062 #ACCESS 45Q 
@@ -260,7 +272,9 @@ congress_bill_nos:
   - S 986 # Carbon Capture, Utilization, and Storage Tax Credit Amendments Act of 2021
   - S 2288
   - S 1829 #Carbon Capture Improvement Act of 2021
+  - S 843 #CREATE Act of 2021
   116:
+  - HR 7896 #RECOUPS Act of 2020
   - S 2263 #CO2 Regulatory Certainty Act
   - HR 5156 #Carbon Capture and Sequestration Extension Act of 2019
   - S 4966 #45Q Carbon Capture, Utilization, and Storage Tax Credit Amendments Act
@@ -270,6 +284,8 @@ congress_bill_nos:
   - HR 3861 #Carbon Capture Improvement Act of 2019
   - HR 1796 #Carbon Capture Modernization Act
   - S 407 #Carbon Capture Modernization Act
+  - S 4341 # CREATE Act of 2020
+-   HR 8671 # Create act of 2020
   115: 
   - S 1663 #CO2 Regulatory Certainty Act
   - HR 4857 #CO2 Regulatory Certainty Act

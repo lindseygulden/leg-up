@@ -4,12 +4,6 @@ search_term_list:
 - '"low carbon","hydrogen"'
 - '"steel","hydrogen"'
 - '"low-carbon","hydrogen"'
-- '"steam methane reforming","capture"'
-- '"steam-methane reforming","capture"'
-- '"steam methane reforming","carbon"'
-- '"steam-methane reforming","carbon"'
-- '"steam methane reforming","sequestration"'
-- '"steam-methane reforming","sequestration"'
 - '"Inflation Reduction Act","hydrogen"'
 - '"Infrastructure Investment and Jobs","hydrogen"'
 - '" IIJA ","hydrogen"'
@@ -18,9 +12,11 @@ search_term_list:
 - '"capture","hydrogen"'
 - '"HR 5376","hydrogen"'
 - '"HR 3684","hydrogen"'
-#- '"HR 5376"' # 117th congress: inflation reduction act
-#- '"permitting reform"'
-#- '"HR 3684"' #117th congress IIJA
 - '"hydrogen","natural gas"'
 - '"hydrogen","methane"'
-#- '"MARKET CHOICE Act"' #contains ccs provisions
+- '"FutureGen"'
+- '"class vi" -"truck"'
+- '"negative emissions"'
+- '" co pipelines"'
+- '"well","permitting reform",-"natural gas pipeline"' 
+- '"energy innovation", -"CCS" -"CCUS" -"carbon capture" -"child care" -"tobacco" -"workforce development" -"energy innovation hub" -"supply chains" -"Renewable Energy Innovation" -"humanities" -"critical materials" -"energy innovation hubs" -"nuclear" -"health"'
