@@ -57,12 +57,10 @@ def adjust_company_names(ccs_df: pd.DataFrame, config_info: dict):
     return ccs_df
 
 
-def get_term_lists(list_path:str,list_key:str) -> Tuple[List[str], List[List[str]]]:
+def get_term_lists(list_path: str, list_key: str) -> Tuple[List[str], List[List[str]]]:
     """Gets and processes term lists describing CCS"""
 
     search_terms = yaml_to_dict(list_path)[list_key]
-        
-    
 
     terms = []
     for term in search_terms:
@@ -85,7 +83,7 @@ def get_term_lists(list_path:str,list_key:str) -> Tuple[List[str], List[List[str
 def get_ccs_bills(config_info: dict, which_laws: str):
     """get names of CCS bills from the appropriate yaml file"""
     ccs_bills = yaml_to_dict(config_info["law_list_path"])[which_laws]
-    
+
     return ccs_bills
 
 
@@ -104,17 +102,27 @@ def assign_sectors(df: pd.DataFrame, config_info: dict):
 
 def identify_ccs(df: pd.DataFrame, config_info: dict):
     """Use terms, law names, & sectors to identify very-likely, likely, and potentially ccs activities"""
-    single_terms, multiple_terms = get_term_lists(config_info["postproc_term_list_path"],"search_term_list")
-    _,bill_with_ccs_term=get_term_lists(config_info['law_list_path'],"ccs_law_with_ccs_term")
-    bill_with_ccs_term = [[substitute(x,use_basename=False) for x in xx] for xx in bill_with_ccs_term]
-    ccs_bills,_ = get_term_lists(config_info['law_list_path'], "mostly_ccs_provisions")
+    single_terms, multiple_terms = get_term_lists(
+        config_info["postproc_term_list_path"], "search_term_list"
+    )
+    _, bill_with_ccs_term = get_term_lists(
+        config_info["law_list_path"], "ccs_law_with_ccs_term"
+    )
+    bill_with_ccs_term = [
+        [substitute(x, use_basename=False) for x in xx] for xx in bill_with_ccs_term
+    ]
+    ccs_bills, _ = get_term_lists(config_info["law_list_path"], "mostly_ccs_provisions")
     ccs_bills = [substitute(x, use_basename=False) for x in ccs_bills]
-    
-    law_with_ccs_provisions,_ = get_term_lists(config_info['law_list_path'],"contains_ccs_provisions")
-    law_with_ccs_provisions = [substitute(x, use_basename=False) for x in law_with_ccs_provisions]
+
+    law_with_ccs_provisions, _ = get_term_lists(
+        config_info["law_list_path"], "contains_ccs_provisions"
+    )
+    law_with_ccs_provisions = [
+        substitute(x, use_basename=False) for x in law_with_ccs_provisions
+    ]
 
     # get dictionary with congress number/bill number for CCS bills
-    ccs_bill_numbers = yaml_to_dict(config_info['law_list_path'])["congress_bill_nos"]
+    ccs_bill_numbers = yaml_to_dict(config_info["law_list_path"])["congress_bill_nos"]
 
     # for simple dictionaries defined in the search term lists (not ccs, probably ccs, and maybe ccs)
     search_term_dict = yaml_to_dict(config_info["postproc_term_list_path"])
@@ -136,7 +144,7 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     ]
     # identify descriptions in which there is a specific larger law (with ccs provisions) paired
     # with a specific phrase
-    df['bill_with_ccs_term']= [
+    df["bill_with_ccs_term"] = [
         any([terms_present(x, y, find_any=False) for y in bill_with_ccs_term])
         for x in df.clean_description
     ]
@@ -147,7 +155,16 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     df["ccs_bills"] = [terms_present(x, ccs_bills) for x in df.clean_description]
 
     df["ccs_bills_number_only"] = [
-        1 if (terms_present(d, ccs_bill_numbers[which_congress]) | terms_present(d, [x.replace(' ','') for x in ccs_bill_numbers[which_congress]])) else 0
+        (
+            1
+            if (
+                terms_present(d, ccs_bill_numbers[which_congress])
+                | terms_present(
+                    d, [x.replace(" ", "") for x in ccs_bill_numbers[which_congress]]
+                )
+            )
+            else 0
+        )
         for d, which_congress in zip(df.clean_description, df.which_congress)
     ]
 
@@ -172,9 +189,13 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     # classify something as very likely CCS if it has a ccs description, is a ccs company,
     # mentions ccs bills, and does not contain a 'not ccs' term
     df["very_likely_ccs"] = [
-        1 if ((d + b +bn+ c) > 0) & (n == 0) else 0
-        for d, b, bn,c, n in zip(
-            df.contains_ccs_description, df.ccs_bills, df.ccs_bills_number_only, df.ccs_company, df.not_ccs
+        1 if ((d + b + bn + c) > 0) & (n == 0) else 0
+        for d, b, bn, c, n in zip(
+            df.contains_ccs_description,
+            df.ccs_bills,
+            df.ccs_bills_number_only,
+            df.ccs_company,
+            df.not_ccs,
         )
     ]
 
@@ -197,14 +218,12 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     ]
     # likely CCS are all the 'very likely ccs' plus the 'core FF sector' organizations paired with 'probably' ccs
     df["likely_ccs"] = [
-        1 if (((d + b + c + lean + law) > 0) & (n == 0)) else 0
-        for d, b, c, n, lean, law in zip(
-            df.contains_ccs_description,
-            df.ccs_bills,
-            df.ccs_company,
+        1 if (((vl + lean + law) > 0) & (n == 0)) else 0
+        for vl, n, lean, law in zip(
+            df.very_likely_ccs,
             df.not_ccs,
             df.leaning_ccs,  # maybes that are likely ccs b/c of industry
-            df.bill_with_ccs_term
+            df.bill_with_ccs_term,
         )
     ]
     df["could_be_ccs"] = [
@@ -218,33 +237,14 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
         )
     ]
     df["potentially_ccs"] = [
-        1 if ((d + m + b + p + c) > 0) & (n == 0) else 0
-        for d, b, m, p, c, n in zip(
-            df.contains_ccs_description,
-            df.ccs_bills,
+        1 if ((cb + p + l) > 0) & (n == 0) else 0
+        for cb, p, l, n in zip(
             df.could_be_ccs,
+            df.terms_probably_ccs,
             df.likely_ccs,
-            df.ccs_company,
             df.not_ccs,
         )
     ]
-    print("")
-    print(
-        df[
-            [
-                "not_ccs",
-                "terms_probably_ccs",
-                "terms_maybe_ccs",
-                "contains_ccs_description",
-                "leaning_ccs",
-                "very_likely_ccs",
-                "likely_ccs",
-                "potentially_ccs",
-                "ccs_bills",
-            ]
-        ].sum()
-    )
-    print("")
 
     return df
 
