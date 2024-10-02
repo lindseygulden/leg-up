@@ -1,4 +1,5 @@
-# search terms for use in the lda querying interface. Note that all terms below will be joined with an 'OR'
+# Search terms, slightly modified from those used in LDA Query API, used for the postprocessing
+# of the LDA API results
 search_term_list:
 - '"Petra Nova"' #ccs project
 - '" co pipelines"'
@@ -26,15 +27,11 @@ search_term_list:
 - '"carbon dioxide sequestration"'
 - '"carbon sequestration"'
 - '"carbon dioxide storage"'
-- '"transportation","carbon dioxide"'
-- '"transportation","co2"'
 - '"carbon storage"'
 - '"store carbon dioxide"'
 - '"store co2"'
 - '"co2 storage"'
 - '"storage of co2"'
-- '"advanced coal technology"'
-- '"advanced coal technologies"'
 - '"storage of carbon dioxide"'
 - '"c02 storage"'
 - '"storage of c02"'
@@ -91,6 +88,8 @@ search_term_list:
 - '"hydrogen","methane"'
 - '"clean coal"'
 - '"clean-coal"'
+- '"advanced coal technology"'
+- '"advanced coal technologies"'
 - '"dioxide removal","air capture"'
 - '"dioxide removal","storage"'
 - '"oil recovery","carbon dioxide"'
@@ -228,6 +227,10 @@ probably_ccs:
 - - primacy
   - well
 maybe_ccs:
+- - transportation
+  - carbon dioxide
+- - transportation
+  - co2
 - - 'lowemission'
   - fuel
 - - 'low emission'

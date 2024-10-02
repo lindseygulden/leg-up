@@ -1,4 +1,5 @@
-#  --- 1 of 2 files with bill-number queries ---
+#  --- 1 of 3 files with bill-number queries ---
+# other files are called 'search_term_list_billnos_2.yml' and search_term_list_billnos_3.yml
 
 # This file contains terms that find potential lobbying activities that are CCS specific, 
 # referred to only by their bill number (HR XXX or S XXX)

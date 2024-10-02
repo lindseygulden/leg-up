@@ -1,4 +1,5 @@
-#  --- 2 of 2 files with bill-number queries ---
+#  --- 2 of 3 files with bill-number queries ---
+# other files are called 'search_term_list_billnos_1.yml' and 'search_term_list_billnos_3.yml'
 
 # This file contains terms that find potential lobbying activities that are CCS specific, 
 # referred to only by their bill number (HR XXX or S XXX)
@@ -42,15 +43,3 @@ search_term_list:
 #- '"HR 4824" -"carbon sequestration"' #"Carbon Sequestration Collaboration Act"'
 #- '"HR 7896" -"carbon capture"' #"RECOUPS Act of 2020"'
 - '"S.799" -"CCS" -"CCUS" -"motorized vehicles" -"Fair Access to Science" -"television" -"telecommunications" -"wireless" -"infants" -"sequester" -"obesity" -"securities" -"health care" -"healthcare" -"Protecting Americans with" -"advertising" -"medicaid" -"Community Choice" -"privacy" -"medicare" -"SCALE" -"Storing CO2 and Lowering Emissions" -"wilderness"'
-- '"S 962" -"pakistan" -"Voices of Freedom" -"energy bonds" -"AmericaCures" -"cures" -"Capture and Storage" -"law enforcement" -"embassy" -"health" -"medical"'
-- '"S.962" -"pakistan" -"Voices of Freedom" -"energy bonds" -"AmericaCures" -"cures" -"Capture and Storage" -"law enforcement" -"embassy" -"health" -"medical"'
-- '"S 1201" -"fossil" -"effect" -"power plant" -"employee" -"grid" -"health" -"terrorists" -"Climate Leadership" -"education" -"Clean Distributed" -"clean power act"'
-- '"S 383" -"federal skills" -"CCS" -"CCUS" -"proliferation" -"health" -"Wild and Scenic" -"combat" -"critical minerals" -"Indian Trust" -"USE" -"Utilizing Significant" -"TARP" -"relief" -"television"'
-#- '"S 407" -"military" -"farmer" -"public lands" -"Antiquities" -"veterans" -"hospital" -"safe" -"indian" -"National Monument" -"river" -"ammunition" -"defense" -"rivers" -"Carbon Capture" -" Air America" -"rail" -"railroads" -"railroad" -"railway"'
-- '"S 986" -"carbon capture" -"CCUS" -"CCS" -"veterans" -"theft" -"helping families" -"foster care" -"not corporations" -"rum" -"distillers" -"STOP Act" -"combat" -"LIHEAP" -"Congressional Trade"'
-- '"S.986" -"carbon capture" -"military" -"CCUS" -"CCS" -"veterans" -"theft" -"helping families" -"foster care" -"not corporations" -"rum" -"distillers" -"STOP Act" -"combat" -"LIHEAP" -"Congressional Trade"'
-- '"HR 6258" -"s 3107" -"disabilities" -"Financial Services" -"AQUAA" -"Financial Service" -"Capture and Storage" -"nutrition" -"S3107" -"carbon capture" -"CCS" -"transparency" -"fit for life" -"obesity" -"cyberfraud" -"tax system"'
-- '"H.R. 6258" -"s. 3107" -"guard" -"healthy" -"FSGG" -"S. 2155" -"general services" -"disabilities" -"Financial Services" -"AQUAA" -"Financial Service" -"Capture and Storage" -"nutrition" -"S3107" -"carbon capture" -"CCS" -"transparency" -"fit for life" -"obesity" -"cyberfraud" -"tax system" -"prior approval"'
-# 'Carbon Capture and Storage Early Deployment Act HR 6258 2008'
-- '"H.R. 1761" -species -exploitation -Podiatric -"sex offense" -gun -pilots -Criminal -firearm -medicare -HELLPP -"Occupational Therapy"'
-- '"H.R.1761" -species -exploitation -Podiatric -"sex offense" -gun -pilots -Criminal -firearm -medicare -HELLPP -"Occupational Therapy"'
