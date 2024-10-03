@@ -278,31 +278,30 @@ water transit:
 - TODD PACIFIC SHIPYARDS
 - WORLD SHIPPING COUNCIL
 carbon:
+- CARBON OFFSET PROVIDERS COALITION
+- PROCESS ENERGY SOLUTIONS
 - GRAPHYTE
-- NEGATIVE EMISSIONS MATERIALS
-- POWERSPAN #develops and commercializes proprietary, multi-pollutant control and carbon dioxide (CO2) capture technology for electric power plants
+- CARBONFUTURE
 - CHICAGO CLIMATE EXCHANGE
-- CLEAN ENERGY SYSTEMS
 - PROJECT CANARY
 - NZERO
 - NATURAL OCEAN WELL
-- GREENHOUSE GAS SERVICES
+- GREENHOUSE GAS SERVICES #joint venture b/w GE and AES to sell credit offsets?
 - THALO LABS
-- HEIRLOOM CARBON TECHNOLOGIES
-- EION
+- HEIRLOOM CARBON TECHNOLOGIES # minearlization -- bury rocks under ground?
+- EION # enhanced rock weathering
 - PROJECT VESTA
-- VERDE CO2
 - RUNNING TIDE
 - HEIMDAL
-- H CYCLE
 - ENVIROGENX
 - INTERNATIONAL EMISSIONS TRADING ASSOCIATION
 - LITHOS CARBON
 - US BIOCHAR COALITION
-- ESCRUB SYSTEMS # clean coal?
-- CLEAN COAL SOLUTIONS
 ccs:
 - DIOXYCLE
+- VERDE CO2 #"full service CCS developer"
+- CLEAN ENERGY SYSTEMS #https://www.cleanenergysystems.com
+- POWERSPAN #develops and commercializes proprietary, multi-pollutant control and carbon dioxide (CO2) capture technology for electric power plants
 - TITAN OIL RECOVERY #eor specialist
 - AKERMIN # now part of CO2 solutions
 - MITSUBISHI # both - MITSUBISHI heavy industries and - MITSUBISHI power are into ccs and clean hydrogen
@@ -310,7 +309,6 @@ ccs:
 - SUMMIT POWER # this? https://www.linkedin.com/company/summit-power-group/
 - MILESTONE ENVIRONMENTAL
 - ADVANTEK WASTE MANAGEMENT
-- PROCESS ENERGY SOLUTIONS
 - BLUE SKY INFRASTRUCTURE
 - BLUE SOURCE
 - CALERA
@@ -318,10 +316,8 @@ ccs:
 - CARBON ENGINEERING
 - CARBON ENGINEERING ULC
 - CARBON GEOCAPTURE
-- CARBON OFFSET PROVIDERS COALITION
 - CARBON UTILIZATION RESEARCH COUNCIL
 - CARBONFREE
-- CARBONFUTURE
 - CCS ALLIANCE
 - CCUS COALITION
 - CEMVITA
@@ -336,9 +332,7 @@ ccs:
 - REMORA
 - SKYONIC
 - SVANTE
-- VELOCYS
 - WABASH VALLEY RESOURCES
-- ZERO CARBON HYDROGEN COALITION
 cement:
 - OLDCASTLE MATERIALS
 - THORNDYKE RESOURCE
@@ -526,6 +520,7 @@ chemicals, refining, and plastics:
 - VINYL INSTITUTE
 - VITAL CHEMICALS
 clean hydrogen:
+- ZERO CARBON HYDROGEN COALITION
 - VODIK ENERGY
 - CHZ TECHNOLOGIES
 - GTA ENERGY
@@ -723,6 +718,8 @@ water:
 - YUMA COUNTY AGRICULTURE WATER COALITION
 coal:
 - GREAT POINT ENERGY
+- ESCRUB SYSTEMS # clean coal -- may have just been scrubbers for nox, sox, mercury?
+- CLEAN COAL SOLUTIONS # this seems focused on nox and sox and mercury removal, not co2
 - AMERICANS FOR BALANCED ENERGY CHOICES
 - NETNEGATIVE CO2 BASELOAD POWER
 - FRONTIERAS
@@ -777,6 +774,7 @@ energy technology:
 - NATIONAL ELECTRICAL MANUFACTURERS ASSOCIATION # trade association representing electrical equipment manufacturers
 - NATIONAL ASSOCIATION OF ENERGY SERVICE COMPANIES # trade group
 engineering, technology, and consulting:
+- VELOCYS # process for converting syngas into aviation fuel
 - TOTAL CONTAINMENT
 - THOMSON
 - HEADWATERS
@@ -1371,6 +1369,7 @@ finance:
 - ZIONS BANK
 - ZURICH
 biofuels:
+- H CYCLE
 - ALTERNATIVE FUELS CHEMICALS COALITION
 - BIOMASS THERMAL ENERGY COUNCIL
 - RENTECH
@@ -3187,6 +3186,7 @@ nuclear:
 - WESTINGHOUSE ELECTRIC
 - XENERGY
 mining and metals:
+- NEGATIVE EMISSIONS MATERIALS # i think this is the same as Atlas materials -- gets specialized minerals for batteries
 - GLENCORE
 - ANGLO AMERICAN
 - LEXI ENERGY #Lithium
