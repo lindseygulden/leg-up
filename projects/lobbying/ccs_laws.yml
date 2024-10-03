@@ -314,10 +314,10 @@ congress_bill_nos:
   - SB 962 #Carbon Capture and Storage Research Development
   - HR 6170 #Clean Coal-Derived Fuels for Energy Security Act of 2008
   - HR 6756 #Carbon Reduction Technology Bridge Act of 2008
-  - SB 1227 #Clean Coal Act of 2007
+#- SB 1227 #Clean Coal Act of 2007
   109: 
-  - SB 1133 #Clean Coal Research, Development, Demonstration, and Deployment Act of 2005
-  - SB 957 #Clean Coal Power Initiative Act
+#  - SB 1133 #Clean Coal Research, Development, Demonstration, and Deployment Act of 2005
+#  - SB 957 #Clean Coal Power Initiative Act
   108: []
   107: []
   106: []
