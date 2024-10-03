@@ -7,12 +7,9 @@ search_term_list:
 #- '"energy innovation"'
 - '"capture","hydrogen"'
 - '"FutureGen"'
-- '"well","permitting reform"'
+- '" well","permitting reform"'
 #- '"permitting reform","hydrogen"'
 - '"section 45","hydrogen"'
-- '"low carbon","hydrogen"'
-- '"steel","hydrogen"'
-- '"low-carbon","hydrogen"'
 - '"clean h2"'
 - '"45Z"'
 - '"45 Z"'
@@ -21,6 +18,7 @@ search_term_list:
 - '"c02 capture"'
 - '"co2 sequestration"'
 - '"sequestration of co2"'
+- '"carbon dioxide capture"'
 - '"c02 sequestration"'
 - '"sequestration of c02"'
 - '"sequestration of carbon"'
@@ -44,19 +42,29 @@ search_term_list:
 - '"capture and store"'
 - '"decarbonized","ammonia""'
 - '"carbon utilization"'
-- '"carbon dioxide","use and storage"'
 - '"carbon dioxide utilization"'
 - '"co2 utilization"'
+- '"carbon dioxide","use and storage"'
+- '"carbon dioxide","use storage"'
 - '"co2","use and storage"'
+- '"co2","use storage"'
 - '"capture and storage"'
-- '"capture transport","storage"'
+- '"capture storage"'
+- '"capture","transport","storage"'
+- '"capture","transportation","storage"'
 - '"capture","utilization and storage"'
+- '"capture","utilization storage"'
 - '"capture","utilization and sequestration"'
+- '"capture","utilization sequestration"'
 - '"capture","use and storage"'
 - '"capture","use and sequestration"'
+- '"capture","use storage"'
+- '"capture","use sequestration"'
 #- '"capture","transport","store"'
 - '"carbon","transportation and storage"'
+- '"carbon","transportation storage"'
 - '"co2","transportation and storage"'
+- '"co2","transportation storage"'
 - '"geologic sequestration"'
 - '"geological sequestration"'
 - '"geologic storage"'
@@ -87,20 +95,10 @@ search_term_list:
 - '"45 V"'
 - '"hydrogen","natural gas"'
 - '"hydrogen","methane"'
-- '"clean coal","carbon dioxide"'
-- '"clean coal","co2"'
-- '"clean coal","greenhouse gas"'
+- '"clean coal","utilization"'
+- '"clean coal","oil recovery"'
 - '"clean coal","sequestration"'
-- '"clean coal","GHG"'
-#- '"clean-coal"'
-- '"advanced coal technology","carbon dioxide"'
-- '"advanced coal technologies","carbon dioxide"'
-- '"advanced coal technology","co2"'
-- '"advanced coal technologies","co2"'
-- '"advanced coal technology","greenhouse gas"'
-- '"advanced coal technologies","greenhouse gas"'
-- '"advanced coal technology","GHG"'
-- '"advanced coal technologies","GHG"'
+- '"clean coal","carbon dioxide emission"'
 #- '"dioxide removal","air capture"'
 - '"dioxide removal","storage"'
 - '"oil recovery","carbon dioxide"'
@@ -141,14 +139,34 @@ search_term_list:
 - '"air capture","sequestration"'
 - '"natural gas","capture"'
 - '"natural gas","sequestration"'
-- '"natural gas","storage"'
+#- '"natural gas","storage"'
 - '" RNG ","capture"'
 - '" RNG ","sequestration"'
-- '" RNG ","storage"'
+#- '" RNG ","storage"'
 - '" RNG ","zero"'
 - '"capture","hub"'
 - '"capture","hubs"'
 probably_ccs:
+- - clean coal
+  - co2 emissions reduction
+- - clean coal
+  - carbon dioxide
+  - emissions reduction
+- - clean coal
+  - GHG 
+  - emissions reduction
+- - clean coal
+  - co2
+- - clean coal
+  - carbon dioxide
+- - clean coal
+  - greenhouse gas
+- - low carbon
+  - hydrogen
+- - steel
+  - hydrogen
+- - lowcarbon
+  - hydrogen
 - - clean coal
   - carbon
 - - permitting reform

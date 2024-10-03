@@ -1,20 +1,27 @@
 mostly_ccs_provisions:
+- '"Hydrogen Innovation Finance and Infrastructure"'
+- '"HIFIA"'
 - '"NET Zero Act"' #hr 5205 117th congress
 - '"RECOUPS Act"' #2020: Redeeming Effectiveness to Carbon Oxide Utilization Plus Sequestration Act of 2020
 - '"CO2 Regulatory"'
 - '"C02 Regulatory"'
-- '"Pipeline Safety Modernization and Expansion Act"'
-- '"Pipeline Efficiency and Safety Act"'
+- '"Pipeline Safety Modernization and Expansion"' #Act
+- '"Pipeline Efficiency and Safety"' # Act"'
+- '"Pipeline Safety Modernization & Expansion"' #Act
+- '"Pipeline Efficiency & Safety"' # Act"'
 - '"PIPES Act"'
-- '"Coal with Carbon Capture and Sequestration Act of 2015"' #S. 1285, 
+- '"Coal with Carbon Capture and Sequestration"' # Act of 2015"' #S. 1285, 
+- '"Coal with Carbon Capture & Sequestration"'
 - '"Coordinated Action To Capture Harmful Emissions Act"'
 - '"Expanding Carbon Capture through Enhanced Oil Recovery Act"'
 - '"CATCH Act"' #HR 3538
 - '"Carbon Capture Improvement"' #HR 3861
 - '"Accelerating Carbon Capture"' #access 45q act HR 1062
 - '"ACCESS 45Q Act"'
+- '"increase and expand the credit for carbon oxide sequestration"'
 #- '"A bill to amend the Energy Policy Act of 2005 to require the Secretary of Energy to consider the objective of improving the conversion, use, and storage of carbon dioxide produced from fossil fuels in carrying out research and development programs under that Act'
 - '"improving the conversion, use, and storage of carbon dioxide"' # S1282 introduced by manchin in 2015
+- '"improving the conversion, use, & storage of carbon dioxide"' # S1282 introduced by manchin in 2015
 - '"Capture and Storage Early"' #2008 & 2009 by boucher
 - '"Capture Utilization and Storage Tax"' # s986 #2020 and 2021 introduction by Smith and Capito
 - '"Capture and Storage Technology"' #2007
@@ -27,16 +34,23 @@ mostly_ccs_provisions:
 - '"Responsible Use of Coal Act"' #2009
 - '"Utilizing Significant Emissions' # S 383 and HR 1166 2019-2020 (116th congress)
 - '" USE IT Act"'
-- '"Fossil Energy Research and Development ' # 2020: mostly ccs, with a bit of methane leak detection
+- '"Fossil Energy Research and Development"' # 2020: mostly ccs, with a bit of methane leak detection
+- '"Fossil Energy Research & Development"' # 2020: mostly ccs, with a bit of methane leak detection
 - '"Boxer Substitute Amendment"' #  to SB3036
 - '"CREST Act"'
 - '"Carbon Removal and Emissions Storage Technologies"'
+- '"Carbon Removal and Emission Storage Technology"' # miswriting of CREST
+- '"Carbon Removal and Emissions Storage Technology"' # miswriting of CREST
+- '"Carbon Removal and Emission Storage Technologies"' # miswriting of CREST
 - '"Storing CO2 and Lowering Emissions"' # introduced by Veasey of texas
 - '"SCALE Act"'
 - '"Carbon Capture and Storage Stewardship Trust Fund Act"' #S1502
 - '"Carbon Capture and Sequestration Program Amendments Act"' #S1012
+- '"Carbon Capture & Storage Stewardship Trust Fund Act"' #S1502
+- '"Carbon Capture & Sequestration Program Amendments Act"' #S1012
 - '"CCU Parity"'
 - '"Energy Clean Hydrogen and Fuel"'
+- '"Energy Clean Hydrogen & Fuel"'
 - '"Clean H2"' # Clean H2 Production Act S 1807
 - '"Energy Sector Innovation Credit Act"' #2021: mostly new stuff for CCS, 'clean' hydrogen, production of electricity from those. introduced by tom reed r-ny
 ccs_law_with_ccs_term:
@@ -227,7 +241,10 @@ congress_bill_nos:
   - HR 1262 #CCU Parity Act
   - SB 542 #CCU Parity Act
   - SB 2002 #CREATE Act of 2023 #'Carbon Removal, Efficient Agencies, Technology Expertise Act"'
+  - SB 1576 # CREST
   117:
+  - HR 9813 # CREST of 2022
+  - SB 4420 # CREST of 2022
   - HR 2633 #To amend the Internal Revenue Code of 1986 to increase and expand the credit for carbon oxide sequestration
   - SB 2230 #A bill to amend the Internal Revenue Code of 1986 to enhance the carbon oxide sequestration credit
   - HR 5205 #Net Zero Act of 2021
