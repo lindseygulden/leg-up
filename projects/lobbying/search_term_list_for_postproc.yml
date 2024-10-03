@@ -149,6 +149,8 @@ search_term_list:
 - '"capture","hub"'
 - '"capture","hubs"'
 probably_ccs:
+- - clean coal
+  - carbon
 - - permitting reform
   - hydrogen
 - energy innovation
@@ -254,6 +256,9 @@ probably_ccs:
 - - primacy
   - well
 maybe_ccs:
+- advanced coal technology
+- advanced coal technologies
+- clean coal
 - - transportation
   - carbon dioxide
 - - transportation

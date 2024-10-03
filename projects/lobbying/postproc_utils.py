@@ -13,6 +13,7 @@ import pandas as pd
 import re
 from cleanco import basename
 
+
 def terms_present(phrase, term_list, find_any=True):
     """utility function to see if terms in terms_list are present in a given phrase
     Args:
@@ -23,9 +24,14 @@ def terms_present(phrase, term_list, find_any=True):
     Returns:
         int: 1 if one or more of the terms are present in phrase, 0 otherwise
     """
+
     if not isinstance(phrase, str):
         raise TypeError("phrase must be a string")
     if not isinstance(term_list, list):
+        print("")
+        print(f"============= {term_list}")
+        print(f" {phrase}")
+        print("")
         raise TypeError(
             "term_list must be a list of strings (even if it is a list of length 1)"
         )
@@ -45,6 +51,7 @@ def terms_present(phrase, term_list, find_any=True):
         else:
             return 0
     return n_present
+
 
 def get_list_govt_entities(entity_endpoint: str, session: object):
     """Queries constants endpoint to get a standardized list of government entities"""
