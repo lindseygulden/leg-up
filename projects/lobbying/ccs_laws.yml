@@ -296,15 +296,15 @@ congress_bill_nos:
   - SB 1282 # "Manchin's very long name "conversion, use, and storage of carbon" act
   113:
   - SB 2287 #Carbon Capture and Sequestration Deployment Act of 2014
-  - SB 2152 # Advanced Clean Coal Technology act of 2014 "
+#  - SB 2152 # Advanced Clean Coal Technology act of 2014 "
   - SB 2288 #S 2288 is Expanding Carbon Capture through Enhanced Oil Recovery act"
   112:
-  - HR 1868 #Clean Coal-Derived Fuels for Energy Security Act of 2011
+#  - HR 1868 #Clean Coal-Derived Fuels for Energy Security Act of 2011
   - SB 699 #Department of Energy Carbon Capture and Sequestration Program Amendments Act of 2011
   111:
   - SB 3591 # Carbon Capture and Sequestration Deployment Act of 2010
   - SB 3590 # Carbon Capture and Sequestration Deployment Revenue Act of 2010
-  - HR 1847 #H.R. 1847, Clean Coal-Derived Fuels for Energy Security Act of 2009.
+#  - HR 1847 #H.R. 1847, Clean Coal-Derived Fuels for Energy Security Act of 2009.
   - HR 1689 #H.R. 1689, Carbon Capture and Storage Early Deployment Act.
   - SB 3589 #Carbon Capture and Sequestration Deployment Act of 2010
   - SB 1502 #Carbon Capture and Sequestration Stewardship Trust Fund Act of 2009
@@ -312,7 +312,7 @@ congress_bill_nos:
   110:
   - HR 6258 #THE CARBON CAPTURE AND STORAGE EARLY DEPLOYMENT ACT
   - SB 962 #Carbon Capture and Storage Research Development
-  - HR 6170 #Clean Coal-Derived Fuels for Energy Security Act of 2008
+#  - HR 6170 #Clean Coal-Derived Fuels for Energy Security Act of 2008
   - HR 6756 #Carbon Reduction Technology Bridge Act of 2008
 #- SB 1227 #Clean Coal Act of 2007
   109: 
