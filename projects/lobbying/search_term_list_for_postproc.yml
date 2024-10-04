@@ -5,9 +5,7 @@ search_term_list:
 - '" co pipelines"'
 #- '"negative emissions"'
 #- '"energy innovation"'
-- '"capture","hydrogen"'
 - '"FutureGen"'
-- '" well","permitting reform"'
 #- '"permitting reform","hydrogen"'
 - '"section 45","hydrogen"'
 - '"clean h2"'
@@ -40,7 +38,7 @@ search_term_list:
 - '"capture","carbon oxide"'
 - '"c02","capture"'
 - '"capture and store"'
-- '"decarbonized","ammonia""'
+- '"decarbonized ammonia"'
 - '"carbon utilization"'
 - '"carbon dioxide utilization"'
 - '"co2 utilization"'
@@ -80,12 +78,14 @@ search_term_list:
 - '"carbon sequestration"'
 - '"carbon dioxide","sequestration"'
 - '"carbon oxide","sequestration"'
+- '" co ","sequestration"'
 - '"carbon oxides","sequestration"'
 #- '"carbon removal","sequestration"'
 - '"carbon removal","utilization"'
-- '"carbon removal","storage"'
+#- '"carbon removal","storage"'
 - '"hydrogen hub"'
 - '"h2 hub"'
+- '"h2 hubs"'
 - '"hydrogen hubs"'
 - '"clean hydrogen"'
 - '"blue hydrogen"'
@@ -95,7 +95,7 @@ search_term_list:
 - '" CCU "'
 - '"section 45","capture"'
 - '"section 45","sequestration"'
-#- '"section 45","carbon"'
+- '"section 45","coal"'
 - '"section 45","co2"'
 - '"45Q"'
 - '"45 Q"'
@@ -106,7 +106,7 @@ search_term_list:
 - '"clean coal","sequestration"'
 #- '"clean coal","carbon dioxide emission"'
 #- '"dioxide removal","air capture"'
-- '"dioxide removal","storage"'
+- '"dioxide removal","sequestration"'
 - '"oil recovery","carbon dioxide"'
 - '"oil recovery","co2"'
 - '"oil recovery","c02"'
@@ -120,29 +120,27 @@ search_term_list:
 #- '"low carbon solutions"'
 - '"carbon dioxide pipeline"'
 - '"carbon dioxide pipelines"'
+- '"co pipeline"'
+- '"co pipelines"'
 - '"co2 pipeline"'
 - '"co2 pipelines"'
 - '"co2 pipe line"'
 - '"c02 pipeline"'
 - '"c02 pipelines"'
-- '" EPA"," UIC "'
-- '"underground injection control"'
 - '"class vi"'
 - '"primacy"'
-- '"injection","co2"'
-- '"injection","carbon dioxide"'
+- '"injection of co2"'
+- '"injection of carbon dioxide"'
+- '"co2 injection"'
+- '"carbon dioxide injection"'
 - '"co2 use"'
 - '"carbon use"'
 - '"co2 removal","storage"'
 - '"co2 removal","hub"'
 - '"co2 removal","hubs"'
-- '"zero-emission","natural gas"'
-- '"zero-emissions","natural gas"'
-- '"zero emission","natural gas"'
-- '"zero emissions","natural gas"'
-- '"air capture","storage"'
-- '" DAC ","storage"'
-- '"air capture","sequestration"'
+#- '" DAC ","storage"'
+- '" DAC ","sequestration"'
+- '"air capture","sequestration"' #'storage' gets to 'energy storage', which is usually batteries
 #- '"natural gas","capture"'
 #- '"natural gas","sequestration"'
 #- '"natural gas","storage"'
@@ -153,8 +151,15 @@ search_term_list:
 - '"capture","hub"'
 - '"capture","hubs"'
 hydrogen_terms:
+- '"hydrogen","steel"'
+- '"hydrogen infrastructure"'
+- '"hydrogen program"'
+- '"hydrogen policy"'
+- '"capture","hydrogen"'
 - '"low carbon hydrogen"'
 - '"lowcarbon hydrogen"'
+- '"decarbonized hydrogen"'
+- '"decarbonized h2"'
 - '"low carbon emissions hydrogen"'
 - '"renewable hydrogen"'
 - '"carbon neutral hydrogen"'
@@ -169,136 +174,84 @@ hydrogen_terms:
 - '"carbonneutral h2"'
 - '"h2","natural gas"'
 - '"h2","methane"'
+- '"hydrogen","section 45"'
+- '"h2","section 45"'
+- '"hydrogen tax credits"'
 probably_ccs:
+- section 45
+- hydrogen
+- negative emissions
 - - clean coal
   - co2 emissions reduction
 - - clean coal
-  - carbon dioxide
-  - emissions reduction
+  - GHG emissions reduction
 - - clean coal
-  - GHG 
-  - emissions reduction
-- - clean coal
-  - co2
-- - clean coal
-  - carbon dioxide
-- - clean coal
-  - greenhouse gas
-- - low carbon
-  - hydrogen
-- - steel
-  - hydrogen
-- - lowcarbon
-  - hydrogen
-- - clean coal
-  - carbon
-- - permitting reform
-  - hydrogen
-- energy innovation
-- negative emissions
-- low carbon solutions
+  - greenhouse gas emissions reduction
+- co2 removal
 - carbon management
 - management of carbon
 - carbon dioxide management
-- co2 management
-- - capture
-  - ethanol
-- - capture
-  - steel
-- - capture
-  - cement
-- - carbon removal
-  - sequestration
-- - dioxide removal
-  - air capture"
+- carbon removal
+- carbon dioxide removal
 - low carbon steel
 - low carbon ammonia
 - low carbon cement
-- sustainable aviation
+- bioenergy technology
+- bioenergy technologies
 - zero emission fuels
 - removal of carbon
 - removal of co2
 - low carbon concrete
-- - ammonia
-  - hydrogen
-- - capture
-  - carbon
-- - capture
-  - co2
+- decarbonized ammonia
+#- biofuel
+#- biodiesel
+#- biomethanol
+#- waste to energy
+#- 'demonstration project'
+#- lowemissions fuel
+#- low emissions fuel
+#- lowcarbon fuel
+#- low carbon fuel
+#- - sequestration
+#  - tax credit
+- 'hydrogen'
+- ' CDR '
+#- - 'lowcarbon'
+#  - cement
+#- - 'low carbon'
+#  - cement
+#- - 'lowcarbon'
+#  - concrete
+#- - 'low carbon'
+#  - concrete
+maybe_ccs:
+- ' DAC '
+- direct air capture
+- co2 management
+- sustainable aviation
+- zero emission fuel
 - - section 45
   - tax
 - - section 45
   - carbon
-- - biofuel
-  - low emission
-- - biofuel
-  - lowemission
-- - biofuel
-  - zero emission
-- - biofuel
-  - zeroemission
-- - biodiesel
-  - low emission
-- - biodiesel
-  - lowemission
-- - biodiesel
-  - zero emission
-- - biodiesel
-  - zeroemission
-- biomethanol
-- waste to energy
-#- 'demonstration project'
-- 'lowemissions fuel'
-- 'low emissions fuel'
-- - 'sequestration'
-  - 'carbon'
-- - 'sequestration'
-  - 'capture'
-- - 'sequestration'
-  - 'tax credit'
-- 'class vi'
-- 'class six'
-- 'classvi'
-- 'primacy'
-- 'negative emission'
-- 'negativeemission'
-- 'hydrogen'
-- ' CDR '
-- - 'capture'
-  - 'carbon'
-- 'tertiary oil recovery'
-- 'tertiary recovery'
-- 'co2 flooding'
-- ' DAC '
-- 'direct air capture'
-- - 'tax credit'
-  - hydrogen
-- - 'tax credit'
-  - capture
-- - 'zeroemission'
-  - 'fuel'
-- - 'zero emission'
-  - 'fuel'
-- - 'lowcarbon'
-  - cement
-- - 'low carbon'
-  - cement
-- - 'lowemission'
-  - cement
-- - 'low emission'
-  - cement
-- - 'lowcarbon'
-  - concrete
-- - 'low carbon'
-  - concrete
-- - 'lowemission'
-  - concrete
-- - 'low emission'
-  - concrete
-- carbon solution
-- - primacy
-  - well
-maybe_ccs:
+- - capture
+  - carbon
+- - capture
+  - co2
+- energy innovation
+- low carbon solutions
+- - zero emission
+  - natural gas
+- - zeroemission
+  - natural gas
+- - zero emissions
+  - natural gas
+- - zeroemissions
+  - natural gas
+- - underground injection control
+  - EPA
+- - EPA
+  - UIC
 - advanced coal technology
 - advanced coal technologies
 - clean coal
@@ -350,6 +303,13 @@ maybe_ccs:
   - climate
 - ' FERD '
 - 'air capture'
+- - capture
+  - ethanol
+- - capture
+  - steel
+- - capture
+  - cement
+- fossil energy and carbon management
 not_ccs:
 - ' drone'
 - 'hospital'
@@ -371,4 +331,7 @@ not_ccs:
 - superfund
 - steel and aluminum tariffs
 - 'health and human services'
+- algae
 - 'corporate capture'
+- 'deepwater horizon'
+- recapture

@@ -220,36 +220,43 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
         terms_present(x, search_term_dict["maybe_ccs"]) for x in df.clean_description
     ]
 
-    # classify something as very likely CCS if it has a ccs description, is a ccs company/clean hydrogen company,
-    # mentions ccs bills, and does not contain a 'not ccs' term
-    df["very_likely_ccs"] = [
-        1 if ((d + ch + b + bn + h + c) > 0) & (n == 0) else 0
-        for d, ch, b, bn, c, h, n in zip(
-            df.contains_ccs_description,
-            df.clean_h2_description,
-            df.ccs_bills,
-            df.ccs_bills_number_only,
-            df.ccs_company,
-            df.clean_h2_company,
-            df.not_ccs,
-        )
-    ]
-
-    # find those that, b/c of industry, 'probably ccs' is likely ccs.
+    # find those that, b/c of industry, 'probably ccs' is almost certainly ccs.
 
     # omit findings of the 'low carbon economy' act, which has the term 'low carbon', but didn't deal with ccs
     df["low_carbon_economy_act"] = [
         1 if terms_present(x, ["low carbon economy", "lowcarbon economy"]) else 0
         for x in df.clean_description
     ]
-    df["leaning_ccs"] = [
+    df["ccs_because_of_who_says_it"] = [
         (
             1
-            if (probably and (not lca) and (sector in config_info["core_ff_sectors"]))
+            if (
+                (probably and (not lca) and (sector in config_info["core_ff_sectors"]))
+                | (bill_with_ccs and (sector in config_info["core_ff_sectors"]))
+            )
             else 0
         )
-        for probably, sector, lca in zip(
-            df.terms_probably_ccs, df.sector, df.low_carbon_economy_act
+        for probably, bill_with_ccs, sector, lca in zip(
+            df.terms_probably_ccs,
+            df.bill_with_ccs_term,
+            df.sector,
+            df.low_carbon_economy_act,
+        )
+    ]
+
+    # classify something as very likely CCS if it has a ccs description, is a ccs company/clean hydrogen company,
+    # mentions ccs bills, and does not contain a 'not ccs' term
+    df["very_likely_ccs"] = [
+        1 if ((d + ch + +w + b + bn + h + c) > 0) & (n == 0) else 0
+        for d, ch, w, b, bn, c, h, n in zip(
+            df.contains_ccs_description,
+            df.clean_h2_description,
+            df.ccs_because_of_who_says_it,
+            df.ccs_bills,
+            df.ccs_bills_number_only,
+            df.ccs_company,
+            df.clean_h2_company,
+            df.not_ccs,
         )
     ]
     # likely CCS are all the 'very likely ccs' plus the 'core FF sector' organizations paired with 'probably' ccs
@@ -258,7 +265,7 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
         for vl, n, lean, law in zip(
             df.very_likely_ccs,
             df.not_ccs,
-            df.leaning_ccs,  # maybes that are likely ccs b/c of industry
+            df.terms_probably_ccs,  # probably ccs, but not definitely
             df.bill_with_ccs_term,
         )
     ]
@@ -276,7 +283,6 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
         1 if ((cb + p + l) > 0) & (n == 0) else 0
         for cb, p, l, n in zip(
             df.could_be_ccs,
-            df.terms_probably_ccs,
             df.likely_ccs,
             df.not_ccs,
         )

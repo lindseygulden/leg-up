@@ -128,7 +128,7 @@ subset_and_order_of_writeout_columns: # does not include entity binary column na
   - not_ccs
   - terms_probably_ccs
   - terms_maybe_ccs
-  - leaning_ccs
+  - ccs_because_of_who_says_it
   - ccs_multiple_terms
   - total_number_ccs_terms
   - ccs_single_terms
