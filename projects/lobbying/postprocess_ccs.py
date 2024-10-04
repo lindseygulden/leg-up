@@ -280,8 +280,8 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
         )
     ]
     df["potentially_ccs"] = [
-        1 if ((cb + p + l) > 0) & (n == 0) else 0
-        for cb, p, l, n in zip(
+        1 if ((cb + l) > 0) & (n == 0) else 0
+        for cb, l, n in zip(
             df.could_be_ccs,
             df.likely_ccs,
             df.not_ccs,
