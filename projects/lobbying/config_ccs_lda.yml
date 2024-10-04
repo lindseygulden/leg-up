@@ -61,10 +61,10 @@ ff_adjacent_sectors:
   - pipelines
   - municipal and cooperative utilities
   - business advocacy
-  - fuel cell
+  #- fuel cell
   - land transit
   - oilfield services
-  - carbon
+  #- carbon
   - clean hydrogen
 subset_and_order_of_writeout_columns: # does not include entity binary column names: programmatically added to end
   - filing_uuid

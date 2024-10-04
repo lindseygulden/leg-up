@@ -1,5 +1,6 @@
 # mapping of consolidated companies names into most-granular sector categorizations
 air transit:
+- UNIVERSAL HYDROGEN # website: 'Our first product is a conversion kit for existing regional aircraft... to fly on hydrogen'
 - JOBY AVIATION #ev plane
 - QUANTUM XYZ # ev plane
 - VOLANSI
@@ -520,25 +521,19 @@ chemicals, refining, and plastics: #downstream and chemicals
 - VINYL INSTITUTE
 - VITAL CHEMICALS
 clean hydrogen:
+- MAINSPRING ENERGY #questionably green
+- VERDAGY #funded by BHP and Shell...so I'm assuming 'clean' hydrogen
 - ZERO CARBON HYDROGEN COALITION
-- VODIK ENERGY
 - CHZ TECHNOLOGIES
-- GTA ENERGY
 - NEUVENTUS
 - SMITHS
 - HYRADIX
-- OBSIDIAN RENEWABLES
-- MAINSPRING ENERGY
 - CLEAN HYDROGEN FUTURE COALITION
 - HYDROGEN ENERGY CALIFORNIA
-- GEVO
 - ACCELERGY
-- TWELVE BENEFIT
+- TWELVE BENEFIT #sorta green -- primary source of co2 for their conversion to green hydrogen is evidently ethanol produciton?
 - MODERN HYDROGEN
-- BLOOM
-- UNIVERSAL HYDROGEN
 - CAPSTONE TURBINE
-- NEXTEA CLEAN HYDROGEN
 - BAYOTECH
 - LAKE CHARLES METHANOL II
 - MIDATLANTIC CLEAN HYDROGEN HUB
@@ -1368,6 +1363,7 @@ finance:
 - ZURICH
 biofuels:
 - H CYCLE
+- GEVO
 - ALTERNATIVE FUELS CHEMICALS COALITION
 - BIOMASS THERMAL ENERGY COUNCIL
 - RENTECH
@@ -1663,14 +1659,16 @@ food and agriculture:
 - YUM BRANDS
 - YUM RESTAURANT
 green hydrogen:
-- KOLOMA
+- KOLOMA #geologic hydrogen
+- OBSIDIAN RENEWABLES
+- VODIK ENERGY
 - HNO INTERNATIONAL
-- VERDAGY
 - CLEAN ENERGY ENTERPRISES
 - ELECTRIC HYDROGEN
 - PROTON ENERGY SYSTEMS
 - TES US DEVELOPMENT
 - Q HYDROGEN
+- GTA ENERGY
 - HIGHLY INNOVATIVE FUELS
 - GREEN HYDROGEN
 higher education:
@@ -3942,6 +3940,7 @@ hvac:
 - HEATING AIRCONDITIONING REFRIGERATION DISTRIBUTORS INTERNATIONAL
 - DAIKIN
 remove these organizations:
+- BLOOM GROUP INC # NOT bloom energy, rather a lobbying firm in alabama
 - KIRKPATRICK LOCKHART PRESTON GATES
 - C4I COALITION
 - ALKALINE WATER COMPANY
