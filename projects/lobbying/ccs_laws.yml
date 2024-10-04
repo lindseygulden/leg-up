@@ -8,6 +8,7 @@ mostly_ccs_provisions:
 - '"Pipeline Safety Modernization and Expansion"' #Act
 - '"Pipeline Efficiency and Safety"' # Act"'
 - '"Pipeline Safety Modernization & Expansion"' #Act
+- '"Clean Energy Future Through Innovation"'
 - '"Pipeline Efficiency & Safety"' # Act"'
 - '"PIPES Act"'
 - '"Coal with Carbon Capture and Sequestration"' # Act of 2015"' #S. 1285, 
@@ -18,6 +19,7 @@ mostly_ccs_provisions:
 - '"Carbon Capture Improvement"' #HR 3861
 - '"Accelerating Carbon Capture"' #access 45q act HR 1062
 - '"ACCESS 45Q Act"'
+- '"Clean Energy Hydrogen Innovation Act"' # does have other stuff but is focused on ccs
 - '"increase and expand the credit for carbon oxide sequestration"'
 #- '"A bill to amend the Energy Policy Act of 2005 to require the Secretary of Energy to consider the objective of improving the conversion, use, and storage of carbon dioxide produced from fossil fuels in carrying out research and development programs under that Act'
 - '"improving the conversion, use, and storage of carbon dioxide"' # S1282 introduced by manchin in 2015
@@ -90,7 +92,7 @@ ccs_law_with_ccs_term:
 - '"American Recovery and Reinvestment","section 45"'
 - '"Budget Act of 2018","section 45"'
 - '"CLEAN Future Act","capture"'
-- '"Clean Energy Future Through","capture"'
+#- '"Clean Energy Future Through","capture"'
 - '"Clean Energy Innovation and Deployment","capture"'
 - '"Clean Energy Standard","capture"'
 - '"Clean Energy for America","capture"'
@@ -243,6 +245,8 @@ congress_bill_nos:
   - SB 2002 #CREATE Act of 2023 #'Carbon Removal, Efficient Agencies, Technology Expertise Act"'
   - SB 1576 # CREST
   117:
+  - SB 1685 # Launching Energy Advancement and Development through Innovation for Natural Gas LEADING Act
+  - HR 3838
   - HR 9813 # CREST of 2022
   - SB 4420 # CREST of 2022
   - HR 2633 #To amend the Internal Revenue Code of 1986 to increase and expand the credit for carbon oxide sequestration
@@ -274,8 +278,10 @@ congress_bill_nos:
   - SB 2288
   - SB 1829 #Carbon Capture Improvement Act of 2021
   - SB 843 #CREATE Act of 2021
+  - HR 4153 #Clean Energy Future Through Innovation Act of 2021
   116:
   - HR 7896 #RECOUPS Act of 2020
+  - HR 3607 # Fossil energy research and development act
   - SB 2263 #CO2 Regulatory Certainty Act
   - HR 5156 #Carbon Capture and Sequestration Extension Act of 2019
   - SB 4966 #45Q Carbon Capture, Utilization, and Storage Tax Credit Amendments Act
@@ -286,7 +292,9 @@ congress_bill_nos:
   - SB 407 #Carbon Capture Modernization Act
   - SB 4341 # CREATE Act of 2020
   - HR 8671 # Create act of 2020
+  - HR 9054 # Clean Energy Future Through Innovation Act of 2020
   115: 
+  - HR 5474 # Fossil energy research and development act
   - SB 1663 #CO2 Regulatory Certainty Act
   - HR 4857 #CO2 Regulatory Certainty Act
   - HR 2010 #CO2 Regulatory Certainty Act

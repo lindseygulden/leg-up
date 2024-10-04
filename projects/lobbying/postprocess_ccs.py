@@ -105,6 +105,9 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     single_terms, multiple_terms = get_term_lists(
         config_info["postproc_term_list_path"], "search_term_list"
     )
+    single_h2_terms, multiple_h2_terms = get_term_lists(
+        config_info["postproc_term_list_path"], "hydrogen_terms"
+    )
     _, bill_with_ccs_term = get_term_lists(
         config_info["law_list_path"], "ccs_law_with_ccs_term"
     )
@@ -145,6 +148,25 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
         1 if (sgl + mlt) > 0 else 0
         for sgl, mlt in zip(df["ccs_single_terms"], df["ccs_multiple_terms"])
     ]
+
+    # handle 'nebulous' hydrogen terms (e.g., "low-carbon hydrogen", NOT terms such as "clean hydrogen",
+    # which is definitely CCS, and which is handled as a CCS term, above)
+    df["h2_single_terms"] = [
+        terms_present(x, single_h2_terms) for x in df.clean_description
+    ]
+    df["h2_multiple_terms"] = [
+        np.sum([terms_present(x, y, find_any=False) for y in multiple_h2_terms])
+        for x in df.clean_description
+    ]
+    df["total_number_h2_terms"] = df.h2_single_terms + df.h2_multiple_terms
+    df["contains_h2_description"] = [
+        1 if (sgl + mlt) > 0 else 0
+        for sgl, mlt in zip(df["h2_single_terms"], df["h2_multiple_terms"])
+    ]
+    df["clean_h2_description"] = [
+        1 if ((h == 1) and (s in config_info["ff_adjacent_sectors"])) else 0
+        for h, s in zip(df.contains_h2_description, df.sector)
+    ]
     # identify descriptions in which there is a specific larger law (with ccs provisions) paired
     # with a specific phrase
     df["bill_with_ccs_term"] = [
@@ -153,6 +175,15 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     ]
     # is this a company dedicated to CCS tech and operations?
     df["ccs_company"] = [1 if x == "ccs" else 0 for x in df.sector]
+
+    # is this a company dedicated to blue/clean hydrogen?
+    df["clean_h2_company"] = [1 if x == "clean hydrogen" else 0 for x in df.sector]
+
+    # is this a company dedicated to green hydrogen?
+    df["green_h2_company"] = [1 if x == "ccs" else 0 for x in df.sector]
+
+    # is this a company dedicated to renewables?
+    df["renewables_company"] = [1 if x == "renewable energy" else 0 for x in df.sector]
 
     # is a ccs bill or a ccs-heavy bill with keyword terms (e.g. 'capture') directly mentioned?
     df["ccs_bills"] = [terms_present(x, ccs_bills) for x in df.clean_description]
@@ -189,15 +220,17 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
         terms_present(x, search_term_dict["maybe_ccs"]) for x in df.clean_description
     ]
 
-    # classify something as very likely CCS if it has a ccs description, is a ccs company,
+    # classify something as very likely CCS if it has a ccs description, is a ccs company/clean hydrogen company,
     # mentions ccs bills, and does not contain a 'not ccs' term
     df["very_likely_ccs"] = [
-        1 if ((d + b + bn + c) > 0) & (n == 0) else 0
-        for d, b, bn, c, n in zip(
+        1 if ((d + ch + b + bn + h + c) > 0) & (n == 0) else 0
+        for d, ch, b, bn, c, h, n in zip(
             df.contains_ccs_description,
+            df.clean_h2_description,
             df.ccs_bills,
             df.ccs_bills_number_only,
             df.ccs_company,
+            df.clean_h2_company,
             df.not_ccs,
         )
     ]

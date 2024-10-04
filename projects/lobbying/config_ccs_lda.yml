@@ -5,9 +5,10 @@ entity_endpoint: https://lda.senate.gov/api/v1/constants/filing/governmententiti
 filings_endpoint: https://lda.senate.gov/api/v1/filings/
 lda_apikey: b6c22528b6697dc3bf1fbf9ff5200d28d9991889
 lda_username: lindseyegulden
-lobbyist_filename_prefix: ccs_lda_lobbyists_additional_terms_2
-output_filename_prefix: ccs_lda_filings_additional_terms_2
-search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list_additional_terms_2.yml
+lobbyist_filename_prefix: ccs_lda_lobbyists_additional_terms_3
+output_filename_prefix: ccs_lda_filings_additional_terms_3
+search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list_additional_terms_3.yml
+#search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list_additional_terms_2.yml
 #search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_bills_with_ccs_terms2.yml
 #search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list_additional_terms.yml
 #search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list.yml
@@ -112,6 +113,14 @@ subset_and_order_of_writeout_columns: # does not include entity binary column na
   - clean_client_general_description
   - contains_ccs_description
   - ccs_company
+  - clean_h2_company
+  - green_h2_company
+  - renewables_company
+  - contains_h2_description
+  - clean_h2_description
+  - h2_single_terms
+  - h2_multiple_terms
+  - total_number_h2_terms
   - ccs_bills
   - bill_contains_some_ccs
   - bill_with_ccs_term
