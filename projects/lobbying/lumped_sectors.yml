@@ -1,14 +1,17 @@
 # Mappings between granular sector descriptions and increasingly 'lumped' sectors
 lightly_lumped:
+  law and public policy: OTHER
   lng: FOSSIL FUEL
   land transit: TRANSPORT
   air transit: TRANSPORT
   water transit: TRANSPORT
   fuel cell: TRANSPORT
+  ev: TRANSPORT
   biofuels: BIOFUEL
   business advocacy: BUSINESS-ADVOCACY
   carbon: CARBON MANAGEMENT
   ccs: CARBON MANAGEMENT
+  algae: CARBON MANAGEMENT
   cement: NON-FF-INDUSTRY
   chemicals, refining, and plastics: CHEMICALS
   clean hydrogen: FOSSIL FUEL
@@ -44,11 +47,14 @@ lightly_lumped:
   power sector general: REMOVE
   energy technology: ENERGY-TECH
 very_lumped:
+  law and public policy: OTHER
+  algae: CARBON MANAGEMENT
   lng: FOSSIL FUEL
   land transit: TRANSPORT
   air transit: TRANSPORT
   water transit: TRANSPORT
   fuel cell: TRANSPORT
+  ev: TRANSPORT
   biofuels: AG-AND-BIOFUEL
   business advocacy: BUSINESS-ADVOCACY
   carbon: CARBON MANAGEMENT
