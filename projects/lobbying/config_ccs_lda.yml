@@ -53,6 +53,7 @@ ff_adjacent_sectors:
   - investor owned utilities
   - chemicals, refining, and plastics
   - coal
+  - biofuels
   - energy technology
   - ccs
   - independent power producers
@@ -95,6 +96,7 @@ subset_and_order_of_writeout_columns: # does not include entity binary column na
   - legistlative_entities_lobbied
   - executive_entities_lobbied
   - affiliated_organizations_present
+  - definitely_ccs
   - very_likely_ccs
   - likely_ccs
   - potentially_ccs
@@ -117,7 +119,8 @@ subset_and_order_of_writeout_columns: # does not include entity binary column na
   - green_h2_company
   - renewables_company
   - contains_h2_description
-  - clean_h2_description
+  - clean_h2_description_core_ff
+  - clean_h2_description_ff_adjacent
   - h2_single_terms
   - h2_multiple_terms
   - total_number_h2_terms

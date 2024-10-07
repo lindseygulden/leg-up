@@ -9,8 +9,6 @@ search_term_list:
 #- '"permitting reform","hydrogen"'
 - '"section 45","hydrogen"'
 - '"clean h2"'
-- '"45Z"'
-- '"45 Z"'
 - '"carbon capture"'
 - '"co2 capture"'
 - '"c02 capture"'
@@ -58,7 +56,6 @@ search_term_list:
 - '"capture","use and sequestration"'
 - '"capture","use storage"'
 - '"capture","use sequestration"'
-#- '"capture","transport","store"'
 - '"carbon","transportation and storage"'
 - '"carbon","transportation storage"'
 - '"co2","transportation and storage"'
@@ -78,11 +75,8 @@ search_term_list:
 - '"carbon sequestration"'
 - '"carbon dioxide","sequestration"'
 - '"carbon oxide","sequestration"'
-- '" co ","sequestration"'
 - '"carbon oxides","sequestration"'
-#- '"carbon removal","sequestration"'
 - '"carbon removal","utilization"'
-#- '"carbon removal","storage"'
 - '"hydrogen hub"'
 - '"h2 hub"'
 - '"h2 hubs"'
@@ -113,11 +107,6 @@ search_term_list:
 - '"oil recovery","carbon removal"'
 - '"enhanced oil recovery"'
 - '" EOR "'
-# - '"carbon management"'
-# - '"management of carbon"'
-# - '"co2 management"'
-# - '"carbon dioxide management"'
-#- '"low carbon solutions"'
 - '"carbon dioxide pipeline"'
 - '"carbon dioxide pipelines"'
 - '"co pipeline"'
@@ -125,7 +114,6 @@ search_term_list:
 - '"co2 pipeline"'
 - '"co2 pipelines"'
 - '"co2 pipe line"'
-- '"c02 pipeline"'
 - '"c02 pipelines"'
 - '"class vi"'
 - '"primacy"'
@@ -133,43 +121,25 @@ search_term_list:
 - '"injection of carbon dioxide"'
 - '"co2 injection"'
 - '"carbon dioxide injection"'
-- '"co2 use"'
-- '"carbon use"'
-- '"co2 removal","storage"'
-- '"co2 removal","hub"'
-- '"co2 removal","hubs"'
-#- '" DAC ","storage"'
-- '" DAC ","sequestration"'
+- '"carbon use and storage"'
 - '"air capture","sequestration"' #'storage' gets to 'energy storage', which is usually batteries
-#- '"natural gas","capture"'
-#- '"natural gas","sequestration"'
-#- '"natural gas","storage"'
-- '" RNG ","capture"'
-- '" RNG ","sequestration"'
-#- '" RNG ","storage"'
-- '" RNG ","zero"'
-- '"capture","hub"'
-- '"capture","hubs"'
 hydrogen_terms:
-- '"hydrogen","steel"'
-- '"hydrogen infrastructure"'
-- '"hydrogen program"'
-- '"hydrogen policy"'
 - '"capture","hydrogen"'
 - '"low carbon hydrogen"'
 - '"lowcarbon hydrogen"'
 - '"decarbonized hydrogen"'
 - '"decarbonized h2"'
 - '"low carbon emissions hydrogen"'
-- '"renewable hydrogen"'
 - '"carbon neutral hydrogen"'
 - '"carbonneutral hydrogen"'
 - '"hydrogen","natural gas"'
 - '"hydrogen","methane"'
+- '"hydrogen policy"'
+- '"hydrogen infrastructure"'
+- '"hydrogen program"'
 - '"low carbon h2"'
 - '"lowcarbon h2"'
 - '"low carbon emissions h2"'
-- '"renewable h2"'
 - '"carbon neutral h2"'
 - '"carbonneutral h2"'
 - '"h2","natural gas"'
@@ -177,8 +147,27 @@ hydrogen_terms:
 - '"hydrogen","section 45"'
 - '"h2","section 45"'
 - '"hydrogen tax credits"'
-probably_ccs:
-- section 45
+consistent_with_ccs:
+- - direct air capture
+  - carbon removal
+- - direct air capture
+  - carbco2on removal
+- - capture
+  - hub
+- - capture
+  - hubs
+- - renewable natural gas
+  - zero emission
+- - renewable natural gas
+  - capture
+- - RNG
+  - capture
+- - RNG
+  - sequestration
+- - renewable natural gas
+  - sequestration
+- 45Z
+- 45 Z
 - hydrogen
 - negative emissions
 - - clean coal
@@ -211,7 +200,7 @@ probably_ccs:
 #- low carbon fuel
 #- - sequestration
 #  - tax credit
-- 'hydrogen'
+- hydrogen
 - ' CDR '
 #- - 'lowcarbon'
 #  - cement
@@ -221,7 +210,8 @@ probably_ccs:
 #  - concrete
 #- - 'low carbon'
 #  - concrete
-maybe_ccs:
+could_be_ccs:
+- section 45
 - bioenergy technologies
 - negative emission fuels
 - bioenergy technology
@@ -344,3 +334,4 @@ not_ccs:
 - 'corporate capture'
 - 'deepwater horizon'
 - recapture
+- section 45k
