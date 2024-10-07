@@ -1,4 +1,6 @@
+# https://en.wikipedia.org/wiki/Party_divisions_of_United_States_Congresses
 senate:
+  106: republicans
   107: democrats
   108: republicans
   109: republicans
@@ -12,6 +14,7 @@ senate:
   117: democrats
   118: democrats
 house:
+  106: republicans
   107: republicans
   108: republicans
   109: republicans
@@ -25,6 +28,7 @@ house:
   117: democrats
   118: republicans
 white_house:
+  106: democrats #clinton
   107: republicans #Bush
   108: republicans 
   109: republicans

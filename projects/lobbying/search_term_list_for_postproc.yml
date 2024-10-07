@@ -196,16 +196,6 @@ probably_ccs:
 - low carbon steel
 - low carbon ammonia
 - low carbon cement
-- bioenergy
-- biofuel
-- biodiesel
-- sustainable aviation
-- SAF
-- RNG
-- renewable natural gas
-- waste to energy
-- wastetoenergy
-- zero emission fuels
 - removal of carbon
 - removal of co2
 - low carbon concrete
@@ -232,6 +222,18 @@ probably_ccs:
 #- - 'low carbon'
 #  - concrete
 maybe_ccs:
+- bioenergy technologies
+- negative emission fuels
+- bioenergy technology
+- SAF
+- RNG
+- renewable natural gas
+- biofuel
+- biodiesel
+- sustainable aviation
+- waste to energy
+- wastetoenergy
+- zero emission fuels
 - ' DAC '
 - direct air capture
 - co2 management
