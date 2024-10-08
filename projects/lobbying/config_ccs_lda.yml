@@ -16,7 +16,7 @@ search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying
 #search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list_billnos_2.yml
 #search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list_billnos_3.yml
 #search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list_more_laws.yml
-postproc_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_term_list_for_postproc.yml
+postproc_specs_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/ccs_postproc_specifications.yml
 law_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/ccs_laws.yml
 organization_name_handling_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/organization_name_handling.yml
 sector_description_file: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/sector_descriptions.yml
@@ -113,25 +113,24 @@ subset_and_order_of_writeout_columns: # does not include entity binary column na
   - entity_expanded
   - clean_description
   - clean_client_general_description
-  - contains_ccs_description
+  - ccs_description
+  - count_ccs_description
+  - clean_h2_description
+  - count_clean_h2_description
   - ccs_company
-  - clean_h2_company
-  - green_h2_company
-  - renewables_company
-  - contains_h2_description
-  - clean_h2_description_core_ff
-  - clean_h2_description_ff_adjacent
-  - h2_single_terms
-  - h2_multiple_terms
-  - total_number_h2_terms
+  - clean_hydrogen_company
+  - green_hydrogen_company
+  - h2_mention_core_ff
+  - h2_mention_ff_adjacent
   - ccs_bills
   - bill_contains_some_ccs
-  - bill_with_ccs_term
+  - count_bill_contains_some_ccs
+  - bills_with_ccs_terms
   - ccs_bills_number_only
   - not_ccs
-  - terms_probably_ccs
-  - terms_maybe_ccs
+  - terms_consistent_with_ccs
+  - terms_could_be_ccs
   - ccs_because_of_who_says_it
   - ccs_multiple_terms
   - total_number_ccs_terms
-  - ccs_single_terms
+

@@ -28,10 +28,6 @@ def terms_present(phrase, term_list, find_any=True):
     if not isinstance(phrase, str):
         raise TypeError("phrase must be a string")
     if not isinstance(term_list, list):
-        print("")
-        print(f"============= {term_list}")
-        print(f" {phrase}")
-        print("")
         raise TypeError(
             "term_list must be a list of strings (even if it is a list of length 1)"
         )
@@ -62,19 +58,31 @@ def get_list_govt_entities(entity_endpoint: str, session: object):
 
 
 def substitute(
-    x: str,
+    x: Union[str, List[str]],
     use_basename: bool = False,
     re_types: str = r"[^\w\s]",
     replace_str: str = "",
 ):
     """wrapper function for regular expression substitute funciton, linked with basename lib"""
     # use basename for company names
-    if not isinstance(x, str):
-        x = ""
-    if use_basename:
-        return basename(re.sub(re_types, replace_str, x))
-    # don't use basename for general strings
-    return re.sub(re_types, replace_str, x).rstrip().lstrip()
+
+    if (not isinstance(x, str)) and (not isinstance(x, list)):
+        return replace_str
+    if isinstance(x, list):
+        return [
+            substitute(
+                xx,
+                use_basename=use_basename,
+                re_types=re_types,
+                replace_str=replace_str,
+            )
+            for xx in x
+        ]
+    else:
+        if use_basename:
+            return basename(re.sub(re_types, replace_str, x))
+        # don't use basename for general strings
+        return re.sub(re_types, replace_str, x).rstrip().lstrip()
 
 
 def parse_client_names(

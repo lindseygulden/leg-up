@@ -100,124 +100,33 @@ def assign_sectors(df: pd.DataFrame, config_info: dict):
     return df
 
 
-def find_description(df: pd.DataFrame, descriptor: str, config_info: dict):
+def find_description(
+    df: pd.DataFrame,
+    descriptor: str,
+    filepath: str,
+    return_count: bool = True,
+):
     # are terms consistent with descriptor in the lobbying description? (intermediate variables)
-    single_terms, multiple_terms = get_term_lists(
-        config_info["postproc_term_list_path"], "search_term_list"
-    )
-    df[f"{descriptor}_single_terms"] = [
-        terms_present(x, single_terms) for x in df.clean_description
-    ]
-    df[f"{descriptor}_multiple_terms"] = [
-        np.sum([terms_present(x, y, find_any=False) for y in multiple_terms])
-        for x in df.clean_description
-    ]
-    df[f"total_number_{descriptor}_terms"] = (
-        df[f"{descriptor}_single_terms"] + df[f"{descriptor}_multiple_terms"]
-    )
+    terms = yaml_to_dict(filepath)[descriptor]
+    terms = substitute(terms, use_basename=False)
+
+    df[f"count_{descriptor}"] = [terms_present(x, terms) for x in df.clean_description]
 
     # if description of lobbying activity contains either terms from the single-term list
     # or from the multi-term list, indicate that the activity contains description
-    df[f"contains_{descriptor}_description"] = [
-        1 if (sgl + mlt) > 0 else 0
-        for sgl, mlt in zip(
-            df[f"{descriptor}_single_terms"], df[f"{descriptor}_multiple_terms"]
-        )
-    ]
+    df[f"{descriptor}"] = df[f"count_{descriptor}"].astype(bool).astype(int)
+    if return_count:
+        return df
+    df.drop(f"count_{descriptor}", axis=1, inplace=True)
     return df
 
 
-def identify_ccs(df: pd.DataFrame, config_info: dict):
-    """Use terms, law names, & sectors to identify very-likely, likely, and potentially ccs activities"""
-
-    single_h2_terms, multiple_h2_terms = get_term_lists(
-        config_info["postproc_term_list_path"], "hydrogen_terms"
-    )
-    _, bill_with_ccs_term = get_term_lists(
-        config_info["law_list_path"], "ccs_law_with_ccs_term"
-    )
-    bill_with_ccs_term = [
-        [substitute(x, use_basename=False) for x in xx] for xx in bill_with_ccs_term
-    ]
-    ccs_bills, _ = get_term_lists(config_info["law_list_path"], "mostly_ccs_provisions")
-    ccs_bills = [substitute(x, use_basename=False) for x in ccs_bills]
-
-    law_with_ccs_provisions, _ = get_term_lists(
-        config_info["law_list_path"], "contains_ccs_provisions"
-    )
-    law_with_ccs_provisions = [
-        substitute(x, use_basename=False) for x in law_with_ccs_provisions
-    ]
-
+def find_bill_numbers_for_congress(df: pd.DataFrame, postproc_specs: str, id_str: str):
     # get dictionary with congress number/bill number for CCS bills
-    ccs_bill_numbers = yaml_to_dict(config_info["law_list_path"])["congress_bill_nos"]
 
-    # for simple dictionaries defined in the search term lists (not ccs, probably ccs, and maybe ccs)
-    search_term_dict = yaml_to_dict(config_info["postproc_term_list_path"])
-
-    # get rid of nans in lobbying activity description
-    df.clean_description = df.clean_description.fillna(" ")
-
-    # handle 'nebulous' hydrogen terms (e.g., "low-carbon hydrogen", NOT terms such as "clean hydrogen",
-    # which is definitely CCS, and which is handled as a CCS term, above)
-    df["h2_single_terms"] = [
-        terms_present(x, single_h2_terms) for x in df.clean_description
-    ]
-    df["h2_multiple_terms"] = [
-        np.sum([terms_present(x, y, find_any=False) for y in multiple_h2_terms])
-        for x in df.clean_description
-    ]
-    df["total_number_h2_terms"] = df.h2_single_terms + df.h2_multiple_terms
-    df["contains_h2_description"] = [
-        1 if (sgl + mlt) > 0 else 0
-        for sgl, mlt in zip(df["h2_single_terms"], df["h2_multiple_terms"])
-    ]
-
-    df["mention_hydrogen_core_ff"] = [
-        (
-            1
-            if (
-                terms_present(d, ["hydrogen", "h2"])
-                and (s in config_info["core_ff_sectors"])
-            )
-            else 0
-        )
-        for d, s in zip(df.clean_description, df.sector)
-    ]
-
-    df["mention_hydrogen_ff_adjacent"] = [
-        (
-            1
-            if (
-                terms_present(d, ["hydrogen", "h2"])
-                and (s in config_info["ff_adjacent_sectors"])
-            )
-            else 0
-        )
-        for d, s in zip(df.clean_description, df.sector)
-    ]
-    # identify descriptions in which there is a specific larger law (with ccs provisions) paired
-    # with a specific phrase
-    df["bill_with_ccs_term"] = [
-        any([terms_present(x, y, find_any=False) for y in bill_with_ccs_term])
-        for x in df.clean_description
-    ]
-    # is this a company dedicated to CCS tech and operations?
-    df["ccs_company"] = [1 if x == "ccs" else 0 for x in df.sector]
-
-    # is this a company dedicated to blue/clean hydrogen?
-    df["clean_h2_company"] = [1 if x == "clean hydrogen" else 0 for x in df.sector]
-
-    # is this a company dedicated to green hydrogen?
-    df["green_h2_company"] = [1 if x == "ccs" else 0 for x in df.sector]
-
-    # is this a company dedicated to renewables?
-    df["renewables_company"] = [1 if x == "renewable energy" else 0 for x in df.sector]
-
-    # is a ccs bill or a ccs-heavy bill with keyword terms (e.g. 'capture') directly mentioned?
-    df["ccs_bills"] = [terms_present(x, ccs_bills) for x in df.clean_description]
-
-    df["ccs_bills_number_only"] = [
+    ccs_bill_numbers = yaml_to_dict(postproc_specs)[id_str]
+    # identify activities that reference specific bill numbers
+    return [
         (
             1
             if (
@@ -225,30 +134,72 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
                 | terms_present(
                     d, [x.replace(" ", "") for x in ccs_bill_numbers[which_congress]]
                 )
+                | terms_present(
+                    d, [x.replace("SB ", "S") for x in ccs_bill_numbers[which_congress]]
+                )
+                | terms_present(
+                    d,
+                    [x.replace("SB ", "S ") for x in ccs_bill_numbers[which_congress]],
+                )
             )
             else 0
         )
         for d, which_congress in zip(df.clean_description, df.which_congress)
     ]
 
-    df["bill_contains_some_ccs"] = [
-        terms_present(x, law_with_ccs_provisions) for x in df.clean_description
-    ]
-    # are some of the terms that negate it being likely ccs (e.g., 'healthcare') present?
-    df["not_ccs"] = [
-        terms_present(x, search_term_dict["not_ccs"]) for x in df.clean_description
-    ]
 
-    # are terms that indicate this is probably--but not definitely ccs present?
-    df["terms_probably_ccs"] = [
-        terms_present(x, search_term_dict["consistent_with_ccs"])
-        for x in df.clean_description
-    ]
+def identify_ccs(df: pd.DataFrame, config_info: dict):
+    """Use terms, law names, & sectors to identify very-likely, likely, & potentially ccs activities
+    Args:
+        df: pandas dataframe containing lobbying activity information
+        config_info: dictionary read in from configuration yaml with paths to data
+    Returns:
+        df: updated pandas dataframe with binary columns and term-count columns indicating
+        ccs-related lobbying activity
+    """
 
-    # are terms that indicate this is probably--but not definitely ccs present?
-    df["terms_maybe_ccs"] = [
-        terms_present(x, search_term_dict["could_be_ccs"]) for x in df.clean_description
+    # find descriptions of subsets of terms for which also want a term count
+    # identify activities that are explicitly CCS
+    for t in ["ccs_description", "clean_h2_description", "bills_with_some_ccs"]:
+        df = find_description(
+            df, t, config_info["postproc_specs_path"], return_count=True
+        )
+
+    # find descriptions of subsets of terms for which we don't want a term count
+    for t in [
+        "ccs_bills",
+        "bills_with_ccs_terms",
+        "not_ccs",
+        "h2_mention",
+        "terms_consistent_with_ccs",
+        "terms_could_be_ccs",
+    ]:
+        df = find_description(
+            df, t, config_info["postproc_specs_path"], return_count=False
+        )
+
+    # identify activities that reference bills/laws with CCS provisions; return count
+    df["ccs_bills_number_only"] = find_bill_numbers_for_congress(
+        df, config_info["postproc_specs_path"], "congress_bill_nos"
+    )
+
+    # handle 'nebulous' hydrogen terms (e.g., "low-carbon hydrogen", NOT terms such as "clean hydrogen",
+    # which is definitely CCS, and which is handled as a CCS term, above)
+
+    df["h2_mention_core_ff"] = [
+        1 if ((h == 1) and (s in config_info["core_ff_sectors"])) else 0
+        for h, s in zip(df.contains_h2_mention, df.sector)
     ]
+    df["h2_mention_ff_adjacent"] = [
+        1 if ((h == 1) and (s in config_info["ff_adjacent_sectors"])) else 0
+        for h, s in zip(df.contains_h2_mention, df.sector)
+    ]
+    # identify a few 'always CCS' and 'always not CCS' sectors
+    for sector in ["ccs", "clean hydrogen", "green hydrogen"]:
+        # is this a company dedicated to CCS tech and operations?
+        df[f"{sector.replace(' ','_')}_company"] = [
+            1 if x == sector else 0 for x in df.sector
+        ]
 
     # find those that, b/c of industry, 'probably ccs' is almost certainly ccs.
 
@@ -261,14 +212,18 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
         (
             1
             if (
-                (probably and (not lca) and (sector in config_info["core_ff_sectors"]))
-                | (bill_with_ccs and (sector in config_info["core_ff_sectors"]))
+                (
+                    probably
+                    and (not lca)
+                    and (sector in config_info["ff_adjacent_sectors"])
+                )
+                | (bill_with_ccs and (sector in config_info["ff_adjacent_sectors"]))
             )
             else 0
         )
         for probably, bill_with_ccs, sector, lca in zip(
-            df.terms_probably_ccs,
-            df.bill_with_ccs_term,
+            df.terms_consistent_with_ccs,
+            df.bills_with_ccs_terms,
             df.sector,
             df.low_carbon_economy_act,
         )
@@ -277,23 +232,24 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     # classify something as very likely CCS if it has a ccs description, is a ccs company/clean hydrogen company,
     # mentions ccs bills, and does not contain a 'not ccs' term
     df["definitely_ccs"] = [
-        1 if ((d + +b + bn + h + hff + c) > 0) & (n == 0) else 0
+        1 if ((d + +b + bn + c + h + hff) > 0) & (n == 0) else 0
         for d, b, bn, c, h, hff, n in zip(
-            df.contains_ccs_description,
+            df.ccs_description,
             df.ccs_bills,
             df.ccs_bills_number_only,
             df.ccs_company,
-            df.clean_h2_company,
-            df.mention_hydrogen_core_ff,
+            df.clean_hydrogen_company,
+            df.h2_mention_core_ff,
             df.not_ccs,
         )
     ]
+
     #
     df["very_likely_ccs"] = [
         1 if ((d + h + w) > 0) & (n == 0) else 0
         for d, h, w, n in zip(
             df.definitely_ccs,
-            df.mention_hydrogen_ff_adjacent,
+            df.h2_mention_ff_adjacent,
             df.ccs_because_of_who_says_it,
             df.not_ccs,
         )
@@ -305,18 +261,19 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
         for vl, n, lean, law in zip(
             df.very_likely_ccs,
             df.not_ccs,
-            df.terms_probably_ccs,  # probably ccs, but not definitely
-            df.bill_with_ccs_term,
+            df.terms_consistent_with_ccs,  # probably ccs, but not definitely
+            df.bills_with_ccs_terms,
         )
     ]
+    # identify the activities that could be ccs because of ccs-relevant terms and industry
     df["could_be_ccs"] = [
         (
             1
-            if (maybe and (not lca) and (sector in config_info["core_ff_sectors"]))
+            if (maybe and (not lca) and (sector in config_info["ff_adjacent_sectors"]))
             else 0
         )
         for maybe, sector, lca in zip(
-            df.terms_maybe_ccs, df.sector, df.low_carbon_economy_act
+            df.terms_could_be_ccs, df.sector, df.low_carbon_economy_act
         )
     ]
     df["potentially_ccs"] = [
@@ -428,14 +385,21 @@ def postprocess_ccs(
     config_info = yaml_to_dict(config)
 
     all_df = pd.read_csv(input_file)
+
     logging.info(" >>> Replacing company names")
     all_df = adjust_company_names(all_df, config_info)
+
     logging.info(" >>> Assigning companies to sectors")
     all_df = assign_sectors(all_df, config_info)
+
     logging.info(" >>> Identifying CCS lobbying activities")
+    # get rid of nans in lobbying activity description
+    all_df.clean_description = all_df.clean_description.fillna(" ")
     all_df = identify_ccs(all_df, config_info)
+
     logging.info(" >>> Subsetting CCS lobbying activities")
     ccs_df = subset_to_ccs_only(all_df, config_info)
+
     logging.info(" >>> Apportioning dollars to individual lobbying activities")
     ccs_df = apportion_filing_dollars_to_activities(ccs_df)
 
