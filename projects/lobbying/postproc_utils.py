@@ -1,17 +1,14 @@
 """utility functions to postprocess files read in from LDA API"""
 
-import pandas as pd
-from utils.io import yaml_to_dict
-from typing import List, Tuple, Dict, Union
-from itertools import compress
-import pandas as pd
-import re
 import datetime as dt
-from cleanco import basename
-from typing import List, Tuple, Dict, Union
-import pandas as pd
 import re
+from itertools import compress
+from typing import Dict, List, Tuple, Union
+
+import pandas as pd
 from cleanco import basename
+
+from utils.io import yaml_to_dict
 
 
 def terms_present(phrase, term_list, find_any=True):
@@ -41,11 +38,10 @@ def terms_present(phrase, term_list, find_any=True):
                 n_present += 1
         elif term.lower() in phrase.lower():
             n_present += 1
-    if find_any == False:  # find all
+    if find_any is False:  # find all
         if len(term_list) == n_present:
             return 1
-        else:
-            return 0
+        return 0
     return n_present
 
 
@@ -78,11 +74,11 @@ def substitute(
             )
             for xx in x
         ]
-    else:
-        if use_basename:
-            return basename(re.sub(re_types, replace_str, x))
-        # don't use basename for general strings
-        return re.sub(re_types, replace_str, x).rstrip().lstrip()
+
+    if use_basename:
+        return basename(re.sub(re_types, replace_str, x))
+    # don't use basename for general strings
+    return re.sub(re_types, replace_str, x)  # .rstrip().lstrip()
 
 
 def parse_client_names(
@@ -132,13 +128,13 @@ def parse_client_names(
 
     # add the 'remove' companies to the rename dictionary
     remove_companies = config["remove_companies_containing_these_terms"]
-    for x in client_name_rename_dict.keys():
+    for original_name, new_name in client_name_rename_dict.items():
         if terms_present(
-            client_name_rename_dict[x],
+            new_name,
             remove_companies,
             find_any=True,
         ):
-            client_name_rename_dict[x] = "remove"
+            client_name_rename_dict[original_name] = "remove"
 
     # make new column with renames
     output_df[client_rename_col] = [
@@ -152,11 +148,12 @@ def parse_client_names(
 def get_smarties(
     row: Union[pd.Series, List[Union[bool, int]]], names: List[str]
 ) -> List[str]:
+    """opposite of 'get dummies': returns list of all bool columns for which value is True"""
     if isinstance(row, pd.Series):
         if len(row) == 0:
             return []
-        else:
-            return list(compress(names, row[names].values.tolist()))
+
+        return list(compress(names, row[names].values.tolist()))
     if isinstance(row, list):
         return list(compress(names, row))
     raise TypeError("get_smarties argument 'row' must be a Pandas Series or a list")

@@ -273,6 +273,7 @@ water transit:
 - TODD PACIFIC SHIPYARDS
 - WORLD SHIPPING COUNCIL
 carbon:
+- CALERA
 - CARBON OFFSET PROVIDERS COALITION
 - CARBONFUTURE
 - CHICAGO CLIMATE EXCHANGE
@@ -290,15 +291,14 @@ carbon:
 - PROJECT CANARY
 - PROJECT VESTA
 - RUNNING TIDE
+- SKYONIC
 - THALO LABS
 - US BIOCHAR COALITION
 - WORLD ENERGY # accreditation for SAF, biodiesel
 ccs:
-- ADVANTEK WASTE MANAGEMENT
 - AKERMIN # now part of CO2 solutions
 - BLUE SKY INFRASTRUCTURE
 - BLUE SOURCE
-- CALERA
 - CAPTURA
 - CARBON ENGINEERING
 - CARBON ENGINEERING ULC
@@ -308,7 +308,6 @@ ccs:
 - CCS ALLIANCE
 - CCUS COALITION
 - CEMVITA
-- CHARM INDUSTRIAL
 - CLEAN COAL TECHNOLOGIES
 - CLEAN ENERGY SYSTEMS  #https://www.cleanenergysystems.com
 - DIOXYCLE
@@ -316,17 +315,14 @@ ccs:
 - ENERGY ADVANCE CENTER
 - FIDELIS NEW ENERGY
 - GULF COAST SEQUESTRATION
-- JUPITER OXYGEN
+- JUPITER OXYGEN # oxy fuel combusition closely linked to ccs
 - MILESTONE ENVIRONMENTAL
-- MITSUBISHI # both - MITSUBISHI heavy industries and - MITSUBISHI power are into ccs and clean hydrogen
 - NAVIGATOR CO2
 - NET NEGATIVE CO2 BASELOAD POWER # 501c6 trade association for retrofitting coal fired plants for ccus
 - NET POWER #? https://netpower.com
 - NORTH AMERICAN CARBON CAPTURE STORAGE ASSOCIATION NACCSA
 - POWERSPAN #develops and commercializes proprietary, multi-pollutant control and carbon dioxide (CO2) capture technology for electric power plants
 - REMORA
-- SKYONIC
-- SUMMIT POWER
 - SVANTE
 - TITAN OIL RECOVERY #eor
 - VERDE CO2 #website: 'full service ccs'
@@ -492,7 +488,6 @@ chemicals, refining, and plastics: #downstream and chemicals
 - NEW ENGLAND FUEL INSTITUTE NEFI
 - NIACET
 - NOURYON
-- NUTRIEN
 - OCI NV
 - OLIN
 - ORIGIN MATERIALS
@@ -517,19 +512,14 @@ chemicals, refining, and plastics: #downstream and chemicals
 - VITAL CHEMICALS
 - WHEELABRATOR TECHNOLOGIES
 clean hydrogen:
-- MAINSPRING ENERGY #questionably green
 - VERDAGY #funded by BHP and Shell...so I'm assuming 'clean' hydrogen
 - ZERO CARBON HYDROGEN COALITION
 - CHZ TECHNOLOGIES
 - NEUVENTUS
-- SMITHS
 - HYRADIX
 - CLEAN HYDROGEN FUTURE COALITION
 - HYDROGEN ENERGY CALIFORNIA
-- ACCELERGY
-- TWELVE BENEFIT #sorta green -- primary source of co2 for their conversion to green hydrogen is evidently ethanol produciton?
 - MODERN HYDROGEN
-- CAPSTONE TURBINE
 - BAYOTECH
 - MIDATLANTIC CLEAN HYDROGEN HUB
 - MONOLITH MATERIALS
@@ -740,7 +730,10 @@ coal:
 - WESTMORELAND COAL
 - WMPI PTY
 energy technology:
+- MAINSPRING ENERGY #questionably green
+- MITSUBISHI # both - MITSUBISHI heavy industries and - MITSUBISHI power are into ccs and clean hydrogen
 - ENERGY WORKFORCE TECHNOLOGY COUNCIL
+- CAPSTONE TURBINE
 - GENERAL ELECTRIC
 - COOPER INDUSTRIES
 - HONEYWELL INTERNATIONAL
@@ -758,6 +751,7 @@ energy technology:
 - NATIONAL ELECTRICAL MANUFACTURERS ASSOCIATION # trade association representing electrical equipment manufacturers
 - NATIONAL ASSOCIATION OF ENERGY SERVICE COMPANIES # trade group
 engineering, technology, and consulting:
+- SMITHS
 - LIEBMAN ASSOCIATES #clean energy and environmental consulting services
 - PACIFIC WEST ENERGY
 - TOTAL CONTAINMENT
@@ -1347,7 +1341,8 @@ finance:
 - WOLTERS KLUWER
 - ZIONS BANK
 - ZURICH
-biofuels:
+biofuels: #also alternative fuels (e.g., CHZ TECHNOLOGIES)
+- ACCELERGY
 - ADVANCED BIOFUELS ASSOCIATION
 - ALTERNATIVE FUELS CHEMICALS COALITION # industry association for alternative fuels...and chemicals
 - AMERICAN BIOGAS COUNCIL
@@ -1365,6 +1360,8 @@ biofuels:
 - BRIGHTMARK #plastic recycling and rng
 - CARBON SINK #"green methanol from waste co2 at scale"
 - CELLULOSIC BIOFUEL WORKING # represents the cellulosic ethanol industry in the us
+- CHARM INDUSTRIAL
+- CHZ TECHNOLOGIES
 - CLEAN ENERGY FUELS #RNG but also involved in natural gas
 - CLEAN FUELS ALLIANCE AMERICA #trade association for biodiesel and SAF
 - COALITION FOR RENEWABLE NATURAL GAS #methane
@@ -1388,7 +1385,7 @@ biofuels:
 - HIGH OCTANE LOW CARBON HOLC ALLIANCE # advocates for ethanol blends in fuels
 - IMPERIUM RENEWABLES #biodiesel
 - IOGEN # RNG
-- LANZAJET #SAF 
+- LANZAJET #SAF
 - NACERO #working with topsoe: methane from farms, waste -> sustainaible aviation fuel, methanol
 - NATURAL STATE RENEWABLES #SAF
 - NATURE ENERGY #biogas
@@ -1407,6 +1404,7 @@ biofuels:
 - STRATEGIC BIOFUELS #SAF #CCS
 - SUMMIT NEXT GEN # SAF ethanol
 - TOPSOE # chemical catalyst compnay for clean fuels CCS and clean hydrogen
+- TWELVE BENEFIT #sorta green -- primary source of co2 for their conversion to green hydrogen is evidently ethanol produciton?
 - UNITED BIOREFINERIES # biofuel...now defunct
 - USA BIOMASS POWER PRODUCERS ALLIANCE
 - VELOCYS # process for converting syngas into aviation fuel
@@ -1559,6 +1557,7 @@ food and agriculture:
 - NEW YORK FARM BUREAU
 - NIAGARA BOTTLING
 - NORTH CAROLINA FARM BUREAU FEDERATION
+- NUTRIEN
 - OHIO FARM BUREAU FEDERATION
 - OREGON FARM BUREAU FEDERATION
 - OTG MANAGEMENT
@@ -3164,6 +3163,7 @@ oil and gas:
 - US OIL GAS ASSOCIATION
 - WOODSIDE ENERGY
 oilfield services:
+- ADVANTEK WASTE MANAGEMENT
 - RECOVER ENERGY #drilling waste
 - ENERGY EQUIPMENT AND INFRASTRUCTURE ALLIANCE EEIA
 - FOSS ENERGY
@@ -3284,6 +3284,7 @@ independent power producers:
 - VISTRA
 - LS POWER
 - COGENTRIX ENERGY
+- SUMMIT POWER
 - RWE
 # https://en.wikipedia.org/wiki/Investor-owned_utilities_in_the_United_States
 investor owned utilities:

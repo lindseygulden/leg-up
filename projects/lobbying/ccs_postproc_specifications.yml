@@ -53,6 +53,8 @@ ccs_description:
 - - co2
   - use and storage
 - - co2
+  - utilization and storage
+- - co2
   - use storage
 - capture and storage
 - capture storage
@@ -125,15 +127,15 @@ ccs_description:
 - hydrogen hubs
 - clean hydrogen
 - blue hydrogen
-- CCS
-- CCUS
-- ' CCU' 
+- ' CCS'
+- 'CCS '
+- ' CCUS'
+- 'CCUS '
+- ' CCU'
 - - section 45
   - capture
 - - section 45
   - sequestration
-- - section 45
-  - coal
 - - section 45
   - co2
 - 45Q
@@ -157,7 +159,7 @@ ccs_description:
 - - oil recovery
   - carbon removal
 - enhanced oil recovery
-- 'EOR ' 
+- ' EOR '
 - carbon dioxide pipeline
 - carbon dioxide pipelines
 - co pipeline
@@ -225,7 +227,7 @@ ccs_bills:
 - Clean Energy Future Through Innovation
 - Pipeline Efficiency & Safety # Act"'
 - PIPES Act
-- Coal with Carbon Capture and Sequestration # Act of 2015"' #S. 1285, 
+- Coal with Carbon Capture and Sequestration # Act of 2015"' #S. 1285,
 - Coal with Carbon Capture & Sequestration
 - Coordinated Action To Capture Harmful Emissions Act
 - Expanding Carbon Capture through Enhanced Oil Recovery Act
@@ -546,7 +548,7 @@ bills_with_some_ccs:
 - Energy Improvement and Extension #2008 Bailout bill Divison B https://www.congress.gov/bill/110th-congress/house-bill/1424/titles?s=2&r=5&q=%7B%22search%22%3A%22%5C%22Energy+Improvement+and+Extension+Act%5C%22%22%7D
 - 110-343 # PL number of Energy Improvement and Extension Act
 - American Clean Energy Leadership  #2009
-- ' ACELA' 
+- ' ACELA'
 - ' SEA Act' # of 2008' #increases funding for CCS research
 - ' LEASE Act' # of 2008 #2008 money for ccs demonstration projects
 - Energy Independence Act # for three 2008/0 acts: "American Conservation and Clean Energy Independence Act", "Invest in Energy Independence Act and National Conservation, Environment, and Energy Independence Act #2008 money for ccs demo projects
@@ -634,6 +636,8 @@ terms_consistent_with_ccs:
 - decarbonized ammonia
 # ************** terms that indicate an activity could be targeting ccs ******************
 terms_could_be_ccs:
+- - section 45
+  - coal
 - - clean coal
   - co2 emissions
 - - clean coal
@@ -738,6 +742,8 @@ terms_could_be_ccs:
 - fossil energy and carbon management
 # ************** terms that indicate activities are NOT CCS *************
 not_ccs:
+- opiod
+- pain management
 - ' drone'
 - 'hospital'
 - 'health care'
@@ -764,7 +770,7 @@ not_ccs:
 - 'deepwater horizon'
 - recapture
 - section 45k
-# Note that because of a (poor?) choice in the lda_query.py script, in the case of senate bills, 
+# Note that because of a (poor?) choice in the lda_query.py script, in the case of senate bills,
 # rather than be referred to as 'S [bill number]', all references to specific senate bill numbers in the
 # cleaned lobbying activity description contain 'SB [bill number]'
 congress_bill_nos:
@@ -802,7 +808,7 @@ congress_bill_nos:
   - HR 1761 #CCUS Innovation Act
   - HR 1760 #Carbon Capture Modernization Act
   - SB 661 #Carbon Capture Modernization Act
-  - HR 1062 #ACCESS 45Q 
+  - HR 1062 #ACCESS 45Q
   - HR 1788 #clean energy hydrogen innovation act
   - SB 1201 # United States Climate Leadership in International Mitigation, Adaptation, and Technology Enhancement Act of 2021
   - SB 799 # SCALE Act
@@ -825,7 +831,7 @@ congress_bill_nos:
   - SB 4341 # CREATE Act of 2020
   - HR 8671 # Create act of 2020
   - HR 9054 # Clean Energy Future Through Innovation Act of 2020
-  115: 
+  115:
   - HR 5474 # Fossil energy research and development act
   - SB 1663 #CO2 Regulatory Certainty Act
   - HR 4857 #CO2 Regulatory Certainty Act
