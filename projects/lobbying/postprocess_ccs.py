@@ -100,11 +100,36 @@ def assign_sectors(df: pd.DataFrame, config_info: dict):
     return df
 
 
-def identify_ccs(df: pd.DataFrame, config_info: dict):
-    """Use terms, law names, & sectors to identify very-likely, likely, and potentially ccs activities"""
+def find_description(df: pd.DataFrame, descriptor: str, config_info: dict):
+    # are terms consistent with descriptor in the lobbying description? (intermediate variables)
     single_terms, multiple_terms = get_term_lists(
         config_info["postproc_term_list_path"], "search_term_list"
     )
+    df[f"{descriptor}_single_terms"] = [
+        terms_present(x, single_terms) for x in df.clean_description
+    ]
+    df[f"{descriptor}_multiple_terms"] = [
+        np.sum([terms_present(x, y, find_any=False) for y in multiple_terms])
+        for x in df.clean_description
+    ]
+    df[f"total_number_{descriptor}_terms"] = (
+        df[f"{descriptor}_single_terms"] + df[f"{descriptor}_multiple_terms"]
+    )
+
+    # if description of lobbying activity contains either terms from the single-term list
+    # or from the multi-term list, indicate that the activity contains description
+    df[f"contains_{descriptor}_description"] = [
+        1 if (sgl + mlt) > 0 else 0
+        for sgl, mlt in zip(
+            df[f"{descriptor}_single_terms"], df[f"{descriptor}_multiple_terms"]
+        )
+    ]
+    return df
+
+
+def identify_ccs(df: pd.DataFrame, config_info: dict):
+    """Use terms, law names, & sectors to identify very-likely, likely, and potentially ccs activities"""
+
     single_h2_terms, multiple_h2_terms = get_term_lists(
         config_info["postproc_term_list_path"], "hydrogen_terms"
     )
@@ -133,22 +158,6 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     # get rid of nans in lobbying activity description
     df.clean_description = df.clean_description.fillna(" ")
 
-    # is ccs described in the lobbying description? (intermediate variables)
-    df["ccs_single_terms"] = [
-        terms_present(x, single_terms) for x in df.clean_description
-    ]
-    df["ccs_multiple_terms"] = [
-        np.sum([terms_present(x, y, find_any=False) for y in multiple_terms])
-        for x in df.clean_description
-    ]
-    df["total_number_ccs_terms"] = df.ccs_single_terms + df.ccs_multiple_terms
-    # if description of lobbying activity contains either terms from the single-term list
-    # or from the multi-term list, indicate that the activity contains a ccs description
-    df["contains_ccs_description"] = [
-        1 if (sgl + mlt) > 0 else 0
-        for sgl, mlt in zip(df["ccs_single_terms"], df["ccs_multiple_terms"])
-    ]
-
     # handle 'nebulous' hydrogen terms (e.g., "low-carbon hydrogen", NOT terms such as "clean hydrogen",
     # which is definitely CCS, and which is handled as a CCS term, above)
     df["h2_single_terms"] = [
@@ -163,13 +172,29 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
         1 if (sgl + mlt) > 0 else 0
         for sgl, mlt in zip(df["h2_single_terms"], df["h2_multiple_terms"])
     ]
-    df["clean_h2_description_core_ff"] = [
-        1 if ((h == 1) and (s in config_info["core_ff_sectors"])) else 0
-        for h, s in zip(df.contains_h2_description, df.sector)
+
+    df["mention_hydrogen_core_ff"] = [
+        (
+            1
+            if (
+                terms_present(d, ["hydrogen", "h2"])
+                and (s in config_info["core_ff_sectors"])
+            )
+            else 0
+        )
+        for d, s in zip(df.clean_description, df.sector)
     ]
-    df["clean_h2_description_ff_adjacent"] = [
-        1 if ((h == 1) and (s in config_info["ff_adjacent_sectors"])) else 0
-        for h, s in zip(df.contains_h2_description, df.sector)
+
+    df["mention_hydrogen_ff_adjacent"] = [
+        (
+            1
+            if (
+                terms_present(d, ["hydrogen", "h2"])
+                and (s in config_info["ff_adjacent_sectors"])
+            )
+            else 0
+        )
+        for d, s in zip(df.clean_description, df.sector)
     ]
     # identify descriptions in which there is a specific larger law (with ccs provisions) paired
     # with a specific phrase
@@ -259,7 +284,7 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
             df.ccs_bills_number_only,
             df.ccs_company,
             df.clean_h2_company,
-            df.clean_h2_description_core_ff,
+            df.mention_hydrogen_core_ff,
             df.not_ccs,
         )
     ]
@@ -268,7 +293,7 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
         1 if ((d + h + w) > 0) & (n == 0) else 0
         for d, h, w, n in zip(
             df.definitely_ccs,
-            df.clean_h2_description_ff_adjacent,
+            df.mention_hydrogen_ff_adjacent,
             df.ccs_because_of_who_says_it,
             df.not_ccs,
         )

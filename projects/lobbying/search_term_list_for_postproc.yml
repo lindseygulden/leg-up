@@ -1,152 +1,211 @@
 # Search terms, slightly modified from those used in LDA Query API, used for the postprocessing
 # of the LDA API results
-search_term_list:
-- '"Petra Nova"' #ccs project
-- '" co pipelines"'
-#- '"negative emissions"'
-#- '"energy innovation"'
-- '"FutureGen"'
-#- '"permitting reform","hydrogen"'
-- '"section 45","hydrogen"'
-- '"clean h2"'
-- '"carbon capture"'
-- '"co2 capture"'
-- '"c02 capture"'
-- '"co2 sequestration"'
-- '"sequestration of co2"'
-- '"carbon dioxide capture"'
-- '"c02 sequestration"'
-- '"sequestration of c02"'
-- '"sequestration of carbon"'
-- '"capture and sequestration"'
-- '"carbon dioxide sequestration"'
-- '"carbon sequestration"'
-- '"carbon dioxide storage"'
-- '"carbon storage"'
-- '"store carbon dioxide"'
-#- '"store co2"'
-- '"co2 storage"'
-- '"storage of co2"'
-- '"storage of carbon dioxide"'
-- '"c02 storage"'
-- '"storage of c02"'
-- '"capture","carbon oxides"'
-- '"capture","carbon dioxide"'
-- '"capture,"co2"'
-- '"capture","carbon oxide"'
-- '"c02","capture"'
-- '"capture and store"'
-- '"decarbonized ammonia"'
-- '"carbon utilization"'
-- '"carbon dioxide utilization"'
-- '"co2 utilization"'
-- '"carbon dioxide","use and storage"'
-- '"carbon dioxide","use storage"'
-- '"co2","use and storage"'
-- '"co2","use storage"'
-- '"capture and storage"'
-- '"capture storage"'
-- '"capture","transport","storage"'
-- '"capture","transportation","storage"'
-- '"capture","utilization and storage"'
-- '"capture","utilization storage"'
-- '"capture","utilization and sequestration"'
-- '"capture","utilization sequestration"'
-- '"capture","use and storage"'
-- '"capture","use and sequestration"'
-- '"capture","use storage"'
-- '"capture","use sequestration"'
-- '"carbon","transportation and storage"'
-- '"carbon","transportation storage"'
-- '"co2","transportation and storage"'
-- '"co2","transportation storage"'
-- '"geologic sequestration","carbon"'
-- '"geological sequestration","carbon"'
-- '"geologic storage","carbon"'
-- '"geological storage","carbon"'
-- '"geologic sequestration","capture"'
-- '"geological sequestration","capture"'
-- '"geologic storage","capture"'
-- '"geological storage","capture"'
-- '"geologic sequestration","co2"'
-- '"geological sequestration","co2"'
-- '"geologic storage","co2"'
-- '"geological storage","co2"'
-- '"carbon sequestration"'
-- '"carbon dioxide","sequestration"'
-- '"carbon oxide","sequestration"'
-- '"carbon oxides","sequestration"'
-- '"carbon removal","utilization"'
-- '"hydrogen hub"'
-- '"h2 hub"'
-- '"h2 hubs"'
-- '"hydrogen hubs"'
-- '"clean hydrogen"'
-- '"blue hydrogen"'
-- '"CCS"'
-- '"CC&S"'
-- '"CCUS"'
-- '" CCU "'
-- '"section 45","capture"'
-- '"section 45","sequestration"'
-- '"section 45","coal"'
-- '"section 45","co2"'
-- '"45Q"'
-- '"45 Q"'
-- '"45V"'
-- '"45 V"'
-- '"clean coal","utilization"'
-- '"clean coal","oil recovery"'
-- '"clean coal","sequestration"'
-#- '"clean coal","carbon dioxide emission"'
-#- '"dioxide removal","air capture"'
-- '"dioxide removal","sequestration"'
-- '"oil recovery","carbon dioxide"'
-- '"oil recovery","co2"'
-- '"oil recovery","c02"'
-- '"oil recovery","carbon removal"'
-- '"enhanced oil recovery"'
-- '" EOR "'
-- '"carbon dioxide pipeline"'
-- '"carbon dioxide pipelines"'
-- '"co pipeline"'
-- '"co pipelines"'
-- '"co2 pipeline"'
-- '"co2 pipelines"'
-- '"co2 pipe line"'
-- '"c02 pipelines"'
-- '"class vi"'
-- '"primacy"'
-- '"injection of co2"'
-- '"injection of carbon dioxide"'
-- '"co2 injection"'
-- '"carbon dioxide injection"'
-- '"carbon use and storage"'
-- '"air capture","sequestration"' #'storage' gets to 'energy storage', which is usually batteries
+search_terms:
+  ccs:
+  - Petra Nova #ccs project
+  - ' co pipelines'
+  - FutureGen
+  #- '"permitting reform","hydrogen"'
+  #- '"negative emissions"'
+  #- '"energy innovation"'
+  - - section 45
+    - hydrogen
+  - clean h2
+  - carbon capture
+  - co2 capture
+  - c02 capture
+  - co2 sequestration
+  - sequestration of co2
+  - carbon dioxide capture
+  - c02 sequestration
+  - sequestration of c02
+  - sequestration of carbon
+  - capture and sequestration
+  - carbon dioxide sequestration
+  - carbon sequestration
+  - carbon dioxide storage
+  - carbon storage
+  - store carbon dioxide
+  - co2 storage
+  - storage of co2
+  - storage of carbon dioxide
+  - c02 storage
+  - storage of c02
+  - - capture
+    - carbon oxides
+  - - capture
+    - carbon dioxide
+  - - capture
+    - co2
+  - - capture
+    - carbon oxide
+  - - c02
+    - capture
+  - capture and store
+  - decarbonized ammonia
+  - carbon utilization
+  - carbon dioxide utilization
+  - co2 utilization
+  - - carbon dioxide
+    - use and storage
+  - - carbon dioxide
+    - use storage
+  - - co2
+    - use and storage
+  - - co2
+    - use storage
+  - capture and storage
+  - capture storage
+  - - capture
+    - transport
+    - storage
+  - - capture
+    - transportation
+    - storage
+  - - capture
+  - - utilization and storage
+  - - capture
+    - utilization storage
+  - - capture
+    - utilization and sequestration
+  - - capture
+    - utilization sequestration
+  - - capture
+    - use and storage
+  - - capture
+    - use and sequestration
+  - - capture
+    - use storage
+  - - capture
+    - use sequestration
+  - - carbon
+    - transportation and storage
+  - - carbon
+    - transportation storage
+  - - co2
+    - transportation and storage
+  - - co2
+    - transportation storage
+  - - geologic sequestration
+    - carbon
+  - - geological sequestration
+    - carbon
+  - - geologic storage
+    - carbon
+  - - geological storage
+    - carbon
+  - - geologic sequestration
+    - capture
+  - - geological sequestration
+    - capture
+  - - geologic storage
+    - capture
+  - - geological storage
+    - capture
+  - - geologic sequestration
+    - co2
+  - - geological sequestration
+    - co2
+  - - geologic storage
+    - co2
+  - - geological storage
+    - co2
+  - carbon sequestration
+  - - carbon dioxide
+    - sequestration
+  - - carbon oxide
+    - sequestration
+  - - carbon oxides
+    - sequestration
+  - - carbon removal
+    - utilization
+  - hydrogen hub
+  - h2 hub
+  - h2 hubs
+  - hydrogen hubs
+  - clean hydrogen
+  - blue hydrogen
+  - CCS
+  - CCUS
+  - ' CCU' 
+  - - section 45
+    - capture
+  - - section 45
+    - sequestration
+  - - section 45
+    - coal
+  - - section 45
+    - co2
+  - 45Q
+  - 45 Q
+  - 45V
+  - 45 V
+  - - clean coal
+    - utilization
+  - - clean coal
+    - oil recovery
+  - - clean coal
+    - sequestration
+  - - dioxide removal
+    - sequestration
+  - - oil recovery
+    - carbon dioxide
+  - - oil recovery
+    - co2
+  - - oil recovery
+    - c02
+  - - oil recovery
+    - carbon removal
+  - enhanced oil recovery
+  - 'EOR ' 
+  - carbon dioxide pipeline
+  - carbon dioxide pipelines
+  - co pipeline
+  - co pipelines
+  - co2 pipeline
+  - co2 pipelines
+  - co2 pipe line
+  - c02 pipelines
+  - class vi
+  - primacy
+  - injection of co2
+  - injection of carbon dioxide
+  - co2 injection
+  - carbon dioxide injection
+  - carbon use and storage
+  - - air capture
+    - sequestration #'storage' gets to 'energy storage', which is usually batteries..use only sequestration
 hydrogen_terms:
-- '"capture","hydrogen"'
-- '"low carbon hydrogen"'
-- '"lowcarbon hydrogen"'
-- '"decarbonized hydrogen"'
-- '"decarbonized h2"'
-- '"low carbon emissions hydrogen"'
-- '"carbon neutral hydrogen"'
-- '"carbonneutral hydrogen"'
-- '"hydrogen","natural gas"'
-- '"hydrogen","methane"'
-- '"hydrogen policy"'
-- '"hydrogen infrastructure"'
-- '"hydrogen program"'
-- '"low carbon h2"'
-- '"lowcarbon h2"'
-- '"low carbon emissions h2"'
-- '"carbon neutral h2"'
-- '"carbonneutral h2"'
-- '"h2","natural gas"'
-- '"h2","methane"'
-- '"hydrogen","section 45"'
-- '"h2","section 45"'
-- '"hydrogen tax credits"'
+- - capture
+  - hydrogen
+- low carbon hydrogen
+- lowcarbon hydrogen
+- decarbonized hydrogen
+- decarbonized h2
+- low carbon emissions hydrogen
+- carbon neutral hydrogen
+- carbonneutral hydrogen
+- - hydrogen
+  - natural gas
+- - hydrogen
+  - methane
+- hydrogen policy
+- hydrogen infrastructure
+- hydrogen program
+- low carbon h2
+- lowcarbon h2
+- low carbon emissions h2
+- carbon neutral h2
+- carbonneutral h2
+- - h2
+  - natural gas
+- - h2
+  - methane
+- - hydrogen
+  - section 45
+- - h2
+  - section 45
+- - hydrogen tax credits
 consistent_with_ccs:
 - - direct air capture
   - carbon removal
