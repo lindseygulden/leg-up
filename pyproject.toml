@@ -12,7 +12,6 @@ packages = [{ include = "projects" }]
 python = "^3.11"
 pre-commit = "^3.3.3"
 pytest = "^7.4.0"
-pylint = "^2.17.5"
 pandas = "^2.0.3"
 matplotlib = "^3.7.2"
 seaborn = "^0.12.2"
@@ -47,6 +46,9 @@ newsapi-python = "^0.2.7"
 elsapy = "^0.5.1"
 scholarly = "^1.7.11"
 textblob = "^0.18.0.post0"
+asteval = "^1.0.4"
+cleanco = "^2.3"
+pylint = "^3.3.1"
 [tool.poetry.group.dev.dependencies]
 jupyter = "^1.0.0"
 ipykernel = "^6.25.0"
@@ -58,7 +60,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 88
-target-version = ["py38", "py39", "py310", "py311"]
+target-version = ["py38", "py39", "py310", "py311", "py312"]
 include = ".py"
 exclude = '''
 ^/(

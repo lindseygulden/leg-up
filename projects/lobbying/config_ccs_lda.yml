@@ -123,14 +123,11 @@ subset_and_order_of_writeout_columns: # does not include entity binary column na
   - h2_mention_core_ff
   - h2_mention_ff_adjacent
   - ccs_bills
-  - bill_contains_some_ccs
-  - count_bill_contains_some_ccs
+  - bills_with_some_ccs
+  - count_bills_with_some_ccs
   - bills_with_ccs_terms
   - ccs_bills_number_only
   - not_ccs
   - terms_consistent_with_ccs
   - terms_could_be_ccs
   - ccs_because_of_who_says_it
-  - ccs_multiple_terms
-  - total_number_ccs_terms
-

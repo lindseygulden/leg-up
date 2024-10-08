@@ -106,6 +106,7 @@ def find_description(
     filepath: str,
     return_count: bool = True,
 ):
+    """For each lobbying activity (row), determine whether any of a set of terms are in description"""
     # are terms consistent with descriptor in the lobbying description? (intermediate variables)
     terms = yaml_to_dict(filepath)[descriptor]
     terms = substitute(terms, use_basename=False)
@@ -122,6 +123,7 @@ def find_description(
 
 
 def find_bill_numbers_for_congress(df: pd.DataFrame, postproc_specs: str, id_str: str):
+    """identify lobbying activities (rows) that mention CCS-focused bills for a given congress"""
     # get dictionary with congress number/bill number for CCS bills
 
     ccs_bill_numbers = yaml_to_dict(postproc_specs)[id_str]
@@ -188,11 +190,11 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
 
     df["h2_mention_core_ff"] = [
         1 if ((h == 1) and (s in config_info["core_ff_sectors"])) else 0
-        for h, s in zip(df.contains_h2_mention, df.sector)
+        for h, s in zip(df.h2_mention, df.sector)
     ]
     df["h2_mention_ff_adjacent"] = [
         1 if ((h == 1) and (s in config_info["ff_adjacent_sectors"])) else 0
-        for h, s in zip(df.contains_h2_mention, df.sector)
+        for h, s in zip(df.h2_mention, df.sector)
     ]
     # identify a few 'always CCS' and 'always not CCS' sectors
     for sector in ["ccs", "clean hydrogen", "green hydrogen"]:
@@ -202,7 +204,6 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
         ]
 
     # find those that, b/c of industry, 'probably ccs' is almost certainly ccs.
-
     # omit findings of the 'low carbon economy' act, which has the term 'low carbon', but didn't deal with ccs
     df["low_carbon_economy_act"] = [
         1 if terms_present(x, ["low carbon economy", "lowcarbon economy"]) else 0
