@@ -261,16 +261,12 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
         search_string_list = assemble_organization_search_string(
             config_info["search_term_list_path"]
         )
-    n_search_strings = len(search_string_list)
     logging.info(
         " --- Identified %s search string(s) for lobbying activities ---",
-        str(n_search_strings),
+        str(len(search_string_list)),
     )
     # initialize counting variables for subsets of queried pages ('chunks')
     which_chunk = 1
-    # if query was interrupted, al
-    if "chunk_start" in config_info:
-        which_chunk = config_info["chunk_start"]
     # initialize unique id for filing documents (note that we record the filing_uuid from the API, too)
     filing_id = 0
     # loop through search strings
@@ -289,7 +285,6 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
         try:
             n_pages = ceil(f.json()["count"] / 25)
         except ValueError:
-            logging.info("Failed on search string %s", which_search_string + 1)
             logging.info("ERROR: %s", f.text)
 
         # compute number of file subsets ('chunks') for writing out and not overloading memory
@@ -297,10 +292,9 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
         n_chunks = ceil(n_pages / chunk_size)
 
         logging.info(
-            " --- Preparing %s files for search string %s of %s ---",
+            " --- Preparing %s files for search string %s ---",
             str(n_chunks),
-            str(which_search_string + 1),
-            str(n_search_strings),
+            str(which_search_string),
         )
 
         row_list = []  # each row holds info for one lobbying activity
@@ -351,8 +345,9 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
                     output_dir, which_chunk, lobby_list, row_list, config_info
                 )
                 logging.info(
-                    " Writing file %s to CSV",
+                    " Writing %s of %s subsets ('chunks') to CSV",
                     str(which_chunk),
+                    str(n_chunks),
                 )
                 # increase chunk counter for next subset
                 which_chunk += 1
