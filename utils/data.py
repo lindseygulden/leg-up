@@ -1,6 +1,8 @@
 """ Assorted functions for manipuling data, strings, etc."""
 
-from typing import Literal
+from typing import Literal, List, Union
+import pandas as pd
+from itertools import compress
 
 
 def rgb_tuple(red: int, green: int, blue: int, denominator=255):
@@ -24,6 +26,17 @@ def rgb_tuple(red: int, green: int, blue: int, denominator=255):
     if denominator <= 0:
         raise ValueError(f"denominator ({denominator}) must be >0")
     return (red / denominator, green / denominator, blue / denominator)
+
+
+def get_smarties(
+    row: Union[pd.Series, List[Union[bool, int]]], names: List[str]
+) -> List[str]:
+    """Inverse (sort of) of pd.get_dummies. Returns list column names corresponding to True values"""
+    if isinstance(row, pd.Series):
+        return list(compress(names, row[names].values.tolist()))
+    if isinstance(row, list):
+        return list(compress(names, row))
+    raise TypeError("get_smarties argument 'row' must be a Pandas Series or a list")
 
 
 def zero_pad(

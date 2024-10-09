@@ -44,19 +44,19 @@ class Facility(ABC):
 
         # constants
         self.carbon_intensity_oil_tco2_per_bbl = config["carbon_intensity_oil_tco2_per_bbl"] # Gc
-        
+
 
         # variables
         self.frac_co2_captured = config["frac_co2_captured"] # α
-        self.frac_captured_co2_used_for_eor = config["frac_captured_co2_used_for_eor"] # 𝛽 
-        
+        self.frac_captured_co2_used_for_eor = config["frac_captured_co2_used_for_eor"] # 𝛽
+
 
         self.q45_subsidy_usd_per_tco2 = config["q45_subsidy_usd_per_tco2"] # (Qseq and Qeor)
-        
+
         self.eor_recovery_factor_bbl_per_tco2 = config["eor_recovery_factor_bbl_per_tco2"] # Θ
-        
+
         self.oil_price_usd_per_bbl = config["oil_price_usd_per_bbl"] # Cc
-        
+
         self.energy_function_mwh_per_tco2=EnergyFunction.create(self.config['energy_function'],self.config['energy_function_parameters'])  # f(α)
 
     @abstractmethod
@@ -73,7 +73,7 @@ class NGPowerPlantFacility(Facility):
         # initialize parent class __init__
         super().__init__(config)
         self.facility_type = "ng_power_plant"
-        
+
         self.electricity_price_usd_per_mwh = config["electricity_price_usd_per_mwh"] # Pe
         self.gas_to_produce_electricity_tch4_per_mwh = config["gas_to_produce_electricity_tch4_per_mwh"] # Eg
         self.cost_of_natural_gas_usd_per_tch4 = config["cost_of_natural_gas_usd_per_tch4"] # Cg
@@ -86,30 +86,30 @@ class NGPowerPlantFacility(Facility):
                 "Price of electricity and natural gas must be >= $0"
             )
         #TODO more error checking
-    
+
     def _power_sales_profit(self):
         return self.electricity_price_usd_per_mwh - self.gas_to_produce_electricity_tch4_per_mwh*self.cost_of_natural_gas_usd_per_tch4
 
     def _ccs_profit(self,alpha):
         '''Computes the profit [USD/MWh] from the storage of carbon dioxide
-        Args: 
+        Args:
             alpha: fraction of emitted carbon dioxide that is injected for CCS
         Returns:
             ccs_net_profit_usd_per_mwh: amount profited (positve is income to operator) from subsidies
         '''
         cost_of_storage_usd_per_tco2 = self.energy_function_mwh_per_tco2.evaluate(alpha)*self.electricity_price_usd_per_mwh
-        
+
         self.ccs_net_profit_usd_per_mwh=tco2_captured_per_mwh*(self.q45_subsidy_usd_per_tco2 - cost_of_storage_usd_per_tco2)
-       
+
 
     def _eor_profit(self,alpha):
-        
+
         self.eor_profit_usd_per_bbl alpha * self.eor_recovery_factor_bbl_per_tco2 * self.oil_price_usd_per_bbl
     def compute_gross_profit(self,fa):
 
         # intermediate variable for multiple calculations:
         self.tco2_captured_per_mwh =  alpha*self.gas_to_produce_electricity_tch4_per_mwh*self.carbon_intensity_natural_gas_tco2_per_tch4
-        
+
         self.profit_from_power_sales_usd_per_mwh=self._power_sales_profit(self)
         self.profit_from_ccs_usd_per_mwh=self._ccs_profit(self)
         self.profit_from_eor_usd_per_mwh=self._eor_profit(self)

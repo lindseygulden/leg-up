@@ -1,0 +1,60 @@
+#  --- 1 of 3 files with bill-number queries ---
+# other files are called 'search_term_list_billnos_2.yml' and search_term_list_billnos_3.yml
+
+# This file contains terms that find potential lobbying activities that are CCS specific, 
+# referred to only by their bill number (HR XXX or S XXX)
+
+# N.B. I tried out all of these queries in the web-based LDA search: if something is commented out, it either
+# returned no results OR it returned no results for the right congressional years (e.g., nothing for the 117th congress) 
+# OR it returned only results with terms that would already be identified as 'definite' CCS (e.g., 
+# "carbon capture and storage" is in the description)
+#
+# search terms for use in the lda querying interface. Note that all terms below will be joined with an 'OR'
+search_term_list:
+- '"S 699" -"carbon capture" -"women" -"identity" -"CCS" -"nutrition" -"work opportunity" -"court" -"mental health" -"Lautenberg" -"American opportunity"'
+- '"H.R. 6756 " -"Carbon Reduction Technology Bridge Act" -"Tax Reform" -"American Innovations" -"pandemic" -"food" -"American innovation"'
+#- '"S 1227" -"Clean Coal Act of 2007"'
+#- '"S 1133" -"Clean Coal Research, Development, Demonstration, and Deployment Act of 2005"'
+#- '"S 957" -"Clean Coal Power Initiative Act"'
+- '"S. 1502" -"Rivers" -"Federalism" -"carbon capture" -"capital"' #Carbon Capture and Sequestration Stewardship Trust Fund Act of 2009
+- '"S.1502" -"Rivers" -"Federalism" -"carbon capture" -"capital" -"meat" -"safe"' #Carbon Capture and Sequestration Stewardship Trust Fund Act of 2009
+- '"H.R. 6170" -"sailors" -"COVID" -"vaccination" -"saving essential" -"Clean Coal-Derived Fuels for Energy Security Act"'
+- '"H.R. 1868" -"Clean Coal-Derived Fuels for" -"health" -"food" -"medicare" -"technology innovation" -"ACA tax credits" -"stem" -"direct spending" -"179d"'
+#- '"HR 5159" -"Clean coal jobs act of 2018"'
+#- '"HR 5194" -"Carbon Capture and Sequestration Expansion Act"'
+#- '"S 1829" -"Carbon Capture" -"Iranian" -"GREAT" -"Childhood" -"consumers"'
+- '"S 2475" -"Energy Sector Innovation Credit Act"' #117th congress hydrogen
+- '"S.2475" -"Energy Sector Innovation Credit Act"' #117th congress hydrogen
+#- '"HR 4720" -"Energy Sector Innovation Credit Act"'
+#- '"HR 1760" -"Carbon Capture Modernization Act"'
+#- '"S 661" -"Carbon Capture Modernization Act"'
+#- '"HR 1062" -"ACCESS 45Q"' #117
+- '"H.R. 1062" -"ACCESS 45Q" -"cocaine" -"EQUAL Act" -"retail" -"Geolocational" -"SEC Regulatory" -"Geolocation" -"Bill of Rights" -"Burdensome" -"ETEACH" -"executive compensation"'
+- '"H.R.1062" -"ACCESS 45Q" -"cocaine" -"EQUAL Act" -"retail" -"Geolocational" -"SEC Regulatory" -"Geolocation" -"Bill of Rights" -"Burdensome" -"ETEACH" -"executive compensation"'
+#- '"S 4966" -"45Q Carbon Capture, Utilization, and Storage Tax Credit Amendments Act"'
+#- '"HR 5156" -"Carbon Capture and Sequestration Extension Act of 2019"'
+#- '"HR 3861" -"Carbon Capture Improvement Act of 2019"'
+- '"H.R.1796" -"Carbon Capture" -"insurance" -"FEMA" -"families" -"federal emergency" -"disaster" -"troop"'
+#- '"S 407" -"Carbon Capture Modernization Act"'
+- '"H.R. 1166" -"USE IT Act" -"Utilizing" -"courts" -"retail" -"trademarks" -"trade policy" -"trademark"'
+- '"HR 7347" -"USE IT Act" -"veterans"'
+- '"S. 2602" -"USE IT Act" -"Utilizing" -"Motorsports" -"Alpine lakes" -"retirement" -"internet" -"sweaters"'
+#- '"HR 6457" -"Carbon Utilization act of 2018"'
+#- '"S 2997" -"Carbon Utilization act of 2018"'
+#- '"S 2803" -"Fossil Energy Utilization, Enhancement, and Leadership Act of 2018"'
+#- '"HR 5745" -"Fossil Energy Research and Development Act of 2018"'
+#- '"HR 3761" -"Carbon Capture Act"'
+- '"S 1535" -"dispute" -"NOTICE act" -"data security" -"television" -"wildfire" -"terrorism" -"consumers" -"breach"' #-"FUTURE ACT"
+- '"S.1535" -"Security/Privacy" -"dispute" -"NOTICE act" -"data security" -"television" -"wildfire" -"terrorism" -"consumers" -"breach"' #-"FUTURE ACT"
+#- '"HR 2296" -"Advancing CCUS technology act"'
+#- '"H.R. 2011" -"S. 1113" -veterans -"carbon capture" -"biosimilars" -"critical minerals" -"nutrition"'
+- '"H.R.2011" -"S. 1113" -"rare earth" -"children" -"veterans" -"carbon capture" -"biosimilars" -"critical minerals" -"nutrition"'
+#- '"S 843" -"carbon capture improvement act"'
+- '"S.3179" -"Carbon Capture" -"servicemember" -"financial services" -"land tenure"' #Carbon Capture Utilization and Storage Act
+#- '"HR 4704" -"Advancing CCUS Technology Act"'
+- '"HR 4622" -"Carbon Capture Act"'
+- '"H.R. 4622" -"Carbon Capture Act" -"underrides" -"solar energy" -"student loan" -"medical" -"passenger"'
+#- '"HR 3392" -"Carbon Capture Research and Development"'
+#- '"S 2305" -"carbon capture improvement act of 2015"'
+- '"S 1285" -"Carbon Capture" -"shooting" -"electric trucks"' #'Coal with Carbon Capture and Sequestration Act of 2015"'
+- '"S. 1285" -"hybrid motor" -"fair elections" -"save" -"uniformed" -"intellectual property" -"Carbon Capture" -"shooting" -"electric trucks"'

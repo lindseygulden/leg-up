@@ -1,9 +1,40 @@
 """Utilities for parsing lobbying disclosure documents"""
 
 from math import floor
-from typing import List
+from pathlib import PosixPath
+from typing import List, Union
 
 import pandas as pd
+
+from utils.io import yaml_to_dict
+
+
+def assemble_organization_search_string(term_list_path: Union[str, PosixPath]):
+    """joins terms in term lists with an OR and returns as a single string for use in get query"""
+    term_list_dict = yaml_to_dict(term_list_path)
+    return term_list_dict["organization_list"]
+
+
+def assemble_issue_search_string(
+    term_list_path: Union[str, PosixPath],
+    search_string_chunk_size: int = 12,
+    max_search_string_length: int = 4000,
+):
+    """joins terms in term lists with an OR and returns as a single string for use in get query"""
+    term_list_dict = yaml_to_dict(term_list_path)
+    term_list = term_list_dict["search_term_list"]
+    search_string = "OR".join(term_list)
+
+    if len(search_string) < max_search_string_length:
+        return [search_string]
+
+    search_string_list = []
+
+    for i in range(0, len(term_list), search_string_chunk_size):
+        search_string_list.append(
+            "OR".join(term_list[i : i + search_string_chunk_size])
+        )
+    return search_string_list
 
 
 def which_congress(which_year, based_on_year=True):

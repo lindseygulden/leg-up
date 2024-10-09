@@ -1,73 +1,324 @@
 # search terms for use in the lda querying interface. Note that all terms below will be joined with an 'OR'
 search_term_list:
-- '"clean coal"'
+- '"section 45","hydrogen"'
+- '"low carbon","hydrogen"'
+- '"steel","hydrogen"'
+- '"low-carbon","hydrogen"'
+- '"45Z"'
+- '"45 Z"'
 - '"carbon capture"'
 - '"co2 capture"'
 - '"c02 capture"'
-- '"capture of carbon oxides"'
-- '"carbon dioxide capture"'
+- '"co2 sequestration"'
+- '"sequestration of co2"'
+- '"c02 sequestration"'
+- '"sequestration of c02"'
+- '"sequestration of carbon"'
+- '"capture and sequestration"'
+- '"carbon dioxide sequestration"'
+- '"carbon sequestration"'
+- '"carbon dioxide storage"'
+- '"transportation","carbon dioxide"'
+- '"transportation","co2"'
+- '"carbon storage"'
+- '"store carbon dioxide"'
+- '"store co2"'
+- '"co2 storage"'
+- '"storage of co2"'
+- '"storage of carbon dioxide"'
+- '"c02 storage"'
+- '"storage of c02"'
+- '"capture","carbon oxides"'
+- '"capture","carbon dioxide"'
+- '"capture,"co2"'
+- '"capture","carbon oxide"'
+- '"c02","capture"'
 - '"capture and store"'
+- '"decarbonized","ammonia""'
 - '"carbon utilization"'
-- '"carbon dioxide use and storage"'
+- '"carbon dioxide","use and storage"'
 - '"carbon dioxide utilization"'
 - '"co2 utilization"'
-- '"co2 use and storage"'
+- '"co2","use and storage"'
 - '"capture and storage"'
-- '"capture transportation and storage"'
-- '"capture transport and storage"'
-- '"capture transport utilization and storage"'
-- '"capture transport use and storage"'
-- '"capture transport use and sequestration"'
-- '"capture transport utilization and sequestration"'
-- '"capture transport and store"'
-- '"co2 transportation and storage"'
+- '"capture transport","storage"'
+- '"capture","utilization and storage"'
+- '"capture","utilization and sequestration"'
+- '"capture","use and storage"'
+- '"capture","use and sequestration"'
+- '"capture","transport","store"'
+- '"carbon","transportation and storage"'
+- '"co2","transportation and storage"'
 - '"geologic sequestration"'
+- '"geological sequestration"'
 - '"geologic storage"'
-- '"capture of carbon dioxide"'
+- '"geological storage"'
 - '"carbon sequestration"'
-- '"carbon dioxide sequestration"'
-- '"co2 sequestration"'
-- '"c02 sequestration"'
-- '"carbon oxide sequestration"'
+- '"carbon dioxide","sequestration"'
+- '"carbon oxide","sequestration"'
+- '"carbon oxides","sequestration"'
 - '"carbon removal","sequestration"'
 - '"carbon removal","utilization"'
 - '"carbon removal","storage"'
-- '"capture of co2"'
 - '"hydrogen hub"'
+- '"hydrogen hubs"'
 - '"clean hydrogen"'
-- '"hydrogen","greenhouse"'
 - '"blue hydrogen"'
-- '"capture and sequestration"'
-- '"capture utilization and sequestration"'
-- '"capture use and storage"'
-- '"capture use and sequestration"'
 - '"CCS"'
 - '"CC&S"'
 - '"CCUS"'
 - '" CCU "'
+- '"section 45","capture"'
+- '"section 45","sequestration"'
+- '"section 45","carbon"'
+- '"section 45","co2"'
 - '"45Q"'
+- '"45 Q"'
 - '"45V"'
-#- '"negative emissions technology"'
-#- '"negative emissions technologies"'
-#- '"negative emission technology"'
-#- '"negative emission technologies"'
-- '" CDR","inject"'
-- '" CDR","store"'
-- '" CDR","geologic"'
+- '"45 V"'
+- '"hydrogen","natural gas"'
+- '"hydrogen","methane"'
+- '"clean coal"'
+- '"clean-coal"'
+- '"dioxide removal","air capture"'
+- '"dioxide removal","storage"'
+#- '"carbon dioxide removal","geologic"'
+- '"oil recovery","carbon dioxide"'
+- '"oil recovery","co2"'
+- '"oil recovery","c02"'
+- '"oil recovery","carbon removal"'
 - '"enhanced oil recovery"'
 - '" EOR "'
 - '"carbon management"'
+- '"management of carbon"'
+- '"co2 management"'
+#- '"co2management"'
+- '"carbon dioxide management"'
 - '"low carbon solutions"'
-- '"carbon dioxide pipe"'
-- '"co2 pipe"'
-- '"class vi well"'
-- '"class vi","permit"'
-- '"class vi","primacy"'
-- '"primacy","louisiana"'
-- '"primacy","texas"'
-- '"primacy","gulf"'
-- '"primacy","117-169"'
-- '"primacy","117-58"'
-
-
-
+- '"carbon dioxide","pipeline"'
+- '"carbon dioxide","pipelines"'
+- '"co2","pipeline"'
+- '"co2","pipelines"'
+- '"co2","pipe line"'
+- '"c02","pipeline"'
+- '"c02","pipelines"'
+- '" EPA"," UIC "'
+#- '"industry","decarbonization"'
+- '"underground injection control"'
+- '"class vi" -"truck"'
+#- '"class vi","permit"'
+#- '"class vi","primacy"'
+#- '"classvi well"'
+#- '"classvi","permit"'
+#- '"classvi","primacy"'
+- '"primacy"' -"insurance"'
+#- '"primacy","louisiana"'
+#- '"primacy","permit"'
+#- '"permit","reform"'
+#- '"primacy","texas"'
+#- '"primacy","117-169"'
+#- '"primacy","117-58"'
+#- '"primacy","Inflation"'
+#- '"class vi","Inflation"'
+- '"injection","co2"'
+- '"injection","carbon dioxide"'
+#- '"injection","c02"'
+- '"co2 use"'
+- '"carbon use"'
+- '"co2 removal","storage"'
+- '"co2 removal","hub"'
+- '"co2 removal","hubs"'
+#- '"carbon conversion"'
+- '"zero-emission","natural gas"'
+- '"zero-emissions","natural gas"'
+- '"zero emission","natural gas"'
+- '"zero emissions","natural gas"'
+- '"air capture","storage"'
+- '" DAC ","storage"'
+- '"air capture","sequestration"'
+#- '" DAC ","sequestration"'
+#- '"zero-emission fuel"'
+#- '"zero emission fuel"'
+#- '"zero emission","ethanol"'
+- '"natural gas","capture"'
+- '"natural gas","sequestration"'
+- '"natural gas","storage"'
+- '" RNG ","capture"'
+- '" RNG ","sequestration"'
+- '" RNG ","storage"'
+- '" RNG ","zero"'
+#- '"lowcarbon","ammonia"'
+#- '"low carbon","ammonia"'
+#- '"blue ammonia"'
+#- '"lowcarbon cement"'
+#- '"low carbon cement"'
+#- '"low-carbon","steel"'
+#- '"low carbon","steel"'
+#- '"blue steel"'
+#- '"net zero steel"'
+#- '"netzero steel"'
+#- '"zero-carbon","ethanol"'
+#- '"zero carbon","ethanol"'
+#- '"low-carbon concrete"'
+#- '"low carbon concrete"'
+- '"capture","hub"'
+- '"capture","hubs"'
+#- '"co2 separation"'
+#- '"carbon dioxide separation"'
+#- '"dioxide separation"'
+- '"capture","ethanol"'
+#- '"capture","ammonia"'
+- '"capture","steel"'
+- '"capture","cement"'
+#- '"capture","coal"' # 2021 (117-58)
+probably_ccs:
+- low carbon steel
+- low carbon ammonia
+- low carbon cement
+- sustainable aviation
+- zero emission fuels
+- carbon removal
+- removal of carbon
+- removal of co2
+- low carbon concrete
+- - ammonia
+  - hydrogen
+- - capture
+  - carbon
+- - capture
+  - co2
+- - section 45
+  - tax
+- - biofuel
+  - low emission
+- - biofuel
+  - lowemission
+- - biofuel
+  - zero emission
+- - biofuel
+  - zeroemission
+- - biodiesel
+  - low emission
+- - biodiesel
+  - lowemission
+- - biodiesel
+  - zero emission
+- - biodiesel
+  - zeroemission
+- biomethanol
+- waste to energy
+#- 'demonstration project'
+- 'lowemissions fuel'
+- 'low emissions fuel'
+- - 'sequestration'
+  - 'carbon'
+- - 'sequestration'
+  - 'capture'
+- - 'sequestration'
+  - 'tax credit'
+- 'class vi'
+- 'class six'
+- 'classvi'
+- 'primacy'
+- 'negative emission'
+- 'negativeemission'
+- 'hydrogen'
+- ' CDR '
+- - 'capture'
+  - 'carbon'
+- 'tertiary oil recovery'
+- 'tertiary recovery'
+- 'co2 flooding'
+- ' DAC '
+- 'direct air capture'
+- - 'tax credit'
+  - hydrogen
+- - 'tax credit'
+  - capture
+- - 'zeroemission'
+  - 'fuel'
+- - 'zero emission'
+  - 'fuel'
+- - 'lowcarbon'
+  - cement
+- - 'low carbon'
+  - cement
+- - 'lowemission'
+  - cement
+- - 'low emission'
+  - cement
+- - 'lowcarbon'
+  - concrete
+- - 'low carbon'
+  - concrete
+- - 'lowemission'
+  - concrete
+- - 'low emission'
+  - concrete
+- carbon solution
+- - primacy
+  - well
+maybe_ccs:
+- - 'lowemission'
+  - fuel
+- - 'low emission'
+  - fuel
+- - biomass
+  - energy
+- - 'alternative fuel'
+  - waste
+- - 'alternative fuel'
+  - bio
+- - 'alternative fuel'
+  - agric
+- - 'alternative fuel'
+  - crop
+- - 'alternative fuel'
+  - corn
+- ethanol
+- - 'life cycle analysis'
+  - 'carbon'
+- - 'monitoring reporting and verification'
+  - 'carbon'
+- - 'life cycle analysis'
+  - 'co2'
+- - 'monitoring reporting and verification'
+  - 'co2'
+- - 'lowcarbon'
+  - fuel
+- - 'low carbon'
+  - fuel
+- 'lowcarbon'
+- 'low carbon'
+- 'lowemission'
+- 'low emission'
+- energy innovation
+- carbon recycling
+- sustainable carbon solutions
+- climate solutions
+- clean energy technology
+- negative emission
+- - 'innovative technology'
+  - energy
+  - climate
+- ' FERD '
+- 'air capture'
+not_ccs:
+- ' drone'
+- 'hospital'
+- 'health care'
+- 'healthcare'
+- 'immigration'
+- 'green hydrogen'
+- 'solar energy'
+- 'wind energy'
+- 'renewable energy technology'
+- 'building codes'
+- 'real estate'
+- realtor
+- REIT
+- medicine
+- medical
+- seawater
+- ' pfas'
+- superfund

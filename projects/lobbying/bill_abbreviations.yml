@@ -1,3 +1,7 @@
+# replacement dictionary to help standardize the way that various key terms (e.g., legislation/bill numbers) are 
+# referred to in the lobbying activity descriptions returned by queries to the LDA API
+# This is a bit hacky: change the order with care b/c some of the later entries (e.g., U SB: US) correct earlier
+# inadvertent conversions (U S -> U SB b/c of ' S ': ' SB')
 ' H ': ' HR'
 ' S ': ' SB'
 /S: / SB
