@@ -1,0 +1,1439 @@
+# terms used for first-pass segmentation of organizations and companies into sectors.
+# note that the organization-to-sector assignments were manually reviewed/adjusted
+# after the initial pass. This just gives a bit of logic w.r.t. what components in names
+# or general client descriptions that I identified as being likely to indicate membership (or not)
+# in a given industrial sector.
+auto and transportation:
+  exclude:
+  - automatic
+  - labor
+  - union
+  - Ethanol
+  - hydropower
+  - capital
+  - lender
+  - brotherhood
+  - rail
+  - trains
+  - carbon capture
+  - oil and gas
+  - utility
+  - Carbon oxide sequestration
+  - ccs
+  - ccus
+  - solutions
+  - logistics
+  - biofuel
+  - biogas
+  - project management
+  - engineers
+  - consulting
+  - lawyer
+  - TRUCKEE
+  - CLACKAMAS
+  - Economic coalition
+  - procurement
+  - semiconductor
+  - COVANTA
+  - FLUOR
+  - CHARM INDUSTRIAL
+  - 'PORT OF '
+  - COUNTY OF RIVERSIDE
+  - SIERRA NEVADA
+  - LEONARDO ELECTRONICS US
+  - AECOM
+  - CLEAN ENERGY FUELS
+  - ROCCOR
+  - SCHNEIDER ELECTRIC
+  keep:
+  - diesel engine
+  - automobile engine
+  - gasoline engine
+  - ' EV '
+  - aviation
+  - bus servic
+  - air transport
+  - auto
+  - vehicle
+  - fuel cell
+  - truck
+  - airline
+  - air line
+  - airplane
+  - ship build
+  - engines
+  - airline
+  - cars
+  - car manufactur
+  - ocean carrier
+  - shipping
+  - maritime
+  - marine trans
+  - tanker
+  - jet
+biofuels:
+  exclude:
+  - GRAPHYTE
+  - SUPERPROTONIC
+  - labor union
+  - hydrogen
+  - ccs
+  - ccus
+  - carbon capture
+  keep:
+  - biofuel
+  - biosolid
+  - biogas
+  - biodiesel
+  - bioenergy
+  - alternative fuel
+  - algae
+  - ethanol
+  - etanol
+  - corn refiner
+  - waste to energy
+  - energy from waste
+  - biomass
+  - biorefiner
+  - anaerobic
+  - clean fuel
+  - renewable methane
+  - renewable natural gas
+  - renewable fuel
+  - cellulosic
+business advocacy:
+  exclude:
+  - union
+  - workers
+  - brotherhood
+  - region
+  - government
+  - automobile
+  - automotive
+  keep:
+  - commerce
+  - chamber
+  - roundtable
+  - economic council
+  - business council
+  - enetrprise
+  - small business
+carbon:
+  exclude:
+  - carbon capture
+  - carbon dioxide storage
+  - carbon dioxide capture
+  - co2 capture
+  - co2 storage
+  - ccs
+  - ccus
+  - DENBURY
+  - carbon dioxide utilization
+  - carbon oxide
+  - carbon capture utilization
+  - enhanced oil recovery
+  - ' EOR '
+  - biofuel
+  - biorefinery
+  - CHARM
+  - GULF COAST SEQUESTRATION
+  keep:
+  - carbon management
+  - carbon credit
+  - sequestration
+  - carbon removal
+  - co2 removal
+ccs:
+  exclude:
+  - labor union
+  - ACCUS
+  - NCCS
+  - bitcoin
+  - crypto
+  - oil and gas company
+  - LITHOS
+  - RUNNING TIDE
+  - DENBURY
+  - KIMMERIDGE
+  - HEIRLOOM
+  keep:
+  - carbon capture
+  - carbon dioxide storage
+  - carbon dioxide capture
+  - co2 capture
+  - co2 storage
+  - sequestration
+  - ccs
+  - ccus
+  - carbon dioxide utilization
+  - carbon oxide
+  - carbon capture utilization
+  - enhanced oil recovery
+  - ' EOR '
+  - carbon management
+  - tertiary
+  - negative emission
+cement:
+  exclude:
+  - union
+  - brotherhood
+  - advancement
+  - replacement
+  - enforcement
+  - reinforcement
+  - pestle
+  keep:
+  - building material
+  - cement
+  - mortar
+  - crushed stone
+  - limestone
+  - concrete
+  - aggregate
+  - formwork
+  - gravel
+  - enhancement
+  - ' sand '
+chemicals:
+  exclude:
+  - biofuel
+  - biogas
+  - biobased
+  - alternative fuel
+  - fuel alternative
+  - Energychemical company
+  - ethanol
+  - Celluloocis
+  - municipal waste
+  - renewable
+  - oil and gas
+  - vehicle
+  - pollution
+  - exploration
+  - Petroleum
+  keep:
+  - chemical
+  - cracking
+  - solvent
+  - surfactant
+  - catalyst
+  - vinyl
+  - PVC
+  - polymer
+  - Polyethylene
+  - Polystyrene
+  - plastic
+  - polypropylene
+  - industrial gases
+  - industrial gasses
+  - refinery
+  - refining
+  - petrochemical
+  - fuels
+  - OCI NV
+clean hydrogen:
+  exclude:
+  - green
+  - EQUINOR
+  - Q HYDROGEN
+  - CEMVITA
+  - NEUVENTUS
+  - OCI NV
+  - CLEAN ENERGY ENTERPRISES
+  - FIRSTELEMENT FUEL
+  - CH2M HILL
+  - ELECTRIC HYDROGEN
+  - HNO INTERNATIONAL
+  - utility
+  - labor union
+  - brotherhood
+  - biofuel
+  - biogas
+  - steel
+  - iron
+  - ccs
+  - ccus
+  - Carbon sequestration
+  - Carbon capture
+  - carbon dioxide
+  - fuel cell
+  - manufacturer
+  - FORTESCUE
+  - CHARM INDUSTRIAL
+  - VELOCYS
+  keep:
+  - h2
+  - hydrogen
+coal:
+  exclude:
+  - coalition
+  - RC CAPE MAY HOLDINGS
+  keep:
+  - coal
+  - anthracite
+  - lignite
+engineering, technology, and consulting:
+  exclude:
+  - manufactur
+  - association
+  - union
+  - neuroscien
+  - pharma
+  - medic
+  - brotherhood
+  - labor
+  - citizen
+  - advoca
+  - legal
+  keep:
+  - consult
+  - technology provider
+  - engineering
+  - technical consult
+  - service provider
+  - services provider
+  - strategy
+  - technical service
+  - product manag
+  - project manag
+environmental:
+  exclude:
+  - oil and gas company
+  - carbon capture
+  - ccs
+  - ccus
+  - chemical manufactur
+  - plastic producer
+  - environmental services company
+  - plastic manufactur
+  - labor union
+  - utility
+  - product
+  - services provider
+  - service provider
+  - consultancy
+  - AMERICAS POWER
+  - union
+  - TREATMENT ADVOCACY CENTERVISTRA
+  - Trade Association
+  - ENERGY ADVANCE CENTER
+  - transit authority
+  - technology protection services
+  - power and light
+  keep:
+  - environment
+  - conservation
+  - protection
+  - safety
+  - advocacy
+  - climate
+  - atmospher
+  - NGO
+finance:
+  exclude:
+  - labor union
+  - solar
+  - yogurt
+  - manufacture
+  - manufacturing
+  - real estate
+  - realtor
+  - expressway
+  - transportation
+  - developer
+  - vehicle
+  - human capital
+  - automobile
+  - capital city
+  - nations capital
+  - pipeline
+  - dialysis
+  - Coal Broker
+  - Airport
+  - RIVERBANK
+  - NEW VENTURE FUND
+  - us venture
+  - FAIRBANKS
+  - economic development
+  keep:
+  - bank
+  - capital
+  - asset
+  - venture
+  - portfolio
+  - financial
+  - investments
+  - broker
+food and agriculture:
+  exclude:
+  - union
+  - ethanol
+  - biofuel
+  - hydrogen
+  - ccs
+  - ccus
+  - solar
+  - wind
+  - oil and gas
+  - MIDDLE RIO GRANDE CONSERVANCY DISTRICT
+  - waste
+  keep:
+  - agri
+  - farm
+  - grower
+  - food
+  - milk
+  - dairy
+  - grain
+  - crop
+  - vegetable
+  - wheat
+  - beverage
+  - restaurant
+  - cattle
+  - beef
+  - pork
+  - livestock
+  - ranch
+  - chicken
+  - pigs
+  - sugar
+  - fresh produce
+government:
+  exclude:
+  - affairs
+  - relations
+  - electricity
+  - constitution
+  - utility
+  - tax
+  - waste
+  - COMMONWEALTH FUSION SYSTEMS
+  - utilities
+  - sewage
+  - sewerage
+  - oversight
+  - responsive
+  keep:
+  - tribe
+  - town of
+  - village of
+  - government
+  - public agency
+  - Native American Affairs
+  - Economic Development Agency
+  - State District
+  - Transit Authority
+  - Terminal District
+  - metropolitan area
+  - municipality
+  - city
+  - Transportation Authority
+  - Agency providing public transportation
+  - Transit Agency
+  - state department
+  - Public Agency Port District
+  - state agency
+  - The port of
+  - Commuter rail agency
+  - port authority
+  - Regional planning agency
+  - Transportation planning agency
+  - transportation agency
+  - tribal nation
+  - governing body
+  - Commonwealth
+  - quasigovernment
+  - regulatory agency
+  - Public transportation authority
+  - city administration
+  - county
+green hydrogen: #requires hand tuning -- easily confused with clean hydrogen and ccs and renewables
+  exclude:
+  - clean
+  - methane
+  - natural gas
+  - utility
+  - labor union
+  - brotherhood
+  - biofuel
+  - biogas
+  - steel
+  - iron
+  - ccs
+  - ccus
+  - Carbon sequestration
+  - Carbon capture
+  - carbon dioxide
+  - methane
+  - fuel cell
+  - manufacturer
+  - BAYOTECH
+  - BioSolutions
+  - biomining
+  - OCI NV
+  - FORTESCUE
+  - CHARM INDUSTRIAL
+  - VELOCYSMODERN HYDROGEN
+  keep:
+  - green h2
+  - green hydrogen
+  - ELECTRIC HYDROGEN
+  - HNO INTERNATIONAL
+  - Q HYDROGEN
+higher education:
+  exclude:
+  - physician
+  - medical
+  - universal
+  - health
+  - ' fund '
+  keep:
+  - university
+  - univ
+  - polytechnic
+  - institute of technology
+  - college
+independent research organization:
+  exclude: []
+  keep: []
+iron and steel:
+  exclude:
+  - environmental
+  - aerovironment
+  - brotherhood
+  - furniture
+  - workers
+  - environment
+  - agriculture
+  - vehicle
+  - union
+  keep:
+  - steel
+  - iron
+  - smelt
+labor union:
+  exclude:
+  - chamber
+  - commerce
+  - business owner
+  - county
+  - credit union
+  - perfect union
+  - transunion
+  keep:
+  - collective bargain
+  - brotherhood
+  - organizing
+  - federation
+  - united association
+  - union
+  - labor
+  - workers
+  - aflcio
+  - teamsters
+  - employees
+mining and metals:
+  exclude:
+  - labor union
+  - coal
+  - lignite
+  - anthracite
+  - uranium
+  - bitcoin
+  - crypto
+  - steel
+  keep:
+  - molybdenum
+  - mining
+  - aluminium
+  - aluminum
+  - 'silver '
+  - 'gold '
+  - Beryllium
+  - zinc
+  - ' ore '
+  - excavation
+  - mineral
+  - lithium
+  - cobalt
+  - graphite
+  - tungsten
+  - copper
+  - rare earth
+  - alloy
+  - metals
+nuclear:
+  exclude:
+  - mine
+  - utility
+  - labor
+  - berkshire hathaway
+  - infusion
+  keep:
+  - nuclear
+  - uranium
+  - fusion
+  - fission
+  - fision
+  - atomic
+oil and gas:
+  exclude:
+  - pipeline
+  - vehicle
+  - transportation
+  - distribution
+  - biofuel
+  - biogas
+  - chemical
+  - coal
+  - engine
+  - renewable
+  - alternative
+  - power
+  - electric
+  - refinery
+  - refining
+  - utility
+  - utilities
+  - petrochemical
+  keep:
+  - oil and gas
+  - energy
+  - oil company
+  - LNG
+  - natural gas
+  - midstream
+  - downstream
+  - upstream
+  - exploration and production
+  - petroleum
+oilfield services:
+  exclude:
+  - research
+  - technology
+  keep:
+  - oilfield
+  - waste management
+  - waste services
+other:
+  exclude: []
+  keep: []
+paper products:
+  exclude:
+  - european
+  - labor union
+  keep:
+  - pulp
+  - paper
+  - forest
+  - timber
+  - packaging
+  - container
+  - lumber
+pipelines:
+  exclude:
+  - exploration
+  - upstream
+  - downstream
+  - production
+  - electric
+  keep:
+  - midstream
+  - pipe line
+  - pipeline
+  - NEUVENTUS
+power generation and utilities:
+  exclude:
+  - CUMMINS
+  - DKRW
+  - water
+  - sewerage
+  - ethanol
+  - RWE
+  - sanitation
+  - fuel
+  - biofuel
+  - POET
+  - biofuels
+  - Vehicle
+  - biomass
+  - sewage
+  - hydrogen
+  - nuclear
+  - rooftop
+  - technology
+  - solar
+  - wind
+  - Automotive
+  keep:
+  - electricity generation
+  - utility
+  - utilities
+  - power plant
+  - power
+  - energy producer
+  - power and light
+railway:
+  exclude:
+  - labor union
+  - transportation authority
+  - transit authority
+  - training
+  - trainer
+  - aerospace
+  - coal
+  keep:
+  - railway
+  - rail
+  - train
+  - railroad
+  - railworkers
+remove these organizations:
+  exclude: # This is the 'remove' list: so adding a term to 'exclude' paradoxically will end up KEEPING organizations with these terms
+  - oil and gas
+  - carbon capture
+  - power generation
+  - biofuel
+  - algae
+  - biomass
+  - renewable
+  - airline
+  - automobile
+  - government
+  - 'state of'
+  - shipping
+  - AMERICAN FEDERATION OF GOVERNMENT EMPLOYEES COUNCIL 118
+  keep: # This is the 'remove' list: so adding a term to 'keep' paradoxically will end up REMOVING organizations with these terms
+  - cybersecurity
+  - helicopter
+  - housing
+  - blockchain
+  - data storage
+  - data center
+  - refugee
+  - arthritis
+  - shrimp
+  - fishery
+  - postage
+  - postal
+  - retail
+  - rating system
+  - retirement account
+  - bitcoin
+  - crypto
+  - kids
+  - Network security
+  - residential construction
+  - IT security
+  - Aerospace
+  - recreational
+  - Social Security
+  - solidstate
+  - stevedoring
+  - bar association
+  - security
+  - rating agency
+  - clothing
+  - apparel
+  - Commercial Space
+  - Sex offender
+  - Tax Prep
+  - Nanotechnology
+  - Patent Reform
+  - hearing aid
+  - video game
+  - Micromobility
+  - virtual reality
+  - mixed reality
+  - benefit management
+  - high security
+  - firefight
+  - ' aging'
+  - ' care '
+  - ' cure '
+  - ' drone '
+  - ' eye'
+  - ' fish '
+  - ' gaming '
+  - ' heart '
+  - ' housing '
+  - ' la raza '
+  - ' lending'
+  - ' liver '
+  - ' marrow'
+  - ' pr '
+  - 60 plus association
+  - aarp
+  - abbott laboratories
+  - abbvie
+  - academy advisors
+  - access
+  - accountants
+  - acte
+  - actuaries
+  - acuity brands lighting
+  - acuityhealtcare
+  - adage
+  - adobe
+  - adolescent
+  - advamed
+  - advanced micro devices
+  - advantage pressurepro
+  - advertising
+  - aetna
+  - affiliated computer state and local solutions
+  - afford
+  - aflac
+  - aft
+  - afterschool alliance
+  - agilent
+  - aids
+  - alcatellucent
+  - alcon laboratories
+  - alkermes
+  - allergan
+  - alliance for biosecurity
+  - allied fiber
+  - ally financial
+  - alticor
+  - altria
+  - alzheimers
+  - amazon
+  - american ambulance association
+  - american association for justice
+  - american association of classified school employees
+  - american bakers association
+  - american benefits council
+  - american civil liberties union
+  - american continental
+  - american council of gift annunities
+  - american council on education
+  - american dental association
+  - american horse council
+  - american jewish committee
+  - american land title association
+  - american legion
+  - american lung association
+  - american magline
+  - american society of transplantation
+  - american society of travel advisors
+  - american tower
+  - american zoo and aquarium association
+  - americans united for separation of church and state
+  - ameritox
+  - amgen
+  - amputee
+  - amusement
+  - andre agassi
+  - anesthesiolog
+  - animal
+  - anschutz
+  - ao smith
+  - apartment
+  - apple
+  - apts action
+  - arc of united states
+  - arts
+  - assistive technology
+  - association for community affiliated plans
+  - association for homeowners across america
+  - association for print technologies
+  - association of science and technology centers
+  - astrazeneca
+  - atc management
+  - atlantic telenetwork
+  - atrisk adults
+  - autism
+  - autodesk
+  - availity
+  - azoa
+  - bangladesh
+  - becton dickinson
+  - benefits
+  - besler
+  - best buy
+  - better world fund
+  - bikes
+  - biodefense
+  - biologists
+  - biomed
+  - bioohio
+  - biosimilar
+  - biotechnology industry
+  - blackberry
+  - blind
+  - blood
+  - blue cross
+  - blue shield
+  - bluecros
+  - blueshield
+  - boehringer ingelheim
+  - bon secours virginia
+  - bose
+  - boston scientific
+  - boys girls clubs
+  - boys town
+  - brain
+  - breakthrough t1d
+  - bristolmyers squibb
+  - broadband
+  - broadcasting
+  - broadcom
+  - bsafeelectrix
+  - bsasoftware alliance
+  - buck institute for age research
+  - burnham developer
+  - business software alliance
+  - c r bard
+  - cablevision
+  - california cut flower commission
+  - camp fire
+  - cancer
+  - cannabis
+  - cardio
+  - care action now
+  - care coalition
+  - care continuum alliance
+  - carecom
+  - carpet and rug institute
+  - case new holland
+  - casino
+  - catastrophe
+  - cbs
+  - ccim
+  - cellular
+  - center for community change
+  - center for inquiry office of public policy
+  - centex
+  - centrus
+  - centurylink
+  - cepheid
+  - ceramatec
+  - cerner
+  - charitable accord
+  - charles street partners
+  - charter school
+  - chenega
+  - child abuse
+  - child welfare league of america
+  - childhood
+  - children
+  - chiropractic
+  - chrons
+  - chubb
+  - cigar
+  - cigar
+  - cigna
+  - cisco systems
+  - citizenship trust
+  - clearwire
+  - cleveland clinic
+  - clinic
+  - colitis
+  - colorado historical society
+  - comcast
+  - communication
+  - community
+  - competitive bidding
+  - competitive investment in networks alliance cina
+  - composite technology
+  - comptel
+  - confection
+  - consumer credit
+  - consumer electronics
+  - consumer product
+  - consumer reports
+  - contacts
+  - council for exceptional children
+  - council of fhlbanks
+  - council of la raza
+  - craniofacial
+  - credit counsel
+  - cruise
+  - cure sma
+  - cures
+  - cvs caremark
+  - danceusa
+  - data management
+  - dauphin island sea lab
+  - davita
+  - debt recovery
+  - deep space
+  - delta dental
+  - dentistry
+  - dentists
+  - dermatolog
+  - diabetes
+  - diagnostic
+  - dialysis
+  - dietary
+  - digital identity
+  - direct marketing association
+  - disabilities
+  - discovery communications
+  - disease
+  - disney
+  - doctor
+  - drama
+  - drip irrigation
+  - drug
+  - ducks
+  - duis
+  - dystrophy
+  - easter seals
+  - eating disorders
+  - ebay
+  - ecommerce
+  - educat
+  - educational testing service
+  - edward jones investments
+  - eisai
+  - eli lilly
+  - embarq management
+  - emd serono
+  - emdeon
+  - endocrine society
+  - enterprise products operating
+  - entertain
+  - entomological
+  - epidemiologists
+  - ethnic conflict
+  - express scripts
+  - fabrics
+  - famil
+  - fannie mae
+  - fare collection
+  - farm credit
+  - fashion
+  - federal home loan bank
+  - financial planning association fpa
+  - firearm
+  - fishing
+  - fitness
+  - florist
+  - football
+  - footwear
+  - for inspiration recognition of science technology
+  - foreign service
+  - forex
+  - foundation for advancing alcohol responsibility
+  - fragrance
+  - franchise
+  - freddie mac
+  - fundraising
+  - gastroenter
+  - genentech
+  - general contractor
+  - genetic
+  - genomic
+  - genzyme
+  - geriatric
+  - girl scouts
+  - glaxosmithkline
+  - globalfoundries
+  - goldberg godles wiener wright
+  - golf
+  - google
+  - gsk
+  - gun safety
+  - guns
+  - guttmacher
+  - head start
+  - healhcare
+  - health
+  - hearst
+  - heart
+  - heathcare
+  - hematolog
+  - hewlett packard
+  - hewlettpackard
+  - hillrom
+  - hilton
+  - histocompatibility
+  - historic preservation
+  - history
+  - hiv
+  - hockey
+  - home
+  - homebuilder
+  - homecare
+  - hospi
+  - hotel
+  - hp
+  - hr policy association
+  - human capital
+  - human resource
+  - human rights
+  - humana
+  - humanity
+  - hygiene
+  - hypertension
+  - immigration
+  - immune
+  - immuno
+  - incompas
+  - infertility
+  - info tech
+  - information tech
+  - innocence project
+  - insight communications
+  - insurance
+  - intel
+  - international association of fire
+  - international biometric industry association
+  - internet
+  - iridium satellite
+  - it services
+  - j c penney
+  - jackson laboratory
+  - jea
+  - jeldwen windows doors
+  - johns hopkins
+  - johnson & johnson
+  - johnson johnson
+  - k12
+  - kidney
+  - knowledge alliance
+  - komen
+  - kroger
+  - language
+  - league of women voters
+  - legg mason
+  - lennar
+  - leukemia
+  - liberty mutual
+  - liberty-qurate
+  - library
+  - life
+  - loews
+  - logistics
+  - long beach unified school district
+  - long term care
+  - lung
+  - magazine
+  - surveyors
+  - march of dimes
+  - marfan
+  - marketing
+  - marriott
+  - mask manufacturers
+  - mass general brigham
+  - masterplanned
+  - mature american citizens
+  - mckesson
+  - mcnc
+  - medassets
+  - media
+  - medic
+  - medtronic
+  - mental illness
+  - merck
+  - metropcs communications
+  - military officers
+  - minority males consortium
+  - missile
+  - mobile payments
+  - mortgage
+  - motion picture
+  - motorola
+  - movie
+  - municipal castings association
+  - museum
+  - mushroom
+  - music
+  - myeloma
+  - mylan laboratories
+  - national alliance for eye and vision research
+  - national association for advancement of colored people
+  - national association for selfemployed nase
+  - national association of broadcasters
+  - national association of marine laboratories
+  - national association of police organizations
+  - national association of social workers
+  - national association of state student grant and aid programs
+  - national association of vision care plans
+  - national cable and telecommunications association
+  - national cable telecommunications association
+  - national council for mental wellbeing
+  - national council of jewish women
+  - national employment law
+  - national forum to accelerate middle grades reform
+  - national public radio
+  - national right to life committee
+  - national writing project
+  - ncta internet television association
+  - nehemiah
+  - neighborworks
+  - nephrolog
+  - netapp
+  - networks
+  - neurocrine
+  - neurofibromatosis
+  - neurology
+  - new york botanical garden
+  - newspaper
+  - newspaper
+  - nokia of america
+  - novartis
+  - novatoca
+  - novo nordisk
+  - novogy
+  - novologix
+  - ntr
+  - numbersusacom
+  - nurse
+  - nursing
+  - nutrition
+  - obstetric
+  - occupational health
+  - oncolog
+  - open range communications
+  - opera america
+  - opthal
+  - optometr
+  - oracle
+  - orchestra
+  - organ
+  - orthodonti
+  - orthopaedic
+  - osteopath
+  - ounce of prevention
+  - outdoor industry
+  - packaged ice
+  - panasonic
+  - paralyzed
+  - paramount global
+  - parkinson
+  - parks and recreation
+  - patholog
+  - patient
+  - payment processing
+  - payments processing
+  - payments platform
+  - pc landing
+  - pediatric
+  - performing arts
+  - perfume
+  - pfizer
+  - pharma
+  - philanthrop
+  - phrma
+  - physiatrists
+  - physical
+  - physician
+  - physiological
+  - planned giving
+  - planned parenthood
+  - police
+  - positive energy
+  - principals
+  - project lead the way
+  - propert
+  - prosthetic
+  - psychiat
+  - psycholog
+  - public relations
+  - public school
+  - publisher
+  - pulmonary
+  - qualcomm
+  - quality imaging
+  - quantum
+  - quest diagnostics
+  - radar
+  - radiolog
+  - rape abuse
+  - rare disease
+  - reading recovery
+  - real estate
+  - realtor
+  - recording industry
+  - red cross
+  - regeneron
+  - rehab
+  - representative of german industry and trade
+  - reproductive
+  - resort
+  - retail
+  - rheumat
+  - rich zambo esq
+  - rifle
+  - rite aid
+  - robot vacuum
+  - rock and roll hall of fame and museum
+  - royal caribbean
+  - sallie mae
+  - sanofi
+  - sanofi pasteur
+  - satellite industry association
+  - scheringplough
+  - school administrators
+  - school board
+  - school district
+  - schools
+  - sclerosis
+  - seaworld
+  - selfemployed
+  - semi conductor
+  - semiconductor
+  - sexual
+  - sherwinwilliams
+  - shopify
+  - shopping
+  - smoker
+  - social studies
+  - society for human resource management
+  - software development
+  - songwriters
+  - sony corp of america
+  - sony pictures entertainment
+  - space launch
+  - spectromet
+  - spinal
+  - spine
+  - sporting
+  - sprint
+  - start early for first five years fund
+  - stores
+  - student loan
+  - substance abuse
+  - sun microsystems
+  - surgeon
+  - surgery
+  - surgical
+  - sweetwater authority
+  - swisher international
+  - symantec
+  - symphony
+  - tax filing
+  - teach for america
+  - teacher
+  - teaching
+  - technicolor
+  - telecom
+  - telephone
+  - television
+  - terroris
+  - textile
+  - theater
+  - theatre
+  - theft
+  - therap
+  - thoracic
+  - thurgood marshall
+  - time warner
+  - tmobile
+  - tobacco
+  - tour operator
+  - tourist
+  - traditional values coalition
+  - trauma
+  - travel
+  - travelers companies
+  - turfgrass
+  - tv
+  - tyco
+  - unidosus
+  - united healthcare
+  - united states telecom association
+  - urology
+  - usaa
+  - usta
+  - utilities technology
+  - utilities telecom
+  - verisign
+  - verizon
+  - veter
+  - viacom
+  - viasat
+  - violence
+  - virtua
+  - vision service plan
+  - vivitrol business unit
+  - vizient
+  - voices for national service
+  - volunteers of america
+  - walgreen
+  - walmart
+  - warner media
+  - warnermedia
+  - welch allyn
+  - west central illinois educational telecommunications
+  - whirlpool
+  - wildblue communications
+  - windstream
+  - wirefree partners
+  - wireless
+  - worldatwork
+  - wyeth
+  - xo communications
+  - xoma
+  - ymca
+  - yogurt
+  - youth
+  - ywca
+  - zionist
+  - zoological
+renewable energy:
+  exclude:
+  - biofuel
+  - fuel
+  - hydrogen
+  - window
+  - tesla
+  - natural gas
+  - methane
+  - utility
+  - utilities
+  - biogas
+  - biodiesel
+  - uranium
+  - ethanol
+  - nuclear
+  keep:
+  - solar
+  - wind
+  - renewable energy
+  - alternative energy
+  - geothermal
+  - hydropower
+  - photovoltaic
+  - energy storage
+  - battery
+think tanks and nonprofits:
+  exclude:
+  - labor union
+  keep:
+  - think tank
+  - advocacy organization
+  - nonprofit
+  - notforprofit
+  - non profit
+  - foundation
+water:
+  exclude:
+  - power
+  - light
+  - electric
+  - gas
+  - addiction
+  - ecolab
+  - bluewater
+  - food water watchmanufacturing
+  - fuel
+  - Protection of creeks and rivers
+  - clean water
+  - manufacture
+  - technology
+  - waterfront
+  - conservancy
+  - 3M
+  - clearwater
+  - ecosystem
+  - technologies
+  keep:
+  - water
+  - sewer
+  - sewerage
+  - sanitation

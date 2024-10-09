@@ -11,7 +11,7 @@ mostly_ccs_provisions:
 - '"Clean Energy Future Through Innovation"'
 - '"Pipeline Efficiency & Safety"' # Act"'
 - '"PIPES Act"'
-- '"Coal with Carbon Capture and Sequestration"' # Act of 2015"' #S. 1285, 
+- '"Coal with Carbon Capture and Sequestration"' # Act of 2015"' #S. 1285,
 - '"Coal with Carbon Capture & Sequestration"'
 - '"Coordinated Action To Capture Harmful Emissions Act"'
 - '"Expanding Carbon Capture through Enhanced Oil Recovery Act"'
@@ -29,7 +29,7 @@ mostly_ccs_provisions:
 - '"Capture and Storage Technology"' #2007
 - '"Capture and Storage Research Development"' #2007; 110-140
 - '"Enhancing Fossil Fuel Energy Carbon Technology"' #2019 introduced by Manchin
-- '"Carbon Capture Modernization"' 
+- '"Carbon Capture Modernization"'
 - '" EFFECT Act"' #Manchin 2019
 - '"Advanced Clean Coal Technology"' #2014: S. 2152: ACCTION
 - '"ACCTION Act"' #2014 and 15?
@@ -245,7 +245,7 @@ contains_ccs_provisions:
 - '"U.S.-Israel Partnership and Abraham"'
 - '"Americas Act"'
 - '"Investments for Manufacturing"'
-# Note that because of a (poor?) choice in the lda_query.py script, in the case of senate bills, 
+# Note that because of a (poor?) choice in the lda_query.py script, in the case of senate bills,
 # rather than be referred to as 'S [bill number]', all references to specific senate bill numbers in the
 # cleaned lobbying activity description contain 'SB [bill number]'
 congress_bill_nos:
@@ -283,7 +283,7 @@ congress_bill_nos:
   - HR 1761 #CCUS Innovation Act
   - HR 1760 #Carbon Capture Modernization Act
   - SB 661 #Carbon Capture Modernization Act
-  - HR 1062 #ACCESS 45Q 
+  - HR 1062 #ACCESS 45Q
   - HR 1788 #clean energy hydrogen innovation act
   - SB 1201 # United States Climate Leadership in International Mitigation, Adaptation, and Technology Enhancement Act of 2021
   - SB 799 # SCALE Act
@@ -306,7 +306,7 @@ congress_bill_nos:
   - SB 4341 # CREATE Act of 2020
   - HR 8671 # Create act of 2020
   - HR 9054 # Clean Energy Future Through Innovation Act of 2020
-  115: 
+  115:
   - HR 5474 # Fossil energy research and development act
   - SB 1663 #CO2 Regulatory Certainty Act
   - HR 4857 #CO2 Regulatory Certainty Act

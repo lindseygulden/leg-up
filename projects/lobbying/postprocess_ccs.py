@@ -185,15 +185,16 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
         df, config_info["postproc_specs_path"], "congress_bill_nos"
     )
 
+    postproc_dict = yaml_to_dict(config_info["postproc_specs_path"])
     # handle 'nebulous' hydrogen terms (e.g., "low-carbon hydrogen", NOT terms such as "clean hydrogen",
     # which is definitely CCS, and which is handled as a CCS term, above)
 
     df["h2_mention_core_ff"] = [
-        1 if ((h == 1) and (s in config_info["core_ff_sectors"])) else 0
+        1 if ((h == 1) and (s in postproc_dict["core_ff_sectors"])) else 0
         for h, s in zip(df.h2_mention, df.sector)
     ]
     df["h2_mention_ff_adjacent"] = [
-        1 if ((h == 1) and (s in config_info["ff_adjacent_sectors"])) else 0
+        1 if ((h == 1) and (s in postproc_dict["ff_adjacent_sectors"])) else 0
         for h, s in zip(df.h2_mention, df.sector)
     ]
     # identify a few 'always CCS' and 'always not CCS' sectors
@@ -216,9 +217,9 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
                 (
                     probably
                     and (not lca)
-                    and (sector in config_info["ff_adjacent_sectors"])
+                    and (sector in postproc_dict["ff_adjacent_sectors"])
                 )
-                | (bill_with_ccs and (sector in config_info["ff_adjacent_sectors"]))
+                | (bill_with_ccs and (sector in postproc_dict["ff_adjacent_sectors"]))
             )
             else 0
         )
@@ -270,7 +271,9 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     df["could_be_ccs"] = [
         (
             1
-            if (maybe and (not lca) and (sector in config_info["ff_adjacent_sectors"]))
+            if (
+                maybe and (not lca) and (sector in postproc_dict["ff_adjacent_sectors"])
+            )
             else 0
         )
         for maybe, sector, lca in zip(
@@ -411,8 +414,13 @@ def postprocess_ccs(
 
     ccs_df = add_political_party(ccs_df, config_info)
     logging.info(" >>> Writing out data")
-    ccs_df = ccs_df[config_info["subset_and_order_of_writeout_columns"] + entities]
-    ccs_df.rename(columns=config_info["rename_columns"], inplace=True)
+    postproc_dict = yaml_to_dict(config_info["postproc_specs_path"])
+    if "rename_columns" in postproc_dict:
+        ccs_df.rename(columns=postproc_dict["rename_columns"], inplace=True)
+
+    ccs_df = ccs_df[postproc_dict["subset_and_order_of_writeout_columns"] + entities]
+
+    # order values such that someone who is reading the output first sees all the 'definitely ccs' ones
     ccs_df.sort_values(
         by=[
             "definitely_ccs",
