@@ -262,7 +262,7 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
             config_info["search_term_list_path"]
         )
     logging.info(
-        " ----- Identified %s search string(s) for lobbying activities and lobbyists -----",
+        " --- Identified %s search string(s) for lobbying activities ---",
         str(len(search_string_list)),
     )
     # initialize counting variables for subsets of queried pages ('chunks')
@@ -292,7 +292,7 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
         n_chunks = ceil(n_pages / chunk_size)
 
         logging.info(
-            " ----- Preparing %s files for search string number %s -----",
+            " --- Preparing %s files for search string %s ---",
             str(n_chunks),
             str(which_search_string),
         )
