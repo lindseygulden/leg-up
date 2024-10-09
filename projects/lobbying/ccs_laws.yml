@@ -1,0 +1,362 @@
+mostly_ccs_provisions:
+- '"Hydrogen Innovation Finance and Infrastructure"'
+- '"HIFIA"'
+- '"NET Zero Act"' #hr 5205 117th congress
+- '"RECOUPS Act"' #2020: Redeeming Effectiveness to Carbon Oxide Utilization Plus Sequestration Act of 2020
+- '"CO2 Regulatory"'
+- '"C02 Regulatory"'
+- '"Pipeline Safety Modernization and Expansion"' #Act
+- '"Pipeline Efficiency and Safety"' # Act"'
+- '"Pipeline Safety Modernization & Expansion"' #Act
+- '"Clean Energy Future Through Innovation"'
+- '"Pipeline Efficiency & Safety"' # Act"'
+- '"PIPES Act"'
+- '"Coal with Carbon Capture and Sequestration"' # Act of 2015"' #S. 1285, 
+- '"Coal with Carbon Capture & Sequestration"'
+- '"Coordinated Action To Capture Harmful Emissions Act"'
+- '"Expanding Carbon Capture through Enhanced Oil Recovery Act"'
+- '"CATCH Act"' #HR 3538
+- '"Carbon Capture Improvement"' #HR 3861
+- '"Accelerating Carbon Capture"' #access 45q act HR 1062
+- '"ACCESS 45Q Act"'
+- '"Clean Energy Hydrogen Innovation Act"' # does have other stuff but is focused on ccs
+- '"increase and expand the credit for carbon oxide sequestration"'
+#- '"A bill to amend the Energy Policy Act of 2005 to require the Secretary of Energy to consider the objective of improving the conversion, use, and storage of carbon dioxide produced from fossil fuels in carrying out research and development programs under that Act'
+- '"improving the conversion, use, and storage of carbon dioxide"' # S1282 introduced by manchin in 2015
+- '"improving the conversion, use, & storage of carbon dioxide"' # S1282 introduced by manchin in 2015
+- '"Capture and Storage Early"' #2008 & 2009 by boucher
+- '"Capture Utilization and Storage Tax"' # s986 #2020 and 2021 introduction by Smith and Capito
+- '"Capture and Storage Technology"' #2007
+- '"Capture and Storage Research Development"' #2007; 110-140
+- '"Enhancing Fossil Fuel Energy Carbon Technology"' #2019 introduced by Manchin
+- '"Carbon Capture Modernization"' 
+- '" EFFECT Act"' #Manchin 2019
+- '"Advanced Clean Coal Technology"' #2014: S. 2152: ACCTION
+- '"ACCTION Act"' #2014 and 15?
+- '"Responsible Use of Coal Act"' #2009
+- '"Utilizing Significant Emissions' # S 383 and HR 1166 2019-2020 (116th congress)
+- '" USE IT Act"'
+- '"Fossil Energy Research and Development"' # 2020: mostly ccs, with a bit of methane leak detection
+- '"Fossil Energy Research & Development"' # 2020: mostly ccs, with a bit of methane leak detection
+- '"Boxer Substitute"' # Amendment"' #  to SB3036
+- '"CREST Act"'
+- '"Carbon Removal and Emissions Storage Technologies"'
+- '"Carbon Removal and Emission Storage Technology"' # miswriting of CREST
+- '"Carbon Removal and Emissions Storage Technology"' # miswriting of CREST
+- '"Carbon Removal and Emission Storage Technologies"' # miswriting of CREST
+- '"Storing CO2 and Lowering Emissions"' # introduced by Veasey of texas
+- '"SCALE Act"'
+- '"Carbon Capture and Storage Stewardship Trust Fund Act"' #S1502
+- '"Carbon Capture and Sequestration Program Amendments Act"' #S1012
+- '"Carbon Capture & Storage Stewardship Trust Fund Act"' #S1502
+- '"Carbon Capture & Sequestration Program Amendments Act"' #S1012
+- '"CCU Parity"'
+- '"Energy Clean Hydrogen and Fuel"'
+- '"Energy Clean Hydrogen & Fuel"'
+- '"Clean H2"' # Clean H2 Production Act S 1807
+- '"Energy Sector Innovation Credit Act"' #2021: mostly new stuff for CCS, 'clean' hydrogen, production of electricity from those. introduced by tom reed r-ny
+ccs_law_with_ccs_term:
+- '"ARRA","capture"'
+- '"ARRA","section 45"'
+- '"CREATE Act","sequestration"'
+- '"CREATE Act","storage"'
+- '"IIJA","capture"'
+- '"IIJA","hydrogen","clean"'
+- '"IIJA","hydrogen","methane"'
+- '"IIJA","hydrogen","natural gas"'
+- '"IIJA","pipeline safety"'
+- '"IIJA","section 45"'
+- '"IIJA","permitting reform"'
+- '"110-140", "capture"'
+- '"110-140", "section 45"'
+- '"111-5","capture"'
+- '"111-5","section 45"'
+- '"114-113","capture"'
+- '"116-260","capture"'
+- '"116-260","section 45"'
+- '"117-167","capture"'
+- '"117-169","capture"'
+- '"117-169","hydrogen","clean"'
+- '"117-169","hydrogen","methane"'
+- '"117-169","hydrogen","natural gas"'
+- '"117-169","pipeline safety"'
+- '"117-169","permitting reform"'
+- '"117-169","section 45"'
+- '"117-169","underground injection control"'
+- '"117-169","UIC"'
+- '"117-58","underground injection control"'
+- '"117-58","UIC"'
+- '"117-58","capture"'
+- '"117-58","hydrogen","clean"'
+- '"117-58","hydrogen","methane"'
+- '"117-58","hydrogen","natural gas"'
+- '"117-58","pipeline safety"'
+- '"117-58","permitting reform"'
+- '"117-58","section 45"'
+- '"American Energy Innovation","capture"'
+- '"American Energy Opportunity","capture"'
+- '"American Recovery and Reinvestment","capture"'
+- '"American Recovery and Reinvestment","section 45"'
+- '"Budget Act of 2018","section 45"'
+- '"CLEAN Future Act","capture"'
+#- '"Clean Energy Future Through","capture"'
+- '"Clean Energy Innovation and Deployment","capture"'
+- '"Clean Energy Standard","capture"'
+- '"Clean Energy for America","capture"'
+- '"Clean Energy for America","carbon oxide"'
+- '"Clean Energy for America","hydrogen"'
+- '"Clean Energy for America","sequestration"'
+- '"Climate Leadership and Environmental","capture"'
+- '"Consolidated Appropriations Act, 2016","capture"'
+- '"Consolidated Appropriations Act, 2021","capture"'
+- '"Electricity Security and Affordability","capture"'
+- '"Energy Innovation and Carbon","capture"'
+- '"Energy Innovation and Carbon","sequestration"'
+- '"Energy Jobs and American Power","capture"'
+- '"Energy Policy Modernization","capture"'
+- '"Energy Security and Infrastructure","capture"'
+- '"HR 3684","hydrogen","clean"'
+- '"HR 3684","hydrogen","methane"'
+- '"HR 3684","hydrogen","natural gas"'
+- '"HR 5376","capture"'
+- '"HR 5376","hydrogen","clean"'
+- '"HR 5376","hydrogen","methane"'
+- '"HR 5376","hydrogen","natural gas"'
+- '"H.R. 3684","hydrogen","clean"'
+- '"H.R. 3684","hydrogen","methane"'
+- '"H.R. 3684","hydrogen","natural gas"'
+- '"H.R. 5376","capture"'
+- '"H.R. 5376","hydrogen","clean"'
+- '"H.R. 5376","hydrogen","methane"'
+- '"H.R. 5376","hydrogen","natural gas"'
+- '"H.R.3684","hydrogen","clean"'
+- '"H.R.3684","hydrogen","methane"'
+- '"H.R.3684","hydrogen","natural gas"'
+- '"H.R.5376","capture"'
+- '"H.R.5376","hydrogen","clean"'
+- '"H.R.5376","hydrogen","methane"'
+- '"H.R.5376","hydrogen","natural gas"'
+- '"IRA","capture"'
+- '"IRA","section 45"'
+- '"IRA","permitting reform"'
+- '"IRA","underground injection control"'
+- '"Inflation Reduction Act","hydrogen","clean"'
+- '"Inflation Reduction Act","hydrogen","methane"'
+- '"Inflation Reduction Act","hydrogen","natural gas"'
+- '"Inflation Reduction"," cement"'
+- '"Inflation Reduction","capture"'
+- '"Inflation Reduction","permitting reform"'
+- '"Inflation Reduction","UIC"'
+- '"Inflation Reduction","underground injection control"'
+- '"Inflation Reduction","pipeline safety"'
+- '"Inflation Reduction","section 45"'
+- '"Inflation Reduction","steel"'
+- '"Infrastructure Investment and Jobs","permitting reform"'
+- '"Infrastructure Investment and Jobs","capture"'
+- '"Infrastructure Investment and Jobs","hydrogen","clean"'
+- '"Infrastructure Investment and Jobs","hydrogen","methane"'
+- '"Infrastructure Investment and Jobs","hydrogen","natural gas"'
+- '"Infrastructure Investment and Jobs","section 45"'
+- '"Infrastructure Investment"," cement"'
+- '"Infrastructure Investment","pipeline safety"'
+- '"Infrastructure Investment","steel"'
+- '"Innovation and Competition","capture"'
+- '"Lieberman Warner","capture"'
+- '"Lieberman-Warner","capture"'
+- '"MARKET CHOICE Act","capture"'
+- '"Moving Forward Act","capture"'
+- '"Moving Forward Act","carbon dioxide"'
+- '"Moving Forward Act","co2"'
+- '"Polluter Welfare","capture"'
+contains_ccs_provisions:
+- '"GREEN Act"' #H.R.848
+- '"Science for the Future Act"' # DOE Science for the future act S. 3699
+- '"Boxer-Kerry"'
+- '"Boxer Kerry"'
+- '"MARKET CHOICE Act"'
+- '"110-140"' # Energy Independence and Security act of 2007
+- '"116-260"' # consolidated apprpriations act of 2021
+- '"Clean Energy for America"' # all versions (2017,2019,2021) introduced by Wyden and contain CCS provisions
+- '"Clean Energy Standard"'
+- '"Making appropriations for energy and water development and related"' #2021 (yes, that's a bill name) -- more money to FERD
+- '"Defense Commerce Justice Science Energy and Water Development"' #real act has much longer name: contains CCS $ given to Fossil energy research and development
+- '"New Direction for Energy Independence National Security"' #2007
+- '"Energy Savings Act of 2007"'  #promotes biofuels, energy efficiency, CCS and other purposes
+- '"Energy Policy Act of 2005"' #109-58
+- '"109-58"'
+- '"Housing and Economic Recovery"' # original versions had CCS provisions in it
+- '"Energy Improvement and Extension"' #2008 Bailout bill Divison B https://www.congress.gov/bill/110th-congress/house-bill/1424/titles?s=2&r=5&q=%7B%22search%22%3A%22%5C%22Energy+Improvement+and+Extension+Act%5C%22%22%7D
+- '"110-343"' # PL number of Energy Improvement and Extension Act
+- '"American Clean Energy Leadership "' #2009
+- '" ACELA "'
+- '" SEA Act of 2008"' #increases funding for CCS research
+- '" LEASE Act of 2008"' #2008 money for ccs demonstration projects
+- '"Energy Independence Act"' # for three 2008/0 acts: "American Conservation and Clean Energy Independence Act", "Invest in Energy Independence Act and National Conservation, Environment, and Energy Independence Act #2008 money for ccs demo projects
+- '"Invest in Energy Security"' #2008 money for ccs demo projects
+- '"American Clean Energy and Security"' #2007 (?) and 2009; aka Waxman Markey-- didn't use 'ACES' b/c there are lots of other 'ACES' refs not dealing with CCS
+- '"Waxman-Markey"'
+- '"Waxman Markey"'
+- '"American Recovery and Reinvestment","capture"' #2009, 111-5
+- '" ARRA "' # abbrev for previous (111-5)
+- '"111-5"'
+- '"Consolidated Appropriations Act, 2021"'
+- '"Energy Act of 2020"'
+- '"116-260"' #PL number of Consolidated Appropriations Act of 2021
+- '"North American Energy Security and Infrastructure"' #2016
+- '"Energy Policy Modernization Act"' #2015 (seems to be a previous version of NAESIA above)
+- '"Bipartisan Budget Act of 2018"' #115-123
+- '"115-123"' #PL number of Bipartisan Budget Act of 2018
+- '"Infrastructure Investment and Jobs"' # 2021 (117-58)
+- '" IIJA "' # 2021 (117-58)
+- '"117-58"'
+- '"Inflation Reduction"' #2022 117-169
+- '"IRA"' # 117-169
+- '"117-167"'
+- '"117-169"'
+- '"100 by 50"' # name of a 2017 act introduced by polis
+- '"IMPACT Act"' # contains carbon capture provisions for cement
+- '"Limit Save Grow"' #2023: introduced version in the house (Arrington) had change to carbon oxide sequestration
+- '" SUPER Act"' # 2021 contains provisions for carbon capture for steel making
+- '"Innovation and Competition"' #2021 introduced by Johnson (D-TX) -- some versions have CCS for steelmaking provisions
+- '"Energy Infrastructure Act"' #2021 introduced by manchin: deals with CCS
+- '"CHIPS and Science Act"' # 2021: includes the provisions for carbon capture in steelmaking. Became 117-167
+- '"Electricity Security and Affordability"' #2014 passed house; introduced r whitfield r-ky
+- '"Clean Energy Future Through Innovation"' #2021: includes bunches on CCUS: from WV republican sneator McKinley
+- '"American Energy Opportunity"'
+- '"Infrastructure Jobs and Energy Independence"' #2011 -- makes CCS projects eligible for huge govt assistance
+- '"Upstate Works"' #2011 makes ccs eligbile for big govt loans
+- '"Investments for Manufacturing Progress and Clean Technology"' # 2009  makes ccs eligbile for loans
+- '"Reports Reduction Act of 2016"' # got rid of a report: 'Carbon Capture and Sequestration Research, Development, and Demonstration Program Report.--Section 963(c) of the Energy Policy Act of 2005 (42 U.S.C. 16293(c)) is amended by striking paragraph (6).'
+- '"American Energy Innovation Act"' #2009, also in 2015
+- '"Clean Energy Innovation and Deployment"' #2021
+- '"Lieberman-Warner"' #' Climate Security Act"'
+- '"Lieberman Warner"'
+- '"Clean Energy Jobs and American Power"' #2009
+- '"Climate Leadership and Environmental Action for our Nations Future"'
+- '"CLEAN Future Act"'
+- '"Consolidated Appropriations Act, 2016"' #(114-113)
+- '"114-113"'
+- '"End Polluter Welfare Act"'
+- '" FUTURE Act"'
+- '"Energy Innovation and Carbon Dividend Act"'
+- '"Methane Reduction and Economic Act"'
+- '"POPP Act"'
+- '" Blue Collar and Green Collar"'
+- '"U.S.-Israel Partnership and Abraham"'
+- '"Americas Act"'
+- '"Investments for Manufacturing"'
+# Note that because of a (poor?) choice in the lda_query.py script, in the case of senate bills, 
+# rather than be referred to as 'S [bill number]', all references to specific senate bill numbers in the
+# cleaned lobbying activity description contain 'SB [bill number]'
+congress_bill_nos:
+  118:
+  - HR 9838 #To amend the Internal Revenue Code of 1986 to provide for an end date for the credit for certain qualified carbon oxide, and for other purposes.
+  - SB 5212 #A bill to amend the Internal Revenue Code of 1986 to modify the carbon oxide sequestration credit to ensure parity for different uses and utilizations of qualified carbon oxide
+  - HR 4824 #Carbon Sequestration Collaboration Act
+  - HR 1262 #CCU Parity Act
+  - SB 542 #CCU Parity Act
+  - SB 2002 #CREATE Act of 2023 #'Carbon Removal, Efficient Agencies, Technology Expertise Act"'
+  - SB 1576 # CREST
+  117:
+  - SB 1685 # Launching Energy Advancement and Development through Innovation for Natural Gas LEADING Act
+  - HR 3838
+  - HR 9813 # CREST of 2022
+  - SB 4420 # CREST of 2022
+  - HR 2633 #To amend the Internal Revenue Code of 1986 to increase and expand the credit for carbon oxide sequestration
+  - SB 2230 #A bill to amend the Internal Revenue Code of 1986 to enhance the carbon oxide sequestration credit
+  - HR 5205 #Net Zero Act of 2021
+  - HR 5179 # Net zero act of 2021
+  - SB 1017 #Clean Hydrogen Production Incentives Act of 2021"'
+  - SB 1807 #Clean H2 Production Act"'
+  - SB 2200 #Advancing the Clean Hydrogen Future Act of 2021"'
+  - HR 4909 #Clean Hydrogen Energy Act"'
+  - HR 5192 #Clean Hydrogen Production and Investment Tax Credit Act of 2021"'
+  - HR 5965 #Clean Hydrogen Deployment Act of 2021"'
+  - HR 9446 #Department of Energy Clean Hydrogen and Fuel Cell Research, Development, and Demonstration Act of 2022'
+  - SB 1017 #Clean Hydrogen Production Incentives Act of 2021
+  - HR 6249 #End Polluter Welfare for Enhanced Oil Recovery Act
+  - SB 2475 # Energy Sector Innovation Credit Act --hydrogen credot
+  - HR 4720 # Energy Sector Innovation Credit Act -- hydrogen credit
+  - HR 5194 # Carbon Capture and Sequestration Expansion Act
+  - SB 2118 # clean energy for america act of 2022
+  - SB 1298 #"Clean energy for America Act of 2021"
+  - HR 1761 #CCUS Innovation Act
+  - HR 1760 #Carbon Capture Modernization Act
+  - SB 661 #Carbon Capture Modernization Act
+  - HR 1062 #ACCESS 45Q 
+  - HR 1788 #clean energy hydrogen innovation act
+  - SB 1201 # United States Climate Leadership in International Mitigation, Adaptation, and Technology Enhancement Act of 2021
+  - SB 799 # SCALE Act
+  - SB 986 # Carbon Capture, Utilization, and Storage Tax Credit Amendments Act of 2021
+  - SB 2288
+  - SB 1829 #Carbon Capture Improvement Act of 2021
+  - SB 843 #CREATE Act of 2021
+  - HR 4153 #Clean Energy Future Through Innovation Act of 2021
+  116:
+  - HR 7896 #RECOUPS Act of 2020
+  - HR 3607 # Fossil energy research and development act
+  - SB 2263 #CO2 Regulatory Certainty Act
+  - HR 5156 #Carbon Capture and Sequestration Extension Act of 2019
+  - SB 4966 #45Q Carbon Capture, Utilization, and Storage Tax Credit Amendments Act
+  - SB 383 # USE IT Act
+  - HR 1166 # USE IT Act
+  - HR 3861 #Carbon Capture Improvement Act of 2019
+  - HR 1796 #Carbon Capture Modernization Act
+  - SB 407 #Carbon Capture Modernization Act
+  - SB 4341 # CREATE Act of 2020
+  - HR 8671 # Create act of 2020
+  - HR 9054 # Clean Energy Future Through Innovation Act of 2020
+  115: 
+  - HR 5474 # Fossil energy research and development act
+  - SB 1663 #CO2 Regulatory Certainty Act
+  - HR 4857 #CO2 Regulatory Certainty Act
+  - HR 2010 #CO2 Regulatory Certainty Act
+  - HR 5159 #Clean coal jobs act of 2018
+  - HR 7347 #USE IT Act
+  - SB 2602 #USE IT Act
+  - HR 6457 #Carbon Utilization act of 2018
+  - SB 2997 #Carbon Utilization act of 2018
+  - SB 2803 #Fossil Energy Utilization, Enhancement, and Leadership Act of 2018
+  - HR 5745 #Fossil Energy Research and Development Act of 2018
+  - HR 3761 #Carbon Capture Act
+  - SB 1535 #FUTURE ACT
+  - HR 2296 #Advancing CCUS technology act
+  - HR 2011 #carbon capture improvement act
+  - SB 843 #carbon capture improvement act
+  114:
+  - HR 6295 #CO2 Regulatory Certainty Act
+  - SB 3179 #Carbon Capture Utilization and Storage Act
+  - HR 4704 #Advancing CCUS Technology Act
+  - HR 4622 #Carbon Capture Act
+  - HR 3392 #Carbon Capture Research and Development
+  - SB 2305 #carbon capture improvement act of 2015
+  - SB 1285 #Coal with Carbon Capture and Sequestration Act of 2015
+  - SB 1282 # "Manchin's very long name "conversion, use, and storage of carbon" act
+  113:
+  - SB 2287 #Carbon Capture and Sequestration Deployment Act of 2014
+#  - SB 2152 # Advanced Clean Coal Technology act of 2014 "
+  - SB 2288 #S 2288 is Expanding Carbon Capture through Enhanced Oil Recovery act"
+  112:
+#  - HR 1868 #Clean Coal-Derived Fuels for Energy Security Act of 2011
+  - SB 699 #Department of Energy Carbon Capture and Sequestration Program Amendments Act of 2011
+  111:
+  - SB 3591 # Carbon Capture and Sequestration Deployment Act of 2010
+  - SB 3590 # Carbon Capture and Sequestration Deployment Revenue Act of 2010
+#  - HR 1847 #H.R. 1847, Clean Coal-Derived Fuels for Energy Security Act of 2009.
+  - HR 1689 #H.R. 1689, Carbon Capture and Storage Early Deployment Act.
+  - SB 3589 #Carbon Capture and Sequestration Deployment Act of 2010
+  - SB 1502 #Carbon Capture and Sequestration Stewardship Trust Fund Act of 2009
+  - SB 1013 # Department of Energy Carbon Capture and Sequestration Program Amendments Act of 2009
+  110:
+  - HR 6258 #THE CARBON CAPTURE AND STORAGE EARLY DEPLOYMENT ACT
+  - SB 962 #Carbon Capture and Storage Research Development
+#  - HR 6170 #Clean Coal-Derived Fuels for Energy Security Act of 2008
+  - HR 6756 #Carbon Reduction Technology Bridge Act of 2008
+#- SB 1227 #Clean Coal Act of 2007
+  109: []
+#  - SB 1133 #Clean Coal Research, Development, Demonstration, and Deployment Act of 2005
+#  - SB 957 #Clean Coal Power Initiative Act
+  108: []
+  107: []
+  106: []
+  105: []
