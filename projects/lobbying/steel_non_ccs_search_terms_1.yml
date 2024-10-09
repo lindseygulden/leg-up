@@ -1,0 +1,19 @@
+# Queries used to find lobbying efforts by the steel/iron industry NOT related to CCS but related to sustainability.
+
+# search terms for use in the lda querying interface. Note that all terms below will be joined with an 'OR'
+search_term_list:
+- '" iron" "co2" -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'
+- '" iron" "greenhouse" -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'
+- '" iron" "carbon dioxide" -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'
+- '" iron" "low carbon" -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'
+- '" iron" "low-carbon" -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'
+- '" iron" "sustainable" -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'
+- '" iron" "climate" -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'
+- '" iron" "net zero" -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'
+- '" iron" "environment" -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'
+- '" iron" "carbon neutral" -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'
+- '" iron" "sustainability" -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'
+- '" iron" "recycling" -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'
+- '" iron" " GHG " -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'
+- '" iron" "carbon-neutral" -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'
+- '" steel" "carbon-neutral" -"45Q" -"45 Q" -"carbon capture" -"sequestration" -"clean hydrogen" -"clean h2" -"blue hydrogen" -"CCS" -"carbon utilization" -"carbon storage" -"CCUS" -"enhanced oil recovery"'

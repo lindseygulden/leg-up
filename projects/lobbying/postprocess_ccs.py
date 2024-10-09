@@ -398,8 +398,11 @@ def postprocess_ccs(
     all_df.clean_description = all_df.clean_description.fillna(" ")
     all_df = identify_ccs(all_df, config_info)
 
-    logging.info(" >>> Subsetting CCS lobbying activities")
-    ccs_df = subset_to_ccs_only(all_df, config_info)
+    if config_info["subset_to_ccs_only"]:
+        logging.info(" >>> Subsetting CCS lobbying activities")
+        ccs_df = subset_to_ccs_only(all_df, config_info)
+    else:
+        ccs_df = all_df
 
     logging.info(" >>> Apportioning dollars to individual lobbying activities")
     ccs_df = apportion_filing_dollars_to_activities(ccs_df)
