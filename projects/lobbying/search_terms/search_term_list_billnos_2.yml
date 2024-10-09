@@ -1,12 +1,12 @@
 #  --- 2 of 3 files with bill-number queries ---
 # other files are called 'search_term_list_billnos_1.yml' and 'search_term_list_billnos_3.yml'
 
-# This file contains terms that find potential lobbying activities that are CCS specific, 
+# This file contains terms that find potential lobbying activities that are CCS specific,
 # referred to only by their bill number (HR XXX or S XXX)
 
 # N.B. I tried out all of these queries in the web-based LDA search: if something is commented out, it either
-# returned no results OR it returned no results for the right congressional years (e.g., nothing for the 117th congress) 
-# OR it returned only results with terms that would already be identified as 'definite' CCS (e.g., 
+# returned no results OR it returned no results for the right congressional years (e.g., nothing for the 117th congress)
+# OR it returned only results with terms that would already be identified as 'definite' CCS (e.g.,
 # "carbon capture and storage" is in the description)
 #
 # search terms for use in the lda querying interface. Note that all terms below will be joined with an 'OR'

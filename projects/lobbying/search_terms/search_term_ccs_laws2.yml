@@ -51,8 +51,8 @@ search_term_list:
 - '"Making appropriations for energy and water development and related","co2"' #2021 (yes, that's a bill name) -- more money to FERD
 - '"Defense Commerce Justice Science Energy and Water Development","fossil"' #real act has much longer name: contains CCS $ given to Fossil energy research and development
 - '"Defense Commerce Justice Science Energy and Water Development","FERD"' #real act has much longer name: contains CCS $ given to Fossil energy research and development
-- '"Defense Commerce Justice Science Energy and Water Development","research"' 
-- '"Defense Commerce Justice Science Energy and Water Development","capture"' 
+- '"Defense Commerce Justice Science Energy and Water Development","research"'
+- '"Defense Commerce Justice Science Energy and Water Development","capture"'
 - '"New Direction for Energy Independence National Security"' #2007
 - '"Energy Savings Act of 2007","capture"'  #promotes biofuels, energy efficiency, CCS and other purposes
 #- '"Energy Policy Act of 2005"' #109-58

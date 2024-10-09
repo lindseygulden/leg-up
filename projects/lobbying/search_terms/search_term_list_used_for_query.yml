@@ -7,7 +7,7 @@ search_term_list:
 - '"c02 sequestration"'
 - '"co2 storage"'
 - '"c02 storage"'
-- '"c02 pipe"' 
+- '"c02 pipe"'
 - '"co2 pipe"'
 - '"capture of carbon oxides"'
 - '"carbon dioxide capture"'
@@ -141,7 +141,3 @@ maybe_ccs:
 - 'carbon dioxide'
 - 'co2'
 - 'c02'
-
-        
-
-

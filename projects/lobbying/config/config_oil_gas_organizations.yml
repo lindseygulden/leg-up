@@ -6,9 +6,10 @@ filings_endpoint: https://lda.senate.gov/api/v1/filings/
 lda_apikey: b6c22528b6697dc3bf1fbf9ff5200d28d9991889
 lda_username: lindseyegulden
 query_param: client_name
-lobbyist_filename_prefix: ccs_lda_lobbyists_steel_iron_orgs
-output_filename_prefix: ccs_lda_filings_steel_iron_orgs
-search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/steel_iron_orgs_search_terms.yml
+chunk_start: 1
+lobbyist_filename_prefix: ccs_lda_lobbyists_oil_gas_orgs
+output_filename_prefix: ccs_lda_filings_oil_gas_orgs
+search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms_oil_and_gas_orgs.yml
 postproc_specs_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/ccs_postproc_specifications.yml
 subset_to_ccs_only: False
 law_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/ccs_laws.yml

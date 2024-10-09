@@ -1,7 +1,7 @@
 #  --- 2 of 2 files with ccs-provision-containing bill/law and ccs term queries ---
 # other file is search_term_bills_with_ccs_terms1.yml
 
-# This file contains terms link bills or laws with significant CCS provisions to 
+# This file contains terms link bills or laws with significant CCS provisions to
 # terms that frequently indicate ccs ('clean' and 'hydrogen', 'section 45', etc.)
 
 # This is probably not exhaustive. I didn't include "hydrogen","natural gas" or "hydrogen","methane"
