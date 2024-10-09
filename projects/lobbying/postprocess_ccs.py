@@ -408,9 +408,22 @@ def postprocess_ccs(
 
     ccs_df = add_political_party(ccs_df, config_info)
     logging.info(" >>> Writing out data")
-    ccs_df[config_info["subset_and_order_of_writeout_columns"] + entities].to_csv(
-        output_file, index=False
+    ccs_df = ccs_df[config_info["subset_and_order_of_writeout_columns"] + entities]
+    ccs_df.rename(columns=config_info["rename_columns"], inplace=True)
+    ccs_df.sort_values(
+        by=[
+            "definitely_ccs",
+            "very_likely_ccs",
+            "likely_ccs",
+            "potentially_ccs",
+            "sector",
+            "organization",
+            "filing_year",
+        ],
+        ascending=False,
+        inplace=True,
     )
+    ccs_df.to_csv(output_file, index=False)
 
     logging.info(
         " ----- Postprocessed file written to %s ",
