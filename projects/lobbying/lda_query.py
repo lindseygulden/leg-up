@@ -208,7 +208,7 @@ def write_out_subset(
 ):
     """writies this subset's lobbying info and lobbying activity info to csvs"""
     ccs_df, ccs_unique_filing_ids = consolidate_rows(
-        yaml_to_dict(config_info["description_replace_dict_path"]),
+        yaml_to_dict(config_info["bill_name_prefixes_replace_dict_path"]),
         row_list,
     )
     # write out CCS lobbying info for this subset ('chunk')
@@ -255,16 +255,18 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
     if config_info["query_param"] == "filing_specific_lobbying_issues":
         # set up get parameters dictionary
         search_string_list = assemble_issue_search_string(
-            config_info["search_term_list_path"], config_info["law_list_path"]
+            config_info["search_term_list_path"]
         )
     elif config_info["query_param"] == "client_name":
         search_string_list = assemble_organization_search_string(
             config_info["search_term_list_path"]
         )
+    n_search_strings = len(search_string_list)
     logging.info(
         " --- Identified %s search string(s) for lobbying activities ---",
-        str(len(search_string_list)),
+        str(n_search_strings),
     )
+
     # initialize counting variables for subsets of queried pages ('chunks')
     which_chunk = 1
     if "chunk_start" in config_info:
@@ -296,9 +298,8 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
         logging.info(
             " --- Preparing %s files for search string %s of % s ---",
             str(n_chunks),
-            str(which_search_string),
+            str(which_search_string + 1),
             str(n_search_strings),
-
         )
 
         row_list = []  # each row holds info for one lobbying activity

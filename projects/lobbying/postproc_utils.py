@@ -1,4 +1,4 @@
-"""utility functions to postprocess files read in from LDA API"""
+"""utility functions to compile and postprocess files read in from LDA API"""
 
 import datetime as dt
 import re
