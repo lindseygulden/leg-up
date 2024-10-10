@@ -267,6 +267,8 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
     )
     # initialize counting variables for subsets of queried pages ('chunks')
     which_chunk = 1
+    if "chunk_start" in config_info:
+        which_chunk = config_info["chunk_start"]
     # initialize unique id for filing documents (note that we record the filing_uuid from the API, too)
     filing_id = 0
     # loop through search strings
