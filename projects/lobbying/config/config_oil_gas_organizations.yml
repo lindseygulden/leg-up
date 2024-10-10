@@ -1,0 +1,33 @@
+authentication_endpoint: https://lda.senate.gov/api/auth/login/
+chunk_size: 30
+description_replace_dict_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/bill_abbreviations.yml
+entity_endpoint: https://lda.senate.gov/api/v1/constants/filing/governmententities/
+filings_endpoint: https://lda.senate.gov/api/v1/filings/
+lda_apikey: b6c22528b6697dc3bf1fbf9ff5200d28d9991889
+lda_username: lindseyegulden
+query_param: client_name
+chunk_start: 1
+lobbyist_filename_prefix: ccs_lda_lobbyists_oil_gas_orgs
+output_filename_prefix: ccs_lda_filings_oil_gas_orgs
+search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms_oil_and_gas_orgs.yml
+postproc_specs_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/ccs_postproc_specifications.yml
+subset_to_ccs_only: False
+law_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/ccs_laws.yml
+organization_name_handling_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/organization_name_handling.yml
+sector_description_file: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/sector_descriptions.yml
+company_name_replacements: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/company_name_replacements.yml
+clean_client_description_col: clean_client_general_description
+company_rename_col: client_rename
+company_sector_assignments: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/sectors_updated.yml
+path_to_lumped_sector_info: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/lumped_sectors.yml
+political_party_congress_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/party_control_congress.yml
+remove_sector_name: REMOVE
+remove_org_key:
+  - remove these organizations
+  - keep
+groupby_columns:
+  - filing_year
+  - filing_period
+  - client_id
+  - registrant_id
+  - activity_id

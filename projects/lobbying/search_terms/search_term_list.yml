@@ -111,7 +111,7 @@ search_term_list:
 #- '"classvi well"'
 #- '"classvi","permit"'
 #- '"classvi","primacy"'
-- '"primacy"' -"insurance"'
+- '"primacy"'
 #- '"primacy","louisiana"'
 #- '"primacy","permit"'
 #- '"permit","reform"'
