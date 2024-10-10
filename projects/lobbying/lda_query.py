@@ -294,9 +294,11 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
         n_chunks = ceil(n_pages / chunk_size)
 
         logging.info(
-            " --- Preparing %s files for search string %s ---",
+            " --- Preparing %s files for search string %s of % s ---",
             str(n_chunks),
             str(which_search_string),
+            str(n_search_strings),
+
         )
 
         row_list = []  # each row holds info for one lobbying activity
@@ -346,11 +348,8 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
                 write_out_subset(
                     output_dir, which_chunk, lobby_list, row_list, config_info
                 )
-                logging.info(
-                    " Writing %s of %s subsets ('chunks') to CSV",
-                    str(which_chunk),
-                    str(n_chunks),
-                )
+                logging.info(" Writing chunk %s to CSV", str(which_chunk))
+
                 # increase chunk counter for next subset
                 which_chunk += 1
                 # re-initialize row and lobby lists for next subset/chunk:
@@ -358,8 +357,7 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
                 lobby_list = []  # initialize holder for lobbyist info
 
     logging.info(
-        " ----- Finished writing all %s subsets ('chunks') to CSVs ----- ",
-        str(n_chunks),
+        " ----- Finished writing all subsets ('chunks') to CSVs ----- ",
     )
 
 
