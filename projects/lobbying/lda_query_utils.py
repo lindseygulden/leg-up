@@ -17,7 +17,7 @@ def assemble_organization_search_string(term_list_path: Union[str, PosixPath]):
 
 def assemble_issue_search_string(
     term_list_path: Union[str, PosixPath],
-    search_string_chunk_size: int = 12,
+    search_string_chunk_size: int = 15,
     max_search_string_length: int = 4000,
 ):
     """joins terms in term lists with an OR and returns as a single string for use in get query"""

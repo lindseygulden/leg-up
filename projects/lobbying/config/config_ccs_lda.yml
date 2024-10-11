@@ -10,18 +10,18 @@ entity_endpoint: https://lda.senate.gov/api/v1/constants/filing/governmententiti
 filings_endpoint: https://lda.senate.gov/api/v1/filings/
 # chunk_size is number of pages to be queried before lumping outputs and writing to csv
 chunk_size: 30
-chunk_start: 80
+chunk_start: 1
 # query_param specifies which parameter to be queried. current options (10/24) are client_name and filing_specific_lobbying_issues
 query_param: filing_specific_lobbying_issues
 # prefixes for api-query-result .csv files to be written by lda_query.py
-lobbyist_filename_prefix: ccs_lda_lobbyists_ccs_bill_by_name
-output_filename_prefix: ccs_lda_filings_ccs_bill_by_name
+lobbyist_filename_prefix: ccs_lda_lobbyists_ccs_terms
+output_filename_prefix: ccs_lda_filings_ccs_terms
 # path to the formatted search term list.
 # If query_param == client_name, file at search_term_list_path is a yaml list of standard string
 # values (organization names or subset of names)
 # If query_param == filing_specific_lobbying_issues, file at search_term_list_path is a yaml list
 # of specially formatted strings. For example : - '"query term1","query term2" -"do not include this term"'
-search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_terms_ccs_bills_by_name.yml
+search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_term_list.yml
 # quick text processing to standardize the way bills are referred to (this should *probably* be done in postproc...refactor)
 bill_name_prefixes_replace_dict_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/bill_abbreviations.yml
 #

@@ -2,12 +2,12 @@
 #
 #### ---- LDA API QUERY CONFIGURATION SETTINGS (primarily used in lda_query.py) ---- ####
 #
-# register for an api key here: https://lda.senate.gov/api/register/authentication_endpoint: https://lda.senate.gov/api/auth/login/
-
-entity_endpoint: https://lda.senate.gov/api/v1/constants/filing/governmententities/
-filings_endpoint: https://lda.senate.gov/api/v1/filings/
+# register for an api key here: https://lda.senate.gov/api/register/
 lda_apikey: b6c22528b6697dc3bf1fbf9ff5200d28d9991889
 lda_username: lindseyegulden
+authentication_endpoint: https://lda.senate.gov/api/auth/login/
+entity_endpoint: https://lda.senate.gov/api/v1/constants/filing/governmententities/
+filings_endpoint: https://lda.senate.gov/api/v1/filings/
 # query_param specifies which parameter to be queried. current options (10/24) are client_name and filing_specific_lobbying_issues
 query_param: client_name
 # chunk_size is number of pages to be queried before lumping outputs and writing to csv
