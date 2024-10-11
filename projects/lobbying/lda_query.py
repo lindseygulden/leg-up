@@ -289,7 +289,7 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
         try:
             n_pages = ceil(f.json()["count"] / 25)
         except ValueError:
-            logging.info("ERROR: %s", f.text)
+            logging.info("ERROR: %s", f.err())
 
         # compute number of file subsets ('chunks') for writing out and not overloading memory
         chunk_size = config_info["chunk_size"]

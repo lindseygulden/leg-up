@@ -10,7 +10,7 @@ entity_endpoint: https://lda.senate.gov/api/v1/constants/filing/governmententiti
 filings_endpoint: https://lda.senate.gov/api/v1/filings/
 # chunk_size is number of pages to be queried before lumping outputs and writing to csv
 chunk_size: 30
-chunk_start: 1
+chunk_start: 60
 # query_param specifies which parameter to be queried. current options (10/24) are client_name and filing_specific_lobbying_issues
 query_param: filing_specific_lobbying_issues
 # prefixes for api-query-result .csv files to be written by lda_query.py
