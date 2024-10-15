@@ -108,6 +108,7 @@ def find_description(
 ):
     """For each lobbying activity (row), determine whether any of a set of terms are in description"""
     # are terms consistent with descriptor in the lobbying description? (intermediate variables)
+
     terms = yaml_to_dict(filepath)[descriptor]
     terms = substitute(terms, use_basename=False)
 
@@ -162,7 +163,7 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
 
     # find descriptions of subsets of terms for which also want a term count
     # identify activities that are explicitly CCS
-    for t in ["ccs_description", "clean_h2_description", "bills_with_some_ccs"]:
+    for t in ["contains_description", "clean_h2_description", "bills_with_some_ccs"]:
         df = find_description(
             df, t, config_info["postproc_specs_path"], return_count=True
         )
@@ -236,7 +237,7 @@ def identify_ccs(df: pd.DataFrame, config_info: dict):
     df["definitely_ccs"] = [
         1 if ((d + +b + bn + c + h + hff) > 0) & (n == 0) else 0
         for d, b, bn, c, h, hff, n in zip(
-            df.ccs_description,
+            df.contains_description,
             df.ccs_bills,
             df.ccs_bills_number_only,
             df.ccs_company,
@@ -380,7 +381,7 @@ def add_political_party(df: pd.DataFrame, config_info: dict):
 @click.option(
     "--output_file", type=click.Path(file_okay=True, dir_okay=False), required=True
 )
-def postprocess_ccs(
+def postprocess(
     config: Union[str, PosixPath],
     input_file: Union[str, PosixPath],
     output_file: Union[str, PosixPath],
@@ -396,13 +397,13 @@ def postprocess_ccs(
     logging.info(" >>> Assigning companies to sectors")
     all_df = assign_sectors(all_df, config_info)
 
-    logging.info(" >>> Identifying CCS lobbying activities")
+    logging.info(" >>> Classifying lobbying activities")
     # get rid of nans in lobbying activity description
     all_df.clean_description = all_df.clean_description.fillna(" ")
     all_df = identify_ccs(all_df, config_info)
 
     if config_info["subset_to_ccs_only"]:
-        logging.info(" >>> Subsetting CCS lobbying activities")
+        logging.info(" >>> Subsetting lobbying activities")
         ccs_df = subset_to_ccs_only(all_df, config_info)
     else:
         ccs_df = all_df
@@ -443,4 +444,4 @@ def postprocess_ccs(
 
 
 if __name__ == "__main__":
-    postprocess_ccs()
+    postprocess()
