@@ -13,7 +13,7 @@ query_param: client_name
 # chunk_size is number of pages to be queried before lumping outputs and writing to csv
 chunk_size: 30
 # chunk_start is the suffix for the write-out file to begin with -- useful for restarting if query gets interrupted in long searches
-chunk_start: 1
+chunk_start: 72
 # prefixes for api-query-result .csv files to be written by lda_query.py
 lobbyist_filename_prefix: ccs_lda_lobbyists_oil_gas_orgs
 output_filename_prefix: ccs_lda_filings_oil_gas_orgs
