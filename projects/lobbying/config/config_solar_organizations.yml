@@ -44,8 +44,9 @@ groupby_columns_for_obtaining_only_most_recent_filing:
 #
 #### ---- POST-PROCESSING CONFIGURATION SETTINGS (used in postprocess_ccs.py) ---- ####
 #
+topic_description: solar
 postproc_specs_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/ccs_postproc_specifications.yml
-subset_to_ccs_only: False
+subset_to_topic_only: False
 law_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/ccs_laws.yml
 company_name_replacements: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/solar_company_name_replacements.yml
 clean_client_description_col: clean_client_general_description

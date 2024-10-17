@@ -734,7 +734,7 @@ congress_bill_nos:
   106: []
   105: []
 # ********** sectors that directly profit from the sale or combustion of fossil fuels *********
-core_ff_sectors:
+core_industry_sectors:
   - oil and gas
   - investor owned utilities
   - chemicals, refining, and plastics
@@ -749,7 +749,7 @@ core_ff_sectors:
   - clean hydrogen
   # ********** sectors that profit (direcctly or indirectly) from the sale or combustion of    *********
   # ********** fossil fuels or that are closely tied to the industry (e.g., business advocacy) *********
-ff_adjacent_sectors:
+industry_adjacent_sectors:
   - oil and gas
   - investor owned utilities
   - chemicals, refining, and plastics

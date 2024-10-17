@@ -64,7 +64,7 @@ def list_new(
         missing_dict, str(Path(output_dir) / Path("missing_company_mapping.yml"))
     )
     dict_to_yaml(
-        {"for sector mapping": missing_list},
+        {"for sector mapping": sorted(list(set(missing_list)))},
         str(Path(output_dir) / Path("missing_company_sector_list.yml")),
     )
     logging.info(" >>> Companies not yet assigned to sectors written to %s", output_dir)
