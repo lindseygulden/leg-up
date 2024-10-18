@@ -1,4 +1,4 @@
-"""Utilities for parsing lobbying disclosure documents"""
+"""Utilities for querying lobbying disclosure documents (called by lda_query.py)"""
 
 from math import floor
 from pathlib import PosixPath

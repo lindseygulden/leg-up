@@ -1,5 +1,6 @@
 # pylint: disable=too-many-locals
-"""Queries Lobbying Disclosure Act API and formats results into multiple CSVs for filings and lobbyists"""
+"""Command-line application to query Lobbying Disclosure Act API
+formats results into multiple CSVs for filings and lobbyists"""
 import datetime as dt
 import logging
 from math import ceil

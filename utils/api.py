@@ -1,5 +1,4 @@
 """utility functions for working with apis"""
-
 import requests
 
 
