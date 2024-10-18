@@ -1,4 +1,6 @@
-"""utility functions to compile and postprocess files read in from LDA API"""
+"""utility functions to compile and postprocess files read in from LDA API
+called by both postproc_utils.py and compile_results.py
+"""
 
 import datetime as dt
 import re
@@ -162,7 +164,14 @@ def get_smarties(
 def get_latest_filings(
     df: pd.DataFrame, groupby_cols: List[str], date_col="filing_dt_posted"
 ):
-    """get only the latest filing for a given lobbying firm, client, and quarter"""
+    """gets only the latest filing for a given lobbying firm, client, and quarter
+    Args:
+        df: pandas dataframe containing all query results, some of which are duplicative
+        groupby_cols: list of column names for identifying the most-recent filing for an activity
+        date_col: string name of date column for identifying most recent actiity
+    Returns:
+        df: culled so only the most-recent filing for each client/lobbying firm/quarter remains
+    """
     if df[date_col].dtype == str:
         df[date_col] = [dt.datetime.fromisoformat(d) for d in df[date_col]]
 
@@ -172,8 +181,13 @@ def get_latest_filings(
     return df
 
 
-def invert_sector_dict(sectors_path) -> Dict[str, str]:
-    """reads in the sector assignment yaml to dict; inverts dict s.t. each company is a key"""
+def invert_sector_dict(sectors_path: str) -> Dict[str, str]:
+    """reads in the sector assignment yaml to dict; inverts dict s.t. each company is a key
+    Args:
+        sectors_path: path to sector-assignments yaml file
+    Returns:
+        dictionary mapping each company name (key) to its granular sector (value)
+    """
     if isinstance(sectors_path, list):
         sector_assignments = {}
         for p in sectors_path:
