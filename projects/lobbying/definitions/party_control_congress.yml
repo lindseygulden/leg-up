@@ -1,3 +1,5 @@
+# identifies which party controlled the house, senate, and white house during different Congresses
+# of the United States. Source:
 # https://en.wikipedia.org/wiki/Party_divisions_of_United_States_Congresses
 senate:
   106: republicans

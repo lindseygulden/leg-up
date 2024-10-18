@@ -1,4 +1,5 @@
 # Mappings between granular sector descriptions and increasingly 'lumped' sectors
+# 'lightly lumped' is more granular than 'very lumped'
 lightly_lumped:
   law and public policy: OTHER
   lng: FOSSIL FUEL

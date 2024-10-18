@@ -1,7 +1,4 @@
-# specifies terms that automatically get a lobbying activity
-# identified as 'remove'
-# for all sectors other than 'remove':
-# terms used for first-pass segmentation of organizations and companies into sectors.
+# Terms used for first-pass segmentation of organizations and companies into sectors.
 # note that the organization-to-sector assignments were manually reviewed/adjusted
 # after the initial pass. This just gives a bit of logic w.r.t. what components in names
 # or general client descriptions that I identified as being likely to indicate membership (or not)

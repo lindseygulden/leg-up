@@ -1,3 +1,6 @@
+##### POSTPROCESSING SPECIFICATIONS FOR HANDLING LOBBYING DISCLOSURE INFORMATION TO IDENTIFY CCS
+# n.b.: for this to work, the 'topic_description' field in the configuration yaml must be set to 'ccs'
+#
 # Assorted information about CCS terms, hydrogen terms, sector assignments, column names for postprocessing
 # lobbying data information to identify CCS lobbying activities
 # ************ presence of the following terms almost certainly indicates CCS-related lobbying **********
