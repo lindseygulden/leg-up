@@ -1,3 +1,5 @@
+# contains list of search terms used to query LDA API for lobbying disclosures that
+# potentially contain CCS lobbying
 search_term_list:
 - '" CCU "'
 - '" CDR","geologic"'

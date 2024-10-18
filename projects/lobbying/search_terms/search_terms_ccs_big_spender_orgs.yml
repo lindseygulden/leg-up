@@ -1,4 +1,8 @@
-# List of organizations to query for full picture of steel-industry lobbying
+# List of organization names to send to LDA API query in order to estimate the full
+# amount of lobbying done by these organizations (not just for CCS) over the period of
+# lobbying disclosures. Note that this file used to be called 'search_terms_oil_and_gas_orgs.yml';
+# however, because some of these are chemical companies and/or power/utility companies and/or
+# trade associations, I changed the name.
 # because the LDA API doesn't handle advanced text searching for client_name, these are
 # handed to the API sequentially, one at a time.
 organization_list:
