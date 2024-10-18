@@ -177,7 +177,13 @@ def consolidate_rows(
     return ccs_df, ccs_unique_filing_ids
 
 
-def lda_get_query(session: object, endpoint: str, params: dict, timeout=1000):
+def lda_get_query(
+    session: object,
+    endpoint: str,
+    params: dict,
+    return_value: str = "result",
+    timeout=1000,
+):
     """queries filing enpoint for a given page with a given set of get-request parameters"""
     # TODO make params an argument
     while True:
@@ -188,7 +194,10 @@ def lda_get_query(session: object, endpoint: str, params: dict, timeout=1000):
         )
         try:
             if "results" in f.json():
-                results = f.json()["results"]
+                if return_value == "results":
+                    query_result = f.json()["results"]
+                elif return_value == "page_count":
+                    query_result = ceil(f.json()["count"] / 25)
                 break
             if "detail" in f.json():
                 n_wait_seconds = int(f.json()["detail"].split(" ")[-2])
@@ -196,7 +205,7 @@ def lda_get_query(session: object, endpoint: str, params: dict, timeout=1000):
                 sleep(n_wait_seconds)
         except ValueError:
             logging.info(" Error: %s .", str(f.msg))
-    return results
+    return query_result
 
 
 def write_out_subset(
@@ -208,7 +217,7 @@ def write_out_subset(
 ):
     """writies this subset's lobbying info and lobbying activity info to csvs"""
     ccs_df, ccs_unique_filing_ids = consolidate_rows(
-        yaml_to_dict(config_info["description_replace_dict_path"]),
+        yaml_to_dict(config_info["bill_name_prefixes_replace_dict_path"]),
         row_list,
     )
     # write out CCS lobbying info for this subset ('chunk')
@@ -255,16 +264,18 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
     if config_info["query_param"] == "filing_specific_lobbying_issues":
         # set up get parameters dictionary
         search_string_list = assemble_issue_search_string(
-            config_info["search_term_list_path"], config_info["law_list_path"]
+            config_info["search_term_list_path"]
         )
     elif config_info["query_param"] == "client_name":
         search_string_list = assemble_organization_search_string(
             config_info["search_term_list_path"]
         )
+    n_search_strings = len(search_string_list)
     logging.info(
         " --- Identified %s search string(s) for lobbying activities ---",
-        str(len(search_string_list)),
+        str(n_search_strings),
     )
+
     # initialize counting variables for subsets of queried pages ('chunks')
     which_chunk = 1
     if "chunk_start" in config_info:
@@ -274,20 +285,16 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
     # loop through search strings
     for which_search_string, search_string in enumerate(search_string_list):
         params = {config_info["query_param"]: f"{search_string}"}
-
-        # figure out total number of filings, compute number of page requests needed to get all filings
-        f = authenticated_session.get(
-            config_info["filings_endpoint"],
-            params=params,
-            timeout=1000,
-        )
+        if config_info["query_param"] == "client_name":
+            logging.info(" >>> ... Searching for %s", search_string)
 
         # each page contains 25 filings: use total number of filings to compute total number of pages
-
-        try:
-            n_pages = ceil(f.json()["count"] / 25)
-        except ValueError:
-            logging.info("ERROR: %s", f.text)
+        n_pages = lda_get_query(
+            authenticated_session,
+            config_info["filings_endpoint"],
+            params,
+            return_value="page_count",
+        )
 
         # compute number of file subsets ('chunks') for writing out and not overloading memory
         chunk_size = config_info["chunk_size"]
@@ -296,9 +303,8 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
         logging.info(
             " --- Preparing %s files for search string %s of % s ---",
             str(n_chunks),
-            str(which_search_string),
+            str(which_search_string + 1),
             str(n_search_strings),
-
         )
 
         row_list = []  # each row holds info for one lobbying activity
@@ -313,6 +319,7 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
                 authenticated_session,
                 config_info["filings_endpoint"],
                 params | {"page": page},
+                return_value="results",
             )
 
             # extract data from each filing form returned from query

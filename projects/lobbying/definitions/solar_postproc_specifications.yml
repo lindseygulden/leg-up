@@ -1,284 +1,147 @@
-##### POSTPROCESSING SPECIFICATIONS FOR HANDLING LOBBYING DISCLOSURE INFORMATION TO IDENTIFY CCS
-# n.b.: for this to work, the 'topic_description' field in the configuration yaml must be set to 'ccs'
-#
 # Assorted information about CCS terms, hydrogen terms, sector assignments, column names for postprocessing
 # lobbying data information to identify CCS lobbying activities
 # ************ presence of the following terms almost certainly indicates CCS-related lobbying **********
 contains_description:
-- Petra Nova #ccs project
-- ' co pipelines'
-- FutureGen
-#- '"permitting reform","hydrogen"'
-#- '"negative emissions"'
-#- '"energy innovation"'
-- - section 45
-  - hydrogen
-- clean h2
-- carbon capture
-- co2 capture
-- c02 capture
-- co2 sequestration
-- sequestration of co2
-- carbon dioxide capture
-- c02 sequestration
-- sequestration of c02
-- sequestration of carbon
-- capture and sequestration
-- carbon dioxide sequestration
-- carbon sequestration
-- carbon dioxide storage
-- carbon storage
-- store carbon dioxide
-- co2 storage
-- storage of co2
-- storage of carbon dioxide
-- c02 storage
-- storage of c02
-- - capture
-  - carbon oxides
-- - capture
-  - carbon dioxide
-- - capture
-  - co2
-- - capture
-  - carbon oxide
-- - c02
-  - capture
-- capture and store
-- decarbonized ammonia
-- carbon utilization
-- carbon dioxide utilization
-- co2 utilization
-- - carbon dioxide
-  - use and storage
-- - carbon dioxide
-  - use storage
-- - co2
-  - use and storage
-- - co2
-  - utilization and storage
-- - co2
-  - use storage
-- capture and storage
-- capture storage
-- - capture
-  - transport
-  - storage
-- - capture
-  - transportation
-  - storage
-- - capture
-  - utilization and storage
-- - capture
-  - utilization storage
-- - capture
-  - utilization and sequestration
-- - capture
-  - utilization sequestration
-- - capture
-  - use and storage
-- - capture
-  - use and sequestration
-- - capture
-  - use storage
-- - capture
-  - use sequestration
-- - carbon
-  - transportation and storage
-- - carbon
-  - transportation storage
-- - co2
-  - transportation and storage
-- - co2
-  - transportation storage
-- - geologic sequestration
-  - carbon
-- - geological sequestration
-  - carbon
-- - geologic storage
-  - carbon
-- - geological storage
-  - carbon
-- - geologic sequestration
-  - capture
-- - geological sequestration
-  - capture
-- - geologic storage
-  - capture
-- - geological storage
-  - capture
-- - geologic sequestration
-  - co2
-- - geological sequestration
-  - co2
-- - geologic storage
-  - co2
-- - geological storage
-  - co2
-- carbon sequestration
-- - carbon dioxide
-  - sequestration
-- - carbon oxide
-  - sequestration
-- - carbon oxides
-  - sequestration
-- - carbon removal
-  - utilization
-- hydrogen hub
-- h2 hub
-- h2 hubs
-- hydrogen hubs
-- clean hydrogen
-- blue hydrogen
-- ' CCS'
-- 'CCS '
-- ' CCUS'
-- 'CCUS '
-- ' CCU'
-- - section 45
-  - capture
-- - section 45
-  - sequestration
-- - section 45
-  - co2
-- 45Q
-- 45 Q
-- 45V
-- 45 V
-- - clean coal
-  - utilization
-- - clean coal
-  - oil recovery
-- - clean coal
-  - sequestration
-- - dioxide removal
-  - sequestration
-- - oil recovery
-  - carbon dioxide
-- - oil recovery
-  - co2
-- - oil recovery
-  - c02
-- - oil recovery
-  - carbon removal
-- enhanced oil recovery
-- ' EOR '
-- carbon dioxide pipeline
-- carbon dioxide pipelines
-- co pipeline
-- co pipelines
-- co2 pipeline
-- co2 pipelines
-- co2 pipe line
-- c02 pipelines
-- class vi
-- primacy
-- injection of co2
-- injection of carbon dioxide
-- co2 injection
-- carbon dioxide injection
-- carbon use and storage
-- - air capture
-  - sequestration #'storage' gets to 'energy storage', which is usually batteries..use only sequestration
+- - distributed generation
+  - solar
+- - distributed energy generation
+  - solar
+- sun power
+- solar panel
+- solar panels
+- photovoltaic
+- photovoltaics
+- solar PV
+- solar PVs
+- solar project
+- solar projects
+- solar power
+- solar energy industry
+- solar-energy industry
+- solar system
+- solar systems
+- solar energy system
+- solar-energy system
+- solar energy systems
+- solar-energy systems
+- solar energy adoption
+- solar-energy adoption
+- solar farm
+- solar park
+- solar farms
+- solar parks
+- pv panel
+- pv panels
+- net metering
+- - Energy Policy Act of 2005
+  - solar
+- - ARRA
+  - solar
+- - American Recovery and Reinvestment Act
+  - solar
+- - Inflation Reduction Act
+  - solar
+- - ' IRA'
+  - solar
+- - Consolidated Appropriations Act of 2020
+  - solar
+- solar investment tax credit
+- solar ITC
+- - solar
+  - inverter
+- - solar
+  - inverters
+- solar production tax credit
+- rooftop solar
+- - Green New Deal
+  - solar
+- SunShot
+- - Build Back Better
+  - solar
+- - Public Utility Regulatory Policies Act of 1978
+  - solar
+- - PURPA
+  - solar
+- - Clean Energy for America Act
+  - solar
+- - solar
+  - installers
+- - solar
+  - installer
+- residential solar
+- community solar
+- Solar For All
+- - Loan Programs Office
+  - solar
+- - ' DOE'
+  - solar
+- Residential Clean Energy Credit
+- Solar Energy Technologies Office
+- - Renewable Energy Systems and Energy Efficiency Improvements
+  - solar
+- - Renewable Energy Systems and Energy Efficiency Improvements
+  - sun
+- Property Assessed Clean Energy
+- Green Power Partnership
+- - utility
+  - solar
+- solar electricity
 # ************* terms that mean 'hydrogen' *************
 h2_mention:
 - hydrogen
 - h2
 # ************** phrases or combinations of terms that likely indicate clean hydrogen (if FF types are talking about them) ************
 clean_h2_description:
-- - capture
-  - hydrogen
-- low carbon hydrogen
-- lowcarbon hydrogen
-- decarbonized hydrogen
-- decarbonized h2
-- low carbon emissions hydrogen
-- carbon neutral hydrogen
-- carbonneutral hydrogen
-- - hydrogen
-  - natural gas
-- - hydrogen
-  - methane
-- hydrogen policy
-- hydrogen infrastructure
-- hydrogen program
-- low carbon h2
-- lowcarbon h2
-- low carbon emissions h2
-- carbon neutral h2
-- carbonneutral h2
-- - h2
-  - natural gas
-- - h2
-  - methane
-- - hydrogen
-  - section 45
-- - h2
-  - section 45
-- - hydrogen tax credits
+- 'clean hydrogen'
 # ********* bills/laws that are mostly CCS **********
 ccs_bills:
-- Hydrogen Innovation Finance and Infrastructure Act
-- HIFIA
-- NET Zero Act #hr 5205 117th congress
-- RECOUPS Act #2020: Redeeming Effectiveness to Carbon Oxide Utilization Plus Sequestration Act of 2020
-- CO2 Regulatory Certainty #Act
-- C02 Regulatory Certainty #act
-- Pipeline Safety Modernization and Expansion
-- Pipeline Efficiency and Safety # Act"'
-- Pipeline Safety Modernization & Expansion #Act
-- Clean Energy Future Through Innovation # Act 2020,2021
-- Pipeline Efficiency & Safety # Act"'
-- PIPES Act
-- Coal with Carbon Capture and Sequestration # Act of 2015"' #S. 1285,
-- Coal with Carbon Capture & Sequestration
-- Coordinated Action To Capture Harmful Emissions Act
-- Expanding Carbon Capture through Enhanced Oil Recovery Act
-- CATCH Act #HR 3538
-- Carbon Capture Improvement Act #HR 3861
-- Accelerating Carbon Capture and Sequestration #access 45q act HR 1062
-- Accelerating Carbon Capture Sequestration #access 45q act HR 1062
-- ACCESS 45Q Act
-- Clean Energy Hydrogen Innovation Act # does have other stuff but is focused on ccs
-- increase and expand the credit for carbon oxide sequestration
-#-"A bill to amend the Energy Policy Act of 2005 to require the Secretary of Energy to consider the objective of improving the conversion, use, and storage of carbon dioxide produced from fossil fuels in carrying out research and development programs under that Act'
-- improving the conversion, use, and storage of carbon dioxide # S1282 introduced by manchin in 2015
-- improving the conversion, use, & storage of carbon dioxide # S1282 introduced by manchin in 2015
-- Capture and Storage Early #2008 & 2009 by boucher
-- Carbon Capture Utilization Storage Tax Credit
-- Carbon Capture Utilization and Storage Tax Credit #Amendments # s986 #2020 and 2021 introduction by Smith and Capito
-- Carbon Capture and Storage Technology Act #2007
-- Carbon Capture Storage Technology Act #2007
-- Carbon Capture and Storage Research Development and Demonstration Act #2007; 110-140
-- Carbon Capture Storage Research Development Demonstration Act #2007; 110-140
-- Enhancing Fossil Fuel Energy Carbon Technology #2019 introduced by Manchin EFFECT Act
-- Carbon Capture Modernization Act
-- ' EFFECT Act' #Manchin 2019
-- Advanced Clean Coal Technology Investment in Our Nation Act #2014: S. 2152: ACCTION
-- ACCTION Act #2014 and 15?
-- Responsible Use of Coal Act #2009
-- Utilizing Significant Emissions with Innovative Technologies # S 383 and HR 1166 2019-2020 (116th congress)
-- ' USE IT Act'
-- 'USEIT Act'
-- Fossil Energy Research and Development Act # 2020: mostly ccs, with a bit of methane leak detection
-- Fossil Energy Research & Development Act # 2020: mostly ccs, with a bit of methane leak detection
-- Boxer Substitute # Amendment"' #  to SB3036
-- CREST Act
-- Carbon Removal and Emissions Storage Technologies
-- Carbon Removal and Emission Storage Technology # miswriting of CREST
-- Carbon Removal and Emissions Storage Technology # miswriting of CREST
-- Carbon Removal and Emission Storage Technologies # miswriting of CREST
-- Storing CO2 and Lowering Emissions # introduced by Veasey of texas
-- SCALE Act
-- Carbon Capture and Storage Stewardship Trust Fund Act #S1502
-- Carbon Capture and Sequestration Program Amendments Act #S1012
-- Carbon Capture & Storage Stewardship Trust Fund Act #S1502
-- Carbon Capture & Sequestration Program Amendments Act #S1012
-- CCU Parity
-- Energy Clean Hydrogen and Fuel Cell Research Development and Demonstration
-- Energy Clean Hydrogen & Fuel Cell Research Development & Demonstration
-- Clean H2 Production Act # Clean H2 Production Act S 1807
-- Energy Sector Innovation Credit Act #2021: mostly new stuff for CCS, 'clean' hydrogen, production of electricity from those. introduced by tom reed r-ny
+- American Tax Dollars for American Solar Manufacturing Act
+- La Paz County Solar Energy and Job Creation Act
+- Sun Act
+- Renewable Roadsides Act
+- Sunray for energy act
+- Reclaiming the Solar Supply Chain Act
+- Community Solar Consumer Choice Act
+- Keep China Out of Solar Energy Act
+- EAGLE SOLAR
+- Reclaiming the Solar Supply Chain Act
+- Protecting American Solar Jobs and Lowering Costs Act
+- Solar Energy Manufacturing for America Act
+- Incentivizing Solar Deployment Act
+- Establishment of Community Solar Programs Act
+- RAISE the Roof Act
+- Residential Solar Opportunity Act
+- Solar Energy Manufacturing for America Act
+- Affordable Solar Energy for Our Communities Act
+- Public Housing Solar Equity Act
+- Solar Jobs Preservation Act
+- Solar VETS Act
+- Solar and Geothermal Tax Credit Expansion Act
+- Solar Energy Research and Development Act
+- Sunshine Forever Act
+- Promoting Renewable Energy with Shared Solar Act
+- Solar EDGE Act
+- Solar Farm Fairness
+- Solar Villages Initiative
+- Protecting American Solar Jobs Act
+- Off Fossil Fuels for a Better Future Act
+- Community Solar Consumer Choice Act
+- Low-Income Solar Act
+- Solar EDGE Act
+- A resolution supporting the United States solar energy industry in its effort to bring low-cost
+- Solar and Water-Efficient Homes Act
+- 10 Million Solar Roofs Act
+- Solar Energy Deployment Act
+- Solar Energy Regulatory Relief Act
+- Solar Jobs Creation Act
+- Solar Uniting Neighborhoods
+- Solar Opportunity and Local Access Rights
+- American Solar Energy Pilot Leasing
+- Internal Revenue Code of 1986 to treat any business credit attributable to wind, solar
+- Solar Manufacturing Jobs Creation
+- Solar Technology Roadmap
+- Emergency Solar Power Permit
+- Solar Manufacturing Advancement Act of 2009
 # ********** bills/laws with CCS provisions as well as CCS-indicative terms **********
 bills_with_ccs_terms:
 - - ARRA
@@ -615,33 +478,9 @@ bills_with_some_ccs:
 - Investments for Manufacturing
 # *********** terms that indicate this is potentially--but not definitely--ccs-related ***********
 terms_consistent_with_ccs:
-- - direct air capture
-  - carbon removal
-- - direct air capture
-  - co2 removal
-- - renewable natural gas
-  - zero emission
-- - renewable natural gas
-  - capture
-- - RNG
-  - capture
-- - RNG
-  - sequestration
-- - renewable natural gas
-  - sequestration
-- 45Z #biofuels credit that lets ccs count in LCA of carbon
-- 45 Z
-- negative emissions
-#- co2 removal
-- carbon management
-- carbon dioxide management
-- carbon removal
-- carbon dioxide removal
-- low carbon steel #CCS b/c if it mentions green hydrogen, then automatically not ccs
-- low carbon ammonia
-- low carbon cement
-- low carbon concrete
-- decarbonized ammonia
+- distributed generation
+- distributed energy generation
+- Solyndra
 # ************** terms that indicate an activity could be targeting ccs ******************
 terms_could_be_ccs:
 - - section 45
@@ -750,6 +589,17 @@ terms_could_be_ccs:
 - fossil energy and carbon management
 # ************** terms that indicate activities are NOT CCS *************
 not_ccs:
+- oil
+- clean hydrogen
+- methane
+- natural gas
+- carbon capture
+- biofuels
+- biofuel
+- biodiesel
+- hydropower
+- geothermal
+- solar storm
 - opiod
 - pain management
 - ' drone'
@@ -757,10 +607,6 @@ not_ccs:
 - 'health care'
 - 'healthcare'
 - 'immigration'
-- 'green hydrogen'
-- 'solar energy'
-- 'wind energy'
-- 'renewable energy technology'
 - 'building codes'
 - 'real estate'
 - realtor
@@ -875,20 +721,14 @@ congress_bill_nos:
   111:
   - SB 3591 # Carbon Capture and Sequestration Deployment Act of 2010
   - SB 3590 # Carbon Capture and Sequestration Deployment Revenue Act of 2010
-#  - HR 1847 #H.R. 1847, Clean Coal-Derived Fuels for Energy Security Act of 2009.
   - HR 1689 #H.R. 1689, Carbon Capture and Storage Early Deployment Act.
   - SB 3589 #Carbon Capture and Sequestration Deployment Act of 2010
   - SB 1502 #Carbon Capture and Sequestration Stewardship Trust Fund Act of 2009
-  - SB 1013 # Department of Energy Carbon Capture and Sequestration Program Amendments Act of 2009
+  - HR 546
   110:
-  - HR 6258 #THE CARBON CAPTURE AND STORAGE EARLY DEPLOYMENT ACT
-  - SB 962 #Carbon Capture and Storage Research Development
-#  - HR 6170 #Clean Coal-Derived Fuels for Energy Security Act of 2008
-  - HR 6756 #Carbon Reduction Technology Bridge Act of 2008
-#- SB 1227 #Clean Coal Act of 2007
+  - HR 6527 #Emergency Solar Power Permit Act
+  - SB 3224 #10 Million-Solar Roofs Act of 2008
   109: []
-#  - SB 1133 #Clean Coal Research, Development, Demonstration, and Deployment Act of 2005
-#  - SB 957 #Clean Coal Power Initiative Act
   108: []
   107: []
   106: []

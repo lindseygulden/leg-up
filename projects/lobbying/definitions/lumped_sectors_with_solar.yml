@@ -1,6 +1,10 @@
 # Mappings between granular sector descriptions and increasingly 'lumped' sectors
-# 'lightly lumped' is more granular than 'very lumped'
 lightly_lumped:
+  solar panels: SOLAR
+  independent solar power producer: SOLAR
+  solar general: SOLAR
+  solar inverters: SOLAR
+  solar installers: SOLAR
   law and public policy: OTHER
   lng: FOSSIL FUEL
   land transit: TRANSPORT
@@ -47,6 +51,7 @@ lightly_lumped:
   municipal and cooperative utilities: MUNICIPAL-UTILITIES
   power sector general: INVESTOR-OWNED-POWER-SECTOR
   energy technology: ENGINEERING-TECH
+  solar technology: SOLAR
 very_lumped:
   law and public policy: OTHER
   algae: CARBON-MANAGEMENT
@@ -94,3 +99,9 @@ very_lumped:
   hvac: OTHER
   energy technology: ENGINEERING-TECH
   individuals: OTHER
+  solar panels: SOLAR
+  independent solar power producer: SOLAR
+  solar general: SOLAR
+  solar inverters: SOLAR
+  solar installers: SOLAR
+  solar technology: SOLAR

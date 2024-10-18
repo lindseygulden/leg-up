@@ -1,4 +1,4 @@
-"""utility functions to postprocess files read in from LDA API"""
+"""utility functions to compile and postprocess files read in from LDA API"""
 
 import datetime as dt
 import re
@@ -174,8 +174,12 @@ def get_latest_filings(
 
 def invert_sector_dict(sectors_path) -> Dict[str, str]:
     """reads in the sector assignment yaml to dict; inverts dict s.t. each company is a key"""
-    sector_assignments = yaml_to_dict(sectors_path)
-
+    if isinstance(sectors_path, list):
+        sector_assignments = {}
+        for p in sectors_path:
+            sector_assignments = sector_assignments | yaml_to_dict(p)
+    else:
+        sector_assignments = yaml_to_dict(sectors_path)
     all_companies = []
     for _, value in sector_assignments.items():
         all_companies = all_companies + value

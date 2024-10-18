@@ -1,29 +1,25 @@
 """script to read in files read out by ccs and compile them into a single csv"""
 
-import pandas as pd
-from utils.io import yaml_to_dict
-
-from typing import Union
-import pandas as pd
-
+import logging
 from json import dumps
-
 from os import listdir
 from os.path import isfile, join
-
 from pathlib import PosixPath
-import pandas as pd
-import logging
+from typing import Union
+
 import click
-from utils.api import api_authenticate
+import pandas as pd
+
 from projects.lobbying.postproc_utils import (
-    parse_client_names,
-    get_smarties,
-    get_list_govt_entities,
-    substitute,
     get_latest_filings,
+    get_list_govt_entities,
+    get_smarties,
+    parse_client_names,
+    substitute,
     terms_present,
 )
+from utils.api import api_authenticate
+from utils.io import yaml_to_dict
 
 logging.basicConfig(level=logging.INFO)
 
@@ -48,7 +44,7 @@ def compile_ccs_files(
     """Reads CSVs in input_dir (i.e, the LDA API outputs), processes them, & writes compilation to output_file"""
     config_info = yaml_to_dict(config)
 
-    groupby_cols = config_info["groupby_columns"]
+    groupby_cols = config_info["groupby_columns_for_obtaining_only_most_recent_filing"]
 
     entities = get_list_govt_entities(
         config_info["entity_endpoint"],
@@ -104,7 +100,7 @@ def compile_ccs_files(
         ]
 
         remove_sector_descriptions = yaml_to_dict(
-            config_info["sector_description_file"]
+            config_info["remove_any_activities_with_these_terms_path"]
         )[config_info["remove_org_key"][0]][config_info["remove_org_key"][1]]
 
         df["client_rename"] = [

@@ -1,9 +1,7 @@
-#  --- 1 of 3 files with bill-number queries ---
-# other files are called 'search_term_list_billnos_2.yml' and search_term_list_billnos_3.yml
-
 # This file contains terms that find potential lobbying activities that are CCS specific,
 # referred to only by their bill number (HR XXX or S XXX)
-
+# Because the same bill numbers recur throughout different Congresses, I went through and removed the key terms
+# from the same bill numbers in other congresses.
 # N.B. I tried out all of these queries in the web-based LDA search: if something is commented out, it either
 # returned no results OR it returned no results for the right congressional years (e.g., nothing for the 117th congress)
 # OR it returned only results with terms that would already be identified as 'definite' CCS (e.g.,
@@ -106,3 +104,11 @@ search_term_list:
 - '"S. 1685" -"leading" -"senior citizens" -"drug sentencing" -"social security" -"Behavioral Health" -"reuniting" -"safety" -"biologics" -"historic" -"radio" -"credit score" -"medicare" -"health records" -"architectural" -"cocaine" -"pensions" -"disabilities"'
 - '"S. 1201" -"effect" -"Enhancing Fossil Fuel Energy Carbon Technology Act" -"families" -"healthcare" -"employees rights" -"Clean Power Act of 2007" -"tobacco" -"health care" -"alien minors" -"Employee Rights"'
 - '"H.R. 4153" -"college costs" -"distracted driving" -"Clean Energy Future Through Innovation Act" -"eating disorders" -"Chesapeake"'
+- '"S2288" -"health" -"sba" -"veterans" -"American Energy Efficiency Act" -"water resource" -"taxpayers" -"loans" -"insurance" -"Expanding Carbon Capture through Enhanced Oil"'
+- '"S2152" -"Advanced Clean Coal Technology" -"kids" -"FCC" -"secure" -"small business" -"abortion" -"africa" -"campaign"'
+- '"S1298" -"regulators" -"transparency" -"port" -"financial services" -"bargaining" -"insurance" -"health" -"healthcare" -"Clean Energy for America" -"food" -"ports" -"e-verify" -"emergency" -"department of state" -"air cargo" -"aviation" -"homeland security" -"fire" -"dhs"'
+- '"S2118" -"Clean Energy for America" -"independent payment" -"health" -"social security" -"CCS" -"Defending Americas 5G Future Act"'
+- '"S.1282" -"veterans" -"Anaphylaxis" -"satellite" -"Worship" -"orbit" -"glass" -"mortgage" -"Built to Last" -"meteorological" -"UBIT" -"conversion use and storage of carbon"'
+- '"S 1298" -"regulators" -"transparency" -"port" -"financial services" -"bargaining" -"insurance" -"health" -"healthcare" -"Clean Energy for America" -"food" -"ports" -"e-verify" -"emergency" -"department of state" -"air cargo" -"aviation" -"homeland security" -"fire" -"dhs"'
+- '"S 2118" -"Clean Energy for America" -"independent payment" -"health" -"social security" -"CCS" -"Defending Americas 5G Future Act"'
+- '"S. 1282" -"veterans" -"Anaphylaxis" -"satellite" -"Worship" -"orbit" -"glass" -"mortgage" -"Built to Last" -"meteorological" -"UBIT" -"conversion use and storage of carbon"'
