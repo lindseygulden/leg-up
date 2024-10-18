@@ -266,7 +266,7 @@ def identify_lobbying_activities(df: pd.DataFrame, config_info: dict):
 
     # likely on topic are all the 'very likely' activities plus the 'core industry sector'
     # organizations paired with 'probably' activity descriptions
-    df["likely_{topic}"] = [
+    df[f"likely_{topic}"] = [
         1 if (((vl + lean + law) > 0) & (n == 0)) else 0
         for vl, n, lean, law in zip(
             df[f"very_likely_{topic}"],
@@ -290,7 +290,7 @@ def identify_lobbying_activities(df: pd.DataFrame, config_info: dict):
             df[f"terms_could_be_{topic}"], df.sector, df.low_carbon_economy_act
         )
     ]
-    df["potentially_{topic}"] = [
+    df[f"potentially_{topic}"] = [
         1 if ((cb + l) > 0) & (n == 0) else 0
         for cb, l, n in zip(
             df[f"could_be_{topic}"],

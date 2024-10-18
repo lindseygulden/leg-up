@@ -265,6 +265,7 @@ fuel cell:
 - US FUEL CELL COUNCIL
 - ZEROAVIA
 water transit:
+- PACIFIC ASIAN ENTERPRISES #yachts
 - AMERICAN FEEDER LINES
 - FINCANTIERI MARINE SYSTEMS
 - LIBERTY MARITIME
@@ -3725,7 +3726,6 @@ independent power producers:
 # https://en.wikipedia.org/wiki/Investor-owned_utilities_in_the_United_States
 investor owned utilities:
 - STAR GAS PARTNERS
-- SOUTHERN CALIFORNIA GAS
 - ENERGY FORWARD # per their client general description: "226Unincorporated association of electric utilities"
 - PINNACLE WEST CAPITAL # an  investor-owned  electric utility holding company based in Phoenix, Ariz
 - EDENOR SA EMPRESA DISTRIBUIDORA Y COMERCIALIZADORA NORTE # in argentina...perhaps belongs in 'remove'?
@@ -4233,6 +4233,17 @@ law and public policy:
 - THELEN #law firm?
 - BGR
 remove these organizations:
+- CCSN
+- ENOVA ONLINE
+- CCS MATERIALS
+- RESEARCH SERVICE BUREAU FOR KOCHO ANGJUSHEV
+- KOCH EQUIPMENT
+- KOCH SONS H
+- FLINT HILLS SOLUTION
+- HECKLER KOCH #defense manufacturer
+- HECKLER KOCH DEFENSE
+- KOCHO ANGJUSHEV
+- HECKLER KOCH DEFENSE HK DEFENSE
 - AKWESASNE PETROLEUM # CAN'T FIND ANY RECORD OF THIS ANYWHERE
 - HARMAR MOBILITY
 - OCCIDENTAL INTL #LEATHER
