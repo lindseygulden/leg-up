@@ -1,4 +1,6 @@
-# List of organizations to query for full picture of steel-industry lobbying
+# List of organizations to query for full picture of steel-industry lobbying. Company names
+# were gleaned from other LDA disclosures and from a web search to find major players in the steel
+# industry.
 # because the LDA API doesn't handle advanced text searching for client_name, these are
 # handed to the API sequentially, one at a time.
 organization_list:
