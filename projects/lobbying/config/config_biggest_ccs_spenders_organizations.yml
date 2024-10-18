@@ -24,7 +24,7 @@ bill_name_prefixes_replace_dict_path: /Users/lindseygulden/dev/leg-up-private/pr
 # values (organization names or subset of names)
 # If query_param == filing_specific_lobbying_issues, file at search_term_list_path is a yaml list
 # of specially formatted strings. For example : - '"query term1","query term2" -"do not include this term"'
-search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_terms_oil_and_gas_orgs.yml
+search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_terms_ccs_big_spender_orgs.yml
 #
 #### ---- RESULT COMPILATION CONFIGURATION SETTINGS (used in compile_ccs.py) ---- ####
 #

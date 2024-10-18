@@ -21,7 +21,7 @@ output_filename_prefix: ccs_lda_filings_ccs_terms
 # values (organization names or subset of names)
 # If query_param == filing_specific_lobbying_issues, file at search_term_list_path is a yaml list
 # of specially formatted strings. For example : - '"query term1","query term2" -"do not include this term"'
-search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_term_list.yml
+search_term_list_path: /Users/lindseygulden/dev/leg-up/projects/lobbying/search_terms/search_term_list_ccs_description.yml
 # quick text processing to standardize the way bills are referred to (this should *probably* be done in postproc...refactor)
 bill_name_prefixes_replace_dict_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/bill_abbreviations.yml
 #
