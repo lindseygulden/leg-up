@@ -3,8 +3,8 @@
 #### ---- LDA API QUERY CONFIGURATION SETTINGS (primarily used in lda_query.py) ---- ####
 #
 # register for an api key here: https://lda.senate.gov/api/register/
-lda_apikey: b6c22528b6697dc3bf1fbf9ff5200d28d9991889
-lda_username: lindseyegulden
+lda_apikey: 
+lda_username: 
 authentication_endpoint: https://lda.senate.gov/api/auth/login/
 entity_endpoint: https://lda.senate.gov/api/v1/constants/filing/governmententities/
 filings_endpoint: https://lda.senate.gov/api/v1/filings/

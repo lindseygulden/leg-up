@@ -3,8 +3,8 @@
 #### ---- LDA API QUERY CONFIGURATION SETTINGS (primarily used in lda_query.py) ---- ####
 #
 # register for an api key here: https://lda.senate.gov/api/register/
-lda_apikey: b6c22528b6697dc3bf1fbf9ff5200d28d9991889
-lda_username: lindseyegulden
+lda_apikey: 
+lda_username: 
 authentication_endpoint: https://lda.senate.gov/api/auth/login/
 entity_endpoint: https://lda.senate.gov/api/v1/constants/filing/governmententities/
 filings_endpoint: https://lda.senate.gov/api/v1/filings/
@@ -13,7 +13,7 @@ query_param: client_name
 # chunk_size is number of pages to be queried before lumping outputs and writing to csv
 chunk_size: 30
 # chunk_start is the suffix for the write-out file to begin with -- useful for restarting if query gets interrupted in long searches
-chunk_start: 131
+chunk_start: 1
 # prefixes for api-query-result .csv files to be written by lda_query.py
 lobbyist_filename_prefix: ccs_lda_lobbyists_oil_gas_orgs
 output_filename_prefix: ccs_lda_filings_oil_gas_orgs
