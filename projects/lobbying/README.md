@@ -17,11 +17,13 @@ Note that when looking for lobbying disclosures tied to CCS we looked both for d
 * If you'd like to work with the postprocessed dataset generated with our code (which also underlies the linked tables and text summary above) here you will find a postprocessed CCS lobbying dataset (i.e., the result of running postprocess.py on compiled results, both using config_ccs_lda.yml)
 
 ## What's in this directory?
-* General onfiguration YAML files to enable consistent and traceable querying, compilation, and postprocessing
-* Search-term YAML files: containing a record of terms used for LDA API queries.
-* Definition YAML files in which we specify key indicators of topics (CCS, in this case), organization names, and sector assignments.
-* Functions/scripts for running queries, compiling results, identifying lobbying activities, and generating analysis figure/stables.
-* A Jupyter notebook for generating figures and doing basic data processing, reporting
+* [General configuration YAML files](https://github.com/lindseygulden/leg-up/tree/main/projects/lobbying#configuration-information-stored-in-yaml-files) to enable consistent and traceable querying, compilation, and postprocessing
+* [Search-term YAML files](https://github.com/lindseygulden/leg-up/tree/main/projects/lobbying#search-term-lists-for-lda-queries-are-also-stored-in-yaml-files), which contain a record of terms used for LDA API queries.
+* [Definition YAML files](https://github.com/lindseygulden/leg-up/tree/main/projects/lobbying#additional-definitions-general-information-settings-name-replacements-and-sector-assignments) in which we specify key indicators of topics (CCS, in this case), organization names, and sector assignments.
+* [Utility functions used in command-line scripts](https://github.com/lindseygulden/leg-up/tree/main/projects/lobbying#utility-functions-that-support-the-command-line-scripts-for-querying-compiling-and-postprocessing-lda-reports).
+* [Three command-line scripts, to be run in sequence](https://github.com/lindseygulden/leg-up/tree/main/projects/lobbying#three-scripts-for-running-the-whole-enchilada). The scripts (1) query the LDA API; (2) compile results of the LDA queries; and (3) postprocess the compiled results to identify lobbying activities of interest.
+, and generating analysis figure/stables.
+* [A Jupyter notebook](https://github.com/lindseygulden/leg-up/tree/main/projects/lobbying#figures-and-tables-for-presenting-results) for generating figures and doing basic data processing, reporting
 
 ### Configuration information stored in YAML files
 Configuration files, found in (this directory)[https://github.com/lindseygulden/leg-up/blob/main/projects/lobbying/config/], house paths to data files, API keys, postprocessing files and parameters, etc.
@@ -32,8 +34,9 @@ Configuration files, found in (this directory)[https://github.com/lindseygulden/
 
 [A configuration file for querying, compiling, and processing lobbying done by organizations associated with the Iron and Steel industries can be found here](https://github.com/lindseygulden/leg-up/blob/main/projects/lobbying/config/config_steel_iron_organizations.yml) 
 
-### Search term lists for LDA queries are also stored in YAML files
-Search term lists, found in (this directory)[https://github.com/lindseygulden/leg-up/blob/main/projects/lobbying/search_terms/], are YAML-formatted lists of query terms for use in lda_query.py. Note that search term lists are either for querying 'client_name' or 'filing_specific_lobbying_issues'. When a query to be submitted to the LDA API will be looking at terms within 'client_name' (that is, the lobbying client that is ultimately responsible for the lobbying of the US federal government), the lists are lists of organization names or terms that would appear within the client name. When the query is to be used with the API field 'filing_specific_lobbying_issues', which supports complex text searching, the search-term yaml files contain lists of specially formatted strings (to be joined by lda_query.py with an 'OR').
+### Search-term lists for LDA queries are also stored in YAML files
+Search term lists, found in [this directory](https://github.com/lindseygulden/leg-up/blob/main/projects/lobbying/search_terms/), are YAML-formatted lists of query terms for use by [lda_query.py](https://github.com/lindseygulden/leg-up/blob/main/projects/lobbying/lda_query.py). 
+Note that search term lists are either for querying the 'client_name' or 'filing_specific_lobbying_issues' fields of the LDA reports API. When a query to be submitted to the LDA API will be looking at terms within 'client_name' (that is, the lobbying client that is ultimately responsible for the lobbying of the US federal government), the lists are lists of organization names or terms that would appear within the client name. When the query is to be used with the API field 'filing_specific_lobbying_issues', which supports complex text searching, the search-term yaml files contain lists of specially formatted strings (to be joined by [lda_query.py](https://github.com/lindseygulden/leg-up/blob/main/projects/lobbying/lda_query.py) with an 'OR').
 #### CCS lobbying search term lists:
 Note that, to get all lobbying disclosure reports for these three lists of search terms, we ran the lda_query.py script three times, changing the config_ccs_lda.yml path each time.
 * [Terms that are typicially part of a description of CCS or a closely related topic ('clean hydrogen', 'hydrogen hubs', 'class VI well permitting reform', EOR, etc.)](https://github.com/lindseygulden/leg-up/blob/main/projects/lobbying/search_terms/search_term_list_ccs_description.yml)
