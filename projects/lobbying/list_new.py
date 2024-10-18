@@ -1,5 +1,5 @@
-"""Use when new companies are in LDA query results: assembles yaml file with client names that are missing
-from sector assignments"""
+"""A utility command-line script for use when new companies are in LDA query results:
+assembles yaml file with client names that are missing from sector assignments"""
 
 import logging
 from pathlib import Path, PosixPath

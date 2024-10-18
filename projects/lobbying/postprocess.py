@@ -1,5 +1,5 @@
 # pylint: disable=use-a-generator
-"""script to postprocess compiled lobbying activity files"""
+"""command-line tool/script to postprocess compiled lobbying activity files"""
 
 import logging
 from pathlib import PosixPath
@@ -209,6 +209,7 @@ def identify_lobbying_activities(df: pd.DataFrame, config_info: dict):
     # certainly lobbying on the topic.
     # HACK omit findings of the 'low carbon economy' act, which has the term 'low carbon', but
     # didn't deal with ccs
+    # TODO refactor this
     df["low_carbon_economy_act"] = [
         1 if terms_present(x, ["low carbon economy", "lowcarbon economy"]) else 0
         for x in df.clean_description
