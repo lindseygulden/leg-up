@@ -49,6 +49,7 @@ textblob = "^0.18.0.post0"
 asteval = "^1.0.4"
 cleanco = "^2.3"
 pylint = "^3.3.1"
+pyreadr = "^0.5.2"
 [tool.poetry.group.dev.dependencies]
 jupyter = "^1.0.0"
 ipykernel = "^6.25.0"

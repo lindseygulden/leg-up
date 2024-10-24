@@ -3006,6 +3006,48 @@ files = [
 certifi = "*"
 
 [[package]]
+name = "pyreadr"
+version = "0.5.2"
+description = "Reads/writes R RData and Rds files into/from pandas data frames."
+optional = false
+python-versions = "*"
+files = [
+    {file = "pyreadr-0.5.2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:ab20da5c1b1a547316bd45f0a8984f3c7c26bb548a41c8c606da939766ae3bc9"},
+    {file = "pyreadr-0.5.2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:0b445a6ffe09922ade3dc003585a589163a5dbab2d006aebcd2e00c7738e17c0"},
+    {file = "pyreadr-0.5.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a5552b17a2e32b885b789a50bfdf895663fb6fc2e0db85351b620a74ece474c6"},
+    {file = "pyreadr-0.5.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:35967860dace4a736108740b6127abb59c2e25c1b081f426181907666c7f9dac"},
+    {file = "pyreadr-0.5.2-cp310-cp310-win_amd64.whl", hash = "sha256:fae6a270842bd5d0d2729ab2ad6bb0125786b0b1023fd3cdc51deedc1d66cb61"},
+    {file = "pyreadr-0.5.2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:5b8fa9c92609e2b925900ba1e5f236a9d38bfd49ad37038e41ac1c7d853fddda"},
+    {file = "pyreadr-0.5.2-cp311-cp311-macosx_11_0_x86_64.whl", hash = "sha256:49b94459a1ed0003e59861f0ad088dc17f97632e451797b79cbf12fe312e6b6d"},
+    {file = "pyreadr-0.5.2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:5698418c4fedcbc0b7600c967a2943a79803d39cf7f13b73999c58815f7a5ebc"},
+    {file = "pyreadr-0.5.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b2af40aa8de034c24cdefd2dfdbf8c21277cf1c27cce063729604e48aa908aba"},
+    {file = "pyreadr-0.5.2-cp311-cp311-win_amd64.whl", hash = "sha256:82e1a5388d8910eac75e3cd37696851c52175a0b263afaedd570e000d385781c"},
+    {file = "pyreadr-0.5.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:7750624a6158ba0393c0cbc7f44a169735799862089891408f9a83ece04662bf"},
+    {file = "pyreadr-0.5.2-cp312-cp312-macosx_11_0_x86_64.whl", hash = "sha256:f0c8feaa26f5f45f91bfc07dbea7334c7c22cfaf3fa923e203f30a5c976eda71"},
+    {file = "pyreadr-0.5.2-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f3f200d4bd7dcfa37b9d244f05b3708b7183bb7978c6865a1364f39727021fb0"},
+    {file = "pyreadr-0.5.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3aa4919beb4cfa9c915e704b41d32d8c40a4f505a7c9bfdfc4930b3b4da5d2b8"},
+    {file = "pyreadr-0.5.2-cp312-cp312-win_amd64.whl", hash = "sha256:6bae17a8970b62c2af257ec8c5aad9d759a1bdc2a763e299ff82826d7140afe4"},
+    {file = "pyreadr-0.5.2-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:f8e0b0db674c3a25b4d38016a4a2fe18c5107ccab08b31bfdc1e328c184d8b17"},
+    {file = "pyreadr-0.5.2-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:d77ddc6a7ac98ea61394f349aa90bbda0513fdde8b27e73116cb077dff8d5a85"},
+    {file = "pyreadr-0.5.2-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d31b4adcef91a8c75818097851dfdce9d44ad46c763c8a2dc6ffbca0b62c4675"},
+    {file = "pyreadr-0.5.2-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:49b11fc281cd6e3a689de1962a60c812f5138c369bb25530fd0bcd91164566cb"},
+    {file = "pyreadr-0.5.2-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:286a29fe24e319325655455b265bf1acf34541ff77d0ad8dd56900da3ab72fb8"},
+    {file = "pyreadr-0.5.2-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:ed98fbaae0198a73efa29f2d2aa9af77d8f1cb8ad9c2ac23ecc6fd70a75ca092"},
+    {file = "pyreadr-0.5.2-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:444190968331437863fff09e64ba003665dd075c3fe3736c638083ed1b16d8ff"},
+    {file = "pyreadr-0.5.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:90506a3c43deeb415929bf6876ec62695db193aefdacb6a4ba679049e73195ec"},
+    {file = "pyreadr-0.5.2-cp38-cp38-win_amd64.whl", hash = "sha256:8fcae8b463d2f910796b29e4a1ef57e9b0fb29d43eef73ff049af3fc4bbc0d00"},
+    {file = "pyreadr-0.5.2-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:7a5911e5e0a03d80ad203189265c4206722edd420f89252ed3f2cbb22fd29834"},
+    {file = "pyreadr-0.5.2-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:96e042cc3f3d5ed7fcbab032fff5481df0a19c19de8f8a7d63740afe341e132a"},
+    {file = "pyreadr-0.5.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:bdc8a79108955dac844cafc7b49e2cc03f198c518d045810aadfc20b401269fb"},
+    {file = "pyreadr-0.5.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f1e672779f012b2072ae2da4ea7df79b0293dad579d62fb97cae35271568f8c0"},
+    {file = "pyreadr-0.5.2-cp39-cp39-win_amd64.whl", hash = "sha256:df5dd2435a2c2b23372de03bf4852f026f7fdbd892e6bc3c4b3d7375eb6d9934"},
+    {file = "pyreadr-0.5.2.tar.gz", hash = "sha256:33d5747fe210d41e4a329afef2232c9d1258847094b87a2a96efffbef223fae8"},
+]
+
+[package.dependencies]
+pandas = ">=1.2.0"
+
+[[package]]
 name = "pysocks"
 version = "1.7.1"
 description = "A Python SOCKS client module. See https://github.com/Anorov/PySocks for more information."
@@ -4640,4 +4682,4 @@ test = ["pytest", "pytest-cov"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "addb12d34645263f79bcf33d7a963ad65587d05f1be5d2c136638e929dc5480b"
+content-hash = "4ce7af512df07e5f0a7e89bc0393526f396d873ccae6cb65b957dd43200ecde3"
