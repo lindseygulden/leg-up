@@ -39,7 +39,11 @@ class EnergySystem(ABC):
             return cls.subclasses[system_type](config)
         return cls.subclasses[system_type](yaml_to_dict(config))
 
-    def __init__(self, config: dict):
+    def __init__(self, config_info: Union[str, dict]):
+        if isinstance(config_info, str):
+            config = yaml_to_dict(config_info)
+        else:
+            config = config_info
         # constants
         self.years = config["years"]
         self.oil_mwh_per_bbl = config["oil_mwh_per_bbl"]
@@ -51,25 +55,25 @@ class EnergySystem(ABC):
         self.eor_frac = config["eor_frac"]
         self.energy_penalty = config["energy_penalty"]
         self.ccs_capture_frac = config["ccs_capture_frac"]
+        self.stop_timestep = len(self.years)
+        self.base_cost_energy_usd_per_mwh = config["base_cost_energy_usd_per_mwh"]
+        self.sec_45q_usd_tco2 = config["sec_45q_usd_tco2"]
 
         # variables
         self.timestep = 0
-        self.stop_timestep = len(self.years)
-        self.energy_shares = self._initialize_timeseries(config["energy_shares"])
-        self.energy_costs_usd_per_mwh = self._initialize_timeseries(
-            config["energy_costs_usd_per_mwh"]
-        )
-        self.carbon_to_atmosphere_kg_per_mwh = self._initialize_timeseries(
-            dict(zip(self.sources, [0] * len(self.sources)))
-        )
-        self.carbon_captured_kg_per_mwh = self._initialize_timeseries(
-            dict(zip(self.sources, [0] * len(self.sources)))
-        )
-        self.reservoir_balances = self._initialize_timeseries(
-            dict(zip(self.reservoirs, [0] * len(self.reservoirs)))
-        )
+        self.ccs_totals = config["ccs_totals"]
+        self.energy_shares = {self.timestep: config["energy_shares"]}
+        self.adjusted_cost_energy_usd_per_mwh = {
+            self.timestep: config["base_cost_energy_usd_per_mwh"]
+        }
+        self.carbon_flow_kg_per_mwh = {}
+        for r in self.reservoirs:
 
-    def _initialize_timeseries(self, starting_dict):
+            self.carbon_flow_kg_per_mwh[r] = {
+                self.timestep: dict(zip(self.sources, [0] * len(self.sources)))
+            }
+
+    def _assemble_df(self):
         """initialize an object to hold simulation outputs"""
         ts_dict = {}
         for k, v in starting_dict.items():
@@ -82,7 +86,13 @@ class EnergySystem(ABC):
 
     def simulate(self):
         """Simulate energy system for all timesteps"""
+
         while self.timestep < self.stop_timestep:
+            logging.info(
+                " >>> Simulating %s (timestep %s)",
+                self.years[self.timestep],
+                self.timestep,
+            )
             self.move_carbon()
             self.update_energy_share()
             self.update_prices()
@@ -105,86 +115,119 @@ class EnergySystem(ABC):
 class LogitEnergySystem(EnergySystem):
     """Energy system class that uses a logit function to update shares of primary energy by source"""
 
-    def __init__(self, config):
+    def __init__(self, config_info):
         # initialize parent class __init__
-        super().__init__(config)
+        super().__init__(config_info)
+        if isinstance(config_info, str):
+            config = yaml_to_dict(config_info)
+        else:
+            config = config_info
         self.system_type = "logit"
         self.logit_exponent = config["logit_exponent"]
         # TODO  error checking
 
+    def move_carbon(self):
+        """Computes carbon flow per unit energy, from each source, to the atmosphere and to CCS capture"""
+
+        to_atmosphere_dict = {}
+        captured_dict = {}
+        for s in self.sources:
+            # compute carbon that is captured by source (units of kg per mwh of energy)
+            captured_dict[s] = (
+                self.ccs_prevalence_frac[self.timestep]
+                * self.ccs_capture_frac[s]
+                * self.energy_shares[self.timestep][s]
+                * self.carbon_intensity_kg_per_mwh[s]
+            )
+
+            # compute carbon emitted to the atmosphere by source (units of kg per mwh of energy)
+            to_atmosphere_dict[s] = (
+                self.energy_shares[self.timestep][s]
+                * self.carbon_intensity_kg_per_mwh[s]
+                - captured_dict[s]
+            )
+
+        self.carbon_flow_kg_per_mwh["ccs"][self.timestep] = captured_dict
+        self.carbon_flow_kg_per_mwh["atmosphere"][self.timestep] = to_atmosphere_dict
+
+        total_kgco2_injected_with_ccs = np.sum(
+            list(self.carbon_flow_kg_per_mwh["ccs"][self.timestep].values())
+        )
+        self.ccs_totals["ccs-eor kgco2"][self.timestep] = (
+            total_kgco2_injected_with_ccs * self.eor_frac[self.timestep]
+        )
+        self.ccs_totals["ccs-gs kgco2"][self.timestep] = (
+            total_kgco2_injected_with_ccs * (1 - self.eor_frac[self.timestep])
+        )
+        self.ccs_totals["ccs-eor usd"][self.timestep] = (
+            self.ccs_totals["ccs-eor kgco2"][self.timestep]
+            * self.sec_45q_usd_tco2["eor"]
+            / 1000
+        )
+        self.ccs_totals["ccs-gs usd"][self.timestep] = (
+            self.ccs_totals["ccs-gs kgco2"][self.timestep]
+            * self.sec_45q_usd_tco2["gs"]
+            / 1000
+        )
+
     def update_energy_share(self):
         """Update share w/ logit function: balance b/w cost & existing share controlled by logit exponent"""
         current_share = []
+        new_share_dict = {}
         costs = []
+
         # get current shares for each source as well as costs, raised to the logit exponent
         for s in self.sources:
-            current_share.append(self.energy_shares[s][self.timestep])
+
+            current_share.append(self.energy_shares[self.timestep][s])
             costs.append(
-                (self.energy_costs_usd_per_mwh[s][self.timestep]) ** self.logit_exponent
+                (self.adjusted_cost_energy_usd_per_mwh[self.timestep][s])
+                ** self.logit_exponent
             )
 
         new_share_denominator = np.sum(
             [share * cost for share, cost in zip(current_share, costs)]
         )
         for s, share, cost in zip(self.sources, current_share, costs):
-            self.energy_shares[s][self.timestep + 1] = (
-                share * cost
-            ) / new_share_denominator
+            new_share_dict[s] = (share * cost) / new_share_denominator
 
-    def move_carbon(self):
-        """Computes carbon flow per unit energy, from each source, to the atmosphere and to CCS capture"""
-        to_atmosphere = 0
-        captured = 0
-        for s in self.sources:
-            # compute carbon that is captured by source (units of kg per mwh of energy)
-            self.carbon_captured_kg_per_mwh[s][self.timestep] = (
-                self.ccs_prevalence_frac[self.timestep]
-                * self.ccs_capture_frac[s]
-                * self.energy_shares[s][self.timestep]
-                * self.carbon_intensity_kg_per_mwh[s]
-            )
-            # compute carbon emitted to the atmosphere by source (units of kg per mwh of energy)
-            self.carbon_to_atmosphere_kg_per_mwh[s][self.timestep] = (
-                self.energy_shares[s][self.timestep]
-                * self.carbon_intensity_kg_per_mwh[s]
-                - self.carbon_captured_kg_per_mwh[s][self.timestep]
-            )
-
-            to_atmosphere = (
-                to_atmosphere + self.carbon_to_atmosphere_kg_per_mwh[s][self.timestep]
-            )
-            captured = captured + self.carbon_captured_kg_per_mwh[s][self.timestep]
-
-        # compute/record updated balances of carbon in reservoirs
-        prev_timestep = self.timestep - 1
-        if self.timestep == 0:
-            prev_timestep = 0
-
-        # TODO refactor to find cleaner way to track this
-        self.reservoir_balances["atmosphere"][self.timestep] = (
-            self.reservoir_balances["atmosphere"][prev_timestep] + to_atmosphere
-        )
-        self.reservoir_balances["ccs"][self.timestep] = (
-            self.reservoir_balances["ccs"][prev_timestep] + captured
-        )
+        self.energy_shares[self.timestep + 1] = new_share_dict
 
     def update_prices(self):
-        """Adjusts prices based on shifts of CO2"""
-        current_oil_price = self.energy_costs_usd_per_mwh["oil"][self.timestep]
+        """Adjusts prices for next time step based on shifts of CO2"""
+        # start by making next time step's prices the same as this time step
+        self.adjusted_cost_energy_usd_per_mwh[self.timestep + 1] = (
+            self.base_cost_energy_usd_per_mwh.copy()
+        )
+
+        # adjust oil price for eor
+        # base_oil_price = self.base_cost_energy_usd_per_mwh[self.timestep]["oil"]
+        base_oil_price = self.base_cost_energy_usd_per_mwh["oil"]
+
         # compute the number of mwh of energy produced with eor
         mwh_oil_produced_with_eor = (
-            self.reservoir_balances["ccs"][self.timestep]
+            np.sum(list(self.carbon_flow_kg_per_mwh["ccs"][self.timestep].values()))
             * self.eor_frac[self.timestep]
             * self.eor_recovery_factor_bbl_per_tco2
             * self.oil_mwh_per_bbl
             / 1000
         )  # 1000 kg in one ton
         # compute revised price for next timestep
-        self.energy_costs_usd_per_mwh["oil"][self.timestep + 1] = self._adjust_price(
-            current_oil_price, mwh_oil_produced_with_eor
+        self.adjusted_cost_energy_usd_per_mwh[self.timestep + 1]["oil"] = (
+            self._adjust_price(base_oil_price, mwh_oil_produced_with_eor)
         )
+
         # gas is more expensive because of CCS in ng processing
-        current_ng_price = self.energy_costs_usd_per_mwh["ng"][self.timestep]
-        self.energy_costs_usd_per_mwh["ng"][self.timestep + 1] = self._adjust_price(
-            current_ng_price, self.energy_penalty["ng"]
+        # base_ng_price = self.base_cost_energy_usd_per_mwh[self.timestep]["ng"]
+        base_ng_price = self.base_cost_energy_usd_per_mwh["ng"]
+        self.adjusted_cost_energy_usd_per_mwh[self.timestep + 1]["ng"] = (
+            self._adjust_price(
+                base_ng_price,
+                (
+                    -1
+                    * self.ccs_prevalence_frac[self.timestep]
+                    * self.energy_penalty["ng"]
+                    * self.energy_shares[self.timestep]["ng"]
+                ),
+            )
         )

@@ -1,12 +1,13 @@
 #------------- CONSTANTS -----------
+sec_45q_usd_tco2:
+  eor: 60
+  gs: 85
 ccs_capture_frac:
   ng: 0.9
-  nuclear: 0
   oil: 0
   renewables: 0
 carbon_intensity_kg_per_mwh:
   ng: 202
-  nuclear: 1
   oil: 260
   renewables: 1
 ccs_prevalence:
@@ -22,30 +23,40 @@ ccs_prevalence:
 - 0.74
 - 0.8
 eor_frac:
-- 0.0
-- 0.02
-- 0.06
-- 0.12
-- 0.18
-- 0.2
-- 0.22
-- 0.23
-- 0.24
-- 0.25
-- 0.26
-- 0.265
-- 0.27
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+#eor_frac:
+#- 0.0
+#- 0.05
+#- 0.10
+#- 0.14
+#- 0.18
+#- 0.22
+#- 0.23
+#- 0.24
+#- 0.25
+#- 0.26
+#- 0.27
+#- 0.28
+#- 0.29
 logit_exponent: -3
 energy_penalty:
   ng: 0.17 #(natural gas energy penalty ranges from 0.1 to 0.28)
-  nuclear: 0
   oil: 0.5 # made up number...is there anywhere where there can be CCS for crude oil?
   renewables: 0
 oil_mwh_per_bbl: 1.7
 recovery_factor: 3
 sources:
 - renewables
-- nuclear
 - oil
 - ng
 reservoirs:
@@ -64,18 +75,21 @@ years:
 - 2065
 - 2070
 - 2075
-# --------- VARIABLES ------------
-energy_costs_usd_per_mwh:
-  ng: 20
-  nuclear: 32
+base_cost_energy_usd_per_mwh:
+  ng: 35
   oil: 47
-  renewables: 35
+  renewables: 30
+# --------- VARIABLES ------------
+ccs_totals:
+  ccs-eor kgco2: {}
+  ccs-gs kgco2: {}
+  ccs-eor usd: {}
+  ccs-gs usd: {}
 energy_shares:
-  ng: 0.36
-  nuclear: 0.09
+  ng: 0.41
   oil: 0.38
-  renewables: 0.09
+  renewables: 0.21
 reservoir_balances:
-  atmosphere: 1000
+  atmosphere: 0
   ccs: 0
-  underground: 10000
+  underground: 0
