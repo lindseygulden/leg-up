@@ -1,5 +1,0 @@
-# specifies terms that automatically get a lobbying activity
-# identified as 'remove' when searching for lobbying done by
-# specific client_name/organizations (e.g., EXXONMOBIL)
-remove these organizations:
-  terms: []
