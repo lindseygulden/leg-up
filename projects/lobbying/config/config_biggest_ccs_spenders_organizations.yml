@@ -3,8 +3,8 @@
 #### ---- LDA API QUERY CONFIGURATION SETTINGS (primarily used in lda_query.py) ---- ####
 #
 # register for an api key here: https://lda.senate.gov/api/register/
-lda_apikey: b6c22528b6697dc3bf1fbf9ff5200d28d9991889
-lda_username: lindseyegulden
+lda_apikey: 
+lda_username: 
 authentication_endpoint: https://lda.senate.gov/api/auth/login/
 entity_endpoint: https://lda.senate.gov/api/v1/constants/filing/governmententities/
 filings_endpoint: https://lda.senate.gov/api/v1/filings/
@@ -13,10 +13,15 @@ query_param: client_name
 # chunk_size is number of pages to be queried before lumping outputs and writing to csv
 chunk_size: 30
 # chunk_start is the suffix for the write-out file to begin with -- useful for restarting if query gets interrupted in long searches
-chunk_start: 37
+chunk_start: 1
 # prefixes for api-query-result .csv files to be written by lda_query.py
-lobbyist_filename_prefix: lda_lobbyists_solar_orgs
-output_filename_prefix: lda_filings_solar_orgs
+<<<<<<<< HEAD:projects/lobbying/config/config_biggest_ccs_spenders_organizations.yml
+lobbyist_filename_prefix: ccs_lda_lobbyists_big_spending_ccs_orgs
+output_filename_prefix: ccs_lda_filings_big_spending_ccs_orgs
+========
+lobbyist_filename_prefix: lda_lobbyists_princeton
+output_filename_prefix: lda_filings_princeton
+>>>>>>>> 41b18969eed94aa902f18b903c60a930865d3a59:projects/lobbying/config/config_princeton.yml
 # quick text processing to standardize the way bills are referred to (this should *probably* be done in postproc...refac)
 bill_name_prefixes_replace_dict_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/bill_abbreviations.yml
 # path to the formatted search term list.
@@ -24,7 +29,11 @@ bill_name_prefixes_replace_dict_path: /Users/lindseygulden/dev/leg-up-private/pr
 # values (organization names or subset of names)
 # If query_param == filing_specific_lobbying_issues, file at search_term_list_path is a yaml list
 # of specially formatted strings. For example : - '"query term1","query term2" -"do not include this term"'
-search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_terms_solar_organizations.yml
+<<<<<<<< HEAD:projects/lobbying/config/config_biggest_ccs_spenders_organizations.yml
+search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_terms_ccs_big_spender_orgs.yml
+========
+search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_terms_princeton.yml
+>>>>>>>> 41b18969eed94aa902f18b903c60a930865d3a59:projects/lobbying/config/config_princeton.yml
 #
 #### ---- RESULT COMPILATION CONFIGURATION SETTINGS (used in compile_ccs.py) ---- ####
 #
@@ -44,11 +53,11 @@ groupby_columns_for_obtaining_only_most_recent_filing:
 #
 #### ---- POST-PROCESSING CONFIGURATION SETTINGS (used in postprocess_ccs.py) ---- ####
 #
-topic_description: solar
+topic_description: ccs
 postproc_specs_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/ccs_postproc_specifications.yml
 subset_to_topic_only: False
 law_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/ccs_laws.yml
-company_name_replacements: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/solar_company_name_replacements.yml
+company_name_replacements: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/company_name_replacements.yml
 clean_client_description_col: clean_client_general_description
 company_rename_col: client_rename
 company_sector_assignments: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/sectors_updated.yml

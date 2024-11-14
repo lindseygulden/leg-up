@@ -3,8 +3,8 @@
 #### ---- LDA API QUERY CONFIGURATION SETTINGS (primarily used in lda_query.py) ---- ####
 #
 # register for an api key here: https://lda.senate.gov/api/register/
-lda_apikey: b6c22528b6697dc3bf1fbf9ff5200d28d9991889
-lda_username: lindseyegulden
+lda_apikey: 
+lda_username: 
 authentication_endpoint: https://lda.senate.gov/api/auth/login/
 entity_endpoint: https://lda.senate.gov/api/v1/constants/filing/governmententities/
 filings_endpoint: https://lda.senate.gov/api/v1/filings/
@@ -21,7 +21,7 @@ output_filename_prefix: ccs_lda_filings_ccs_terms
 # values (organization names or subset of names)
 # If query_param == filing_specific_lobbying_issues, file at search_term_list_path is a yaml list
 # of specially formatted strings. For example : - '"query term1","query term2" -"do not include this term"'
-search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_term_list.yml
+search_term_list_path: /Users/lindseygulden/dev/leg-up/projects/lobbying/search_terms/search_term_list_ccs_description.yml
 # quick text processing to standardize the way bills are referred to (this should *probably* be done in postproc...refactor)
 bill_name_prefixes_replace_dict_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/bill_abbreviations.yml
 #
