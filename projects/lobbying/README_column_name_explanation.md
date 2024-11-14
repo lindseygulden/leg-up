@@ -6,8 +6,8 @@
 | n_lobbyists_for_activity | number of lobbyists assigned to this particular lobbying activity on the filing document (used to allocate dollars to this activity) | |
 | filing_year | year in which the lobbying disclosure document was filed | |
 | filing_period | period covered by this document (half/semiannual before 2008; quarterly thereafter) | |
-| filing_dt_posted | Date on which the associated disclosure document was filed. | Note that, for every unique client_id/registrant_id/filing_period combination, I used the most-recently-filed disclosure. |
-| which_congress | Which congress (e.g., 117th) was in session during this period. | |
+| filing_dt_posted | Date on which the associated disclosure document was filed. Note that, for every unique client_id/registrant_id/filing_period combination, I used the most-recently-filed disclosure | |
+| which_congress | Which congress (e.g., 117th) was in session during this period | |
 | party_controlling_house | Which party controlled the House for the majority of this Congress | |
 | party_controlling_senate | Which party controlled the Senate for the majority of this Congress | |
 | party_controlling_white_house | Which party controlled the White House for the majority of this Congress | |
@@ -26,7 +26,7 @@
 | not_ccs | 1 = True; 0 = False. 1 means this is definitely NOT CCS | |
 | registrant_id | Unique identifier for registrants (i.e., the lobbying organization). I am not sure if a single lobbying organization can have more than one registrant_id. Note that, as of Oct. 2024, I also reported details for all these lobbyists, but I have not parsed them yet | |
 | who_is_lobbying | Field details whether the organization who is filing the disclosure is the organization lobbying on its own behalf, a lobbying firm, or there is general confusion b/c no dollars are reported | |
-| usd_for_all_activities_on_filing_document | __**DO NOT**__ USE THIS COLUMN TO SUM MONEY (will result in double counting): This value is the total of dollars FOR ALL LOBBYING ACTIVITIES ON THIS FILING DOCUMENT. For summations, use lobbying_activity_usd instead | |
+| usd_for_all_activities_on_filing_document | **DO NOT** USE THIS COLUMN TO SUM MONEY (will result in double counting): This value is the total of dollars FOR ALL LOBBYING ACTIVITIES ON THIS FILING DOCUMENT. For summations, use lobbying_activity_usd instead | |
 | lobbying_activity_usd | **USE THIS COLUMN TO SUM MONEY**: This value is the portion of the total dollars spent lobbying reported on the associated filing document that are apportioned to this specific lobbying activity | usd_for_all_activities_on_filing_document, apportioned by fraction of total number of lobbyists on this LDA filing assigned to this specific activity |
 | n_entities_lobbied | For this lobbying activity, the number of federal agencies listed as lobbying targets (translates into what I call 'lobbying contacts' in reports) | This is the count of distinct government agencies identified as targets for this lobbying activity |
 | legistlative_entities_lobbied | For this lobbying activity, the count/number of legistative-branch entities contacted | Note that, even if every single member of the US House of Representatives is contacted as part of this lobbying activity, this value would still be 1. The value should be interpreted as 'at least one legislative entity lobbying contact was made during this quarter' |
@@ -59,6 +59,7 @@
 | count_bills_with_some_ccs | Count of the number of bills mentioned in the lobbying activity that have at least some CCS provisions | |
 | bills_with_ccs_terms | 1 if a (major) bill with CCS provisions is mentioned along with additional words that indicate the interest is in CCS (e.g., 'Inflation Reduction Act' and 'section 45'); 0 otherwise | See list of ccs bills in ccs_postproc_specifications.yml |
 | ccs_bills_number_only | 1 if activity description contains a bill reference (e.g., 'HR 1231') that was a 'mostly CCS' bill for the given session of congress covered by the lobbying activity (see variable 'which_congress'); 0 otherwise | See list of ccs bill numbers, by congress, in ccs_postproc_specifications.yml |
-| terms_consistent_with_ccs | 1 if contains terms that are consistent with CCS but are not ALWAYS CCS (e.g., "carbon dioxide" and "storage' [could be 'energy storage' and 'carbon dioxide emissions', which is not CCS, or it could be 'the storage of and transport of carbon dioxide", which would be more consistent with CCS but might not be caught as 'definitely ccs' because of the atypical phrasing); 0 otherwise | |
+| terms_consistent_with_ccs | 1 if contains terms that are consistent with CCS but are not ALWAYS CCS (e.g., "carbon dioxide" and "storage' could be 'energy storage' and 'carbon dioxide emissions', which is not CCS, or it could be 'the storage of and transport of carbon dioxide", which would be more consistent with CCS but might not be caught as 'definitely ccs' because of the atypical phrasing); 0 otherwise | |
 | terms_could_be_ccs | 1 if activity description contains terms that sometimes (or even usually) mean we're dealing with CCS (e.g., 'underground injection control'); 0 otherwise | |
 | ccs_because_of_who_says_it | lobbying activity contains terms_consistent_with_ccs and the company doing the lobbying is associated with either the core fossil fuel sectors (e.g., coal, gas, oilfield services) or fossil-fuel adjacent companies (e.g. air transport) | see lists of core/adjacent FF sectors and terms consistent wit ccs in ccs_postproc_specifications.yml |
+
