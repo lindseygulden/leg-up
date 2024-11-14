@@ -3,13 +3,8 @@
 #### ---- LDA API QUERY CONFIGURATION SETTINGS (primarily used in lda_query.py) ---- ####
 #
 # register for an api key here: https://lda.senate.gov/api/register/
-<<<<<<< HEAD
 lda_apikey: 
 lda_username: 
-=======
-lda_apikey: b6c22528b6697dc3bf1fbf9ff5200d28d9991889
-lda_username: lindseyegulden
->>>>>>> 53d68a52634fea3a8d3b56a4bd3eaa78df4406cd
 authentication_endpoint: https://lda.senate.gov/api/auth/login/
 entity_endpoint: https://lda.senate.gov/api/v1/constants/filing/governmententities/
 filings_endpoint: https://lda.senate.gov/api/v1/filings/
@@ -20,18 +15,8 @@ chunk_size: 30
 # chunk_start is the suffix for the write-out file to begin with -- useful for restarting if query gets interrupted in long searches
 chunk_start: 1
 # prefixes for api-query-result .csv files to be written by lda_query.py
-<<<<<<< HEAD
-<<<<<<<< HEAD:projects/lobbying/config/config_biggest_ccs_spenders_organizations.yml
-lobbyist_filename_prefix: ccs_lda_lobbyists_big_spending_ccs_orgs
-output_filename_prefix: ccs_lda_filings_big_spending_ccs_orgs
-========
 lobbyist_filename_prefix: lda_lobbyists_princeton
 output_filename_prefix: lda_filings_princeton
->>>>>>>> 41b18969eed94aa902f18b903c60a930865d3a59:projects/lobbying/config/config_princeton.yml
-=======
-lobbyist_filename_prefix: lda_lobbyists_princeton
-output_filename_prefix: lda_filings_princeton
->>>>>>> 53d68a52634fea3a8d3b56a4bd3eaa78df4406cd
 # quick text processing to standardize the way bills are referred to (this should *probably* be done in postproc...refac)
 bill_name_prefixes_replace_dict_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/bill_abbreviations.yml
 # path to the formatted search term list.
@@ -39,15 +24,7 @@ bill_name_prefixes_replace_dict_path: /Users/lindseygulden/dev/leg-up-private/pr
 # values (organization names or subset of names)
 # If query_param == filing_specific_lobbying_issues, file at search_term_list_path is a yaml list
 # of specially formatted strings. For example : - '"query term1","query term2" -"do not include this term"'
-<<<<<<< HEAD
-<<<<<<<< HEAD:projects/lobbying/config/config_biggest_ccs_spenders_organizations.yml
-search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_terms_ccs_big_spender_orgs.yml
-========
 search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_terms_princeton.yml
->>>>>>>> 41b18969eed94aa902f18b903c60a930865d3a59:projects/lobbying/config/config_princeton.yml
-=======
-search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_terms_princeton.yml
->>>>>>> 53d68a52634fea3a8d3b56a4bd3eaa78df4406cd
 #
 #### ---- RESULT COMPILATION CONFIGURATION SETTINGS (used in compile_ccs.py) ---- ####
 #
