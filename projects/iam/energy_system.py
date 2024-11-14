@@ -45,6 +45,7 @@ class EnergySystem(ABC):
         else:
             config = config_info
         # constants
+        self.kg_per_ton = 1000
         self.years = config["years"]
         self.oil_mwh_per_bbl = config["oil_mwh_per_bbl"]
         self.eor_recovery_factor_bbl_per_tco2 = config["recovery_factor"]
@@ -61,14 +62,14 @@ class EnergySystem(ABC):
 
         # variables
         self.timestep = 0
-        self.ccs_totals = config["ccs_totals"]
+        self.ccs_kgco2_per_mwh = {self.timestep: {"eor": 0, "gs": 0}}
+        self.ccs_usd_per_mwh = {self.timestep: {"eor": 0, "gs": 0}}
         self.energy_shares = {self.timestep: config["energy_shares"]}
         self.adjusted_cost_energy_usd_per_mwh = {
             self.timestep: config["base_cost_energy_usd_per_mwh"]
         }
         self.carbon_flow_kg_per_mwh = {}
         for r in self.reservoirs:
-
             self.carbon_flow_kg_per_mwh[r] = {
                 self.timestep: dict(zip(self.sources, [0] * len(self.sources)))
             }
@@ -153,22 +154,28 @@ class LogitEnergySystem(EnergySystem):
         total_kgco2_injected_with_ccs = np.sum(
             list(self.carbon_flow_kg_per_mwh["ccs"][self.timestep].values())
         )
-        self.ccs_totals["ccs-eor kgco2"][self.timestep] = (
-            total_kgco2_injected_with_ccs * self.eor_frac[self.timestep]
-        )
-        self.ccs_totals["ccs-gs kgco2"][self.timestep] = (
-            total_kgco2_injected_with_ccs * (1 - self.eor_frac[self.timestep])
-        )
-        self.ccs_totals["ccs-eor usd"][self.timestep] = (
-            self.ccs_totals["ccs-eor kgco2"][self.timestep]
-            * self.sec_45q_usd_tco2["eor"]
-            / 1000
-        )
-        self.ccs_totals["ccs-gs usd"][self.timestep] = (
-            self.ccs_totals["ccs-gs kgco2"][self.timestep]
-            * self.sec_45q_usd_tco2["gs"]
-            / 1000
-        )
+        # quantify total kg co2 which ccs's co2 is injected for eor and for geologic storage
+
+        self.ccs_kgco2_per_mwh = self.ccs_kgco2_per_mwh | {
+            self.timestep
+            + 1: {
+                "eor": total_kgco2_injected_with_ccs * self.eor_frac[self.timestep],
+                "gs": total_kgco2_injected_with_ccs
+                * (1 - self.eor_frac[self.timestep]),
+            }
+        }
+
+        self.ccs_usd_per_mwh = self.ccs_usd_per_mwh | {
+            self.timestep
+            + 1: {
+                "eor": self.ccs_kgco2_per_mwh[self.timestep + 1]["eor"]
+                * self.sec_45q_usd_tco2["eor"]
+                / self.kg_per_ton,
+                "gs": self.ccs_kgco2_per_mwh[self.timestep + 1]["gs"]
+                * self.sec_45q_usd_tco2["gs"]
+                / self.kg_per_ton,
+            }
+        }
 
     def update_energy_share(self):
         """Update share w/ logit function: balance b/w cost & existing share controlled by logit exponent"""
@@ -178,7 +185,6 @@ class LogitEnergySystem(EnergySystem):
 
         # get current shares for each source as well as costs, raised to the logit exponent
         for s in self.sources:
-
             current_share.append(self.energy_shares[self.timestep][s])
             costs.append(
                 (self.adjusted_cost_energy_usd_per_mwh[self.timestep][s])
@@ -210,11 +216,12 @@ class LogitEnergySystem(EnergySystem):
             * self.eor_frac[self.timestep]
             * self.eor_recovery_factor_bbl_per_tco2
             * self.oil_mwh_per_bbl
-            / 1000
+            / self.kg_per_ton
         )  # 1000 kg in one ton
         # compute revised price for next timestep
         self.adjusted_cost_energy_usd_per_mwh[self.timestep + 1]["oil"] = (
             self._adjust_price(base_oil_price, mwh_oil_produced_with_eor)
+            - self.ccs_usd_per_mwh[self.timestep]["eor"]
         )
 
         # gas is more expensive because of CCS in ng processing

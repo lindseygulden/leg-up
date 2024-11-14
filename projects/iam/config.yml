@@ -80,11 +80,6 @@ base_cost_energy_usd_per_mwh:
   oil: 47
   renewables: 30
 # --------- VARIABLES ------------
-ccs_totals:
-  ccs-eor kgco2: {}
-  ccs-gs kgco2: {}
-  ccs-eor usd: {}
-  ccs-gs usd: {}
 energy_shares:
   ng: 0.41
   oil: 0.38
