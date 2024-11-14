@@ -1,4 +1,5 @@
-| column name | explanation | Additional notes on source data, data processing |
+## Mapping of processed-dataframe's column names to descriptions
+| **COLUMN NAME** | **EXPLANATION** | **Additional notes on source data, data processing** |
 | ----------- | ----------- | ----------- |
 | filing_uuid | unique identifier for the filing document parsed | Note that, to find the filing document refereneced, this filing_uuid can be entered in the web query interface at lda.senate.gov. |
 | total_number_lobbying_activities | total number of individual lobbying activies reported on the filing document | |
@@ -62,4 +63,3 @@
 | terms_consistent_with_ccs | 1 if contains terms that are consistent with CCS but are not ALWAYS CCS (e.g., "carbon dioxide" and "storage' could be 'energy storage' and 'carbon dioxide emissions', which is not CCS, or it could be 'the storage of and transport of carbon dioxide", which would be more consistent with CCS but might not be caught as 'definitely ccs' because of the atypical phrasing); 0 otherwise | |
 | terms_could_be_ccs | 1 if activity description contains terms that sometimes (or even usually) mean we're dealing with CCS (e.g., 'underground injection control'); 0 otherwise | |
 | ccs_because_of_who_says_it | lobbying activity contains terms_consistent_with_ccs and the company doing the lobbying is associated with either the core fossil fuel sectors (e.g., coal, gas, oilfield services) or fossil-fuel adjacent companies (e.g. air transport) | see lists of core/adjacent FF sectors and terms consistent wit ccs in ccs_postproc_specifications.yml |
-
