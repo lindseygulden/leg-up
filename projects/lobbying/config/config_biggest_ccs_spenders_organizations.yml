@@ -18,23 +18,23 @@ chunk_start: 1
 lobbyist_filename_prefix: ccs_lda_lobbyists_oil_gas_orgs
 output_filename_prefix: ccs_lda_filings_oil_gas_orgs
 # quick text processing to standardize the way bills are referred to (this should *probably* be done in postproc...refac)
-bill_name_prefixes_replace_dict_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/bill_abbreviations.yml
+bill_name_prefixes_replace_dict_path: /Users/lindseygulden/dev/leg-up/projects/lobbying/definitions/bill_abbreviations.yml
 # path to the formatted search term list.
 # If query_param == client_name, file at search_term_list_path is a yaml list of standard string
 # values (organization names or subset of names)
 # If query_param == filing_specific_lobbying_issues, file at search_term_list_path is a yaml list
 # of specially formatted strings. For example : - '"query term1","query term2" -"do not include this term"'
-search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_terms_oil_and_gas_orgs.yml
+search_term_list_path: /Users/lindseygulden/dev/leg-up/projects/lobbying/search_terms/search_terms_oil_and_gas_orgs.yml
 #
 #### ---- RESULT COMPILATION CONFIGURATION SETTINGS (used in compile_ccs.py) ---- ####
 #
 # file that allows for pre-preprocessing of terms to remove activities with terms (e.g., 'lollipops' if you just don't care about lollipop lobbying)
-remove_any_activities_with_these_terms_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/terms_to_remove_for_organization_searches.yml
+remove_any_activities_with_these_terms_path: /Users/lindseygulden/dev/leg-up/projects/lobbying/definitions/terms_to_remove_for_organization_searches.yml
 # defines structure of remove file. Because of a hack, needs to be a two-deep dictionary (with two keys)
 remove_org_key:
   - remove these organizations
   - terms
-organization_name_handling_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/organization_name_handling.yml
+organization_name_handling_path: /Users/lindseygulden/dev/leg-up/projects/lobbying/definitions/organization_name_handling.yml
 groupby_columns_for_obtaining_only_most_recent_filing:
   - filing_year
   - filing_period
@@ -45,12 +45,12 @@ groupby_columns_for_obtaining_only_most_recent_filing:
 #### ---- POST-PROCESSING CONFIGURATION SETTINGS (used in postprocess_ccs.py) ---- ####
 #
 topic_description: ccs
-postproc_specs_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/ccs_postproc_specifications.yml
+postproc_specs_path: /Users/lindseygulden/dev/leg-up/projects/lobbying/definitions/ccs_postproc_specifications.yml
 subset_to_topic_only: False
-company_name_replacements: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/company_name_replacements.yml
+company_name_replacements: /Users/lindseygulden/dev/leg-up/projects/lobbying/definitions/company_name_replacements.yml
 clean_client_description_col: clean_client_general_description
 company_rename_col: client_rename
-company_sector_assignments: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/sectors_updated.yml
-path_to_lumped_sector_info: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/lumped_sectors.yml
-political_party_congress_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/party_control_congress.yml
+company_sector_assignments: /Users/lindseygulden/dev/leg-up/projects/lobbying/definitions/sectors_updated.yml
+path_to_lumped_sector_info: /Users/lindseygulden/dev/leg-up/projects/lobbying/definitions/lumped_sectors.yml
+political_party_congress_path: /Users/lindseygulden/dev/leg-up/projects/lobbying/definitions/party_control_congress.yml
 remove_sector_name: REMOVE
