@@ -7,6 +7,8 @@ This directory contains python, YAML, and Jupyter files that together are used t
 
 [Linked here is a written summary](https://docs.google.com/document/d/1BKStXzkElu1F4sogFl9wSw8_8woJIqiMn3FdKy-e0to/edit?usp=sharing) of key conclusions from efforts to quantify lobbying of the federal government regarding carbon capture and storage (CCS). A tabular summary of CCS-related lobbying of the US federal government can be found [here](https://docs.google.com/spreadsheets/d/1pbzg_OYfu8rRQgCW2nRYDXkRrcCdDakaYELiH4j7B4U/edit?usp=sharing).
 
+This [supplemental README](https://github.com/lindseygulden/leg-up/blob/main/projects/lobbying/projects/lobbying/README_column_name_explanation.md) file describes the post-processed data columns.
+
 Note that when looking for lobbying disclosures tied to CCS we looked both for descriptions of CCS as well as closely related topics (e.g., enhanced oil recovery (EOR), 'clean hydrogen' or 'blue hydrogen' (i.e., hydrogen made with methane), 'class VI well permitting reform', carbon dioxide pipelines, etc.)
 
 ## In addition to these files, what else might I need?
@@ -67,7 +69,8 @@ The YAML files in the [definitions](https://github.com/lindseygulden/leg-up/blob
 
 [Utility functions used, to some extent, in both compile_results.py and postprocess.py](https://github.com/lindseygulden/leg-up/blob/main/projects/lobbying/postproc_utils.py)
 
-### Three scripts for running the whole enchilada
+### How to run the whole enchilada, from API query to postprocessing query results:
+Three command line scripts run the workflow.
 1. [Command-line script to query the LDA API](https://github.com/lindseygulden/leg-up/blob/main/projects/lobbying/lda_query.py). To use (from root directory command line):
 ```
 >> python3 projects/lobbying/lda_query.py --config [path to config.yml] --output_dir [path to directory for results]
@@ -78,7 +81,7 @@ The YAML files in the [definitions](https://github.com/lindseygulden/leg-up/blob
 ```
 3. [Command-line script to postprocess the compiled LDA-API query results](https://github.com/lindseygulden/leg-up/blob/main/projects/lobbying/lda_query.py). To use (from root directory command line):
 ```
->> python3 projects/lobbying/postprocess.py --config [path to config.yml] --oinput_file [path to filename where compiled results are stored] --output_file [path to filename where postprocessed results will be written, in csv form]
+>> python3 projects/lobbying/postprocess.py --config [path to config.yml] --input_file [path to filename where compiled results are stored] --output_file [path to filename where postprocessed results will be written, in csv form]
 ```
 
 ### Figures and tables for presenting results
