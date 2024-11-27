@@ -13,7 +13,7 @@ query_param: client_name
 # chunk_size is number of pages to be queried before lumping outputs and writing to csv
 chunk_size: 30
 # chunk_start is the suffix for the write-out file to begin with -- useful for restarting if query gets interrupted in long searches
-chunk_start: 131
+chunk_start: 1
 # prefixes for api-query-result .csv files to be written by lda_query.py
 lobbyist_filename_prefix: ccs_lda_lobbyists_oil_gas_orgs
 output_filename_prefix: ccs_lda_filings_oil_gas_orgs
@@ -47,7 +47,6 @@ groupby_columns_for_obtaining_only_most_recent_filing:
 topic_description: ccs
 postproc_specs_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/ccs_postproc_specifications.yml
 subset_to_topic_only: False
-law_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/ccs_laws.yml
 company_name_replacements: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/company_name_replacements.yml
 clean_client_description_col: clean_client_general_description
 company_rename_col: client_rename

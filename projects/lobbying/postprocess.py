@@ -39,6 +39,7 @@ def quarter_to_decimal(quart: str) -> float:
 
 def adjust_company_names(activity_df: pd.DataFrame, config_info: dict):
     """Fills nans, replaces company names according to replacmeents specified in yaml"""
+
     activity_df[config_info["clean_client_description_col"]] = activity_df[
         config_info["clean_client_description_col"]
     ].fillna("")
@@ -49,7 +50,7 @@ def adjust_company_names(activity_df: pd.DataFrame, config_info: dict):
     replace_dict = yaml_to_dict(config_info["company_name_replacements"])
 
     activity_df[config_info["company_rename_col"]] = [
-        replace_dict[x] if x in list(replace_dict.keys()) else r
+        replace_dict[x] if (x in list(replace_dict.keys())) else r
         for x, r in zip(
             activity_df["client_name"], activity_df[config_info["company_rename_col"]]
         )
@@ -116,7 +117,9 @@ def find_description(
     return df
 
 
-def find_bill_numbers_for_congress(df: pd.DataFrame, postproc_specs: str, id_str: str):
+def find_bill_numbers_for_congress(
+    df: pd.DataFrame, postproc_specs: str, id_str: str, min_chars: int = 7
+):
     """identify lobbying activities (rows) that mention CCS-focused bills for a given congress"""
     # get dictionary with congress number/bill number for CCS bills
 
@@ -126,16 +129,45 @@ def find_bill_numbers_for_congress(df: pd.DataFrame, postproc_specs: str, id_str
         (
             1
             if (
-                terms_present(d, bill_numbers[which_congress])
-                | terms_present(
-                    d, [x.replace(" ", "") for x in bill_numbers[which_congress]]
-                )
-                | terms_present(
-                    d, [x.replace("SB ", "S") for x in bill_numbers[which_congress]]
+                terms_present(
+                    d,
+                    [
+                        x + " " if len(x) < min_chars else x
+                        for x in bill_numbers[which_congress]
+                    ],
                 )
                 | terms_present(
                     d,
-                    [x.replace("SB ", "S ") for x in bill_numbers[which_congress]],
+                    [
+                        (
+                            x.replace(" ", "") + " "
+                            if len(x) < min_chars
+                            else x.replace(" ", "")
+                        )
+                        for x in bill_numbers[which_congress]
+                    ],
+                )
+                | terms_present(
+                    d,
+                    [
+                        (
+                            x.replace("SB ", "S") + " "
+                            if len(x) < min_chars
+                            else x.replace("SB ", "S")
+                        )
+                        for x in bill_numbers[which_congress]
+                    ],
+                )
+                | terms_present(
+                    d,
+                    [
+                        (
+                            x.replace("SB ", "S ") + " "
+                            if len(x) < min_chars
+                            else x.replace("SB ", "S ")
+                        )
+                        for x in bill_numbers[which_congress]
+                    ],
                 )
             )
             else 0
@@ -441,7 +473,7 @@ def postprocess(
     ]
 
     # order values such that someone who is reading the output first sees all the 'definitely ccs' ones
-    activity_df.sort_values(
+    activity_df = activity_df.sort_values(
         by=[
             f"definitely_{topic}",
             f"very_likely_{topic}",
@@ -452,7 +484,6 @@ def postprocess(
             "filing_year",
         ],
         ascending=False,
-        inplace=True,
     )
     activity_df.to_csv(output_file, index=False)
 
