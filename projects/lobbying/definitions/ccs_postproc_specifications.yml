@@ -8,6 +8,7 @@ contains_description:
 - Petra Nova #ccs project
 - ' co pipelines'
 - FutureGen
+- HyVelocity
 #- '"permitting reform","hydrogen"'
 #- '"negative emissions"'
 #- '"energy innovation"'
@@ -142,9 +143,9 @@ contains_description:
 - - section 45
   - co2
 - 45Q
-- 45 Q
+- '45 Q '
 - 45V
-- 45 V
+- ' 45 V '
 - - clean coal
   - utilization
 - - clean coal
@@ -750,6 +751,10 @@ terms_could_be_ccs:
 - fossil energy and carbon management
 # ************** terms that indicate activities are NOT CCS *************
 not_ccs:
+- growing climate solutions
+- soil carbon
+- student loan
+- loan refinancing
 - opiod
 - pain management
 - ' drone'
@@ -959,6 +964,7 @@ subset_and_order_of_writeout_columns: # does not include entity binary column na
   - sector
   - lumped_sector
   - very_lumped_sector
+  - uber_lumped_sector
   - definitely_ccs
   - very_likely_ccs
   - likely_ccs
@@ -1002,3 +1008,176 @@ subset_and_order_of_writeout_columns: # does not include entity binary column na
   - terms_consistent_with_ccs
   - terms_could_be_ccs
   - ccs_because_of_who_says_it
+tabulate_contacts_for_entities:
+#- amtrak - natl railroad passenger corporation
+#- defense finance & accounting service (dfas)
+#- centers for medicare and medicaid services (cms)
+#- occupational safety & health review commission
+#- drug enforcement administration (dea)
+#- u.s. agency for international development (usaid)
+- nuclear regulatory commission (nrc)
+- office of administration
+- interior, dept of (doi)
+#- natl telecommunications & information administration (ntia)
+- congressional budget office (cbo)
+#- bureau of citizenship & immigration services (bcis)
+#- federal bureau of investigation (fbi)
+#- natl institute of mental health (nimh)
+#- medicare payment advisory commission (medpac)
+- defense information systems agency
+- federal communications commission (fcc)
+#- economic development administration
+#- natl institute of justice
+- u.s. geological survey (usgs)
+- office of government ethics (oge)
+#- office of special counsel
+#- office of the secretary of defense
+#- natl security council (nsc)
+#- health & human services, dept of (hhs)
+#- federal election commission (fec)
+- office of management & budget (omb)
+#- housing & urban development, dept of (hud)
+- house of representatives
+#- administration for children & families (acf)
+#- natl oceanic & atmospheric administration (noaa)
+#- financial crimes enforcement network (fincen)
+- federal railroad administration
+#- natl credit union administration (ncua)
+#- patent & trademark office (pto)
+- federal motor carrier safety administration
+#- social security administration (ssa)
+#- pension & welfare benefits administration
+- council on environmental quality (ceq)
+- bureau of industry and security (bis)
+#- u.s. postal service (usps)
+- bureau of reclamation
+- internal revenue service (irs)
+- agency for toxic substances & disease registry
+#- director of national intelligence (odni)
+#- homeland security, dept of (dhs)
+#- u.s. fish & wildlife service (usfws)
+- undetermined
+- minerals management service
+#- federal emergency management agency (fema)
+- u.s. chemical safety & hazard investigation board
+- federal aviation administration (faa)
+- executive office of the president (eop)
+#- defense logistics agency
+- office of science & technology policy (ostp)
+#- central intelligence agency (cia)
+#- office of thrift supervision (ots)
+- risk management agency
+- natl economic council (nec)
+#- farm credit administration
+- energy, dept of
+- federal transit administration (fta)
+- commerce, dept of (doc)
+#- natl security agency (nsa)
+- natl transportation safety board (ntsb)
+- vice president of the u.s.
+#- employment & training administration
+- federal energy regulatory commission (ferc)
+#- pension benefit guaranty corporation (pbgc)
+- agriculture, dept of (usda)
+- mine safety & health administration (msha)
+#- small business administration (sba)
+- pipeline & hazardous materials safety administration
+#- food & drug administration (fda)
+#- u.s. customs & border protection
+#- postal regulatory commission
+#- american battle monuments commission
+#- tennessee valley authority (tva)
+- bureau of land management (blm)
+#- veterans employment & training service
+- president of the u.s.
+#- u.s. immigration & customs enforcement (ice)
+#- federal housing finance agency (fhfa)
+#- natl institutes of health (nih)
+- maritime administration (marad)
+#- merit systems protection board
+#- defense contract audit agency (dcaa)
+#- u.s. mint
+#- u.s. copyright office
+- natl highway traffic safety administration (nhtsa)
+#- natl mediation board
+- u.s. forest service
+#- consumer product safety commission (cpsc)
+- research & special programs administration
+- justice, dept of (doj)
+#- u.s. marines
+#- st. lawrence seaway development corporation
+#- air force, dept of
+#- election assistance commission (eac)
+- office of surface mining reclamation & enforcement
+- transportation security administration (tsa)
+#- defense, dept of (dod)
+- office of policy development
+- bureau of the census
+#- advisory council on historic preservation (achp)
+#- export-import bank of the united states (exim bank)
+- appalachian regional commission
+#- marine mammal commission
+#- u.s. coast guard (uscg)
+#- indian health service
+- white house office
+#- equal employment opportunity commission (eeoc)
+- federal mine safety health review commission (fmshrc)
+- bureau of indian affairs (bia)
+- environmental protection agency (epa)
+- state, dept of (dos)
+- senate
+- general services administration (gsa)
+#- intl trade administration (ita)
+#- natl aeronautics & space administration (nasa)
+#- library of congress (loc)
+#- defense security cooperation agency (dsca)
+- natl labor relations board (nlrb)
+#- federal deposit insurance corporation (fdic)
+- natl science foundation (nsf)
+#- defense department field activities
+#- army, dept of (other)
+- occupational safety & health administration (osha)
+#- centers for disease control & prevention (cdc)
+#- natl guard
+#- agency for healthcare research & quality (ahrq)
+#- office of the comptroller of the currency (occ)
+- commodity futures trading commission (cftc)
+#- african development foundation
+#- defense intelligence agency (dia)
+#- defense commissary agency
+- bureau of labor statistics (bls)
+#- overseas private investment corp (opic)
+- office of the vice president of the united states
+- u.s. trade representative (ustr)
+- council of economic advisers (cea)
+- government accountability office (gao)
+#- federal trade commission (ftc)
+#- education, dept of
+#- natl park service (nps)
+#- army, dept of (corps of engineers)
+#- health resources & services administration (hrsa)
+- securities & exchange commission (sec)
+#- substance abuse & mental health services administration (samhsa)
+- office of technology policy (otp)
+#- defense advanced research projects agency (darpa)
+- surface transportation board (stb)
+#- federal reserve system
+#- u.s. architectural & transportation barriers compliance board (access)
+- natl institute of standards & technology (nist)
+- u.s. trade & development agency (ustda)
+#- office of personnel management (opm)
+- u.s. information agency (usia)
+- federal accounting standards advisory board (fasab)
+- federal maritime commission
+- transportation, dept of (dot)
+#- federal highway administration (fha)
+#- alcohol & tobacco tax & trade bureau (ttb)
+- treasury, dept of
+#- navy, dept of
+#- natl archives & records administration (nara)
+#- bureau of transportation statistics
+- labor, dept of (dol)
+#- veterans affairs, dept of (va)
+#- consumer financial protection bureau (cfpb)
+#- federal mediation & conciliation service
+#- u.s. international trade commission (itc)

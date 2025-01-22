@@ -94,3 +94,50 @@ very_lumped:
   hvac: OTHER
   energy technology: ENGINEERING-TECH
   individuals: OTHER
+uber_lumped:
+  air transit: Fossil-Fuel Adjacent
+  algae: Core Fossil Fuels
+  biofuels: Fossil-Fuel Adjacent
+  business advocacy: Nonprofit/Issue Advocacy
+  carbon: '"Green"'
+  ccs: Core Fossil Fuels
+  cement: Non-FF Industry
+  chemicals, refining, and plastics: Core Fossil Fuels
+  clean hydrogen: Core Fossil Fuels
+  coal: Core Fossil Fuels
+  energy technology: Fossil-Fuel Adjacent
+  engineering, technology, and consulting: Other
+  environmental: '"Green"'
+  ev: '"Green"'
+  finance: Other
+  food and agriculture: Other
+  fuel cell: Fossil-Fuel Adjacent
+  government: Nonprofit/Issue Advocacy
+  green hydrogen: '"Green"'
+  higher education: Nonprofit/Issue Advocacy
+  hvac: Other
+  independent power producers: Core Fossil Fuels
+  independent research organization: Other
+  investor owned utilities: Core Fossil Fuels
+  iron and steel: Non-FF Industry
+  labor union: Nonprofit/Issue Advocacy
+  land transit: Fossil-Fuel Adjacent
+  law and public policy: Other
+  lng: Core Fossil Fuels
+  mining and metals: Non-FF Industry
+  municipal and cooperative utilities: Core Fossil Fuels
+  nuclear: '"Green"'
+  oil and gas: Core Fossil Fuels
+  oilfield services: Core Fossil Fuels
+  other: Other
+  paper products: Non-FF Industry
+  pipelines: Core Fossil Fuels
+  power sector general: Core Fossil Fuels
+  professional societies: Nonprofit/Issue Advocacy
+  railway: Fossil-Fuel Adjacent
+  renewable energy: '"Green"'
+  think tanks and issue advocacy: Nonprofit/Issue Advocacy
+  water: '"Green"'
+  water transit: Fossil-Fuel Adjacent
+  remove these organizations: Remove
+  individuals: Individuals
