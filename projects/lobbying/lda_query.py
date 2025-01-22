@@ -122,6 +122,7 @@ def parse_lobbyists(lobbyists: dict, details: dict) -> List[dict]:
         "filing_id",
         "url",
         "filing_uuid",
+        "activity_id",
     ]:
         lobby_dict[details_key] = details[details_key]
 

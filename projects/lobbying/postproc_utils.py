@@ -197,7 +197,6 @@ def invert_sector_dict(sectors_path: str) -> Dict[str, str]:
     all_companies = []
     for _, value in sector_assignments.items():
         all_companies = all_companies + value
-    # print(all_companies)
 
     company_sector_dict = {}
     for k, vv in sector_assignments.items():

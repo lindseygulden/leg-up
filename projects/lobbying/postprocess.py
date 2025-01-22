@@ -37,8 +37,11 @@ def quarter_to_decimal(quart: str) -> float:
     raise ValueError(f"{quart} quarter string is not one of accepted values.")
 
 
-def adjust_company_names(activity_df: pd.DataFrame, config_info: dict):
+def adjust_company_names(df: pd.DataFrame, config_info: dict):
     """Fills nans, replaces company names according to replacmeents specified in yaml"""
+
+    activity_df = df.copy()
+    logging.info(" ADJUSTING THE COMPANY NAMES!")
 
     activity_df[config_info["clean_client_description_col"]] = activity_df[
         config_info["clean_client_description_col"]
@@ -50,11 +53,12 @@ def adjust_company_names(activity_df: pd.DataFrame, config_info: dict):
     replace_dict = yaml_to_dict(config_info["company_name_replacements"])
 
     activity_df[config_info["company_rename_col"]] = [
-        replace_dict[x] if (x in list(replace_dict.keys())) else r
+        replace_dict[x] if x in list(replace_dict.keys()) else r
         for x, r in zip(
             activity_df["client_name"], activity_df[config_info["company_rename_col"]]
         )
     ]
+
     return activity_df
 
 
@@ -86,11 +90,20 @@ def assign_sectors(df: pd.DataFrame, config_info: dict):
     inverted_sector_dict = invert_sector_dict(config_info["company_sector_assignments"])
     lumped_sector_dict = yaml_to_dict(config_info["path_to_lumped_sector_info"])
 
+    df[config_info["company_rename_col"]] = df[
+        config_info["company_rename_col"]
+    ].fillna(" ")
+
+    orgs = df[config_info["company_rename_col"]].unique()
+    for org in orgs:
+        if org not in inverted_sector_dict.keys():
+            print(org)
     df["sector"] = [
         inverted_sector_dict[x] for x in df[config_info["company_rename_col"]]
     ]
     df["lumped_sector"] = [lumped_sector_dict["lightly_lumped"][s] for s in df.sector]
     df["very_lumped_sector"] = [lumped_sector_dict["very_lumped"][s] for s in df.sector]
+    df["uber_lumped_sector"] = [lumped_sector_dict["uber_lumped"][s] for s in df.sector]
     return df
 
 
@@ -379,16 +392,17 @@ def subset_to_topic_only(df: pd.DataFrame, config_info: dict):
     return cleaned_df
 
 
-def expand_and_tabulate_entities(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[str]]:
+def expand_and_tabulate_entities(
+    df: pd.DataFrame, config: str
+) -> Tuple[pd.DataFrame, List[str]]:
     """Use entity string to expand and tabulate counts of lobbying activities"""
+    entities = yaml_to_dict(config)["tabulate_contacts_for_entities"]
+
+    # safe eval
     aeval = Interpreter()
-    entities = set()
-    for i in df.entities:
-        entities = entities.union(set(aeval(i)))
-    entities = list(entities)
 
     # expand the json string of the entity list
-    df["entity_expanded"] = [aeval(x) for x in df.entities]
+    df["entity_expanded"] = [aeval(x) for x in df["entities"]]
     df["n_entities_lobbied"] = [len(x) for x in df.entity_expanded]
     df["legistlative_entities_lobbied"] = [
         np.sum([("congress" in x) | ("house" in x) | ("senate" in x) for x in xx])
@@ -402,6 +416,7 @@ def expand_and_tabulate_entities(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[s
         df[entity] = [
             1 if entity in entity_list else 0 for entity_list in df.entity_expanded
         ]
+
     return df, entities
 
 
@@ -444,7 +459,7 @@ def postprocess(
     all_df = adjust_company_names(all_df, config_info)
 
     logging.info(" >>> Assigning companies to sectors")
-    all_df = assign_sectors(all_df, config_info)
+    all_df = assign_sectors(all_df.copy(deep=True), config_info)
 
     logging.info(" >>> Classifying lobbying activities")
     # get rid of nans in lobbying activity description
@@ -460,7 +475,9 @@ def postprocess(
     logging.info(" >>> Apportioning dollars to individual lobbying activities")
     activity_df = apportion_filing_dollars_to_activities(activity_df)
 
-    activity_df, entities = expand_and_tabulate_entities(activity_df)
+    activity_df, entities = expand_and_tabulate_entities(
+        activity_df, config_info["postproc_specs_path"]
+    )
 
     activity_df = add_political_party(activity_df, config_info)
     logging.info(" >>> Writing out data")
