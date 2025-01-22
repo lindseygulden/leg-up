@@ -1,0 +1,143 @@
+# Mappings between granular sector descriptions and increasingly 'lumped' sectors
+# 'lightly lumped' is more granular than 'very lumped'
+lightly_lumped:
+  law and public policy: OTHER
+  lng: FOSSIL FUEL
+  land transit: TRANSPORT
+  air transit: TRANSPORT
+  water transit: TRANSPORT
+  fuel cell: TRANSPORT
+  ev: TRANSPORT
+  biofuels: BIOFUEL-SYNFUEL
+  business advocacy: BUSINESS-ADVOCACY
+  carbon: CARBON MANAGEMENT
+  ccs: CARBON MANAGEMENT
+  algae: CARBON MANAGEMENT
+  cement: NON-FF-INDUSTRY
+  chemicals, refining, and plastics: CHEMICALS
+  clean hydrogen: FOSSIL FUEL
+  coal: FOSSIL FUEL
+  engineering, technology, and consulting: ENGINEERING-TECH
+  environmental: NONPROFIT
+  finance: FINANCE
+  food and agriculture: AGRICULTURE
+  government: OTHER
+  green hydrogen: RENEWABLES
+  higher education: NONPROFIT
+  independent research organization: RESEARCH-ADVOCACY
+  think tanks and issue advocacy: RESEARCH-ADVOCACY
+  iron and steel: NON-FF-INDUSTRY
+  labor union: EMPLOYEES
+  mining and metals: NON-FF-INDUSTRY
+  nuclear: RENEWABLES
+  oil and gas: FOSSIL FUEL
+  oilfield services: FOSSIL FUEL
+  other: OTHER
+  paper products: NON-FF-INDUSTRY
+  professional societies: EMPLOYEES
+  pipelines: FOSSIL FUEL
+  railway: TRANSPORT
+  renewable energy: RENEWABLES
+  remove these organizations: REMOVE
+  water: OTHER
+  hvac: OTHER
+  individuals: OTHER
+  independent power producers: INVESTOR-OWNED-POWER-SECTOR
+  investor owned utilities: INVESTOR-OWNED-POWER-SECTOR
+  municipal and cooperative utilities: MUNICIPAL-UTILITIES
+  power sector general: INVESTOR-OWNED-POWER-SECTOR
+  energy technology: ENGINEERING-TECH
+very_lumped:
+  law and public policy: OTHER
+  algae: CARBON-MANAGEMENT
+  lng: FOSSIL-FUEL
+  land transit: TRANSPORT
+  air transit: TRANSPORT
+  water transit: TRANSPORT
+  fuel cell: TRANSPORT
+  ev: TRANSPORT
+  biofuels: BIOFUEL-SYNFUEL
+  business advocacy: BUSINESS-ADVOCACY
+  carbon: CARBON-MANAGEMENT
+  ccs: CARBON-MANAGEMENT
+  cement: NON-FF-INDUSTRY
+  chemicals, refining, and plastics: CHEMICALS
+  clean hydrogen: FOSSIL-FUEL
+  coal: FOSSIL-FUEL
+  engineering, technology, and consulting: ENGINEERING-TECH
+  environmental: OTHER
+  finance: OTHER
+  food and agriculture: OTHER
+  government: OTHER
+  green hydrogen: OTHER
+  higher education: OTHER
+  independent research organization: OTHER
+  think tanks and issue advocacy: OTHER
+  iron and steel: NON-FF-INDUSTRY
+  labor union: OTHER
+  mining and metals: NON-FF-INDUSTRY
+  nuclear: OTHER
+  oil and gas: FOSSIL-FUEL
+  oilfield services: FOSSIL-FUEL
+  other: OTHER
+  paper products: NON-FF-INDUSTRY
+  professional societies: OTHER
+  pipelines: FOSSIL-FUEL
+  independent power producers: POWER-UTILITIES
+  investor owned utilities: POWER-UTILITIES
+  municipal and cooperative utilities: POWER-UTILITIES
+  power sector general: POWER-UTILITIES
+  railway: TRANSPORT
+  renewable energy: OTHER
+  remove these organizations: REMOVE
+  water: OTHER
+  hvac: OTHER
+  energy technology: ENGINEERING-TECH
+  individuals: OTHER
+uber_lumped:
+  air transit: Fossil-Fuel Adjacent
+  algae: Core Fossil Fuels
+  biofuels: Fossil-Fuel Adjacent
+  business advocacy: Nonprofit/Issue Advocacy
+  carbon: '"Green"'
+  ccs: Core Fossil Fuels
+  cement: Non-FF Industry
+  chemicals, refining, and plastics: Core Fossil Fuels
+  clean hydrogen: Core Fossil Fuels
+  coal: Core Fossil Fuels
+  energy technology: Fossil-Fuel Adjacent
+  engineering, technology, and consulting: Other
+  environmental: '"Green"'
+  ev: '"Green"'
+  finance: Other
+  food and agriculture: Other
+  fuel cell: Fossil-Fuel Adjacent
+  government: Nonprofit/Issue Advocacy
+  green hydrogen: '"Green"'
+  higher education: Nonprofit/Issue Advocacy
+  hvac: Other
+  independent power producers: Core Fossil Fuels
+  independent research organization: Other
+  investor owned utilities: Core Fossil Fuels
+  iron and steel: Non-FF Industry
+  labor union: Nonprofit/Issue Advocacy
+  land transit: Fossil-Fuel Adjacent
+  law and public policy: Other
+  lng: Core Fossil Fuels
+  mining and metals: Non-FF Industry
+  municipal and cooperative utilities: Core Fossil Fuels
+  nuclear: '"Green"'
+  oil and gas: Core Fossil Fuels
+  oilfield services: Core Fossil Fuels
+  other: Other
+  paper products: Non-FF Industry
+  pipelines: Core Fossil Fuels
+  power sector general: Core Fossil Fuels
+  professional societies: Nonprofit/Issue Advocacy
+  railway: Fossil-Fuel Adjacent
+  renewable energy: '"Green"'
+  think tanks and issue advocacy: Nonprofit/Issue Advocacy
+  water: '"Green"'
+  water transit: Fossil-Fuel Adjacent
+  remove these organizations: Remove
+  individuals: Individuals
