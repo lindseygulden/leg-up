@@ -1,8 +1,9 @@
 # Evaluating ExxonMobil's Permian Production Projections
+Lindsey Gulden, February 2025
 
 ## What's in this folder?
 This set of scripts and figures compares ExxonMobil's 2020-era Permian-production projections to what actually happened. Included here are links to data sources, processing scripts, and figure-generating code.
-Lindsey Gulden, February 2025
+
 
 ### Permian oil and gas production data recorded with state regulators
 We queried publicly available oil and gas production data from the states of New Mexico and Texas to estimate ExxonMobil's Permian basin petroleum production both before and after its merger with Pioneer in late 2023. We tracked 'heritage XTO' acreage in the Permian to assess the 2020-era projections of ExxonMobil regarding Permian production in 2025.
