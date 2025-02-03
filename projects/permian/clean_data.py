@@ -1,17 +1,18 @@
 """ script to process query output for RRC and OCD data"""
 
-import pandas as pd
-from calendar import isleap
-import click
-from typing import Union
-from pathlib import PosixPath
 import logging
+from calendar import isleap
+from pathlib import PosixPath
+from typing import Union
 
+import click
+import pandas as pd
 
 logging.basicConfig(level=logging.INFO)
 
 
 def days_in_month(month: int, year: int):
+    """Returns days in given month, accounting for leap years"""
     if not isinstance(month, int):
         raise ValueError(" Input arguments for month and year must be integers.")
     if month == 2:
@@ -34,7 +35,8 @@ def days_in_month(month: int, year: int):
     type=click.Path(file_okay=True, dir_okay=False),
     required=True,
 )
-def clean(tx: Union[str, PosixPath], nm: Union[str, PosixPath]):
+@click.option("--rep", type=click.STRING, required=False, default=".csv")
+def clean(tx: Union[str, PosixPath], nm: Union[str, PosixPath], rep: str):
     """cleans and processes query results from RRC and OCD"""
     tx_df = pd.read_csv(tx)
     nm_df = pd.read_csv(nm)
@@ -59,13 +61,8 @@ def clean(tx: Union[str, PosixPath], nm: Union[str, PosixPath]):
     tx_df["state"] = "TX"
     nm_df["state"] = "NM"
 
-    tx_df["permian"] = 1
-    nm_df["permian"] = [
-        1 if x == "XTO PERMIAN OPERATING LLC." else 0 for x in nm_df.operator
-    ]
-
-    tx_df["pre_pioneer"] = [1 if x == "XTO ENERGY INC." else 0 for x in tx_df.operator]
-    nm_df["pre_pioneer"] = 1
+    nm_df["xto"] = 1
+    tx_df["xto"] = [1 if x == "XTO ENERGY INC." else 0 for x in tx_df.operator]
 
     # compute total boe for both states
     tx_df["boe"] = tx_df[
@@ -85,12 +82,10 @@ def clean(tx: Union[str, PosixPath], nm: Union[str, PosixPath]):
 
     # write out cleaned data
     tx_df.to_csv(
-        "texas_rrc_district_level_oil_and_gas_production_by_month_and_operator.csv",
+        tx.replace(rep, "postprocessed.csv"),
         index=None,
     )
-    nm_df.to_csv(
-        "nm_ocd_statewide_oil_and_gas_production_by_month_and_operator.csv", index=None
-    )
+    nm_df.to_csv(nm.replace(rep, "postprocessed.csv"), index=None)
 
     logging.info(
         " ----- Processed TX and NM data and wrote to csv ----- ",
