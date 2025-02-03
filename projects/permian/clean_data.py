@@ -58,6 +58,15 @@ def clean(tx: Union[str, PosixPath], nm: Union[str, PosixPath]):
 
     tx_df["state"] = "TX"
     nm_df["state"] = "NM"
+
+    tx_df["permian"] = 1
+    nm_df["permian"] = [
+        1 if x == "XTO PERMIAN OPERATING LLC." else 0 for x in nm_df.operator
+    ]
+
+    tx_df["pre_pioneer"] = [1 if x == "XTO ENERGY INC." else 0 for x in tx_df.operator]
+    nm_df["pre_pioneer"] = 1
+
     # compute total boe for both states
     tx_df["boe"] = tx_df[
         [
