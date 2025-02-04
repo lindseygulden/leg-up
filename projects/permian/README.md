@@ -49,7 +49,7 @@ y 'heritage XTO' acres). For both the actual-production time series (shown in re
 # Data and postprocessing scripts and figure-generating code
 1. Digitized ExxonMobil projection (and actuals) data as well as NM OC and Texas RRC Permian production data for both Pioneer and XTO are available in this [zipped directory](https://drive.google.com/file/d/1PyYGjHnSSJuoxyak0OCEW5OBVhdzSgU9/view?usp=share_link).
 2. [cleaned_data.py](https://github.com/lindseygulden/leg-up/blob/main/projects/permian/clean_data.py) is a script that converted the raw query results to a cleaner, easier to manage dataframe (written to the '_postprocessed.csv' files in the linked data directory above.
-3. This [Permian Production jupyter notebook](https://github.com/lindseygulden/leg-up/blob/main/projects/permian/permian_production.ipynb) does additional postprocessing on the digitized data and query results, then plots the two-paneled image below.
+3. This [Permian Production jupyter notebook](https://github.com/lindseygulden/leg-up/blob/main/projects/permian/permian_production.ipynb) does additional postprocessing on the digitized data and query results, then plots the images below.
 
 # Difference between 2020 production forecast and actuals
 We formatted the above-described data such that all time series could be plotted together for comparison. The figure shows the results:
