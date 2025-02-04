@@ -52,4 +52,4 @@ We used the freely available [Plot Digitizer app](https://plotdigitizer.com/app)
 
 # Results
 We formatted the above-described data such that all time series could be plotted together for comparison. The figure shows the results:
-![Heritage XTO and Heritage Pioneer produciton rates in the Permian (kboed) and 2020 Green blob predictions compared with actual Heritage XTO acreage](green_blob_vs_reality.png "Green Blob Permian Heritage XTO Acreage Projection to 2025 compared to actual results recorded with state regulators")
+![Heritage XTO and Heritage Pioneer produciton rates in the Permian (kboed) and 2020 Green blob predictions compared with actual Heritage XTO acreage](green_blob_vs_reality.png "Green Blob Permian Heritage XTO Acreage Projection to 2025 compared to actual production")
