@@ -56,6 +56,6 @@ We formatted the above-described data such that all time series could be plotted
 ![Heritage XTO and Heritage Pioneer produciton rates in the Permian (kboed) and 2020 Green blob predictions compared with actual Heritage XTO acreage](green_blob_vs_reality.png "Green Blob Permian Heritage XTO Acreage Projection to 2025 compared to actual production")
 
 # What is the value of the discrepancy?
-We generated a hypothetical case in which the total production differences between the 'Green Blob' forecast and the actual production quickly returned to zero by the end of 2028. 
-Assuming a discount rate of 8% and a profit of $20/BOE, we computed the NPV of the 'missing production' in the gap between the 2020 Green Blob forecast and the actual production from the heritage XTO acreage: the NPV of the 665.7 million BOE of 'missing production' is $10.3 billion.
+We generated a hypothetical case in which the difference in total production between the 'Green Blob' forecast and the actual production quickly returned to zero by the end of 2028. 
+Assuming a discount rate of 8% and a profit of $20/BOE, we computed the NPV of the 'missing production' in the gap between the 2020 Green Blob forecast and the actual production from the heritage XTO acreage: the NPV of the 665.7 million BOE of 'missing production' is $10.3 billion. Methods/calculations can be found in this [Jupyter notebook](https://github.com/lindseygulden/leg-up/blob/main/projects/permian/permian_production.ipynb)
 ![Assuming a discount rate of 8% and a $20/BOE profit, the NPV of the difference in production is $10.3 billion.](what_is_the_npv_of_the_discrepancy.png 'what is the value of the discrepancy')
