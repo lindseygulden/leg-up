@@ -58,4 +58,4 @@ We formatted the above-described data such that all time series could be plotted
 # What is the value of the discrepancy?
 We generated a hypothetical case in which the total production differences between the 'Green Blob' forecast and the actual production quickly returned to zero by the end of 2028. 
 Assuming a discount rate of 8% and a profit of $20/BOE, we computed the NPV of the 'missing production' in the gap between the 2020 Green Blob forecast and the actual production from the heritage XTO acreage: the NPV of the 665.7 million BOE of 'missing production' ius $10.3.
-![Assuming a discount rate of 8% and a $20/BOE profit, the NPV of the difference in production is $10.3 billion.](what_is_the_npv_of_the_discrepancy.png, 'what is the value of the discrepancy')
+![Assuming a discount rate of 8% and a $20/BOE profit, the NPV of the difference in production is $10.3 billion.](what_is_the_npv_of_the_discrepancy.png 'what is the value of the discrepancy')
