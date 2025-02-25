@@ -15,15 +15,7 @@ chunk_start: 1
 query_param: filing_specific_lobbying_issues
 # prefixes for api-query-result .csv files to be written by lda_query.py
 #
-# --- FILE PREFIXES FOR RESULTING FILINGS RESULTS AND LOBBYIST-NAME RESULTS ---
-# lobbyist_filename_prefix: ccs_lda_lobbyists_ccs_terms
-# output_filename_prefix: ccs_lda_filings_ccs_terms
-# lobbyist_filename_prefix: ccs_lda_lobbyists_ccs_billnos
-# output_filename_prefix: ccs_lda_filings_ccs_billnos
-lobbyist_filename_prefix: ccs_lda_lobbyists_ccs_bills
-output_filename_prefix: ccs_lda_filings_ccs_bills
-#
-# --- PATHS TO SEARCH TERM LISTS ---
+# --- PATHS TO SEARCH TERM LISTS AND PARAMETERS ---
 # path to the formatted search term list.
 # If query_param == client_name, file at search_term_list_path is a yaml list of standard string
 # values (organization names or subset of names)
@@ -31,7 +23,10 @@ output_filename_prefix: ccs_lda_filings_ccs_bills
 # of specially formatted strings. For example : - '"query term1","query term2" -"do not include this term"'
 # search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_term_list.yml
 # search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_term_list_ccs_billnos.yml
-search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_terms_ccs_bills_by_name.yml
+# search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_terms_ccs_bills_by_name.yml
+# search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_term_list_ccs_q3q4_2024.yml
+search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_term_additional.yml
+#search_term_list_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/search_terms/search_term_list_ccs_billnos_117_congress.yml
 #
 # quick text processing to standardize the way bills are referred to (this should *probably* be done in postproc...refactor)
 bill_name_prefixes_replace_dict_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/bill_abbreviations.yml
@@ -53,6 +48,7 @@ remove_org_key: # because of hack, has to be two deep
 #
 #### ---- POST-PROCESSING CONFIGURATION SETTINGS (used in postprocess_ccs.py) ---- ####
 #
+accept_uncategorized_orgs: True
 topic_description: ccs  #will be inserted into column names
 postproc_specs_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/ccs_postproc_specifications.yml
 # subset_to_topic_only: if True, post-processing script only returns lobbying activities that are potentially and

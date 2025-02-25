@@ -1,0 +1,11 @@
+# These are bill numbers of legislation in the 109th Congress that dealt mostly or entirely with CCS
+# They should be used with lda_query.py.
+# if you want to subset only a certain span of query years, use query_start_year and query_end_year; otherwise
+# comment these out (they are optional: if not specified, the lda_query.py script will query all available years.
+query_start_year: 2005
+query_end_year: 2006
+lobbyist_filename_prefix: ccs_lda_lobbyists_109
+output_filename_prefix: ccs_lda_filings_109
+search_term_list:
+- '"H.R. 1128"'
+- '"H.R.1128"'

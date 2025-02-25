@@ -1,0 +1,25 @@
+# These are bill numbers of legislation in the 111th Congress that dealt mostly or entirely with CCS
+#
+# if you want to subset only a certain span of query years, use query_start_year and query_end_year; otherwise
+# comment these out (they are optional: if not specified, the lda_query.py script will query all available years.
+query_start_year: 2009
+query_end_year: 2010
+lobbyist_filename_prefix: ccs_lda_lobbyists_111
+output_filename_prefix: ccs_lda_filings_111
+search_term_list:
+  - '"H.R. 1689"' #H.R. 1689, Carbon Capture and Storage Early Deployment Act.
+  - '"S. 1013"' # Department of Energy Carbon Capture and Sequestration Program Amendments Act of 2009
+  - '"S. 1134"' # Responsible Use of Coal Act
+  - '"S. 1502"' #Carbon Capture and Sequestration Stewardship Trust Fund Act of 2009
+  - '"S. 2744"' #A bill to amend the Energy Policy Act of 2005 to expand the authority for awarding technology prizes by the Secretary of Energy to include a financial award for separation of carbon dioxide from dilute sources
+  - '"S. 3589"' #Carbon Capture and Sequestration Deployment Act of 2010
+  - '"S. 3590"' # Carbon Capture and Sequestration Deployment Revenue Act of 2010
+  - '"S. 3591"' # Carbon Capture and Sequestration Deployment Act of 2010
+  - '"H.R.1689"' #H.R. 1689, Carbon Capture and Storage Early Deployment Act.
+  - '"S.1013"' # Department of Energy Carbon Capture and Sequestration Program Amendments Act of 2009
+  - '"S.1134"' # Responsible Use of Coal Act
+  - '"S.1502"' #Carbon Capture and Sequestration Stewardship Trust Fund Act of 2009
+  - '"S.2744"' #A bill to amend the Energy Policy Act of 2005 to expand the authority for awarding technology prizes by the Secretary of Energy to include a financial award for separation of carbon dioxide from dilute sources
+  - '"S.3589"' #Carbon Capture and Sequestration Deployment Act of 2010
+  - '"S.3590"' # Carbon Capture and Sequestration Deployment Revenue Act of 2010
+  - '"S.3591"' # Carbon Capture and Sequestration Deployment Act of 2010

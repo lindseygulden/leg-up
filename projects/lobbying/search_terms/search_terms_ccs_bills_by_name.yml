@@ -1,6 +1,9 @@
 # Contains search terms for querying the LDA API to find lobbying disclosures
 # listing bill names/terms that might have something to do with carbon capture and storage (CCS)
+lobbyist_filename_prefix: ccs_lda_lobbyists_ccs_bills
+output_filename_prefix: ccs_lda_filings_ccs_bills
 search_term_list:
+- '"CCUS Parity"' # common typo for actual name of act (CCU Parity)
 - '" ACELA ","carbon"'
 - '" ACELA ","capture"'
 - '" ACELA ","sequestration"'

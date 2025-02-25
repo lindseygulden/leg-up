@@ -1,0 +1,27 @@
+# These are bill numbers of legislation in the 114th Congress that dealt mostly or entirely with CCS
+#
+# if you want to subset only a certain span of query years, use query_start_year and query_end_year; otherwise
+# comment these out (they are optional: if not specified, the lda_query.py script will query all available years.
+query_start_year: 2015
+query_end_year: 2016
+lobbyist_filename_prefix: ccs_lda_lobbyists_114
+output_filename_prefix: ccs_lda_filings_114
+search_term_list:
+  - '"H.R. 3392"' #Carbon Capture Research and Development
+  - '"H.R. 4622"' #Carbon Capture Act
+  - '"H.R. 4704"' #Advancing CCUS Technology Act
+  - '"H.R. 6295"' #CO2 Regulatory Certainty Act
+  - '"S. 1282"' # "Manchin's very long name "conversion, use, and storage of carbon" act
+  - '"S. 1285"' #Coal with Carbon Capture and Sequestration Act of 2015
+  - '"S. 2305"' #carbon capture improvement act of 2015
+  - '"S. 3179"' #Carbon Capture Utilization and Storage Act
+  - '"S. 601"' #ACCTION
+  - '"H.R.3392"' #Carbon Capture Research and Development
+  - '"H.R.4622"' #Carbon Capture Act
+  - '"H.R.4704"' #Advancing CCUS Technology Act
+  - '"H.R.6295"' #CO2 Regulatory Certainty Act
+  - '"S.1282"' # "Manchin's very long name "conversion, use, and storage of carbon" act
+  - '"S.1285"' #Coal with Carbon Capture and Sequestration Act of 2015
+  - '"S.2305"' #carbon capture improvement act of 2015
+  - '"S.3179"' #Carbon Capture Utilization and Storage Act
+  - '"S.601"' #ACCTION

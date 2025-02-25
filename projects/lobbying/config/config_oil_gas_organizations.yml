@@ -14,9 +14,6 @@ query_param: client_name
 chunk_size: 30
 # chunk_start is the suffix for the write-out file to begin with -- useful for restarting if query gets interrupted in long searches
 chunk_start: 1
-# prefixes for api-query-result .csv files to be written by lda_query.py
-lobbyist_filename_prefix: ccs_lda_lobbyists_oil_gas_orgs
-output_filename_prefix: ccs_lda_filings_oil_gas_orgs
 # quick text processing to standardize the way bills are referred to (this should *probably* be done in postproc...refac)
 bill_name_prefixes_replace_dict_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/bill_abbreviations.yml
 # path to the formatted search term list.
@@ -44,6 +41,7 @@ groupby_columns_for_obtaining_only_most_recent_filing:
 #
 #### ---- POST-PROCESSING CONFIGURATION SETTINGS (used in postprocess_ccs.py) ---- ####
 #
+accept_uncategorized_orgs: False
 topic_description: ccs
 postproc_specs_path: /Users/lindseygulden/dev/leg-up-private/projects/lobbying/definitions/ccs_postproc_specifications.yml
 subset_to_topic_only: False

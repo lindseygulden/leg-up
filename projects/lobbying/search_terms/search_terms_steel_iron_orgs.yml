@@ -3,6 +3,9 @@
 # industry.
 # because the LDA API doesn't handle advanced text searching for client_name, these are
 # handed to the API sequentially, one at a time.
+# prefixes for api-query-result .csv files to be written by lda_query.py
+lobbyist_filename_prefix: ccs_lda_lobbyists_steel_iron_orgs
+output_filename_prefix: ccs_lda_filings_steel_iron_orgs
 organization_list:
 - ArcelorMittal
 - RELIANCE STEEL

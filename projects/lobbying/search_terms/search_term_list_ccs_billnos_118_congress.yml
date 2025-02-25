@@ -1,0 +1,51 @@
+# These are bill numbers of legislation in the 118th Congress that dealt mostly or entirely with CCS
+# They should be used with lda_query.py 
+# if you want to subset only a certain span of query years, use query_start_year and query_end_year; otherwise
+# comment these out (they are optional: if not specified, the lda_query.py script will query all available years.
+query_start_year: 2023
+query_end_year: 2024
+lobbyist_filename_prefix: ccs_lda_lobbyists_118
+output_filename_prefix: ccs_lda_filings_118
+search_term_list:
+  - '"H.R. 1262"' #CCU Parity Act
+  - '"H.R. 2812"' #Carbon Dioxide Removal Research and Development Act (same title as 5457)
+  - '"H.R. 3568"' #Primacy Certainty Act of 2023
+  - '"H.R. 4824"' #Carbon Sequestration Collaboration Act
+  - '"H.R. 5457"' # Carbon Dioxide Removal Research and Development Act (same title as 2812)
+  - '"H.R. 6494"' #Pipeline Efficiency and Safety (PIPES) Act
+  - '"H.R. 6510"' #Hydrogen Safety and Environmental Responsibility Act
+  - '"H.R. 7054"' #Carbon Dioxide Removal Leadership Act 2024
+  - '"H.R. 7200"' # Hydrogen Infrastructure Finance and Innovation Act (HIFIA)
+  - '"H.R. 7655"' #Pipeline Safety, Modernization and Expansion Act
+  - '"H.R. 9323"' #Pipeline Accountability, Safety, and Environmental Standards Act of 2024
+  - '"H.R. 9851"' #Hydrogen for Industry act
+  - '"H.R. 9838"' #To amend the Internal Revenue Code of 1986 to provide for an end date for the credit for certain qualified carbon oxide, and for other purposes.
+  - '"S. 1576"' # CREST
+  - '"S. 1718"' #Primacy Certainty Act
+  - '"S. 2002"' #CREATE Act of 2023 #'Carbon Removal, Efficient Agencies, Technology Expertise Act"'
+  - '"S. 3615"' #Carbon Dioxide Removal Leadership Act
+  - '"S. 4983"' #Pipeline Accountability, Safety, and Environmental Standards Act of 2024
+  - '"S. 5212"' #A bill to amend the Internal Revenue Code of 1986 to modify the carbon oxide sequestration credit to ensure parity for different uses and utilizations of qualified carbon oxide
+  - '"S. 542"' #CCU Parity Act
+  - '"S. 649"' #Hydrogen Infrastructure Finance and Innovation Act (HIFIA)
+  - '"H.R.1262"' #CCU Parity Act
+  - '"H.R.2812"' #Carbon Dioxide Removal Research and Development Act (same title as 5457)
+  - '"H.R.3568"' #Primacy Certainty Act of 2023
+  - '"H.R.4824"' #Carbon Sequestration Collaboration Act
+  - '"H.R.5457"' # Carbon Dioxide Removal Research and Development Act (same title as 2812)
+  - '"H.R.6494"' #Pipeline Efficiency and Safety (PIPES) Act
+  - '"H.R.6510"' #Hydrogen Safety and Environmental Responsibility Act
+  - '"H.R.7054"' #Carbon Dioxide Removal Leadership Act 2024
+  - '"H.R.7200"' # Hydrogen Infrastructure Finance and Innovation Act (HIFIA)
+  - '"H.R.7655"' #Pipeline Safety, Modernization and Expansion Act
+  - '"H.R.9323"' #Pipeline Accountability, Safety, and Environmental Standards Act of 2024
+  - '"H.R.9851"' #Hydrogen for Industry act
+  - '"H.R.9838"' #To amend the Internal Revenue Code of 1986 to provide for an end date for the credit for certain qualified carbon oxide, and for other purposes.
+  - '"S.1576"' # CREST
+  - '"S.1718"' #Primacy Certainty Act
+  - '"S.2002"' #CREATE Act of 2023 #'Carbon Removal, Efficient Agencies, Technology Expertise Act"'
+  - '"S.3615"' #Carbon Dioxide Removal Leadership Act
+  - '"S.4983"' #Pipeline Accountability, Safety, and Environmental Standards Act of 2024
+  - '"S.5212"' #A bill to amend the Internal Revenue Code of 1986 to modify the carbon oxide sequestration credit to ensure parity for different uses and utilizations of qualified carbon oxide
+  - '"S.542"' #CCU Parity Act
+  - '"S.649"' #Hydrogen Infrastructure Finance and Innovation Act (HIFIA)

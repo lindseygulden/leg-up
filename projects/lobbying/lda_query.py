@@ -216,6 +216,8 @@ def write_out_subset(
     lobby_list: List[dict],
     row_list: List[dict],
     config_info: dict,
+    output_filename_prefix: str,
+    lobbyist_filename_prefix: str,
 ):
     """writies this subset's lobbying info and lobbying activity info to csvs"""
     ccs_df, ccs_unique_filing_ids = consolidate_rows(
@@ -223,13 +225,13 @@ def write_out_subset(
         row_list,
     )
     # write out CCS lobbying info for this subset ('chunk')
-    filename_prefix = config_info["output_filename_prefix"]
-    ccs_df.to_csv(Path(output_dir) / Path(f"{filename_prefix}_{which_chunk}.csv"))
+    ccs_df.to_csv(
+        Path(output_dir) / Path(f"{output_filename_prefix}_{which_chunk}.csv")
+    )
     # write out lobbyist data  for this subset ('chunk')
     lobbyists_df = pd.DataFrame(lobby_list)
-    filename_prefix = config_info["lobbyist_filename_prefix"]
     lobbyists_df.loc[lobbyists_df.filing_id.isin(ccs_unique_filing_ids)].to_csv(
-        Path(output_dir) / Path(f"{filename_prefix}_{which_chunk}.csv")
+        Path(output_dir) / Path(f"{lobbyist_filename_prefix}_{which_chunk}.csv")
     )
 
 
@@ -278,6 +280,21 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
         str(n_search_strings),
     )
 
+    # Set up years for query (only use a range of years if query_start_year and query_end_year are specified)
+    query_years = [
+        "all years"
+    ]  # default if query start year and end year are not specified in the config file
+    search_term_dict = yaml_to_dict(config_info["search_term_list_path"])
+    if ("query_start_year" in search_term_dict) & (
+        "query_end_year" in search_term_dict
+    ):
+        query_years = list(
+            range(
+                search_term_dict["query_start_year"],
+                search_term_dict["query_end_year"] + 1,
+            )
+        )
+
     # initialize counting variables for subsets of queried pages ('chunks')
     which_chunk = 1
     if "chunk_start" in config_info:
@@ -286,84 +303,102 @@ def query_lda(config: Union[str, PosixPath], output_dir: Union[str, PosixPath]):
     filing_id = 0
     # loop through search strings
     for which_search_string, search_string in enumerate(search_string_list):
-        params = {config_info["query_param"]: f"{search_string}"}
-        if config_info["query_param"] == "client_name":
-            logging.info(" >>> ... Searching for %s", search_string)
 
-        # each page contains 25 filings: use total number of filings to compute total number of pages
-        n_pages = lda_get_query(
-            authenticated_session,
-            config_info["filings_endpoint"],
-            params,
-            return_value="page_count",
-        )
+        for y in query_years:
+            # all available years are searched if query_start_year and query_end_year are not specified in the config file
+            if y == "all years":
+                params = {
+                    config_info["query_param"]: f"{search_string}",
+                }
+            else:
+                logging.info("Querying for filing year %s", y)
+                params = {
+                    config_info["query_param"]: f"{search_string}",
+                    "filing_year": str(y),
+                }
+            if config_info["query_param"] == "client_name":
+                logging.info(" >>> ... Searching for %s", search_string)
 
-        # compute number of file subsets ('chunks') for writing out and not overloading memory
-        chunk_size = config_info["chunk_size"]
-        n_chunks = ceil(n_pages / chunk_size)
-
-        logging.info(
-            " --- Preparing %s files for search string %s of % s ---",
-            str(n_chunks),
-            str(which_search_string + 1),
-            str(n_search_strings),
-        )
-
-        row_list = []  # each row holds info for one lobbying activity
-        lobby_list = []  # initialize holder for lobbyist info
-        for page in range(1, n_pages + 1):
-            # initialize holders for upcoming subset's information ('chunk')
-
-            logging.info(" Querying page %s of %s pages", str(page), str(n_pages))
-
-            # query api for this page of results
-            results = lda_get_query(
+            # each page contains 25 filings: use total number of filings to compute total number of pages
+            n_pages = lda_get_query(
                 authenticated_session,
                 config_info["filings_endpoint"],
-                params | {"page": page},
-                return_value="results",
+                params,
+                return_value="page_count",
             )
 
-            # extract data from each filing form returned from query
-            for result in results:
-                # TODO functionalize this
-                row_dict_base = initialize_row(govt_entities, result, filing_id)
-                activities = result["lobbying_activities"]
+            # compute number of file subsets ('chunks') for writing out and not overloading memory
+            chunk_size = config_info["chunk_size"]
+            n_chunks = ceil(n_pages / chunk_size)
 
-                for activity_id, activity in enumerate(activities):
-                    row_dict = row_dict_base.copy()
+            logging.info(
+                " --- Preparing %s files for search string %s of % s ---",
+                str(n_chunks),
+                str(which_search_string + 1),
+                str(n_search_strings),
+            )
 
-                    # which activity is this
-                    row_dict["activity_id"] = activity_id
-                    row_dict["general_issue_code"] = activity["general_issue_code"]
-                    row_dict["description"] = activity["description"]
-                    lobbyists_for_this_activity = parse_lobbyists(
-                        activity["lobbyists"], row_dict
-                    )
-                    row_dict["n_lobbyists_for_activity"] = len(
-                        lobbyists_for_this_activity
-                    )
-                    lobby_list = lobby_list + lobbyists_for_this_activity
+            row_list = []  # each row holds info for one lobbying activity
+            lobby_list = []  # initialize holder for lobbyist info
+            for page in range(1, n_pages + 1):
+                # initialize holders for upcoming subset's information ('chunk')
 
-                    # parse all government entitites lobbied, using boolean columns
-                    for entity in activity["government_entities"]:
-                        row_dict[entity["name"].lower()] = 1
+                logging.info(" Querying page %s of %s pages", str(page), str(n_pages))
 
-                    row_list.append(row_dict.copy())
-
-                filing_id += 1  # each result
-            # if we have the number of pages in a subset or we're at the end of the pages...
-            if ((page % chunk_size) == 0) | (page == n_pages):
-                write_out_subset(
-                    output_dir, which_chunk, lobby_list, row_list, config_info
+                # query api for this page of results
+                results = lda_get_query(
+                    authenticated_session,
+                    config_info["filings_endpoint"],
+                    params | {"page": page},
+                    return_value="results",
                 )
-                logging.info(" Writing chunk %s to CSV", str(which_chunk))
 
-                # increase chunk counter for next subset
-                which_chunk += 1
-                # re-initialize row and lobby lists for next subset/chunk:
-                row_list = []  # each row holds info for one lobbying activity
-                lobby_list = []  # initialize holder for lobbyist info
+                # extract data from each filing form returned from query
+                for result in results:
+                    # TODO functionalize this
+                    row_dict_base = initialize_row(govt_entities, result, filing_id)
+                    activities = result["lobbying_activities"]
+
+                    for activity_id, activity in enumerate(activities):
+                        row_dict = row_dict_base.copy()
+
+                        # which activity is this
+                        row_dict["activity_id"] = activity_id
+                        row_dict["general_issue_code"] = activity["general_issue_code"]
+                        row_dict["description"] = activity["description"]
+                        lobbyists_for_this_activity = parse_lobbyists(
+                            activity["lobbyists"], row_dict
+                        )
+                        row_dict["n_lobbyists_for_activity"] = len(
+                            lobbyists_for_this_activity
+                        )
+                        lobby_list = lobby_list + lobbyists_for_this_activity
+
+                        # parse all government entitites lobbied, using boolean columns
+                        for entity in activity["government_entities"]:
+                            row_dict[entity["name"].lower()] = 1
+
+                        row_list.append(row_dict.copy())
+
+                    filing_id += 1  # each result
+                # if we have the number of pages in a subset or we're at the end of the pages...
+                if ((page % chunk_size) == 0) | (page == n_pages):
+                    write_out_subset(
+                        output_dir,
+                        which_chunk,
+                        lobby_list,
+                        row_list,
+                        config_info,
+                        search_term_dict["output_filename_prefix"],
+                        search_term_dict["lobbyist_filename_prefix"],
+                    )
+                    logging.info(" Writing chunk %s to CSV", str(which_chunk))
+
+                    # increase chunk counter for next subset
+                    which_chunk += 1
+                    # re-initialize row and lobby lists for next subset/chunk:
+                    row_list = []  # each row holds info for one lobbying activity
+                    lobby_list = []  # initialize holder for lobbyist info
 
     logging.info(
         " ----- Finished writing all subsets ('chunks') to CSVs ----- ",

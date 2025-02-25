@@ -15,6 +15,7 @@ senate:
   116: republicans
   117: democrats
   118: democrats
+  119: republicans
 house:
   106: republicans
   107: republicans
@@ -29,6 +30,7 @@ house:
   116: democrats
   117: democrats
   118: republicans
+  119: republicans
 white_house:
   106: democrats #clinton
   107: republicans #Bush
@@ -43,3 +45,4 @@ white_house:
   116: republicans
   117: democrats # Biden
   118: democrats
+  119: republicans

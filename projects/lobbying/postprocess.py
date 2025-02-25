@@ -41,7 +41,6 @@ def adjust_company_names(df: pd.DataFrame, config_info: dict):
     """Fills nans, replaces company names according to replacmeents specified in yaml"""
 
     activity_df = df.copy()
-    logging.info(" ADJUSTING THE COMPANY NAMES!")
 
     activity_df[config_info["clean_client_description_col"]] = activity_df[
         config_info["clean_client_description_col"]
@@ -52,6 +51,10 @@ def adjust_company_names(df: pd.DataFrame, config_info: dict):
 
     replace_dict = yaml_to_dict(config_info["company_name_replacements"])
 
+    activity_df[config_info["company_rename_col"]] = [
+        replace_dict[r] if r in list(replace_dict.keys()) else r
+        for r in activity_df[config_info["company_rename_col"]]
+    ]
     activity_df[config_info["company_rename_col"]] = [
         replace_dict[x] if x in list(replace_dict.keys()) else r
         for x, r in zip(
@@ -94,13 +97,27 @@ def assign_sectors(df: pd.DataFrame, config_info: dict):
         config_info["company_rename_col"]
     ].fillna(" ")
 
-    orgs = df[config_info["company_rename_col"]].unique()
-    for org in orgs:
-        if org not in inverted_sector_dict.keys():
-            print(org)
-    df["sector"] = [
-        inverted_sector_dict[x] for x in df[config_info["company_rename_col"]]
-    ]
+    orgs = sorted(list(df[config_info["company_rename_col"]].unique()))
+    if config_info["accept_uncategorized_orgs"]:
+        logging.info(
+            " Listing organizations not in the sector-assignment file (will be labeled 'UNCATEGORIZED')"
+        )
+        for org in orgs:
+            if org not in inverted_sector_dict.keys():
+                logging.info(" %s", org)
+            df["sector"] = [
+                (
+                    inverted_sector_dict[x]
+                    if x in inverted_sector_dict.keys()
+                    else "UNCATEGORIZED"
+                )
+                for x in df[config_info["company_rename_col"]]
+            ]
+    else:
+        for org in orgs:
+            df["sector"] = [
+                inverted_sector_dict[x] for x in df[config_info["company_rename_col"]]
+            ]
     df["lumped_sector"] = [lumped_sector_dict["lightly_lumped"][s] for s in df.sector]
     df["very_lumped_sector"] = [lumped_sector_dict["very_lumped"][s] for s in df.sector]
     df["uber_lumped_sector"] = [lumped_sector_dict["uber_lumped"][s] for s in df.sector]
@@ -137,6 +154,7 @@ def find_bill_numbers_for_congress(
     # get dictionary with congress number/bill number for CCS bills
 
     bill_numbers = yaml_to_dict(postproc_specs)[id_str]
+
     # identify activities that reference specific bill numbers
     return [
         (
@@ -146,7 +164,7 @@ def find_bill_numbers_for_congress(
                     d,
                     [
                         x + " " if len(x) < min_chars else x
-                        for x in bill_numbers[which_congress]
+                        for x in bill_numbers[int(which_congress)]
                     ],
                 )
                 | terms_present(
@@ -221,6 +239,10 @@ def identify_lobbying_activities(df: pd.DataFrame, config_info: dict):
         "h2_mention",
         f"terms_consistent_with_{topic}",
         f"terms_could_be_{topic}",
+        "biofuel_terms",
+        "with_biofuels_means_ccs",
+        f"{topic}_sections_of_bills",
+        "question",
     ]:
         df = find_description(
             df, t, config_info["postproc_specs_path"], return_count=False
@@ -234,6 +256,19 @@ def identify_lobbying_activities(df: pd.DataFrame, config_info: dict):
     postproc_dict = yaml_to_dict(config_info["postproc_specs_path"])
     # handle 'nebulous' hydrogen terms (e.g., "low-carbon hydrogen", NOT terms such as "clean hydrogen",
     # which is definitely CCS, and which is handled as a CCS term, above)
+    df["biofuel_mention_core_ff"] = [
+        1 if ((b == 1) and (s in postproc_dict["core_industry_sectors"])) else 0
+        for b, s in zip(df.biofuel_terms, df.sector)
+    ]
+    df["biofuel_mention_ff_adjacent"] = [
+        1 if ((b == 1) and (s in postproc_dict["industry_adjacent_sectors"])) else 0
+        for b, s in zip(df.biofuel_terms, df.sector)
+    ]
+
+    df["biofuel_with_ccs_terms"] = [
+        1 if ((b == 1) and (t == 1)) else 0
+        for b, t in zip(df.biofuel_terms, df.with_biofuels_means_ccs)
+    ]
 
     df["h2_mention_core_ff"] = [
         1 if ((h == 1) and (s in postproc_dict["core_industry_sectors"])) else 0
@@ -287,12 +322,13 @@ def identify_lobbying_activities(df: pd.DataFrame, config_info: dict):
     # is a company that is focused solely or primarily on the topic (e.g., CCS)
     # clean hydrogen company, mentions relevant bills, and does not contain a 'not on topic' term
     df[f"definitely_{topic}"] = [
-        1 if ((d + +b + bn + c + h + hff) > 0) & (n == 0) else 0
-        for d, b, bn, c, h, hff, n in zip(
+        1 if ((d + +b + bn + c + s + h + hff) > 0) & (n == 0) else 0
+        for d, b, bn, c, s, h, hff, n in zip(
             df.contains_description,
             df[f"{topic}_bills"],
             df[f"{topic}_bills_number_only"],
             df[f"{topic}_company"],
+            df[f"{topic}_sections_of_bills"],
             df.clean_hydrogen_company,
             df.h2_mention_core_ff,
             df[f"not_{topic}"],

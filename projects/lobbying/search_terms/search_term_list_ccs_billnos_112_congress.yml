@@ -1,0 +1,17 @@
+# These are bill numbers of legislation in the 112th Congress that dealt mostly or entirely with CCS
+#
+# if you want to subset only a certain span of query years, use query_start_year and query_end_year; otherwise
+# comment these out (they are optional: if not specified, the lda_query.py script will query all available years.
+query_start_year: 2011
+query_end_year: 2012
+lobbyist_filename_prefix: ccs_lda_lobbyists_112
+output_filename_prefix: ccs_lda_filings_112
+search_term_list:
+- '"H.R. 6172"'
+- '"S. 3581"'
+- '"S. 699"'
+- '"S. 757"'
+- '"H.R.6172"'
+- '"S.3581"'
+- '"S.699"'
+- '"S.757"'

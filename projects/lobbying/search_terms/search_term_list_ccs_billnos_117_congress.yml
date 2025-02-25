@@ -1,0 +1,81 @@
+# These are bill numbers of legislation in the 117th Congress that dealt mostly or entirely with CCS
+# They should be used with lda_query.py
+# if you want to subset only a certain span of query years, use query_start_year and query_end_year; otherwise
+# comment these out (they are optional: if not specified, the lda_query.py script will query all available years.
+query_start_year: 2021
+query_end_year: 2022
+lobbyist_filename_prefix: ccs_lda_lobbyists_117
+output_filename_prefix: ccs_lda_filings_117
+search_term_list:
+- '"H.R. 1062"' #ACCESS 45Q
+- '"H.R. 1760"' #Carbon Capture Modernization Act
+- '"H.R. 1761"' #CCUS Innovation Act
+- '"H.R. 1788"' #clean energy hydrogen innovation act
+- '"H.R. 1992"' #SCALE act for 117th congress
+- '"H.R. 2633"' #To amend the Internal Revenue Code of 1986 to increase and expand the credit for carbon oxide sequestration
+- '"H.R. 3538"' #Coordinated Action To Capture Harmful Emissions (CATCH) act of 2021
+- '"H.R. 4408"' # Carbon Capture improvement Act
+- '"H.R. 4720"' # Energy Sector Innovation Credit Act -- hydrogen credit
+- '"H.R. 4909"' #Clean Hydrogen Energy Act
+- '"H.R. 5179"' # Net zero act of 2021
+- '"H.R. 5192"' #Clean Hydrogen Production and Investment Tax Credit Act of 2021"'
+- '"H.R. 5194"' # Carbon Capture and Sequestration Expansion Act
+- '"H.R. 5205"' #Net Zero Act of 2021
+- '"H.R. 5965"' #Clean Hydrogen Deployment Act of 2021"'
+- '"H.R. 6249"' #End Polluter Welfare for Enhanced Oil Recovery Act
+- '"H.R. 7434"' #Federal Carbon Dioxide Removal Leadership Act
+- '"H.R. 8310"' # well primacy certainty act
+- '"H.R. 9018"' # Hydrogen infrastructure finance and innovation act
+- '"H.R. 9318"' # CREST of 2022
+- '"H.R. 9446"' #Department of Energy Clean Hydrogen and Fuel Cell Research, Development, and Demonstration Act of 2022'
+- '"H.R. 4891"' #Net Negative Carbon Dioxide Baseload Power Act
+- '"S. 1017"' #Clean Hydrogen Production Incentives Act of 2021
+- '"S. 1807"' #Clean H2 Production Act"'
+- '"S. 1829"' #Carbon Capture Improvement Act of 2021
+- '"S. 2118"' # clean energy for america act of 2022
+- '"S. 2200"' #Advancing the Clean Hydrogen Future Act of 2021"'
+- '"S. 2230"' #A bill to amend the Internal Revenue Code of 1986 to enhance the carbon oxide sequestration credit
+- '"S. 2475"' # Energy Sector Innovation Credit Act
+- '"S. 3118"' #Hydrogen Infrastructure Finance and Innovation Act (HIFIA)
+- '"S. 4280"' #Federal Carbon Dioxide Removal Leadership Act
+- '"S. 4420"' # CREST of 2022
+- '"S. 661"' #Carbon Capture Modernization Act
+- '"S. 799"' # SCALE Act
+- '"S. 843"' #CREATE Act of 2021
+- '"S. 986"' # Carbon Capture, Utilization, and Storage Tax Credit Amendments Act of 2021
+- '"H.R.1062"' #ACCESS 45Q
+- '"H.R.1760"' #Carbon Capture Modernization Act
+- '"H.R.1761"' #CCUS Innovation Act
+- '"H.R.1788"' #clean energy hydrogen innovation act
+- '"H.R.1992"' #SCALE act for 117th congress
+- '"H.R.2633"' #To amend the Internal Revenue Code of 1986 to increase and expand the credit for carbon oxide sequestration
+- '"H.R.3538"' #Coordinated Action To Capture Harmful Emissions (CATCH) act of 2021
+- '"H.R.4408"' # Carbon Capture improvement Act
+- '"H.R.4720"' # Energy Sector Innovation Credit Act -- hydrogen credit
+- '"H.R.4909"' #Clean Hydrogen Energy Act
+- '"H.R.5179"' # Net zero act of 2021
+- '"H.R.5192"' #Clean Hydrogen Production and Investment Tax Credit Act of 2021"'
+- '"H.R.5194"' # Carbon Capture and Sequestration Expansion Act
+- '"H.R.5205"' #Net Zero Act of 2021
+- '"H.R.5965"' #Clean Hydrogen Deployment Act of 2021"'
+- '"H.R.6249"' #End Polluter Welfare for Enhanced Oil Recovery Act
+- '"H.R.7434"' #Federal Carbon Dioxide Removal Leadership Act
+- '"H.R.8310"' # well primacy certainty act
+- '"H.R.9018"' # Hydrogen infrastructure finance and innovation act
+- '"H.R.9318"' # CREST of 2022
+- '"H.R.9446"' #Department of Energy Clean Hydrogen and Fuel Cell Research, Development, and Demonstration Act of 2022'
+- '"H.R.4891"' #Net Negative Carbon Dioxide Baseload Power Act
+- '"S.1017"' #Clean Hydrogen Production Incentives Act of 2021
+- '"S.1807"' #Clean H2 Production Act"'
+- '"S.1829"' #Carbon Capture Improvement Act of 2021
+- '"S.2118"' # clean energy for america act of 2022
+- '"S.2200"' #Advancing the Clean Hydrogen Future Act of 2021"'
+- '"S.2230"' #A bill to amend the Internal Revenue Code of 1986 to enhance the carbon oxide sequestration credit
+- '"S.2475"' # Energy Sector Innovation Credit Act
+- '"S.3118"' #Hydrogen Infrastructure Finance and Innovation Act (HIFIA)
+- '"S.4280"' #Federal Carbon Dioxide Removal Leadership Act
+- '"S.4420"' # CREST of 2022
+- '"S.661"' #Carbon Capture Modernization Act
+- '"S.799"' # SCALE Act
+- '"S.843"' #CREATE Act of 2021
+- '"S.986"' # Carbon Capture, Utilization, and Storage Tax Credit Amendments Act of 2021

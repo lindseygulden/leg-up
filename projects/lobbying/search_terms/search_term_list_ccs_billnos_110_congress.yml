@@ -1,0 +1,23 @@
+# These are bill numbers of legislation in the 110th Congress that dealt mostly or entirely with CCS
+#
+# if you want to subset only a certain span of query years, use query_start_year and query_end_year; otherwise
+# comment these out (they are optional: if not specified, the lda_query.py script will query all available years.
+query_start_year: 2007
+query_end_year: 2008
+lobbyist_filename_prefix: ccs_lda_lobbyists_110
+output_filename_prefix: ccs_lda_filings_110
+search_term_list:
+  - '"H.R. 6258"' #THE CARBON CAPTURE AND STORAGE EARLY DEPLOYMENT ACT
+  - '"H.R. 1933"' #Department of Energy Carbon Capture and Storage Research, Development, and Demonstration Act
+  - '"S. 962"' #Department of Energy Carbon Capture and Storage Research, Development, and Demonstration Act
+  - '"H.R. 6756"' #Carbon Reduction Technology Bridge Act of 2008
+  - '"S. 3208"' #Carbon Reduction Technology Bridge Act of 2008, senate version
+  - '"S. 3132"' #Accelerating Carbon Capture and Sequestration Act
+  - '"S. 2323"' #Carbon Capture and Storage Technology Act of 2007
+  - '"H.R.6258"' #THE CARBON CAPTURE AND STORAGE EARLY DEPLOYMENT ACT
+  - '"H.R.1933"' #Department of Energy Carbon Capture and Storage Research, Development, and Demonstration Act
+  - '"S.962"' #Department of Energy Carbon Capture and Storage Research, Development, and Demonstration Act
+  - '"H.R.6756"' #Carbon Reduction Technology Bridge Act of 2008
+  - '"S.3208"' #Carbon Reduction Technology Bridge Act of 2008, senate version
+  - '"S.3132"' #Accelerating Carbon Capture and Sequestration Act
+  - '"S.2323"' #Carbon Capture and Storage Technology Act of 2007

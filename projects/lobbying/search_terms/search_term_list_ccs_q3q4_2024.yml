@@ -1,0 +1,69 @@
+# Supplemental query file to capture bills and terms that were filed in the second half of 2024
+# written 2/2025
+# This file contains terms that find potential lobbying activities that are CCS specific,
+# Bill names or some referred to only by their bill number (HR XXX or S XXX)
+# Because the same bill numbers recur throughout different Congresses, I went through and removed the key terms
+# if you want to subset only a certain span of query years, use query_start_year and query_end_year; otherwise
+# comment these out (they are optional: if not specified, the lda_query.py script will query all available years.
+query_start_year: 2023
+query_end_year: 2024
+search_term_list:
+- '"Pipeline Safety, Modernization and Expansion"'
+- '"Pipeline Safety, Modernization & Expansion"'
+- '"H.R. 7655"'
+- '"H.R.7655"'
+- '"Energy and Water Development & Related Agencies Appropriations"' #2024
+- '"Energy and Water Development and Related Agencies Appropriations"' #2024
+- '"Energy & Water Development and Related Agencies Appropriations"' #2024
+- '"Energy & Water Development & Related Agencies Appropriations"' #HR 4394
+- '"H.R. 4394"' #Energy and Water Development & Related Agencies Appropriations
+- '"H.R.4394"' #Energy and Water Development & Related Agencies Appropriations
+- '"S. 4927"' # Energy and Water Development & Related Agencies Appropriations Act, 2025 (but in 118 congress)
+- '"S.4927"' # Energy and Water Development & Related Agencies Appropriations Act, 2025 (but in 118 congress)
+- '"Energy Permitting Reform Act"' #S. 4753, Energy Permitting Reform Act of 2024 # CCS is a significant component
+- '"S.4753"' #S. 4753, Energy Permitting Reform Act of 2024 # CCS is a significant component
+- '"S. 4753"' #S. 4753, Energy Permitting Reform Act of 2024 # CCS is a significant component
+- '"CCUS Parity Act"' # typo for name CCU Parity Act
+- '"88 Fed. Reg. 89220"'
+- '"89220"' # clean hydrogen
+- '"Section 48"' # The IRA expanded it to include clean hydrogen production facilities as eligible properties for ITC
+- '"88 Fed. Reg. 50282"' #88 Fed. Reg. 50282 relates to CCS by proposing enhanced GHG reporting requirements for facilities involved in the geologic sequestration of carbon dioxide
+#- '"INVEST in America Act" -"coronavirus" -"covid"' #IIJA
+- '"Hydrogen Safety and Environmental Responsibility"'
+- '"Hydrogen Safety & Environmental Responsibility"'
+- '"H.R. 6510"' #Hydrogen Safety and Environmental Responsibility
+- '"H.R.6510"' #Hydrogen Safety and Environmental Responsibility
+- '"Captured Carbon Utilization Parity"' #CCU parity act -- another name
+- '"Enhanced Energy Recovery Act"'
+- '"S.5212"' # Enhanced Energy Recovery Act 2024 -- increase eor tax credit
+- '"S. 5212"' # Enhanced Energy Recovery Act 2024 -- increase eor tax credit
+- '"H.R. 3568"' #Primacy Certainty Act of 2023"'
+- '"H.R.3568"' #Primacy Certainty Act of 2023"'
+- '"Primacy Certainty Act"' #s directly related to Carbon Capture and Storage (CCS) through its focus on the permitting process for Class VI wells,
+- '"Concrete and Asphalt Innovation Act"' # "S.3439" 118th congress
+- '"Concrete & Asphalt Innovation Act"' #"S.3439" 118th congress
+- '"S. 3439"' # Concrete and Asphalt Innovation Act of 2023
+- '"S.3439"' # Concrete and Asphalt Innovation Act of 2023
+- '"H.R. 4394"' # 2024 Energy and Water Development and Related Agencies Appropriations"'
+- '"H.R.4394"' # 2024 Energy and Water Development and Related Agencies Appropriations"'
+- '"End Polluter Welfare for Enhanced Oil Recovery"' #khana 2024 act
+- '"H.R.9838"' # End Polluter Welfare for Enhanced Oil Recovery
+- '"H.R. 9838"' # End Polluter Welfare for Enhanced Oil Recovery
+- '"People Over Petroleum"'
+- '"H.R. 1743"' # People Over Petroleum Act
+- '"H.R.1743"' # People Over Petroleum Act
+- '"End Polluter Welfare Act"'
+- '"S.4406"' #End Polluter Welfare Act Sanders
+- '"S. 4406"' #End Polluter Welfare Act Sanders
+- '"Carbon Dioxide Removal Leadership"' #2024 primary focus in on cdr, which includes ccs
+- '"H.R. 7054"'
+- '"H.R.7054"'
+- '"S.3615"' #Federal Carbon Dioxide Removal Leadership 2024, senate version
+- '"S. 3615"' #Federal Carbon Dioxide Removal Leadership 2024, senate version
+- '"Energy Innovation and Carbon Dividend"' #HR 5744 118th  # doesn't focus on ccs
+- '"Energy Innovation & Carbon Dividend"' #HR 5744 118th
+- '"H.R. 5744"' # Energy Innovation & Carbon Dividend Act 118th Congress
+- '"H.R.5744"' # Energy Innovation & Carbon Dividend Act 118th Congress
+- '"carbon dioxide removal"'
+- '"sustainable aviation"'
+- '"hydrogen production"'

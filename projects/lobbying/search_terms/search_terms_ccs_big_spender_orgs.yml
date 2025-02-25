@@ -5,6 +5,9 @@
 # trade associations, I changed the name.
 # because the LDA API doesn't handle advanced text searching for client_name, these are
 # handed to the API sequentially, one at a time.
+# prefixes for api-query-result .csv files to be written by lda_query.py
+lobbyist_filename_prefix: ccs_lda_lobbyists_oil_gas_orgs
+output_filename_prefix: ccs_lda_filings_oil_gas_orgs
 organization_list:
 - EXXON
 - EXXONMOBIL
@@ -109,10 +112,10 @@ organization_list:
 - "SOCALGAS"
 - "PACIFIC ENTERPRISES"
 - "SAN DIEGO GAS"
-- "CCS"
+- " CCS "
 - "CARBON CAPTURE"
 - "CARBON SEQUESTRATION"
-- "CCUS"
+- " CCUS "
 - "CO2 CAPTURE"
 - "NATIONAL GRID"
 - "ENBRIDGE"

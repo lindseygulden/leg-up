@@ -1,0 +1,19 @@
+# These are bill numbers of legislation in the 113th Congress that dealt mostly or entirely with CCS
+#
+# if you want to subset only a certain span of query years, use query_start_year and query_end_year; otherwise
+# comment these out (they are optional: if not specified, the lda_query.py script will query all available years.
+query_start_year: 2013
+query_end_year: 2014
+lobbyist_filename_prefix: ccs_lda_lobbyists_113
+output_filename_prefix: ccs_lda_filings_113
+search_term_list:
+- '"H.R. 2127"'
+- '"S. 2288"'
+- '"S. 2287"'
+- '"S. 2776"'
+- '"S. 2152"'
+- '"H.R.2127"' # To prohibit the Administrator of the EPA...
+- '"S.2288"' #S 2288 is Expanding Carbon Capture through Enhanced Oil Recovery act"
+- '"S.2287"' #Carbon Capture and Sequestration Deployment Act of 2014
+- '"S.2776"' #Ten in Ten act: "A bill to establish a Carbon Capture and Sequestration Deployment Acceleration Fund ..."
+- '"S.2152"' # Advanced Clean Coal Technology act of 2014 ACCTION"

@@ -1,0 +1,40 @@
+# These are bill numbers of legislation in the 115th Congress that dealt mostly or entirely with CCS
+# They should be used with lda_query.py. Query years are 2017 and 2018
+#
+# if you want to subset only a certain span of query years, use query_start_year and query_end_year; otherwise
+# comment these out (they are optional: if not specified, the lda_query.py script will query all available years.
+query_start_year: 2017
+query_end_year: 2018
+lobbyist_filename_prefix: ccs_lda_lobbyists_115
+output_filename_prefix: ccs_lda_filings_115
+search_term_list:
+  - '"H.R. 2010"' #CO2 Regulatory Certainty Act
+  - '"H.R. 2011"' #carbon capture improvement act
+  - '"H.R. 2296"' #Advancing CCUS technology act
+  - '"H.R. 3761"' #Carbon Capture Act
+  - '"H.R. 4857"' #CO2 Regulatory Certainty Act
+  - '"H.R. 5474"' # Fossil energy research and development act
+  - '"H.R. 5745"' #Fossil Energy Research and Development Act of 2018
+  - '"H.R. 6457"' #Carbon Utilization act of 2018
+  - '"H.R. 7347"' #USE IT Act
+  - '"S. 1535"' #FUTURE ACT
+  - '"S. 1663"' #CO2 Regulatory Certainty Act
+  - '"S. 2602"' #USE IT Act
+  - '"S. 2803"' #Fossil Energy Utilization, Enhancement, and Leadership Act of 2018
+  - '"S. 2997"' #Carbon Utilization act of 2018
+  - '"S. 843"' #carbon capture improvement act
+  - '"H.R.2010"' #CO2 Regulatory Certainty Act
+  - '"H.R.2011"' #carbon capture improvement act
+  - '"H.R.2296"' #Advancing CCUS technology act
+  - '"H.R.3761"' #Carbon Capture Act
+  - '"H.R.4857"' #CO2 Regulatory Certainty Act
+  - '"H.R.5474"' # Fossil energy research and development act
+  - '"H.R.5745"' #Fossil Energy Research and Development Act of 2018
+  - '"H.R.6457"' #Carbon Utilization act of 2018
+  - '"H.R.7347"' #USE IT Act
+  - '"S.1535"' #FUTURE ACT
+  - '"S.1663"' #CO2 Regulatory Certainty Act
+  - '"S.2602"' #USE IT Act
+  - '"S.2803"' #Fossil Energy Utilization, Enhancement, and Leadership Act of 2018
+  - '"S.2997"' #Carbon Utilization act of 2018
+  - '"S.843"' #carbon capture improvement act

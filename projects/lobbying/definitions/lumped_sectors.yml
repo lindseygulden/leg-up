@@ -1,6 +1,8 @@
 # Mappings between granular sector descriptions and increasingly 'lumped' sectors
 # 'lightly lumped' is more granular than 'very lumped'
 lightly_lumped:
+  UNCATEGORIZED: UNCATEGORIZED
+  foreign government: OTHER
   law and public policy: OTHER
   lng: FOSSIL FUEL
   land transit: TRANSPORT
@@ -48,6 +50,8 @@ lightly_lumped:
   power sector general: INVESTOR-OWNED-POWER-SECTOR
   energy technology: ENGINEERING-TECH
 very_lumped:
+  UNCATEGORIZED: UNCATEGORIZED
+  foreign government: OTHER
   law and public policy: OTHER
   algae: CARBON-MANAGEMENT
   lng: FOSSIL-FUEL
@@ -95,6 +99,8 @@ very_lumped:
   energy technology: ENGINEERING-TECH
   individuals: OTHER
 uber_lumped:
+  UNCATEGORIZED: UNCATEGORIZED
+  foreign government: Other
   air transit: Fossil-Fuel Adjacent
   algae: Core Fossil Fuels
   biofuels: Fossil-Fuel Adjacent

@@ -1,0 +1,47 @@
+# These are bill numbers of legislation in the 116th Congress that dealt mostly or entirely with CCS
+# They should be used with lda_query.py.
+# if you want to subset only a certain span of query years, use query_start_year and query_end_year; otherwise
+# comment these out (they are optional: if not specified, the lda_query.py script will query all available years.
+query_start_year: 2019
+query_end_year: 2020
+lobbyist_filename_prefix: ccs_lda_lobbyists_116
+output_filename_prefix: ccs_lda_filings_116
+search_term_list:
+  - '"H.R. 1166"' # USE IT Act
+  - '"H.R. 1796"' #Carbon Capture Modernization Act
+  - '"H.R. 3607"' # Fossil energy research and development act
+  - '"H.R. 3828"' # Launching Energy Advancement and Development through Innovation for Natural Gas (LEADING Act)
+  - '"H.R. 3861"' #Carbon Capture Improvement Act of 2019
+  - '"H.R. 5156"' #Carbon Capture and Sequestration Extension Act of 2019
+  - '"H.R. 5865"' #CCUS Innovation Act
+  - '"H.R. 7896"' #RECOUPS Act of 2020
+  - '"H.R. 8671"' # Create act of 2020
+  - '"H.R. 8858"' #ACCESS 45Q Act
+  - '"H.R. 8995"' #SCALE act
+  - '"S. 1201"' #Enhancing Fossil Fuel Energy Carbon Technology (EFFECT) Act
+  - '"S. 1685"' #Launching Energy Advancement and Development through Innovation for Natural Gas (LEADING Act)
+  - '"S. 1763"' # Carbon Capture Improvement Act
+  - '"S. 2263"' #CO2 Regulatory Certainty Act
+  - '"S. 383"' # USE IT Act
+  - '"S. 407"' #Carbon Capture Modernization Act
+  - '"S. 4341"' # CREATE Act of 2020
+  - '"S. 4966"' #45Q Carbon Capture, Utilization, and Storage Tax Credit Amendments Act
+  - '"H.R.1166"' # USE IT Act
+  - '"H.R.1796"' #Carbon Capture Modernization Act
+  - '"H.R.3607"' # Fossil energy research and development act
+  - '"H.R.3828"' # Launching Energy Advancement and Development through Innovation for Natural Gas (LEADING Act)
+  - '"H.R.3861"' #Carbon Capture Improvement Act of 2019
+  - '"H.R.5156"' #Carbon Capture and Sequestration Extension Act of 2019
+  - '"H.R.5865"' #CCUS Innovation Act
+  - '"H.R.7896"' #RECOUPS Act of 2020
+  - '"H.R.8671"' # Create act of 2020
+  - '"H.R.8858"' #ACCESS 45Q Act
+  - '"H.R.8995"' #SCALE act
+  - '"S.1201"' #Enhancing Fossil Fuel Energy Carbon Technology (EFFECT) Act
+  - '"S.1685"' #Launching Energy Advancement and Development through Innovation for Natural Gas (LEADING Act)
+  - '"S.1763"' # Carbon Capture Improvement Act
+  - '"S.2263"' #CO2 Regulatory Certainty Act
+  - '"S.383"' # USE IT Act
+  - '"S.407"' #Carbon Capture Modernization Act
+  - '"S.4341"' # CREATE Act of 2020
+  - '"S.4966"' #45Q Carbon Capture, Utilization, and Storage Tax Credit Amendments Act
