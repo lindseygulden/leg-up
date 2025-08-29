@@ -1,0 +1,82 @@
+# Configuration file for running uncertainty analysis with 'mini SEM' energy-source share model
+# specifies parameters necessary to run latin-hypercube sampling of mini SEM
+# use this with sensitivity.py (even though it's an uncertainty analysis...)
+#
+# path to configuration for model
+baseline_model_config: /Users/lindseygulden/dev/leg-up-private/projects/iam/sem_baseline_config.yml
+sampler: lhs
+num_samples: 100000
+calc_second_order: True
+metric: fossil_fuels_with_CCS
+output_dir: /Users/lindseygulden/dev/leg-up-private/projects/iam/lhsdata_revised
+pars_to_vary:
+  - name: starting_price_solar_pv
+    key_path:
+    - parameters
+    - starting_energy_generation_price_usd_per_mwh
+    - solar_pv
+    bounds:
+    - 50
+    - 80
+  - name: ccs_cost_adder_fraction
+    key_path:
+    - parameters
+    - starting_carbon_removal_price_fraction
+    - fossil_fuels_with_CCS
+    bounds:
+    - 0.3
+    - 0.9
+  - name: ccs_capture_fraction
+    key_path:
+    - parameters
+    - capture_fraction
+    - fossil_fuels_with_CCS
+    bounds:
+    - 0.15
+    - 0.95
+  - name: solar_pv_learning_curve
+    key_path:
+    - parameters
+    - frac_energy_generation_cost_decrease_per_timestep
+    - solar_pv
+    bounds:
+    - 0.05
+    - 0.4
+  - name: ccs_learning_curve
+    key_path:
+    - parameters
+    - frac_cdr_cost_decrease_per_timestep
+    - fossil_fuels_with_CCS
+    bounds:
+    - 0.0
+    - 0.1
+  - name: fossil_subsector_logit_exponent
+    key_path:
+    - logit_exponents
+    - subsector
+    - fossil
+    bounds:
+    - -10.0
+    - -0.1
+  - name: energy_sector_logit_exponent
+    key_path:
+    - logit_exponents
+    - sector
+    - energy
+    bounds:
+    - -6.0
+    - -0.1
+  - name: co2_starting_price
+    key_path:
+    - price_curve
+    - starting_price
+    bounds:
+    - 0
+    - 50
+  - name: co2_total_increase_in_price
+    key_path:
+    - price_curve
+    - total_increase_in_price
+    bounds:
+    - 0
+    - 200
