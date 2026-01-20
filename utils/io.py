@@ -1,9 +1,11 @@
-""" Utility functions for input/output of data"""
+"""Utility functions for input/output of data"""
 
 import logging
+import os
 from pathlib import PosixPath
 from typing import Union
 
+import pandas as pd
 import yaml
 
 logging.basicConfig()
@@ -43,11 +45,71 @@ def dict_to_yaml(dictionary: dict, yaml_filepath: Union[str, PosixPath]):
     Returns:
         None
     """
-    if (yaml_filepath.split(".")[-1] != "yml") and (
-        yaml_filepath.split(".")[-1] != "yaml"
+    if (str(yaml_filepath).rsplit(".", maxsplit=1)[-1] != "yml") and (
+        str(yaml_filepath).rsplit(".", maxsplit=1)[-1] != "yaml"
     ):
         raise ValueError(
             f"Specified filepath should end in .yml or .yaml. Current value is {yaml_filepath}"
         )
     with open(yaml_filepath, "w", encoding="utf8") as outfile:
         yaml.dump(dictionary, outfile, default_flow_style=False)
+
+
+def xls_to_csvs(xls_path: str, output_dir: str = "."):
+    """Reads an excel file and outputs each subsheet to its own CSV
+    Args:
+        xls_path: string that is file path of Excel file
+        output_dir: directory where the csvs should be written
+    Returns:
+        None
+    """
+    excel_file = pd.ExcelFile(xls_path)
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    for sheet in excel_file.sheet_names:
+        # Read the sheet
+        df = excel_file.parse(sheet)
+
+        # Create safe filename by replacing spaces and making everything lowercase
+        safe_name = sheet.lower().replace(" ", "_") + ".csv"
+        output_path = os.path.join(output_dir, safe_name)
+
+        # Write to CSV
+        df.to_csv(output_path, index=False)
+
+
+def ensure_dir(path):
+    """
+    Check if a directory exists; if not, create it.
+    """
+    if os.path.exists(path):
+        if os.path.isfile(path):
+            raise FileExistsError(
+                f"Error: '{path}' exists and is a file, not a directory."
+            )
+    else:
+        os.makedirs(path)
+
+
+def read_excel_sheets_to_dfs(file_path, sheet_names):
+    """
+    Reads specified sheets from an excel file into a dict containing separate dfs.
+
+    Args:
+        file_path (str): Path to the excel file.
+        sheet_names (list): List of sheet names to read.
+
+    Returns:
+        dict: dictionary where keys are sheet names and values are dfs.
+    """
+    dataframes = {}
+
+    for sheet in sheet_names:
+        try:
+            df = pd.read_excel(file_path, sheet_name=sheet)
+            dataframes[sheet] = df
+        except ValueError:
+            print(f"'{sheet}' not found in the excel file.")
+
+    return dataframes
