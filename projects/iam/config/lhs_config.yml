@@ -1,14 +1,15 @@
-# Configuration file for running uncertainty analysis with 'mini SEM' energy-source share model
-# specifies parameters necessary to run latin-hypercube sampling of mini SEM
-# use this with sensitivity.py (even though it's an uncertainty analysis...)
+# Configuration file for running sensitivity analysis with 'ESLiM' energy-source share model
+#
+# use this with sensitivity.py
 #
 # path to configuration for model
-baseline_model_config: /Users/lindseygulden/dev/leg-up-private/projects/iam/sem_baseline_config.yml
-sampler: lhs
-num_samples: 100000
+baseline_model_config: /Users/lindseygulden/dev/leg-up-private/projects/iam/config/eslim_baseline_config.yml
+#
+sampler: lhs #saltelli #or lhs
+num_samples: 500000 #4096
 calc_second_order: True
 metric: fossil_fuels_with_CCS
-output_dir: /Users/lindseygulden/dev/leg-up-private/projects/iam/lhsdata_revised
+output_dir: /Users/lindseygulden/dev/leg-up-private/projects/iam/data/revised_data_20260114_lhs
 pars_to_vary:
   - name: starting_price_solar_pv
     key_path:
@@ -17,23 +18,23 @@ pars_to_vary:
     - solar_pv
     bounds:
     - 50
-    - 80
+    - 110
   - name: ccs_cost_adder_fraction
     key_path:
     - parameters
     - starting_carbon_removal_price_fraction
     - fossil_fuels_with_CCS
     bounds:
-    - 0.3
-    - 0.9
+    - 0.35
+    - 1.0
   - name: ccs_capture_fraction
     key_path:
     - parameters
     - capture_fraction
     - fossil_fuels_with_CCS
     bounds:
-    - 0.15
-    - 0.95
+    - 0.1
+    - 0.9
   - name: solar_pv_learning_curve
     key_path:
     - parameters
@@ -49,7 +50,7 @@ pars_to_vary:
     - fossil_fuels_with_CCS
     bounds:
     - 0.0
-    - 0.1
+    - 0.15
   - name: fossil_subsector_logit_exponent
     key_path:
     - logit_exponents
@@ -57,15 +58,15 @@ pars_to_vary:
     - fossil
     bounds:
     - -10.0
-    - -0.1
+    - -1
   - name: energy_sector_logit_exponent
     key_path:
     - logit_exponents
     - sector
     - energy
     bounds:
-    - -6.0
-    - -0.1
+    - -10.0
+    - -1
   - name: co2_starting_price
     key_path:
     - price_curve

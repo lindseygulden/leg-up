@@ -1,0 +1,81 @@
+# Configuration file for 'mini SEM' energy-source share model
+# implements a less aggressive carbon price but otherwise uses the baseline model
+# Parameters mimic what can be found in energy-system model literature as best as possible
+#
+# use this with mini_sem.py
+#
+start_yr: 2020
+timestep_yr: 5
+n_steps: 6
+logit_exponents:
+  subsector:
+    fossil: -10
+    renewables: -10
+  sector:
+    energy: -3
+energy_sources:
+- fossil_fuels
+- fossil_fuels_with_CCS
+- solar_pv
+energy_demand_growth_rate_per_timestep: 0.1 # fraction (0.01 = +1%. 0.1 over 5 years is ~ 2% per year))
+# increase of carbon price through time
+price_curve:
+  type: minmax
+  starting_price: 22.5
+  total_increase_in_price: 110
+#price_curve:
+#  type: line
+#  slope: 40
+#  intercept: 40
+#price_curve:
+#  type: sigmoid
+#  upper_bound: 400  # lowest price possible
+#  lower_bound: 10 #highest price possilbe
+#  inflection:  0.6 # [0,1]
+#  steepness:  0.9  # [0, 10] -> less than 1 rises fast at the start, slows down; reverse is true for >1
+#usd_per_tco2: [0, 60, 140, 180, 205, 230, 250]
+parameters:
+  subsector:
+    fossil_fuels: fossil
+    fossil_fuels_with_CCS: fossil
+    solar_pv: renewables
+  sector:
+    fossil_fuels: energy
+    fossil_fuels_with_CCS: energy
+    solar_pv: energy
+  lifespan_yr:
+    fossil_fuels: 40
+    fossil_fuels_with_CCS: 40
+    solar_pv: 25
+  retire_timestep:
+    fossil_fuels: 0
+    fossil_fuels_with_CCS: 9
+    solar_pv: 6
+  starting_carbon_removal_price_fraction: #carbon_removal_price_adder
+    fossil_fuels: 0
+    fossil_fuels_with_CCS: 0.4
+    solar_pv: 0
+  starting_energy_generation_price_usd_per_mwh:
+    fossil_fuels: 60
+    fossil_fuels_with_CCS: 60
+    solar_pv: 100
+  capture_fraction:
+    fossil_fuels: 0.0
+    fossil_fuels_with_CCS: 0.9
+    solar_pv: 0.0
+  co2_per_mwh:
+    fossil_fuels: 0.45
+    fossil_fuels_with_CCS: 0.45
+    solar_pv: 0.001
+  starting_share:
+    fossil_fuels: 0.79
+    fossil_fuels_with_CCS: 0.01
+    solar_pv: 0.2
+  frac_energy_generation_cost_decrease_per_timestep:
+    fossil_fuels: 0.0
+    fossil_fuels_with_CCS: 0.0 # same energy generation technology as basic fossil fuels
+    solar_pv: 0.1 #0.2
+  frac_cdr_cost_decrease_per_timestep:
+    fossil_fuels: 0.0
+    fossil_fuels_with_CCS: 0.1 # 0.1
+    solar_pv: 0.0 # no CDR associated with solar removal
