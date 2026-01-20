@@ -1,7 +1,7 @@
 # Files for enabling assessment of the treatement of CCS in the IEA and IPCC energy-system models
-Lindsey Gulden
-lindsey at legupdata dot com
-January 2026
+- Lindsey Gulden
+- lindsey at legupdata dot com
+- January 2026
 
 ## What is in this directory?
 Files included here are python scripts, jupyter notebooks, and yaml configuration files used to implement research underpinning the following paper: [A critical assessment of the IPCC and IEA’s projections for carbon capture and storage](https://docs.google.com/document/d/1mwiSPu30LqLGQT-hkVah-VZzFI5dpKgsWUGA0rdgobI/edit?usp=sharing).
