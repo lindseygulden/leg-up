@@ -18,7 +18,7 @@ from SALib.analyze import sobol
 from SALib.sample import saltelli
 from scipy.stats import qmc
 
-from projects.iam.mini_sem import NestedLogitIAM
+from projects.iam.eslim import NestedLogitIAM
 from utils.io import yaml_to_dict
 
 logging.basicConfig(level=logging.INFO)
@@ -70,7 +70,12 @@ def update_parameters(
 
 
 def lhs(num_samples: int, param_bounds: List[List[float]]):
-    """gets latin hypercube samples for parameter space"""
+    """gets latin hypercube samples for parameter space
+    Args:
+        num_samples: number of samples to generate
+        param_bounds: a list of ranges from which to sample (currently only does uniform dist)
+    Returns:
+        pandas dataframe containing scaled results for use in model"""
     # generate latin hypercube samples in [0, 1]
     sampler = qmc.LatinHypercube(d=len(param_bounds))
     lhs_unit = sampler.random(n=num_samples)
@@ -106,7 +111,7 @@ def si_to_dataframes(
     """Convert SALib sobol Si matrix and parameter names into dfs."""
     n = len(param_names)
 
-    # first-order saltelli indices and confidence
+    # first-order saltelli indices and confidence outputs
     s1_df = pd.DataFrame(
         {"S1": si_matrix["S1"], "S1_conf": si_matrix.get("S1_conf", [np.nan] * n)},
         index=param_names,
@@ -114,7 +119,7 @@ def si_to_dataframes(
     s1_df.index.name = "parameter"
     s1_df.reset_index(inplace=True)
 
-    # total-order indices and confidence
+    # total-order indices and confidence outputs
     s_total_df = pd.DataFrame(
         {"ST": si_matrix["ST"], "ST_conf": si_matrix.get("ST_conf", [np.nan] * n)},
         index=param_names,
