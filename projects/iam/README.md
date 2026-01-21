@@ -1,4 +1,4 @@
-# Files for enabling assessment of the treatement of CCS in the IEA and IPCC energy-system models
+# A critical assessment of the treatement of CCS in the IEA and IPCC energy-system models
 - Lindsey Gulden
 - lindsey at legupdata dot com
 - January 2026
