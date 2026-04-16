@@ -1,0 +1,20 @@
+# paths to data for use in analysis, figure and table generation
+# Overprojection of Carbon Capture and Storage in Global Decarbonization Scenarios paper,
+# https://docs.google.com/document/d/1TQpmiwgphxeU774to0shgKQuwI34sTGSdsfw_6J1YfM/edit?usp=sharing
+#
+# Path to directory where scripts should write figures
+output_dir: /Users/lindseygulden/dev/leg-up-private/projects/emperor_figs
+# Path to configuration file directory
+path_to_eslim_config_directory: /Users/lindseygulden/dev/leg-up-private/projects/iam/config/
+#
+# ESLiM result data
+lhs_ensemble_results_path: /Users/lindseygulden/dev/leg-up-private/projects/iam/data/revised_data_20260114_lhs/
+sensitivity_results_path: /Users/lindseygulden/dev/leg-up-private/projects/iam/data/revised_data_20260113_sens_65536/
+#
+# IEA and IPCC data
+porcupine_data_dir: /Volumes/T5_external/data/porcupine
+ar6_data: /Volumes/T5_External/journal_submissions/emperor/data/AR6_Scenarios_Database_World_v1.1.csv
+ar6_metadata: /Volumes/T5_External/journal_submissions/emperor/data/AR6_Scenarios_Database_metadata_indicators_v1.1.csv
+sr15_data: /Volumes/T5_External/journal_submissions/emperor/data/iamc15_scenario_data_world_r2.0.csv
+sr15_metadata: /Volumes/T5_External/journal_submissions/emperor/data/iamc15_scenario_data_world_r2.0_metadata.csv
+iea_ccus_database_path: /Volumes/T5_External/data/ccs/iea_ccus_projects_2025.csv
