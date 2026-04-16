@@ -3,13 +3,13 @@
 # use this with sensitivity.py
 #
 # path to configuration for model
-baseline_model_config: /Users/lindseygulden/dev/leg-up-private/projects/iam/config/eslim_baseline_config.yml
+baseline_model_config: /local/path/to/iam/config/eslim_baseline_config.yml
 #
 sampler: saltelli #or lhs
 num_samples: 32768 #65536 # number of samples to run with LHS if sampler = lhs
 calc_second_order: False
 metric: fossil_fuels_with_CCS
-output_dir: /Users/lindseygulden/dev/leg-up-private/projects/iam/data/revised_data_20260116_sens
+output_dir: /local/path/to/directory/where/sensitivity/analysis/outputs/should/be/stored
 pars_to_vary:
   - name: starting_price_solar_pv
     key_path:
