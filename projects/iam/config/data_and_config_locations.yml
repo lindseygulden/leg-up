@@ -3,18 +3,26 @@
 # https://docs.google.com/document/d/1TQpmiwgphxeU774to0shgKQuwI34sTGSdsfw_6J1YfM/edit?usp=sharing
 #
 # Path to directory where scripts should write figures
-output_dir: /Users/lindseygulden/dev/leg-up-private/projects/emperor_figs
+output_dir: /local/path/to/dir/where/you/want/figs/to/be/written/out
 # Path to configuration file directory
-path_to_eslim_config_directory: /Users/lindseygulden/dev/leg-up-private/projects/iam/config/
+path_to_eslim_config_directory: /local/path/to/directory/where/config/yml/files/are/stored/
 #
-# ESLiM result data
-lhs_ensemble_results_path: /Users/lindseygulden/dev/leg-up-private/projects/iam/data/revised_data_20260114_lhs/
-sensitivity_results_path: /Users/lindseygulden/dev/leg-up-private/projects/iam/data/revised_data_20260113_sens_65536/
+# ESLiM: path to dir where LHS simulation_outputs.csv and simulation_parameters.csv are stored
+lhs_ensemble_results_path: /local/path/to/lhs/ensemble/results/
+# ESLIM: path to dir where sensitivity analysis outputs (s_total_results.csv, s1_results.csv) are stored
+sensitivity_results_path: /local/path/to/sensitivity/analysis/results/
 #
-# IEA and IPCC data
-porcupine_data_dir: /Volumes/T5_external/data/porcupine
-ar6_data: /Volumes/T5_External/journal_submissions/emperor/data/AR6_Scenarios_Database_World_v1.1.csv
-ar6_metadata: /Volumes/T5_External/journal_submissions/emperor/data/AR6_Scenarios_Database_metadata_indicators_v1.1.csv
-sr15_data: /Volumes/T5_External/journal_submissions/emperor/data/iamc15_scenario_data_world_r2.0.csv
-sr15_metadata: /Volumes/T5_External/journal_submissions/emperor/data/iamc15_scenario_data_world_r2.0_metadata.csv
-iea_ccus_database_path: /Volumes/T5_External/data/ccs/iea_ccus_projects_2025.csv
+# IEA report data -- code is written for the multi-sheet xlsx-formatted data
+iea_ccs_and_pv_data: /local/path/to/iea_ccs_and_pv_projections.xlsx
+world_bank_carbon_price_data: /local/path/to/world_bank_carbon_price_info.xlsx
+# CO2 price data extracted from tables in WEO reports
+weo_co2_price_data: /local/path/to/weo_co2_price.csv # NOTE csv format
+# IPCC data
+# local path to the data and metadata files for the AR6 Scenarios Database (for paper, we used v1.1)
+# Available from https://data.ece.iiasa.ac.at/ar6/#/login
+ar6_data: /local/path/to/AR6_Scenarios_Database_World_v1.1.csv
+ar6_metadata: /local/path/to/AR6_Scenarios_Database_metadata_indicators_v1.1.csv
+# IEA CCUS database data -- code is written for a CSV formatted dataset
+# local path where IEA CCUS data are stored. We used the 2025 version
+# Available at https://www.iea.org/data-and-statistics/data-product/ccus-projects-database
+iea_ccus_database_path: local/path/to/iea_ccus_projects_2025.csv
