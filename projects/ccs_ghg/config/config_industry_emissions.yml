@@ -1,0 +1,488 @@
+# Industrial emission factors: process and combustion CO2 and CH4 per unit product.
+#
+# These are the four base emission factors for each industry. They are combined
+# with a methane leak rate (lambda) and GWP to compute CO2e at runtime:
+#   process_co2e = process_tco2 + lambda * GWP_CH4 * process_tch4
+#   combustion_co2e = combustion_tco2 + lambda * GWP_CH4 * combustion_tch4
+#
+# tCO2 values are direct CO2 mass emitted per unit product.
+# tCH4 values are total methane mass throughput (consumed, not leaked) per unit product;
+# the leaked fraction is lambda * tCH4, converted to CO2e via GWP.
+#
+# ccs_applied_to indicates which CO2 stream the capture equipment targets.
+#
+# ---------- Shared conversion constants ----------
+# M_CH4 / M_CO2 = 16.04246 / 44.0095 = 0.36454 (stoichiometric mass ratio)
+# LHV methane = 50 GJ/tCH4 = 50,000 MJ/tCH4 (engineeringtoolbox.com)
+# 1 GJ = 1,055.056 MJ = 1 MMBtu (by definition of MMBtu)
+# 1 GJ = 0.27778 MWh
+# EPA 40 CFR 98 Table C-1 natural gas EF = 0.05306 tCO2/MMBtu
+# EPA 40 CFR 98 Table C-1 lignite EF = 0.09772 tCO2/MMBtu
+# Grid CO2 intensity = 0.37 tCO2/MWh (config_infrastructure.yml)
+
+industries:
+
+  # ===================================================================
+  # HYDROGEN (SMR)
+  # ===================================================================
+  # Source: Howarth & Jacobson (2021), Table 1.
+  #   Consistent with Sun et al. (2019), Table 1 (p. 7105).
+  #
+  # Raw data (g/MJ H2, lower heating value basis):
+  #   Process CO2:    38.5 g/MJ   (reforming reaction; feedstock NG -> CO2)
+  #   Combustion CO2: 31.8 g/MJ   (NG brned for heat)
+  #   Process CH4:    14.0 g/MJ   (derived via stoichiometry from CO2: 38.5 * 16.043/44.009)
+  #   Combustion CH4: 11.6 g/MJ   (derived via stoichiometry from CO2: 31.8 * 16.043/44.009)
+  #
+  # LHV of hydrogen: 120 MJ/kg = 120,000 MJ/t (NIST WebBook)
+  #
+  # Conversion: value_g_per_MJ * 120,000 MJ/t / 1,000,000 g/t = value_t_per_t
+  #   Process CO2:    38.5 * 120,000 / 1e6 = 4.620 tCO2/t H2
+  #   Combustion CO2: 31.8 * 120,000 / 1e6 = 3.816 tCO2/t H2
+  #   Process CH4:    14.0 * 120,000 / 1e6 = 1.680 tCH4/t H2
+  #   Combustion CH4: 11.6 * 120,000 / 1e6 = 1.392 tCH4/t H2
+  #     (model uses 1.3876 from workbook molar-stream calculation)
+  #
+  # CCS target: process stream (high-purity CO2 from SMR)
+  # Capture rate: 0.90 (NETL 2022, refinery hydrogen case, pp. 83-93)
+  hydrogen:
+    unit: "ton H2"
+    lhv_mj_per_kg: 120.0  # NIST WebBook
+    source_data:
+      reference: "Howarth & Jacobson (2021), Table 1"
+      process_g_co2_per_mj: 38.5
+      combustion_g_co2_per_mj: 31.8
+      process_g_ch4_per_mj: 14.0   # stoichiometric: CO2 * M_CH4/M_CO2
+      combustion_g_ch4_per_mj: 11.6 # stoichiometric: CO2 * M_CH4/M_CO2
+    process_tco2_per_unit: 4.620
+    combustion_tco2_per_unit: 3.816
+    process_tch4_per_unit: 1.680
+    combustion_tch4_per_unit: 1.387636  # workbook molar-stream value
+    ccs_applied_to: process
+
+  # ===================================================================
+  # AMMONIA
+  # ===================================================================
+  # Source: Lee et al. (2022), Figure 1, Table 1, and Table S6.
+  #   DOI: https://doi.org/10.1016/j.jclepro.2022.131494
+  #
+  # Step 1 -- Total natural gas: 32.52 GJ/t NH3 (Lee Table 1)
+  #
+  # Step 2 -- Fuel/feedstock split from Table S6 molar flows:
+  #   Process (feedstock) natural gas: 1143.5 kmol-C/hr
+  #   Natural gas used for fuel:                384.7 kmol-C/hr
+  #   Compute molar fraction of NG used for fuel:
+  #   f_fuel = 384.7 / (1143.5 + 384.7) = 0.3365 (original note: 0.2518)
+  #   Fuel NG  = 0.3365 * 32.52 = 10.943 GJ/t NH3
+  #   Feedstock NG = 32.52 - 10.943 = 21.577 GJ/t NH3
+  #
+  # Step 3 -- CO2 from natural gas:
+  #   Lee et al. derive CO2 from detailed molar stream composition in Table S6,
+  #   tracking individual process steps (primary reformer, secondary reformer,
+  #   shift converter). Results:
+  #     Process CO2:         1.082 tCO2/t NH3 (feedstock NG -> CO2 via reforming)
+  #     NG combustion CO2: 
+  #       tCO2 per mmbtu of methane = 0.05306 (EPA regulatory emissions factor for natural gas: https://www.law.cornell.edu/cfr/text/40/appendix-Table_C-1_to_subpart_C_of_part_98 )
+  #       GJ/mmbtu = 1.055056
+  #       (10.943 GJ/tNH3) / (1.055056 GJ/mmbtu) * (0.05291 tCO2/mmbtu) = 0.548792 tCO2/tNH3
+  # Step 4 -- Electricity: 0.22 GJ/t NH3 (Lee Table 1)
+  #     Grid co2 emissions:
+  #       0.22 GJ/tNH3 
+  #       * 0.27777777777778 MWh per GJ 
+  #       * 733.862 lb CO2/MWh [ERCOT (ERCT), makes up 90% of texas grid. Slight underestimate because parts of east texas are in SRMV and the pan handle is in SPSO. EPA revision 2, 2025, using 2023 data https://www.epa.gov/egrid/summary-data; https://www.epa.gov/system/files/documents/2025-06/summary_tables_rev2.pdf]
+  #       / 2204.623 lb/metric ton
+  #       =
+  #       0.02034230897 tCO2/tNH3
+  #     Grid ch4 emissions:
+  #       0.22 GJ/tNH3 
+  #       * 0.27777777777778 MWh per GJ 
+  #       * 0.043 lb CH4/MWh [ERCOT (ERCT), see note above about ERCOT https://www.epa.gov/system/files/documents/2025-06/summary_tables_rev2.pdf]
+  #       / 2204.623 lb/metric ton 
+  #       =
+  #       0.0000011919397 tCH4/tNH3
+  #
+  #   Added to fuel combustion: total combustion CO2 = 0.549 + 0.049 = 0.598
+  #   (0.049 comes from a more precise grid-factor calculation in the workbook)
+  #
+  # Step 5 -- Methane throughput (GJ / 50 GJ/tCH4):
+  #   Simple split: process = 21.577/50 = 0.432, combustion = 10.943/50 = 0.219
+  #   Model values (0.393, 0.217) adjusted per Lee Table S6 molar stream detail.
+  #
+  # CCS target: process stream (stripping vent)
+  # Capture rate: 0.95 (NETL 2022, pp. 36-41)
+  ammonia:
+    unit: "ton NH3"
+    source_data:
+      reference: "Lee et al. (2022), Fig 1, Table 1 and Table S6"
+      total_ng_gj_per_t: 32.52
+      fuel_fraction: 0.3365      # from Table S6 molar flows
+      fuel_ng_gj_per_t: 10.94324   # 0.3365 * 32.52
+      feedstock_ng_gj_per_t: 21.57676  # 32.52 - 10.943
+      electricity_gj_per_t: 0.22 # Lee Table 1
+    process_tco2_per_unit: 1.082052661856717   # Lee molar stream analysis
+    combustion_tco2_per_unit: 0.5976816039600324  # fuel combustion + grid electricity
+    process_tch4_per_unit: 0.393474   # Lee Table S6 molar stream
+    combustion_tch4_per_unit: 0.217339  # Lee Table S6 molar stream
+    ccs_applied_to: process
+
+  # ===================================================================
+  # METHANOL (ATR)
+  # ===================================================================
+  # Source: Methanol Institute, "Carbon Footprint of Methanol" (2022), p. 8;
+  #   RSC Energy & Environmental Science (2024).
+  #
+  # ATR (autothermal reforming) uses an exothermic reaction and excess hydrogen
+  # to supply heat, so combustion emissions are a small fraction of total.
+  # Methanol Institute reports ~400 g CO2/kg MeOH from the ATR carbon balance.
+  # RSC E&ES (2024) reports 0.5-1.5 tCO2/t MeOH for NG-to-methanol routes,
+  # consistent with the lower end for ATR.
+  #
+  # Process/combustion split is approximate (no detailed facility breakdown available).
+  # CH4 throughput split proportionally to CO2 ratio.
+  #
+  # CCS target: process stream
+  # Capture rate: 0.831 (config_industries.yml; placeholder)
+  methanol:
+    unit: "ton MeOH"
+    source_data:
+      reference: "Methanol Institute (2022) p. 8; RSC E&ES (2024)"
+      total_g_co2_per_kg: 400  # ATR carbon balance
+      notes: "Process/combustion split approximate; no facility-level breakdown"
+    process_tco2_per_unit: 0.350
+    combustion_tco2_per_unit: 0.050
+    process_tch4_per_unit: 0.127273
+    combustion_tch4_per_unit: 0.018182
+    ccs_applied_to: process
+
+  # ===================================================================
+  # ETHANOL
+  # ===================================================================
+  # Source: Process CO2 -- stoichiometric fermentation yield (Jenkins, 2014).
+  #   Combustion CO2 -- Xu et al. (2022), Figure 2.
+  #
+  # Step 1 -- Process CO2 from fermentation:
+  #   Corn ethanol fermentation: 51% ethanol, 49% CO2 by mass (Jenkins 2014).
+  #   Process CO2 = 0.49 / 0.51 = 0.961 tCO2/t EtOH (biogenic)
+  #
+  # Step 2 -- Combustion CO2:
+  #   Xu et al. Fig 2: ~25.6 g CO2/MJ ethanol (energy-related emissions)
+  #   LHV ethanol: 26.8 MJ/kg
+  #   Combustion CO2 = 25.6 * 26.8 / 1000 = 0.686 tCO2/t EtOH
+  #
+  # Methane throughput:
+  #   Process CH4 = 0 (fermentation does not consume natural gas)
+  #   Combustion CH4 = 0.249 tCH4/t EtOH (from Xu et al. energy inputs)
+  #
+  # CCS target: process stream (high-purity fermentation off-gas)
+  # Capture rate: 0.99 (NETL 2022, pp. 52-58)
+  ethanol:
+    unit: "ton EtOH"
+    source_data:
+      reference_process: "Jenkins (2014), stoichiometric fermentation yield"
+      reference_combustion: "Xu et al. (2022), Figure 2"
+      ethanol_mass_fraction: 0.51
+      co2_mass_fraction: 0.49
+      combustion_g_co2_per_mj_etoh: 25.6
+      lhv_etoh_mj_per_kg: 26.8
+    process_tco2_per_unit: 0.9607843137254901  # 0.49/0.51
+    combustion_tco2_per_unit: 0.686  # 25.6 * 26.8 / 1000
+    process_tch4_per_unit: 0.0  # no NG in fermentation
+    combustion_tch4_per_unit: 0.249455
+    ccs_applied_to: process
+
+  # ===================================================================
+  # LIQUEFIED NATURAL GAS (LNG)
+  # ===================================================================
+  # Source: Howarth (2024), Table 1 and Eq. 5;
+  #   IEAGHG (2019) technoeconomic assessment of CO2 capture in LNG plants.
+  #
+  # Raw data from Howarth (2024) Table 1 (g CO2/kg LNG):
+  #   Gas burned for liquefaction:   270 g/kg  (combustion)
+  #   CO2 in feed gas (pre-processing): 57 g/kg  (process)
+  #   Flaring:                        18 g/kg  (process)
+  #
+  # Low-CO2 feed gas case (used in model):
+  #   Process CO2:    75 g/kg = 0.075 tCO2/t LNG  (CO2-in-feed-gas only, excl. flaring)
+  #   Combustion CO2: 270 g/kg = 0.270 tCO2/t LNG
+  #
+  # Methane throughput from mass of NG consumed in each role, via 50 GJ/tCH4:
+  #   Process CH4:    0.027 tCH4/t LNG
+  #   Combustion CH4: 0.098 tCH4/t LNG
+  #
+  # Additional: Howarth Table 3 reports 3.725 g CH4/kg LNG fugitive emissions
+  # during liquefaction (average); contributes to CO2e via combustion pathway.
+  #
+  # CCS target: process stream (acid gas removal / gas sweetening)
+  # Capture rate: 0.99 (effectively complete removal of feed-gas CO2)
+  # Power for acid gas removal supplied by waste heat from liquefaction turbines.
+  lng:
+    unit: "ton LNG"
+    source_data:
+      reference: "Howarth (2024), Table 1 & Eq. 5"
+      combustion_g_co2_per_kg: 270  # gas burned for liquefaction
+      process_co2_in_feed_g_per_kg: 57  # CO2 in feed gas
+      flaring_g_co2_per_kg: 18
+      fugitive_ch4_g_per_kg: 3.725  # Howarth Table 3 (average)
+      notes: "Low-CO2 feed gas case; excludes flaring from process total"
+    process_tco2_per_unit: 0.075
+    combustion_tco2_per_unit: 0.270
+    process_tch4_per_unit: 0.027273
+    combustion_tch4_per_unit: 0.098182
+    ccs_applied_to: process
+
+  # ===================================================================
+  # NATURAL GAS PROCESSING (NGP)
+  # ===================================================================
+  # Source: Total CO2 -- NETL "Natural Gas and Power LCA" (2024), ES Figure 1
+  #   (extracted via plot digitizer).
+  #   Process/combustion split -- EPA "Sector Profile for Natural Gas Processing",
+  #   Figure 11.
+  #
+  # Step 1 -- Total CO2 intensity:
+  #   NETL ES Fig 1: 1.65 g CO2/MJ processed gas
+  #   Convert to tCO2/MMBtu: 1.65 * 1,055.056 / 1e6 = 1.741e-3 tCO2/MMBtu
+  #
+  # Step 2 -- Process/combustion split (EPA Fig 11):
+  #   Total US NGP emissions: 58.52 MMt CO2
+  #     Process: 17.86 MMt (5.16 flare + 0.28 dehydrators + 12.42 AGR units)
+  #     Combustion: 40.66 MMt (combustion equipment)
+  #   f_proc = 17.86/58.52 = 0.305
+  #   f_comb = 40.66/58.52 = 0.695
+  #
+  # Step 3 -- Per-MMBtu factors:
+  #   Process CO2    = 1.741e-3 * 0.305 = 5.313e-4 tCO2/MMBtu
+  #   Combustion CO2 = 1.741e-3 * 0.695 = 1.210e-3 tCO2/MMBtu
+  #
+  # CH4 throughput estimated from NG consumed in each role.
+  #
+  # CCS target: process stream (acid gas removal)
+  # Capture rate: 0.80 (NETL, pp. 61-63)
+  ngp:
+    unit: mmbtu
+    source_data:
+      reference_total: "NETL (2024), ES Figure 1"
+      reference_split: "EPA Sector Profile for NGP, Figure 11"
+      total_g_co2_per_mj: 1.65
+      epa_total_mmt: 58.52
+      epa_process_mmt: 17.86    # 5.16 flare + 0.28 dehydrators + 12.42 AGR
+      epa_combustion_mmt: 40.66
+      process_fraction: 0.305   # 17.86 / 58.52
+      combustion_fraction: 0.695  # 40.66 / 58.52
+    process_tco2_per_unit: 0.0005313
+    combustion_tco2_per_unit: 0.0012095967857142854
+    process_tch4_per_unit: 0.000193
+    combustion_tch4_per_unit: 0.000436
+    ccs_applied_to: process
+
+  # High-CO2 feed gas variant (35% molar CO2 vs. 3% standard).
+  # Process CO2 increases ~50x due to higher CO2 concentration.
+  # See workbook_emissions tab for full computation.
+  ngp_high_co2:
+    unit: mmbtu
+    source_data:
+      reference: "Workbook derivation; high-CO2 feed gas (35% molar CO2)"
+    process_tco2_per_unit: 0.026997504558712714
+    combustion_tco2_per_unit: 0.05117739403453688
+    process_tch4_per_unit: 0.009818
+    combustion_tch4_per_unit: 0.018618
+    ccs_applied_to: process
+
+  # ===================================================================
+  # NATURAL GAS COMBINED-CYCLE POWER (CCGT)
+  # ===================================================================
+  # Source: Heat rates -- NETL "Cost and Performance Baseline for Fossil Energy
+  #   Plants" (2022), NGCC F class, p. 9 (new build); EIA "Electric Power
+  #   Annual" Table epa_08_02 (2024 US fleet average).
+  #   CO2 emission factor -- EPA 40 CFR 98 Table C-1.
+  #
+  # Derivation:
+  #   Combustion tCO2/MWh = heat_rate_btu_per_kwh * 0.05306 tCO2/MMBtu / 1000
+  #
+  # New-build CCGT:
+  #   Heat rate: 6,363 Btu/kWh (NETL 2022 NGCC F class p. 9)
+  #   Combustion CO2 = 6363 * 0.05306 / 1000 = 0.3376 tCO2/MWh
+  #
+  # Fleet-average CCGT:
+  #   Heat rate: 7,548 Btu/kWh (EIA 2024)
+  #   Combustion CO2 = 7548 * 0.05306 / 1000 = 0.4005 tCO2/MWh
+  #
+  # Process CO2 = 0 (all CO2 from fuel combustion).
+  #
+  # Methane throughput = heat_rate / LHV_CH4
+  #   LHV CH4 = 50 GJ/tCH4 = 47,389 MMBtu/tCH4
+  #   (model values 0.124, 0.146 calibrated to EIA/NETL fuel consumption data)
+  #
+  # CCS target: combustion stream (post-combustion flue gas capture)
+  # Capture rate: 0.87 (NPC 2022, Ch. 2, Table 2-6)
+  # Since process CO2 = 0, f_adj = f_comb = 0.87.
+  power_ng_new_build:
+    unit: MWh
+    source_data:
+      reference: "NETL (2022), NGCC F class, p. 9"
+      heat_rate_btu_per_kwh: 6363
+      fuel_type: natural_gas
+      ef_tco2_per_mmbtu: 0.05306  # EPA 40 CFR 98 Table C-1
+    process_tco2_per_unit: 0.0
+    combustion_tco2_per_unit: ~  # derived at runtime: heat_rate * ef / 1000
+    heat_rate_btu_per_kwh: 6363
+    fuel_type: natural_gas
+    process_tch4_per_unit: 0.0
+    combustion_tch4_per_unit: 0.123636  # calibrated to NETL facility data
+    ccs_applied_to: combustion
+
+  power_ng_fleet:
+    unit: MWh
+    source_data:
+      reference: "EIA Electric Power Annual Table epa_08_02 (2024)"
+      heat_rate_btu_per_kwh: 7548
+      fuel_type: natural_gas
+      ef_tco2_per_mmbtu: 0.05306  # EPA 40 CFR 98 Table C-1
+    process_tco2_per_unit: 0.0
+    combustion_tco2_per_unit: ~  # derived at runtime: heat_rate * ef / 1000
+    heat_rate_btu_per_kwh: 7548
+    fuel_type: natural_gas
+    process_tch4_per_unit: 0.0
+    combustion_tch4_per_unit: 0.145636  # calibrated to EIA fuel consumption data
+    ccs_applied_to: combustion
+
+  # ===================================================================
+  # REFINED FUELS
+  # ===================================================================
+  # Source: Big Spring Refinery case study (Delek US / Svante DOE CCS project).
+  #   EPA FLIGHT facility 1006961, 2023 reporting year.
+  #   Process emissions: EPA Subpart Y (petroleum refining).
+  #   Combustion emissions: Subpart C (stationary fuel combustion).
+  #
+  # Facility-level emissions (2023):
+  #   Total facility CO2:              723,227 tCO2/yr
+  #   Process CO2 (Subpart Y):         273,815 tCO2/yr
+  #   Fuel combustion CO2 (Subpart C): 449,412 tCO2/yr
+  #
+  # Facility throughput: 23,996,925 bbl/yr (EPA FLIGHT)
+  #
+  # Per-unit factors = annual emissions / annual throughput:
+  #   Process CO2    = 273,815 / 23,996,925 = 0.01141 tCO2/(bbl/yr)
+  #   Combustion CO2 = 449,412 / 23,996,925 = 0.01873 tCO2/(bbl/yr)
+  #
+  # Process CH4 = 0 (FCCU emissions are CO2 from coke burn-off, not methane).
+  # Combustion CH4 = 0.0068 tCH4/(bbl/yr), from Subpart C methane reporting.
+  #
+  # CCS target: process stream (FCCU catalytic cracking)
+  # The Svante/Delek CCS captures from the FCCU:
+  #   FCCU emits 204,016 tCO2/yr; CCS captures 145,000 tCO2/yr
+  #   f_proc = 145,000 / 273,815 = 0.530
+  refined_fuels:
+    unit: "bbl/yr"
+    source_data:
+      reference: "EPA FLIGHT facility 1006961 (2023); Svante/Delek DOE CCS project"
+      facility_total_tco2_yr: 723227
+      facility_process_tco2_yr: 273815   # Subpart Y
+      facility_combustion_tco2_yr: 449412  # Subpart C
+      facility_throughput_bbl_yr: 23996925
+      fccu_tco2_yr: 204016
+      ccs_captured_tco2_yr: 145000
+    process_tco2_per_unit: 0.011410407791831662
+    combustion_tco2_per_unit: 0.018727895344924403
+    process_tch4_per_unit: 0.0
+    combustion_tch4_per_unit: 0.0068
+    ccs_applied_to: process
+
+  # ===================================================================
+  # PETROCHEMICALS
+  # ===================================================================
+  # Source: Shell Deer Park Chemicals case study.
+  #   EPA FLIGHT facility 1007002, 2022 reporting year.
+  #   Process emissions: EPA Subpart X (petrochemical production).
+  #   Combustion emissions: EPA FLIGHT Subpart C.
+  #
+  # In Jan 2022, Shell sold Deer Park refinery to Pemex; chemical plant
+  # reported separately thereafter.
+  #
+  # Facility-level emissions (2022):
+  #   Total facility CO2:          823,641 tCO2/yr
+  #   Process CO2 (Subpart X):      76,977 tCO2/yr
+  #   Combustion CO2 (Subpart C):  746,664 tCO2/yr
+  #
+  # CCS-accessible combustion sources: 636,834 tCO2/yr (NETL final report
+  #   11/14/2023; excludes boilers and incinerators -- CCS attached to
+  #   process heaters and hydrotreaters for aromatics/olefins only).
+  #
+  # Annual ethylene production: 2,922,000 t/yr (8,000 t/day * 365 days;
+  #   Shell Deer Park settlement press release)
+  #
+  # Per-unit factors:
+  #   Process CO2    = 76,977 / 2,922,000 = 0.02634 tCO2/t ethylene
+  #   Combustion CO2 = 746,664 / 2,922,000 = 0.2555 tCO2/t ethylene
+  #
+  # Process CH4 = 0.
+  # Combustion CH4 = 0.093 tCH4/t ethylene (from facility NG consumption).
+  #
+  # CCS target: combustion stream
+  # Shell CANSOLV: 95% capture of accessible 636,834 tCO2/yr = 604,992 tCO2/yr
+  # f_comb = 604,992 / 746,664 = 0.810
+  petrochemicals:
+    unit: "ton ethylene"
+    source_data:
+      reference: "EPA FLIGHT facility 1007002 (2022); DOE/NETL final report (11/14/2023)"
+      facility_total_tco2_yr: 823641
+      facility_process_tco2_yr: 76977    # Subpart X
+      facility_combustion_tco2_yr: 746664  # Subpart C
+      ccs_accessible_combustion_tco2_yr: 636834  # excl. boilers/incinerators
+      production_t_yr: 2922000   # 8000 t/day * 365
+      cansolv_capture_efficiency: 0.95
+    process_tco2_per_unit: 0.026344045174537988
+    combustion_tco2_per_unit: 0.2555317248459959
+    process_tch4_per_unit: 0.0
+    combustion_tch4_per_unit: 0.092921
+    ccs_applied_to: combustion
+
+  # ===================================================================
+  # COAL-FIRED POWER
+  # ===================================================================
+  # Source: EIA "Electric Power Annual" Table epa_08_01 (2024 US coal fleet
+  #   average heat rate); EPA 40 CFR 98 Table C-1 (lignite emission factor).
+  #   Texas coal power plants primarily burn lignite.
+  #
+  # Derivation:
+  #   Heat rate: 10,777 Btu/kWh (EIA 2024 fleet average)
+  #   Lignite EF: 0.09772 tCO2/MMBtu (EPA 40 CFR 98 Table C-1)
+  #   Combustion CO2 = 10,777 * 0.09772 / 1000 = 1.053 tCO2/MWh
+  #
+  # Process CO2 = 0 (all CO2 from fuel combustion).
+  # CH4 throughput = 0 (coal supply chain not included in methane model).
+  #
+  # CCS target: combustion stream
+  # Capture rate: 0.90 (NPC 2022, Ch. 2, Table 2-6)
+  power_coal:
+    unit: MWh
+    source_data:
+      reference: "EIA Table epa_08_01 (2024); EPA 40 CFR 98 Table C-1"
+      heat_rate_btu_per_kwh: 10777
+      fuel_type: lignite
+      ef_tco2_per_mmbtu: 0.09772
+    process_tco2_per_unit: 0.0
+    combustion_tco2_per_unit: ~  # derived at runtime: heat_rate * ef / 1000
+    heat_rate_btu_per_kwh: 10777
+    fuel_type: lignite
+    process_tch4_per_unit: 0.0
+    combustion_tch4_per_unit: 0.0  # coal supply chain excluded
+    ccs_applied_to: combustion
+
+  # ===================================================================
+  # DAC (DIRECT AIR CAPTURE)
+  # ===================================================================
+  # DAC projects have zero industrial process and combustion emissions.
+  # The entire emission footprint comes from energy consumed during capture,
+  # computed in the CCS emissions module (see capture_cases in config_industries.yml).
+  #
+  # Source: Stanford (2024)
+  #   http://large.stanford.edu/courses/2024/ph240/cranmer1/
+  dac:
+    unit: "ton CO2"
+    source_data:
+      reference: "Stanford (2024); all emissions from capture energy"
+    process_tco2_per_unit: 0.0
+    combustion_tco2_per_unit: 0.0
+    process_tch4_per_unit: 0.0
+    combustion_tch4_per_unit: 0.0
+    ccs_applied_to: process

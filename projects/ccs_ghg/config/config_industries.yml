@@ -1,0 +1,460 @@
+# Per-industry CCS data: emission profiles + capture energy requirements.
+# Each industry block combines data previously split across
+# config_industrial_emissions.yml (emission profiles) and config_factors.yml (capture cases).
+#
+# Top-level key = simple_product_name.
+# emission_profiles: list of per-unit emission data (some industries have multiple variants).
+# capture_cases: list of capture energy requirement cases (some have 90%/99% variants).
+#
+# We ignore NETL's capacity factors because we are not doing a cost analysis
+# of CCS; the energy required to implement capture scales as CO2 output scales.
+#
+# For capture cases, data are primarily from:
+# - NETL 'Cost of Capturing CO2 from Industrial Sources' (2022):
+#   https://www.netl.doe.gov/projects/files/CostofCapturingCO2fromIndustrialSources_071522.pdf
+# - NPC CCUS Supply Chains and Economics Ch. 2 (p. 2-20):
+#   https://www.energy.gov/sites/default/files/2022-10/CCUS-Chap_2-030521.pdf
+# - NETL 'Direct air capture case studies: sorbent system' (2022):
+#   https://www.netl.doe.gov/projects/files/DirectAirCaptureCaseStudiesSorbentSystem_070822.pdf
+
+industries:
+  # -------------------------------------------------------------------
+  # Hydrogen
+  # Note that the total CO₂ emissions and total CH₄ throughput are consistent between
+  # Howarth and Jacobson 2021 and GREET's numbers for  (Wang et al., 202X, using Central Plants: North American Natural
+  # Gas to Gaseous Hydrogen, which is the dominant type of hydrogen production along the US Gulf Coast);
+  # however, the process/combustion split differs between the two, with Wang et al. having larger
+  # 'process' methane throughput and CO₂ emissions because GREET classifies carbon by its origin
+  # (feedstock vs. fuel) while Howarth and Jacobson classify it by where the CO2 physically exits
+  # the plant (concentrated process stream vs. dilute furnace flue gas).  We choose the latter characterization because
+  # it is more relevant to CCS capture. Howarth and Jacobson do not report electricity use per unit hydrogen; Wang et al do; we use Wang et al's numbers.
+  # -------------------------------------------------------------------
+  hydrogen:
+    emission_profiles:
+      # Howarth & Jacobson Table 1 (omitting indirect upstream/scope 3); consistent
+      # with Sun et al., 2019 Table 1 (https://doi.org/10.1002/ese3.956)
+      - industrial_product: hydrogen
+        is_methane_based: true
+        unit: "ton H2"
+        process_tco2_per_unit_product: 5.45545       # Howarth & Jacobson Table 1, 'Gray H2' column/'CO2 produced' for SMR process (38.5 g CO2/MJ H2)*(141.7 MJ H2/kg H2)*(1000 kg/t)/(1000000 g/t)
+        combustion_tco2_per_unit_product: 4.50606   # Howarth & Jacobson Table 1, 'Gray H2' column/'CO2 produced' for energy to drive SMR (31.8 g CO2/MJ H2)*(141.7 MJ H2/kg H2)*(1000 kg/t)/(1000000 g/t)
+        process_tch4_throughput_per_unit_product: 1.9838       # Howarth & Jacobson Table 1, 'Gray H2' column/'CH4 consumed' for SMR process/feedstock (14 g CH4/MJ H2)*(141.7 MJ H2/kg H2)*(1000 kg/t)/(1000000 g/t)
+        combustion_tch4_throughput_per_unit_product: 1.64372   # Howarth & Jacobson Table 1, 'Gray H2' column/'CH4 consumed' for energy to drive SMR (11.6 g CH4/MJ H2)*(141.7 MJ H2/kg H2)*(1000 kg/t)/(1000000 g/t)
+        electricity_mwh_per_unit_product: 0.1553188834 # Wang et al. GREET H2 Central Plants: North American Natural Gas to Gaseous Hydrogen cell b303; see next line for calculation
+        # ((3946 btu electricity/mmbtu H2)/(1000000 btu electricity/mmbtu electricity))*(0.29307107017222 mwh/mmbtu electricity)*(0.06092 mmbtu H2/lb H2)*(2204.623 lb H2/tH2)
+        ccs_applied_to: process
+    capture_cases:
+      - case_name: refinery_hydrogen_90
+        co2_stream_capture_rate: 0.90 # NETL case name
+        natural_gas_mmbtu_per_day: 2330 # NETL p. 93
+        power_for_capture_mw: 4.04 #NETL p. 87
+        tco2_available_in_capture_stream: 404700 # NETL p. 83
+        distance: near
+        primary_case: 1
+
+  # -------------------------------------------------------------------
+  # Ammonia
+  # -------------------------------------------------------------------
+  ammonia:
+    emission_profiles:
+      # Lee et al., 2022; Figure 1, Table 1
+      - industrial_product: ammonia
+        is_methane_based: true
+        unit: "ton NH3"
+        process_tco2_per_unit_product: 1.085120284   # ((21.57675587 GJ/tNH3)/(1.055056 GJ/mmbtu)*(0.05306 tCO2/mmbtu)
+        combustion_tco2_per_unit_product: 0.550348544  # ((10.94324413 GJ/tNH3)/(1.055056 GJ/mmbtu)*(0.05306 tCO2/mmbtu)
+        process_tch4_throughput_per_unit_product: 0.388469125      # (21.57675587 GJ/tNH3)*(1000 MJ/GJ)/(3600 MJ/mmbtu)/(52.6446436 mmbtu/tCH4)
+        combustion_tch4_throughput_per_unit_product: 0.197022781   # (10.94324413 GJ/tNH3)*(1000 MJ/GJ)/(3600 MJ/mmbtu)/(52.6446436 mmbtu/tCH4)
+        electricity_mwh_per_unit_product: 0.061111111  # 0.22 GJ/tNH3 * (1/3.6 MWh/GJ); Lee Table 1
+        ccs_applied_to: process
+    capture_cases:
+      # CCS is affixed to the stripping vent
+      - case_name: ammonia
+        co2_stream_capture_rate: 0.95
+        natural_gas_mmbtu_per_day: 0 # NETL p. 41
+        power_for_capture_mw: 5.86 #NETL p. 38
+        tco2_available_in_capture_stream: 486227 # NETL p. 36
+        primary_case: 1
+        distance: near
+  # -------------------------------------------------------------------
+  # Iron/steel
+  # -------------------------------------------------------------------
+  iron_steel:
+    emission_profiles:
+    #GREET assigns all DRI CO₂ to combustion and zero to non-combustion, despite roughly half being generated
+    # by iron ore reduction within the reducing-gas loop (in which natural gas is used to create CO and H2, where the
+    # CO reacts with FeO to create Fe and CO2). Bond et al. (2022) resolve the split between the process and combustion
+    # two streams but exclude heat losses, so the excess top gas a real plant would burn as
+    #  makeup fuel is purged and omitted Bond et al identify their emissions calculations as minima.
+    # We therefore take totals from GREET and the split between process and combustion from Bond.
+    # Assuming a 0.96 capture fraction, the process fraction of total CO₂ emissions is 0.47/0.96 = 0.49 and the combustion fraction is 0.51/0.96 = 0.53.
+    # In Bond et al., 2022, 10.7 GJ/t DRI is used, and 4.54 GJ/t is used for the 'firebox'. That means that 4.54/10.7=0.424299 of the total energy is used for combustion and the rest for feedstock for the reformer
+
+      - industrial_product: 'direct reduced iron with natural gas'
+        is_methane_based: true
+        unit: "ton DRI"
+        process_tco2_per_unit_product: 0.36184785             # (GREET row 119 col AI: 738,465 g ÷ 1e6 g/ton) 0.47/0.96=0.490 process fraction. 0.738465*0.49=0.36184785
+        combustion_tco2_per_unit_product: 0.37661715     # (GREET row 119 col AI: 738,465 g ÷ 1e6 g/ton) 0.47/0.96=0.490 process fraction. 0.738465*(1-0.49)=0.37661715
+        process_tch4_throughput_per_unit_product: 0.1118011342
+        combustion_tch4_throughput_per_unit_product: 0.0823988658
+                                                      # assume dry Gulf Coast gas: 96% methane
+                                                      #   mean MW 16.723 -> CH4 = 0.921 MASS frac (96 vol% ≠ 96 mass%)
+                                                      #   GHV 1005 Btu/scf -> 50.28 MMBtu/tonne
+                                                      # GREET row 90: 10.6026 mmBtu ÷ 50.28 = 0.2109 t gas
+                                                      #                × 0.921                = 0.1942 t CH4
+                                                      # Bond etal: 0.424299 of gas is used for combustion => 0.0823988658 t CH4/t DRI is used for combustion and 0.1115011342 t CH4/t DRI is used for feedstock
+
+                                                      # Bond et al (1-0.424299) of gas is used for feedstock => 0.1118011342 tCH4/t DRI is used for feedstock
+        electricity_mwh_per_unit_product: 0.1863       # GREET row 92: 0.6355 mmBtu × 0.293071 MWh/mmBtu
+        ccs_applied_to: process
+    capture_cases:
+      # CCS is affixed to the stripping vent
+      - case_name: iron_steel_dri_96  # MDEA pre-combustion — closest to Nucor/Energiron
+        # Pulled from Zecca et al., 2023: SEWGS integration in a direct reduction steelmaking process for CO2 mitigation, IGHGC. https://doi.org/10.1016/j.ijggc.2023.103991
+        co2_stream_capture_rate: 0.96
+        mwh_needed_per_tco2_captured: 0.1229    # (0.082 Base-E+Comp - 0.056 Base-E MWhe/tDRI) / (0.450 CO2 produced x 0.47 captured) = 0.026/0.2115 [Bond 2022, Table 8]
+        mmbtu_methane_needed_per_tco2_captured: 0   # The CO2 absorber is standard equpiment in the base case (without CCS): the energy needed is for compression
+        captured_tco2_per_yr: 1
+        primary_case: 1
+        distance: average
+  # -------------------------------------------------------------------
+  # Methanol
+  # -------------------------------------------------------------------
+  methanol:
+    emission_profiles:
+      # Methanol Institute Carbon Footprint of Methanol p. 8;
+      # RSC Energy & Environmental Science (2024)
+      - industrial_product: methanol
+        is_methane_based: true
+        unit: "ton MeOH"
+        process_tco2_per_unit_product: 0.35   # ~400 gCO2/kg from carbon balance (Methanol Institute)
+        combustion_tco2_per_unit_product: 0.05
+        process_tch4_throughput_per_unit_product: 0.127273
+        combustion_tch4_throughput_per_unit_product: 0.018182
+        electricity_mwh_per_unit_product: 0.0
+        ccs_applied_to: process
+    capture_cases:
+      # FIX THIS -- PLACE HOLDER NUMBERS MAY BE WRONG
+      - case_name: methanol
+        co2_stream_capture_rate: 0.831
+        natural_gas_mmbtu_per_day: 0
+        power_for_capture_mw: 1.85
+        tco2_available_in_capture_stream: 143042
+        primary_case: 1
+        distance: far
+
+  # -------------------------------------------------------------------
+  # Ethanol
+  # We use the dry-mill corn with corn oil extractionm, which makes up 85.5% of corn ethanol plant types in the US, according to Wang et al.
+  # -------------------------------------------------------------------
+  ethanol:
+    emission_profiles:
+      # Process: using GREET stated fermentation co2 per unit ethanol. Note that this is consistent with stoichiometric fermentation yield (Jenkins, 2014; 51% ethanol / 49% CO2)
+      #  Below are data for dry mill corn from Argonne GREET (Wang et al., 2026), using GREET xls doc ETOH sheet,
+      # cell D152 (total energy use--100% is NG), cell D153 (share that is NG), D154 (share that is electricity) and cell D165 (fementation CO2)
+      - industrial_product: ethanol
+        unit: "ton EtOH"
+        process_tco2_per_unit_product: 0.95557287  # GREET ETOH cell D165; consistent with a stoichiometric calcuation (Jenkins, 2014)
+        combustion_tco2_per_unit_product: 0.3957207259     # ((22274.69208 btu/gal)*(0.05306 tco2/mmbtu))/((1000000 btu/mmbtu)*(0.002986690068 tEtOH/gal))
+        process_tch4_throughput_per_unit_product: 0.0
+        combustion_tch4_throughput_per_unit_product: 0.1416665643 # (22274.69208 btu/gal)/((1000000 btu/mmbtu)*(0.002986690068 tEtOH/gal) *(52.6446436 mmbtu/tCH4))
+        electricity_mwh_per_unit_product: 0.2038284743 # ((2077.217923 Btu/gallon)*(0.293071 MWh/mmbtu))/((1000000 btu/mmbtu)*(0.000789 t/L)*(3.785412 L/gal))
+        ccs_applied_to: process
+    capture_cases:
+      - case_name: ethanol
+        co2_stream_capture_rate: 0.99
+        natural_gas_mmbtu_per_day: 0 # NETL p. 58 -- no natural gas for fermentation capture
+        power_for_capture_mw: 1.85 # NETL p. 55
+        tco2_available_in_capture_stream: 143042 # NETL p.52
+        primary_case: 1
+        distance: far
+
+  # -------------------------------------------------------------------
+  # LNG
+  # Note that for LNG (and natural gas processing), we do not account for methane throughput, which is substantial given that it is the
+  # product being processed in both industries. We choose not to account for it to avoid double counting
+  # of the supply chain fugitive methane emissions for the methane used as feedstock and fuel for
+  # hydrogen and ammonia fabrication, also accounted for here. Given that fossil hydrogen and ammonia fabrication together account for
+  # less than 10% of global natural gas supply (Saygin et al., 2023; xxxx)), the choice conservatively biases the resulting
+  # estimates of climate impact of LNG and NGP. Both Howarth and Balcome et al. report emissions rates per unit of gas delivered,
+  # not per unit of methane throughput at the liquefaction facility. As supply chain fugitive emissions and burnoff increase, the denominator
+  # (mass of gas delivered) becomes lower than the real-world denomiator at the liquefaction facility (gas throughput at the liquefaction
+  # facility), which results in a slight anticonservative bias of these estimates.
+  # -------------------------------------------------------------------
+  lng:
+    emission_profiles:
+      # Howarth, 2024, Table 3 & Eq. 5; Balcome et al., 2021, table 1; see also IEAGHG 2019 technoeconomic assessment
+      - industrial_product: lng #liquified natural gas (lng) (low-CO2 feed gas)"
+        is_methane_based: true
+        unit: "ton LNG"
+        process_tco2_per_unit_product: 0.057   # CO2 that is removed from gas ahead of liquefaction (Howarth Eq. 5)
+        combustion_tco2_per_unit_product: 0.288  # from gas burned to power liquefaction and from flaring (Howarth Eq. 5)
+        process_tch4_throughput_per_unit_product: 0.0 # although methane IS the feedstock, we ignore it to avoid dobule counting -- very conservative choice
+        combustion_tch4_throughput_per_unit_product: 0.099166 # inferred from stated combustion and flaring co2: (0.288 tco2/tlng / 0.05306 tco2/mmbtu-NG) * 0.01827 tCH4/mmbtu-pipeline-gas = 5.4278 * 0.01827
+        electricity_mwh_per_unit_product: 0.0 #US LNG uses almost exclusively NG to power its plants
+        direct_process_tch4_per_unit_product: 0.0035 #tCH4_per_tLNG: Balcome et al., 2021 mean emissions of CH4 at liquefaction facilties; also used by howarth (Table 3)
+        ccs_applied_to: process
+    capture_cases:
+      # Applying CCS to LNG gas sweetening is effectively the same process as NGP
+      - case_name: lng_realworld
+        co2_stream_capture_rate: 0.99 # gets to almost no CO2; effectively high capture
+        mmbtu_methane_needed_per_tco2_captured: 1.7408424 # see workbook calculations
+        power_for_capture_mw: 6.12 # NETL p. 63 (natural gas processing)
+        tco2_available_in_capture_stream: 649255 # NETL p. 63 (natural gas processing)
+        primary_case: 1
+        distance: near
+
+  # -------------------------------------------------------------------
+  # Natural gas processing
+  # -------------------------------------------------------------------
+  ngp:
+    emission_profiles:
+      # NETL Natural Gas and Power LCA 2024 ES Fig 1 (1.65 gCO2/MJ via plotdigitizer);
+      # process/combustion split from EPA Sector Profile for Natural Gas Fig. 11
+      - industrial_product: ngp
+        is_methane_based: true
+        unit: mmbtu
+        process_tco2_per_unit_product: 0.0005313                # NETL 2024 * EPA process fraction (0.305)
+        combustion_tco2_per_unit_product: 0.0012095967857142854  # NETL 2024 * EPA combustion fraction (0.695)
+        process_tch4_throughput_per_unit_product: 0.000193
+        combustion_tch4_throughput_per_unit_product: 0.000436
+        electricity_mwh_per_unit_product: 0.0
+        ccs_applied_to: process
+      # See workbook_emissions tab for computation (high CO2 feed gas case)
+      - industrial_product: "natural gas processing -- high CO2 gas"
+        is_methane_based: true
+        unit: mmbtu
+        process_tco2_per_unit_product: 0.026997504558712714
+        combustion_tco2_per_unit_product: 0.05117739403453688
+        process_tch4_throughput_per_unit_product: 0.009818
+        combustion_tch4_throughput_per_unit_product: 0.018618
+        electricity_mwh_per_unit_product: 0.0
+        ccs_applied_to: process
+    capture_cases:
+      # CCS is affixed to the stripping vent
+      # Assumed capture rate of 0.8 ~ (10.2-2)/10.2
+      - case_name: ngp
+        co2_stream_capture_rate: 0.8 # NETL -- see note above
+        natural_gas_mmbtu_per_day: 0
+        power_for_capture_mw: 6.12 # NETL p. 63 (compressor, water pumps, cooling tower fans)
+        tco2_available_in_capture_stream: 649255 # NETL p. 61
+        primary_case: 1
+        distance: near
+
+  # -------------------------------------------------------------------
+  # Power (natural gas, CCGT) — retrofit of existing plant.
+  # Heat rate is state-specific: heat_rate_btu_per_kwh=null means "use the
+  # state's grid_ng_heat_rate_mmbtu_per_mwh * 1000" (fleet-avg efficiency).
+  # combustion_tch4_throughput similarly derives from state heat rate.
+  # -------------------------------------------------------------------
+  power_ng_retrofit:
+    emission_profiles:
+      - industrial_product: power_ng_retrofit
+        is_methane_based: true
+        unit: MWh
+        process_tco2_per_unit_product: 0.0
+        combustion_tco2_per_unit_product: ~   # derived: state_heat_rate * ef_natural_gas
+        heat_rate_btu_per_kwh: ~              # null -> uses cc.grid_ng_heat_rate_mmbtu_per_mwh * 1000
+        fuel_type: natural_gas
+        process_tch4_throughput_per_unit_product: 0.0
+        combustion_tch4_throughput_per_unit_product: ~   # derived: state_heat_rate * tch4_per_mmbtu
+        electricity_mwh_per_unit_product: 0.0
+        ccs_applied_to: combustion
+    capture_cases:
+      - case_name: power_ng_retrofit
+        mwh_needed_per_tco2_captured: 0.16 #NPC Ch. 2 p. 2-20 Table 2-6
+        mmbtu_methane_needed_per_tco2_captured: 2.8 #NPC Ch. 2 p. 2-20 Table 2-6
+        co2_stream_capture_rate: 0.87
+        captured_tco2_per_yr: 1
+        primary_case: 1
+        distance: average
+
+  # -------------------------------------------------------------------
+  # Power (natural gas, CCGT) — new build utility scale.
+  # Uses NETL Fossil Energy Baseline (2022) NGCC F class heat rate.
+  # -------------------------------------------------------------------
+  power_ng_new_build:
+    emission_profiles:
+      # NGCC F class, p. 9 of NETL Fossil Energy Baseline (2022); https://netl.doe.gov/projects/files/CostAndPerformanceBaselineForFossilEnergyPlantsVolume1BituminousCoalAndNaturalGasToElectricity_101422.pdf
+      # EPA 40 CFR 98 Table C-1 for emissions factor
+      - industrial_product: power_ng_new_build
+        is_methane_based: true
+        unit: MWh
+        process_tco2_per_unit_product: 0.0
+        combustion_tco2_per_unit_product: ~   # derived: heat_rate * ef_natural_gas
+        heat_rate_btu_per_kwh: 6363           # NETL Fossil Energy Baseline, NGCC F class p. 9
+        fuel_type: natural_gas
+        process_tch4_throughput_per_unit_product: 0.0
+        combustion_tch4_throughput_per_unit_product: ~  # derived: 6.363 MMBtu/MWh * 0.01827 tCH4/MMBtu = 0.11626
+        electricity_mwh_per_unit_product: 0.0
+        ccs_applied_to: combustion
+    capture_cases:
+      - case_name: power_ng_new_build
+        mwh_needed_per_tco2_captured: 0.16 #NPC Ch. 2 p. 2-20 Table 2-6
+        mmbtu_methane_needed_per_tco2_captured: 2.8 #NPC Ch. 2 p. 2-20 Table 2-6
+        co2_stream_capture_rate: 0.87
+        captured_tco2_per_yr: 1
+        primary_case: 1
+        distance: average
+
+  # -------------------------------------------------------------------
+  # Power (natural gas, CCGT) — data center co-located generation.
+  # Same tech class as power_ng_new_build (NGCC F class), separately labeled
+  # so we can attribute how much of new-gas build serves data centers.
+  # -------------------------------------------------------------------
+  power_ng_data_center:
+    emission_profiles:
+      - industrial_product: power_ng_data_center
+        is_methane_based: true
+        unit: MWh
+        process_tco2_per_unit_product: 0.0
+        combustion_tco2_per_unit_product: ~   # derived: heat_rate * ef_natural_gas
+        heat_rate_btu_per_kwh: 6363           # NETL Fossil Energy Baseline, NGCC F class p. 9 (same as new_build)
+        fuel_type: natural_gas
+        process_tch4_throughput_per_unit_product: 0.0
+        combustion_tch4_throughput_per_unit_product: ~  # derived
+        electricity_mwh_per_unit_product: 0.0
+        ccs_applied_to: combustion
+    capture_cases:
+      - case_name: power_ng_data_center
+        mwh_needed_per_tco2_captured: 0.16 #NPC Ch. 2 p. 2-20 Table 2-6
+        mmbtu_methane_needed_per_tco2_captured: 2.8 #NPC Ch. 2 p. 2-20 Table 2-6
+        co2_stream_capture_rate: 0.87
+        captured_tco2_per_yr: 1
+        primary_case: 1
+        distance: average
+
+  # -------------------------------------------------------------------
+  # Refined fuels
+  # -------------------------------------------------------------------
+  refined_fuels:
+    emission_profiles:
+      # Big Spring Refinery case study; EPA FLIGHT facility 1006961 (2023);
+      # Annual throughput of 73,000 bbl/day (from https://www.eia.gov/petroleum/refinerycapacity/table3.pdf)
+      # Assumed utilization of 90% (roughly based on https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=MOPUEUS2&f=M))
+      # Svante/Delek DOE CCS project; process = EPA Subpart Y, combustion = Subpart C
+      # CH4 recorded in flight is directly emitted from refining processes, not supply-chain throughput
+      - industrial_product: 'refined fuels'
+        unit: "bbl/yr"
+        process_tco2_per_unit_product: 0.01141040779    # Big spring EPA FLIGHT Subpart Y / throughput
+        combustion_tco2_per_unit_product: 0.01872789534  # Big spring EPA FLIGHT Subpart C / throughput
+        process_tch4_throughput_per_unit_product: 0.0
+        combustion_tch4_throughput_per_unit_product: 0.003567314491 # PAD III average -- natural gas purchased for fuel EIA refining capacity report table 10a (https://www.eia.gov/petroleum/refinerycapacity/table10.pdf)
+        direct_process_tch4_per_unit_product: 0.0000101992              # big spring facility combustion ch4 (big spring epa flight, eia)
+        direct_combustion_tch4_per_unit_product: 0.000001028881825        # big spring facility-emitted CH4 (EPA FLIGHT)
+        electricity_mwh_per_unit_product: 0.00641 # EIA refinery capacity report Table 9, PADD III average
+        ccs_applied_to: process
+    capture_cases:
+      # FCCU catalytic cracking
+      - case_name: refining_fuels_big_spring
+        co2_stream_capture_rate: 0.53
+        mwh_needed_per_tco2_captured: 0.14 #NPC Ch. 2 p. 2-20 Table 2-6
+        mmbtu_methane_needed_per_tco2_captured: 2.6 #NPC Ch. 2 p. 2-20 Table 2-6
+        tco2_available_in_capture_stream: 723226.6
+        primary_case: 1
+        distance: near
+
+  # -------------------------------------------------------------------
+  # Petrochemicals
+  # -------------------------------------------------------------------
+  petrochemicals:
+    emission_profiles:
+      # Shell Deer Park case study; EPA FLIGHT facility 1007002 (2022)
+      # CH4 is a direct byproduct of ethylene cracking, not supply-chain throughput
+      - industrial_product: petrochemicals
+        is_methane_based: true
+        unit: "ton ethylene"
+        process_tco2_per_unit_product: 0.026344045174537988   # EPA Subpart X / annual petrochemical production
+        combustion_tco2_per_unit_product: 0.2555317248459959  # EPA subpart C CO2 emissions / annual petrochemical production
+        process_tch4_throughput_per_unit_product: 0.0                    # ethelene cracker; does not use methane feedstock
+        combustion_tch4_throughput_per_unit_product: 0.0                 #
+        direct_process_tch4_per_unit_product: 0.00007952087611             # EPA subpart X CH4 emissions / annual petrochemical production
+        direct_combustion_tch4_per_unit_product: 0.00001445927447     # EPA subpart C CH4 emissions / annual petrochemical production
+        electricity_mwh_per_unit_product: 0.0
+        ccs_applied_to: combustion
+    capture_cases:
+      - case_name: refining_chemicals
+        mwh_needed_per_tco2_captured: 0.16 # NPC Ch. 2 p. 2-20 Table 2-6
+        mmbtu_methane_needed_per_tco2_captured: 2.6 # NPC Ch. 2 p. 2-20 Table 2-6
+        co2_stream_capture_rate: 0.81 # from Shell Deer Park chemicals example and EPA flight data
+        captured_tco2_per_yr: 1
+        primary_case: 1
+        distance: near
+
+  # -------------------------------------------------------------------
+  # Power (coal-fired)
+  # -------------------------------------------------------------------
+  power_coal:
+    emission_profiles:
+      # EIA 2024 US coal fleet avg heat rate; Texas coal is mostly lignite
+      - industrial_product: 'power (coal-fired)'
+        unit: MWh
+        process_tco2_per_unit_product: 0.0
+        combustion_tco2_per_unit_product: ~  # derived: heat_rate * ef_lignite
+        heat_rate_btu_per_kwh: 10777  # EIA 2024 fleet avg
+        fuel_type: lignite
+        process_tch4_throughput_per_unit_product: 0.0
+        combustion_tch4_throughput_per_unit_product: 0.0
+        electricity_mwh_per_unit_product: 0.0
+        ccs_applied_to: combustion
+    capture_cases:
+      - case_name: power_coal
+        mwh_needed_per_tco2_captured: 0.16 #NPC Ch. 2 p. 2-20 Table 2-6
+        mmbtu_methane_needed_per_tco2_captured: 2.6 #NPC Ch. 2 p. 2-20 Table 2-6
+        co2_stream_capture_rate: 0.9
+        captured_tco2_per_yr: 1
+        primary_case: 1
+        distance: average
+
+  # -------------------------------------------------------------------
+  # DAC (Direct Air Capture) (two separate types of DAC here)
+  # -------------------------------------------------------------------
+  # (amazingly) burning a natural gas turbine to power DAC
+  dac_with_ngcc:
+    emission_profiles:
+      - industrial_product: 'carbon credits'
+        is_methane_based: true
+        unit: "ton CO2"
+        process_tco2_per_unit_product: -0.47659817 #(NETL DAC report p. 35: 4175/(4175+4585))
+        combustion_tco2_per_unit_product: 0.581621 #(NETL DAC report p. 35: (510+4585)/(4175+4585))
+        process_tch4_throughput_per_unit_product: 0.0
+        combustion_tch4_throughput_per_unit_product: 0.52032648 #(NETL DAC report p. 32: 6988 kg N.G./hr *0.96 tCH4/tN.G. * 365 d * 24 hr/d * 0.85/100000 tCO2/yr)
+        electricity_mwh_per_unit_product: 0.0 #this is stand alone NGCC dac, per NETL report
+        ccs_applied_to: combustion
+    capture_cases:
+      - case_name: dac_powered_with_ngcc
+        co2_stream_capture_rate: 0.90 # the ngcc turbine is used to power its own 90% capture
+        natural_gas_mmbtu_per_day: 8312
+        power_for_capture_mw: 0
+        tco2_available_in_capture_stream: 113900
+        primary_case: 0
+        distance: near
+  dac:
+    emission_profiles:
+      # Placeholder -- DAC emissions are computed in the CCS emissions factors module
+      - industrial_product: 'carbon credits'
+        unit: "ton CO2"
+        process_tco2_per_unit_product: 0.0
+        combustion_tco2_per_unit_product: 0.0
+        process_tch4_throughput_per_unit_product: 0.0
+        combustion_tch4_throughput_per_unit_product: 0.0
+        electricity_mwh_per_unit_product: 0.0
+        ccs_applied_to: process
+      # below this line is how we could compute DAC if we wanted to run DAC as a standalone industyr (without CCS)...but you wouldn't bother with DAC unless you were doing cCS (i think?)
+  #    - industrial_product: 'carbon credits'
+  #      unit: "ton CO2"
+  #      process_tco2_per_unit_product: -1.0 #(NETL DAC report p. 35: 4175/(4175+4585))
+  #      combustion_tco2_per_unit_product: 0.0 #(NETL DAC report p. 35: (510+4585)/(4175+4585))
+  #      process_tch4_throughput_per_unit_product: 0.0
+  #      combustion_tch4_throughput_per_unit_product: 0.0 #(NETL DAC report p. 32: 6988 kg N.G./hr *0.96 tCH4/tN.G. * 365 d * 24 hr/d * 0.85/100000 tCO2/yr)
+  #      electricity_mwh_per_unit_product: 3.723 # all electric DAC, per NETL report (p. 65: 50 MW *0.85 CF * 365 d/yr * 24 hr/d / 100,000 tCO2/yr)
+  #      ccs_applied_to: process
+    capture_cases:
+      # Details from https://www.netl.doe.gov/projects/files/DirectAirCaptureCaseStudiesSorbentSystem_070822.pdf case 0B-EB (all electric DAC)
+      - case_name: dac_electricity
+        co2_stream_capture_rate: 1.0
+        natural_gas_mmbtu_per_day: 0
+        power_for_capture_mw: 0.000425  # 3.723 MWh/tCO2 with all electric DAC, per NETL report (p. 65: 50 MW *0.85 CF * 365 d/yr * 24 hr/d / 100,000 tCO2/yr)
+        tco2_available_in_capture_stream: 1
+        primary_case: 1
+        distance: near #assuming you'd put the DAC plant right next to the CO2 storage site, since it is a small facility and you want to minimize transport costs

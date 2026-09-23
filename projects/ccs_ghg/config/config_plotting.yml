@@ -1,0 +1,106 @@
+# Plotting configuration for CCS scenario bar charts.
+#
+# "back_case" is drawn as a filled bar; all others are horizontal lines.
+# "cases" defines every plottable case. Use the "cases" argument in the
+# plotting function to select a subset.
+
+# display_mode: "report" (default) or "presentation" (larger fonts for slides)
+display_mode: report
+#display_mode: presentation #(larger fonts for slides)
+
+back_case: current_mix
+
+cases:
+  current_mix:
+    label: "With CCS: Current mix (92% EOR, 8% GS)"
+    bar_label: "With CCS:\nCurrent\nEOR/GS mix"
+    bold_prefix: "MOST LIKELY:"
+    color: "black"
+    bar_color: "#bbbbbb"
+    annotation:
+      text: "Most likely\ncase"
+      color: "#12659c"
+  baseline:
+    label: "With CCS: Using stated EOR/GS mix"
+    bar_label: "With CCS:\nUsing stated\nEOR/GS mix"
+    color: "#457b9d"
+  unabated:
+    label: "Without CCS"
+    legend: "Unabated project (without CCS)"
+    color: "#e86d1b"
+  all_gs:
+    label: "Best-case CCS: 100% geologic storage"
+    bar_label: "Best-case CCS:\n100% geologic\nstorage"
+    color: "#de1802"
+  all_eor:
+    label: "With CCS: 100% EOR"
+    bar_label: "With CCS:\n100% EOR"
+    color: "#8B4513"
+  nameplate_implied:
+    label: "With CCS: Assuming nameplate 'capture capacity'"
+    bar_label: "With CCS:\nAssuming\nnameplate\n'capture capacity'"
+    bold_prefix: "GREENWASHING:"
+    color: "#06A42E"
+    annotation:
+      text: "Not possible!\n(Greenwashing!)"
+      color: "#218109"
+
+# plot_groups: collapse multiple industries into a single visual category.
+# Key = display name, value = list of industries to sum under that name.
+# Industries not listed render individually as before.
+plot_groups:
+  power_ng:
+    - power_ng
+    - power_ng_data_center
+
+product_labels:
+  power_coal: "COAL\nPOWER"
+  power_ng: "NG\nPOWER"
+  refined_fuels: "REFINED\nFUELS"
+  petrochemicals: "PETRO-\nCHEMICALS"
+  ngp: "NATURAL\nGAS\nPROCESSING"
+
+title: "Texas CCS: GHG emissions by product and scenario"
+bar_width: 0.65
+line_width: 3.5
+
+# State-total bar chart settings
+state_total:
+  no_ccs_color: "#e07b39"
+  more_emissions_color: "#aa4400"
+  less_emissions_color: "#aaaaaa"
+  bar_width: 0.8
+  label_size: 22
+  title: "Total GHG emissions enabled by full buildout of CCS in Texas"
+
+
+# emissions factor plot
+emissions_factor:
+  industries:
+    - hydrogen
+    - ammonia
+    - lng
+    - ngp
+    - refined_fuels
+    - petrochemicals
+    - dac
+    - power_ng
+    - power_ng_data_center
+    - power_coal
+  #  - methanol
+    - ethanol
+  #  - iron_steel
+  #  - cement
+  #  - beccs
+  name_replacements:
+    ngp: 'NGP'
+    dac: 'DAC'
+    lng: 'LNG'
+    iron_steel: 'Iron/steel'
+    power_ng: 'Gas power'
+    power_ng_data_center: 'DC gas power'
+    power_coal: 'Coal power'
+    refined_fuels: 'Refining'
+  methane_case: industry_cited
+  net: true
+  tco2e: true

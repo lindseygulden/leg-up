@@ -1,0 +1,84 @@
+# Infrastructure and grid assumptions for CCS emissions factors.
+# These are not per-industry; they apply to grid, transport, and storage calculations.
+#
+# For power plants (coal and natural gas), the primary source is National Petroleum Council's
+# CCUS Supply Chains and Economics chapter (see p. 2-20):
+# https://www.energy.gov/sites/default/files/2022-10/CCUS-Chap_2-030521.pdf
+#
+# ----- TOP-LEVEL DEFAULTS -----
+# `constants:` and `emission_factors:` are inherited by every state's CCSConstants.
+# For fields that also vary by state (grid intensity, methane leak rate, coal EF, etc.),
+# the values here are US-average fallbacks; per-state values under `states:` override them.
+constants:
+  case_name: tx_la_combined
+  gwp_ch4: 82.5                # GWP20 AR6 fossil methane; use 29.8 for GWP100 AR6
+  methane_leak_rate: 0.023     # US-average fallback (Alvarez et al. 2018); states override
+  grid_tco2_per_mwh: 0.37      # US-average fallback; states override
+  grid_tch4_per_mwh: 0.08      # US-average fallback (order-of-magnitude); states override with state-specific tCH4/MWh_grid
+  grid_ng_heat_rate_mmbtu_per_mwh: 7.754  # US-average NG fleet heat rate (EIA 2024); used by power_ng_retrofit; states override
+  oil_tco2_per_bbl: 0.43       # https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator-calculations-and-references
+  recovery_factor_bbl_per_tco2: 3
+  eor_gas_turbine_efficiency: 0.33
+  # ----- Derivation of tch4_per_mmbtu_pipeline_gas (tons CH4 per MMBtu of pipeline natural gas) -----
+  # Used to attribute fugitive CH4 mass from on-site gas combustion (EOR turbine + capture-plant
+  # heat). Grid CH4 attribution uses the state-specific `grid_tch4_per_mwh` instead.
+  #
+  # Inputs (all values ideal gas at natural-gas standard conditions of 60°F, 14.696 psia;
+  #   HHV = higher heating value, liquid water product):
+  #     Pipeline NG HHV: 0.001028 MMBtu/scf                    [EPA 40 CFR 98 Table C-1]
+  #     Pure CH4 HHV:    0.001012 MMBtu/scf                    [GPSA Engineering Data Book §23]
+  #     Pure C2H6 HHV:   0.001773 MMBtu/scf                    [GPSA Engineering Data Book §23]
+  #     MW CH4 = 16.043 g/mol; MW C2H6 = 30.069 g/mol          [IUPAC atomic weights]
+  #     Molar volume = 379.3 scf/lb-mol                        [ideal gas at 60°F, 14.696 psia]
+  #     lb -> kg: 0.4535924                                    [NIST SP 811]
+  #
+  # Assume pipeline gas is a binary CH4 + C2H6 mixture. Volumetric HHVs mix linearly with mole fraction:
+  #     0.001028 = x * 0.001012 + (1-x) * 0.001773
+  #     x_CH4 (mole fraction) = (0.001773 - 0.001028) / (0.001773 - 0.001012) = 0.97898
+  # Mixture molar mass: 0.97898 * 16.043 + 0.02102 * 30.069 = 16.338 g/mol
+  # Mass fraction CH4:  0.97898 * 16.043 / 16.338 = 0.96131
+  # Density:  16.338 lb/lb-mol / 379.3 scf/lb-mol * 0.4535924 kg/lb = 0.019537 kg/scf
+  # HHV per mass of pipeline gas:  0.001028 MMBtu/scf / 0.019537 kg/scf = 0.05262 MMBtu/kg = 52.62 MMBtu/t
+  # tCH4 per MMBtu of pipeline gas:  (1 / 52.62 MMBtu/t) * 0.96131 = 0.01827 tCH4/MMBtu
+  tch4_per_mmbtu_pipeline_gas: 0.01827
+
+# EPA emission factors used to derive combustion CO2 from heat rates for power plants.
+emission_factors:
+  natural_gas_tco2_per_mmbtu: 0.05306   # 40 CFR 98 Table C-1; https://www.law.cornell.edu/cfr/text/40/appendix-Table_C-1_to_subpart_C_of_part_98
+  coal_tco2_per_mmbtu: 0.09772          # US-average fallback (lignite EF from 40 CFR 98 Table C-1); states override with basin-appropriate EF
+
+# ----- PER-STATE OVERRIDES -----
+# Keyed by the value that appears in the projects CSV `project_state` column.
+# A project whose state is NOT in this block will cause the run to fail loudly.
+# Any field not listed under a state inherits from `constants:` / `emission_factors:` above.
+# Detailed computations for states were obtained from the EPA eGRID2023 data (rev 2) (egrid2023_data_rev2.xlsx)
+states:
+  TX:
+    grid_tch4_per_mwh: 0.084390               # computed using EPA egrid2023_data_rev2.xlsx UNIT23 sheet (variable name HTIAN): total MMBtu for all TX NG plants divided by TX annual net electricity generation (MWh, variable STNGENAN), converted to tCH4 using tch4_per_mmbtu_pipeline_gas above
+    grid_tco2_per_mwh: 0.34849                # (768.3 lb CO2/MWh) / (2204.623 lb/metric ton); TX state average, EPA eGRID rev 2, 2025, 2023 data (https://www.epa.gov/egrid/summary-data -- table 3 of summary_tables_rev2_2.xlsx)
+    grid_ng_heat_rate_mmbtu_per_mwh: 6.976    # TX NG fleet avg heat rate (ERCOT SRL23 sheet, EGRID2023_data_rev2.xlsx: total NG heat input / NG net generation)
+    methane_leak_rate: 0.023                  # Alvarez et al. 2018 national avg (TODO: replace with Permian/Eagle Ford basin-specific rate)
+    coal_tco2_per_mmbtu: 0.09772              # lignite; TX coal fleet is mostly lignite (40 CFR 98 Table C-1)
+  LA:
+    grid_tch4_per_mwh: 0.120218               # computed using EPA egrid2023_data_rev2.xlsx UNIT23 sheet (variable name HTIAN): total MMBtu for all LA NG plants divided by LA annual net electricity generation (MWh, variable STNGENAN), converted to tCH4 using tch4_per_mmbtu_pipeline_gas above
+    grid_tco2_per_mwh: 0.34537                # (761.4 lb CO2/MWh) / (2204.623 lb/metric ton); LA state average, EPA eGRID rev 2, 2025, 2023 data (https://www.epa.gov/egrid/summary-data -- table 3 of summary_tables_rev2_2.xlsx)
+    grid_ng_heat_rate_mmbtu_per_mwh: 7.754    # PLACEHOLDER = US NG fleet avg. TODO: compute LA-specific from egrid2023_data_rev2.xlsx UNIT23 (sum HTIAN across LA NG units / sum STNGENGS for LA NG generation)
+    methane_leak_rate: 0.023                  # Alvarez et al. 2018 national avg (TODO: replace with Haynesville-appropriate basin-specific rate) Haynesville-appropriate
+    coal_tco2_per_mmbtu: 0.09772              # using lignite
+
+# ----- STORAGE -----
+storage:  # for all, assume 0.100 MWhe is needed to inject one ton of co2.
+  - co2_destination: eor # assume injection is driven by open cycle gas turbine with thermal efficiency of 33%
+    mwh_per_tco2_stored: 0.25 # estimated as lower than GS b/c assume lower pressure in reservoir
+  - co2_destination: gs # assume injection is driven by electric compressor with same tco2e as the local electric grid
+    mwh_per_tco2_stored: 0.2847 # estimate based on Wu and Li's distillation of Sliepner field info (https://link.springer.com/article/10.1186/s40517-020-00173-w#citeas)
+# For Wu and Li: on p. 20, they quote Sleipner as injecting 1 MT CO2/yr using a 30-35 MW compressor. 32.5*365*24/1000000=0.2847
+
+# ----- TRANSPORT -----
+transport:
+  - distance: 'near'
+    mwh_per_tco2_transported: 0.09  # energy for compression and dehydration ahead of pipeline transport --p. 2-19 of NPC's Ch. 2 (linked above)
+  - distance: 'average'
+    mwh_per_tco2_transported: 0.1
+  - distance: 'far'
+    mwh_per_tco2_transported: 0.11

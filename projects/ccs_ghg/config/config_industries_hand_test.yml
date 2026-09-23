@@ -1,0 +1,26 @@
+# Note: real hydrogen SMR plants do not tend to have direct CH4 emissions, but
+# we assign nonzero direct_process_tch4 and direct_combustion_tch4 values here
+# so that we can test the full pipeline's handling of the direct-CH4 code path.
+hydrogen:
+    emission_profiles:
+      # Howarth & Jacobson Table 1 (omitting indirect upstream/scope 3); consistent
+      # with Sun et al., 2019 Table 1 (https://doi.org/10.1002/ese3.956)
+      - industrial_product: hydrogen
+        unit: "ton H2"
+        process_tco2_per_unit_product: 5       # Howarth & Jacobson Table 1, 'Gray H2' column/'CO2 produced' for SMR process (38.5 g CO2/MJ H2)*(141.7 MJ H2/kg H2)*(1000 kg/t)/(1000000 g/t)
+        combustion_tco2_per_unit_product: 4   # Howarth & Jacobson Table 1, 'Gray H2' column/'CO2 produced' for energy to drive SMR (31.8 g CO2/MJ H2)*(141.7 MJ H2/kg H2)*(1000 kg/t)/(1000000 g/t)
+        process_tch4_throughput_per_unit_product: 1       # Howarth & Jacobson Table 1, 'Gray H2' column/'CH4 consumed' for SMR process/feedstock (14 g CH4/MJ H2)*(141.7 MJ H2/kg H2)*(1000 kg/t)/(1000000 g/t)
+        combustion_tch4_throughput_per_unit_product: 0.9   # Howarth & Jacobson Table 1, 'Gray H2' column/'CH4 consumed' for energy to drive SMR (11.6 g CH4/MJ H2)*(141.7 MJ H2/kg H2)*(1000 kg/t)/(1000000 g/t)
+        electricity_mwh_per_unit_product: 0.5 # Wang et al. GREET H2 Central Plants: North American Natural Gas to Gaseous Hydrogen cell b303; see next line for calculation
+        direct_process_tch4_per_unit_product: 0.001
+        direct_combustion_tch4_per_unit_product:  0.1
+        # ((3946 btu electricity/mmbtu H2)/(1000000 btu electricity/mmbtu electricity))*(0.29307107017222 mwh/mmbtu electricity)*(0.06092 mmbtu H2/lb H2)*(2204.623 lb H2/tH2)
+        ccs_applied_to: process
+    capture_cases:
+      - case_name: refinery_hydrogen_90
+        co2_stream_capture_rate: 0.90 # NETL case name
+        natural_gas_mmbtu_per_day: 2330 # NETL p. 93
+        power_for_capture_mw: 4.04 #NETL p. 87
+        tco2_available_in_capture_stream: 404700 # NETL p. 83
+        distance: near
+        primary_case: 1

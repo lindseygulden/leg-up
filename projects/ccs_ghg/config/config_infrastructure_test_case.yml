@@ -1,0 +1,41 @@
+# Infrastructure and grid assumptions for CCS emissions factors -- test case.
+constants:
+  case_name: us_basic
+  gwp_ch4: 86
+  methane_leak_rate: 0.035
+  grid_tco2_per_mwh: 0.37
+  grid_tch4_per_mwh: 0.075          # fabricated test value (rough US-average tCH4/MWh_grid)
+  oil_tco2_per_bbl: 0.43
+  recovery_factor_bbl_per_tco2: 3
+  tch4_per_mmbtu_pipeline_gas: 0.019  # fabricated test value (close to real 0.01827)
+  eor_gas_turbine_efficiency: 0.33
+emission_factors:
+  natural_gas_tco2_per_mmbtu: 0.05306
+  coal_tco2_per_mmbtu: 0.09772
+# Per-state overrides: fixtures use `project_state: TX` and `gulf coast`; both
+# mirror the top-level defaults so hand-worked expected values stay valid.
+states:
+  TX:
+    grid_tco2_per_mwh: 0.37
+    grid_tch4_per_mwh: 0.075
+    methane_leak_rate: 0.035
+    coal_tco2_per_mmbtu: 0.09772
+  gulf coast:
+    # Deliberately divergent from TX so tests can verify per-state values actually
+    # propagate through the pipeline (rather than TX values leaking into all states).
+    grid_tco2_per_mwh: 0.50
+    grid_tch4_per_mwh: 0.15
+    methane_leak_rate: 0.035
+    coal_tco2_per_mmbtu: 0.09772
+storage:
+  - co2_destination: eor
+    mwh_per_tco2_stored: 0.25
+  - co2_destination: gs
+    mwh_per_tco2_stored: 0.2847
+transport:
+  - distance: 'near'
+    mwh_per_tco2_transported: 0.09
+  - distance: 'average'
+    mwh_per_tco2_transported: 0.1
+  - distance: 'far'
+    mwh_per_tco2_transported: 0.11

@@ -1,0 +1,189 @@
+# =============================================================================
+# CCS Scenarios Configuration
+# =============================================================================
+
+# --- Data paths ---
+#emissions_for_industries_path: /Volumes/T5_external/data/ccs_emissions/industrial_emissions.csv
+#ccs_emissions_factors_path: /Volumes/T5_external/data/ccs_emissions/ccs_emissions.csv
+emissions_for_industries_path: /Users/lindseygulden/dev/leg-up-private/projects/ccs_ghg/data/industrial_emissions.csv
+ccs_emissions_factors_path: /Users/lindseygulden/dev/leg-up-private/projects/ccs_ghg/data/ccs_emissions.csv
+projects_info_path: /Volumes/T5_external/data/ccs_emissions/texas_and_la_ccs_projects.csv
+
+# --- Pipeline mode ---
+# true: read pre-computed CSVs from the paths above.
+# false: compute factors and industrial emissions on the fly from the configs below.
+use_precomputed: false
+infrastructure_config_path: projects/ccs_ghg/config/config_infrastructure.yml
+industries_config_path: projects/ccs_ghg/config/config_industries.yml
+
+# =============================================================================
+# Industry emissions CSV schema
+# =============================================================================
+
+# Column names in the industrial emissions CSV
+industrial_product_with_detail_col_name: &ipcn industrial_product
+product_col_name: &pcn simple_product_name
+adjusted_capt_frac_col_name: &capfrac adjusted_capture_fraction_tco2e
+
+# Columns to read from the industrial emissions CSV
+industry_emissions_cols:
+  - *ipcn
+  - *pcn
+  - *capfrac
+  - adjusted_capture_fraction_tco2
+
+# Which industrial_product rows to include (one per industry)
+industry_emissions_which_flavor:
+  - hydrogen
+  - ammonia
+  - methanol
+  - ethanol
+  - lng
+  - ngp
+  # - 'natural gas processing -- high CO2 gas'
+  - power_ng_retrofit
+  - power_ng_new_build
+  - power_ng_data_center
+  - 'refined fuels'
+  - petrochemicals
+  - 'power (coal-fired)'
+  - 'carbon credits'  # DAC placeholder
+  - 'direct reduced iron with natural gas'
+
+# =============================================================================
+# Projects CSV schema
+# =============================================================================
+
+# Columns to keep from the CCS facility data file
+facility_keep_cols:
+  - project_name
+  - project_state
+  - project_owner_operator
+  - project_status
+  - lat_degrees_n
+  - lon_degrees_e
+  - lat_lon_confidence
+  - carbon_fate
+  - project_announced
+  - project_start
+  - product
+  - product_amount
+  - product_unit
+  - nameplate_captured_mtco2_per_yr
+  - unabated_mtco2_per_yr
+  - unabated_mtco2e_per_yr
+  - computed_captured_mtco2_per_yr
+  - is_methane_based
+
+# Column mappings for project-level computations
+nameplate_ccs_col: nameplate_captured_mtco2_per_yr
+project_start_col: project_start
+project_unabated_mtco2e_col: unabated_mtco2e_per_yr
+
+# Merge keys: how to join CCS emissions factors with project data
+projects_merge_on:
+  - product
+  - carbon_fate
+ccs_emissions_merge_on:
+  - product
+  - stated_co2_destination
+
+# =============================================================================
+# Scenario definitions
+# =============================================================================
+
+# Destination-mix scenarios: weighted average of EOR and GS factors
+weighted_scenarios:
+  - name: current_mix
+    plotting_name: 'Current mix (92% EOR, 8% GS)'
+    destination_pct:
+      eor: 92
+      gs: 8
+  - name: all_eor
+    plotting_name: '100% EOR'
+    destination_pct:
+      eor: 100
+      gs: 0
+  - name: all_gs
+    plotting_name: '100% GS'
+    destination_pct:
+      eor: 0
+      gs: 100
+
+# Nameplate scenarios: zero lifecycle factors, captured from operator or implied
+include_nameplate_case: true
+
+# Methane assumption scenarios: (GWP, leak rate) pairs
+methane_scenarios:
+  - name: industry_cited_low_gwp
+    gwp_ch4: 25
+    methane_leak_rate: 0.014
+    leak_plotting_name: 'industry-cited (1.4%)'
+    gwp_plotting_name: 'GWP100'
+    # EPA GHG Inventory: https://www.epa.gov/ghgemissions/inventory-us-greenhouse-gas-emissions-and-sinks-1990-2016
+  - name: industry_cited
+    gwp_ch4: 82.5
+    methane_leak_rate: 0.014
+    leak_plotting_name: 'industry-cited (1.4%)'
+    gwp_plotting_name: 'GWP20'
+    # EPA GHG Inventory: https://www.epa.gov/ghgemissions/inventory-us-greenhouse-gas-emissions-and-sinks-1990-2016
+  - name: edf
+    gwp_ch4: 82.5
+    methane_leak_rate: 0.023
+    leak_plotting_name: 'EDF 2018 top-down (2.3%)'
+    gwp_plotting_name: GWP20
+    # Alvarez et al. 2018: https://www.science.org/doi/epdf/10.1126/science.aar7204
+  - name: likely
+    gwp_ch4: 82.5
+    methane_leak_rate: 0.035
+    leak_plotting_name: 'Most likely (3.5%)'
+    gwp_plotting_name: GWP20
+  - name: likely_for_comparison
+    gwp_ch4: 25
+    methane_leak_rate: 0.035
+    leak_plotting_name: 'Most likely (3.5%)'
+    gwp_plotting_name: GWP100
+  - name: texas
+    gwp_ch4: 82.5
+    methane_leak_rate: 0.05
+    leak_plotting_name: 'Texas-specific (5%)'
+    gwp_plotting_name: GWP20
+  # - name: gwp100_likely
+  #   gwp_ch4: 29.8
+  #   methane_leak_rate: 0.05
+  #   leak_plotting_name: '5.0% leak rate'
+  #   gwp_plotting_name: 'GWP100'
+
+# =============================================================================
+# Financial parameters
+# =============================================================================
+
+usd_per_tco2_45q_eor: 85
+usd_per_tco2_45q_gs: 85
+recovery_factor_bbl_per_tco2: 3
+discount_rate: 0.051
+escalation_year: 2027
+inflation_rate: 0.025
+
+# =============================================================================
+# Used in the notebook for plotting -- not used in ScenarioConfig
+# =============================================================================
+
+# Industries to include in output
+which_industries:
+  - dac
+  - hydrogen
+  - refined_fuels
+  - petrochemicals
+  - iron_steel
+  # - cement
+  - power_ng_retrofit
+  - power_ng_new_build
+  - power_ng_data_center
+  - power_coal
+  - ngp
+  - methanol
+  - lng
+  - ammonia
+  - ethanol
+  # - beccs
