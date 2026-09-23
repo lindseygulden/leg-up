@@ -36,10 +36,6 @@ ccs_ghg/
 │   ├── config.py                    # ScenarioConfig, DestinationMix, MethaneScenario
 │   ├── scenarios.py                 # Portfolio-level GHG emissions modeling
 │   └── cli.py                       # Click CLI
-├── plotting.py                      # Publication-quality figures (stacked bars, Sankey,
-│                                    #   breakdown comparisons, lumped-component charts)
-├── export_tables.py                 # Export publication-ready CSV tables (industrial
-│                                    #   emissions, CCS+GS factors, CCS+EOR factors)
 ├── config/
 │   ├── config_infrastructure.yml    # National + per-state grid/methane constants, EPA
 │   │                                #   emission factors, transport & storage energy intensities
@@ -228,7 +224,7 @@ EOR injection is powered by an on-site open-cycle gas turbine (Scope 1), not gri
 ### What is omitted
 
 - **Scope 1**: Fugitive CO2 from CCS pipelines and injection wells (assumed zero leakage from CCS infrastructure)
-- **Scope 3 upstream**: Upstream emissions from non-gas inputs — coal mining and transport (power_coal), limestone extraction (cement), crude oil extraction (refined_fuels, petrochemicals). Only natural gas supply-chain CH4 is modeled.
+- **Scope 3 upstream**: Upstream emissions from non-gas inputs — coal mining and transport (power_coal), limestone extraction (cement), crude oil extraction (refined_fuels, petrochemicals). Only natural gas supply-chain CH4 leaks are modeled.
 - **Scope 3 downstream**: Combustion of the industrial product itself (e.g., refined fuels burned by consumers, LNG burned at destination, hydrogen consumed). Only EOR-produced oil combustion is tracked.
 - **Scope 3 other**: Embodied emissions in CCS infrastructure (pipeline steel, well construction, compressor manufacturing); transport of industrial products to end users.
 
@@ -346,10 +342,3 @@ results = compute_scenarios_full_pipeline(cfg)
 # results carries project_state, methane_scenario, gwp_ch4, methane_leak_rate columns
 ```
 
-## Running tests
-
-```bash
-pytest projects/ccs_ghg/tests/ -v
-```
-
-The test suite (270+ tests) covers physical constants, CCS factors math (grid fugitive CH4 via `grid_tch4_per_mwh`, gas turbine emissions via κ, on-site gas via κ), industrial emissions computation (tCO2/tCO2e, derived heat-rate values including state-fallback for `power_ng_retrofit`, capture fractions, GWP/leak-rate sensitivity), scenario logic (destination-mix weighting, nameplate scenarios and the `use_operator_nameplate_when_available` flag, DAC zero-unabated / captured-equals-nameplate convention, present-value discounting, pre-computed DataFrame passthrough, methane scenario config parsing), state-loop behavior (per-state factor tables tagged with `project_state`, fail-loud on unknown states), CLI smoke tests, export-table builders, end-to-end pipeline integration (precomputed vs. full-pipeline mode), and hand-worked regression cases across every industry variant (hydrogen, LNG, power_coal, refined_fuels, ethanol, two-plant combined totals).
