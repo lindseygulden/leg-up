@@ -1,0 +1,101 @@
+# Per-industry CCS data -- test case subset (hydrogen, power_ng, dac).
+
+industries:
+  hydrogen:
+    emission_profiles:
+      - industrial_product: hydrogen
+        unit: "ton H2"
+        process_tco2_per_unit_product: 4.62
+        combustion_tco2_per_unit_product: 3.816
+        process_tch4_throughput_per_unit_product: 1.68
+        combustion_tch4_throughput_per_unit_product: 1.387636
+        ccs_applied_to: process
+    capture_cases:
+      - case_name: refinery_hydrogen_90
+        capacity_factor: 0.95
+        co2_stream_capture_rate: 0.90
+        natural_gas_mmbtu_per_day: 2330
+        power_for_capture_mw: 4.04
+        tco2_available_in_capture_stream: 404700
+        distance: near
+        primary_case: 1
+
+  ammonia:
+    emission_profiles:
+      - industrial_product: ammonia
+        unit: "ton NH3"
+        process_tco2_per_unit_product: 1.082052661856717
+        combustion_tco2_per_unit_product: 0.5976816039600324
+        process_tch4_throughput_per_unit_product: 0.393474
+        combustion_tch4_throughput_per_unit_product: 0.217339
+        ccs_applied_to: process
+    capture_cases:
+      - case_name: ammonia
+        capacity_factor: 0.90
+        co2_stream_capture_rate: 0.95
+        natural_gas_mmbtu_per_day: 0
+        power_for_capture_mw: 5.86
+        tco2_available_in_capture_stream: 486227
+        primary_case: 1
+        distance: near
+
+  power_ng:
+    emission_profiles:
+      - industrial_product: power_ng
+        unit: MWh
+        process_tco2_per_unit_product: 0.0
+        combustion_tco2_per_unit_product: ~
+        heat_rate_btu_per_kwh: 7548
+        fuel_type: natural_gas
+        process_tch4_throughput_per_unit_product: 0.0
+        combustion_tch4_throughput_per_unit_product: 0.145636
+        ccs_applied_to: combustion
+    capture_cases:
+      - case_name: power_ng
+        mwh_needed_per_tco2_captured: 0.16
+        mmbtu_methane_needed_per_tco2_captured: 2.8
+        co2_stream_capture_rate: 0.87
+        capacity_factor: 1.0
+        captured_tco2_per_yr: 1
+        primary_case: 1
+        distance: average
+
+  power_ng_data_center:
+    emission_profiles:
+      - industrial_product: power_ng_data_center
+        unit: MWh
+        process_tco2_per_unit_product: 0.0
+        combustion_tco2_per_unit_product: ~
+        heat_rate_btu_per_kwh: 6363
+        fuel_type: natural_gas
+        process_tch4_throughput_per_unit_product: 0.0
+        combustion_tch4_throughput_per_unit_product: 0.123636
+        ccs_applied_to: combustion
+    capture_cases:
+      - case_name: power_ng_data_center
+        mwh_needed_per_tco2_captured: 0.16
+        mmbtu_methane_needed_per_tco2_captured: 2.8
+        co2_stream_capture_rate: 0.87
+        capacity_factor: 1.0
+        captured_tco2_per_yr: 1
+        primary_case: 1
+        distance: average
+
+  dac:
+    emission_profiles:
+      - industrial_product: "carbon credits"
+        unit: "ton CO2"
+        process_tco2_per_unit_product: 0.0
+        combustion_tco2_per_unit_product: 0.0
+        process_tch4_throughput_per_unit_product: 0.0
+        combustion_tch4_throughput_per_unit_product: 0.0
+        ccs_applied_to: process
+    capture_cases:
+      - case_name: dac
+        capacity_factor: 1.0
+        co2_stream_capture_rate: 1.0
+        natural_gas_mmbtu_per_day: 0
+        power_for_capture_mw: 0.0002568493150684931
+        tco2_available_in_capture_stream: 1
+        primary_case: 1
+        distance: near

@@ -1,0 +1,113 @@
+# Infrastructure and grid assumptions for CCS emissions factors.
+# These are not per-industry; they apply to grid, transport, and storage calculations.
+#
+# For power plants (coal and natural gas), the primary source is National Petroleum Council's
+# CCUS Supply Chains and Economics chapter (see p. 2-20):
+# https://www.energy.gov/sites/default/files/2022-10/CCUS-Chap_2-030521.pdf
+#
+# ----- TOP-LEVEL DEFAULTS -----
+# `constants:` and `emission_factors:` are inherited by every state's CCSConstants.
+# For fields that also vary by state (grid intensity, methane leak rate, coal EF, etc.),
+# the values here are US-average fallbacks; per-state values under `states:` override them.
+constants:
+  case_name: tx_la_combined
+  gwp_ch4: 82.5                # GWP20 AR6 fossil methane; use 29.8 for GWP100 AR6 (Table 7.15 in AR6; Forster, et al. 2021; https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-7/)
+  methane_leak_rate: 0.023     # US-average fallback (Alvarez et al. 2018); states override
+  grid_tco2_per_mwh: 0.37      # US-average fallback; states override
+  grid_tch4_per_mwh: 0.08      # US-average fallback (order-of-magnitude); states override with state-specific tCH4/MWh_grid
+  grid_ng_heat_rate_mmbtu_per_mwh: 7.754  # US-average NG fleet heat rate (EIA 2024); used by power_ng_retrofit if state assignment doesn't override
+  oil_tco2_per_bbl: 0.432      # Derived from 40 CFR 98 Table C-1: crude-oil HHV 0.138 MMBtu/gal × 42 gal/bbl × 74.54 kg CO2/MMBtu = 432.0 kg CO2/bbl = 0.432 tCO2/bbl
+  recovery_factor_bbl_per_tco2: 3
+  # Sensitivity knob: multiplier on EOR-oil combustion emissions only (not on
+  # barrel count or oil revenue). 1.0 = EOR oil is 100% additional supply
+  # (default; matches the paper's main-text numbers). 0.0 = EOR oil perfectly
+  # displaces other oil, so no net combustion emissions are charged to CCS.
+  # Intermediate values = fraction of combustion emissions kept on the ledger.
+  eor_disp: 1.0
+  eor_gas_turbine_efficiency: 0.38  # midpoint of 33-43% range for open-cycle gas turbines reported in IPIECA & IOGP (2022) Open-Cycle Gas Turbines Energy Efficiency Compendium (https://www.iogp.org/bookstore/wp-content/uploads/sites/2/woocommerce_uploads/2022/12/INF027_Open-Cycle-Gas-Turbines_FINAL.pdf)
+  # `tch4_per_mmbtu_pipeline_gas` (κ, tCH4 per MMBtu of pipeline gas) is
+  # derived from physical constants and reference HHVs in the code
+  # (ccs_ghg/constants.py; see paper §1.1.2 for the equations).
+  # Default is 0.01703 tCH4/MMBtu (four-component CH4/C2H6/CO2/N2 mix,
+  # with 2% CO2 + 1% N2 inerts representing typical U.S. pipeline tariff
+  # limits). Override here only if you want to run a what-if analysis
+  # with a non-standard pipeline-gas composition:
+  #     tch4_per_mmbtu_pipeline_gas: <override value>
+
+# EPA emission factors used to derive combustion CO2 from heat rates for power plants.
+emission_factors:
+  natural_gas_tco2_per_mmbtu: 0.05306   # 40 CFR 98 Table C-1; https://www.law.cornell.edu/cfr/text/40/appendix-Table_C-1_to_subpart_C_of_part_98
+  coal_tco2_per_mmbtu: 0.09772          # US-average fallback (lignite EF from 40 CFR 98 Table C-1); states override with basin-appropriate EF
+
+# ----- PER-STATE OVERRIDES -----
+# Keyed by the value that appears in the projects CSV `project_state` column.
+# A project whose state is NOT in this block will cause the run to fail loudly.
+# Any field not listed under a state inherits from `constants:` / `emission_factors:` above.
+# Detailed computations for states were obtained from the EPA eGRID2023 data (rev 2) (egrid2023_data_rev2.xlsx).
+# Regenerate the `grid_tch4_per_mwh` values by running:
+#   python -m projects.epaghg.compute_tch4_per_mwh_grid
+states:
+  TX:
+    grid_tch4_per_mwh: 0.078929               # computed using EPA egrid2023_data_rev2.xlsx UNIT23 sheet (variable name HTIAN): total MMBtu for all TX NG plants divided by TX annual net electricity generation (MWh, variable STNGENAN), converted to tCH4 using tch4_per_mmbtu_pipeline_gas=0.017031 (constants.py; see paper §1.1.2; four-component CH4/C2H6/CO2/N2 mix)
+    grid_tco2_per_mwh: 0.34849                # (768.3 lb CO2/MWh) / (2204.623 lb/metric ton); TX state average, EPA eGRID rev 2, 2025, 2023 data (https://www.epa.gov/egrid/summary-data -- table 3 of summary_tables_rev2_2.xlsx)
+    grid_ng_heat_rate_mmbtu_per_mwh: 7.4840906764762885    # (2,066,353,449 MMBtu)/(276,099,467.3 MWh)(TX NG fleet avg heat rate is obtained using the detailed generating Plant data from the eGRID2023 electricity data assembled by EPA (EGRID2023_data_rev2.xlsx, specifically the PLNT23 sheet). We sum the MMBtu heat input from combustion values (PLHTIAN) and MWh total generation values (PLGENAGS) for all primarily natural-gas plants in Texas (PSTATABB==TX and PLPRMFL==NG) (2,066,353,449 MMBtu)/(276,099,467.3 MWh)
+    methane_leak_rate: 0.023                  # Alvarez et al. 2018 national avg
+    coal_tco2_per_mmbtu: 0.09772              # lignite; TX coal fleet is mostly lignite (40 CFR 98 Table C-1)
+  LA:
+    grid_tch4_per_mwh: 0.112438               # computed using EPA egrid2023_data_rev2.xlsx UNIT23 sheet (variable name HTIAN): total MMBtu for all LA NG plants divided by LA annual net electricity generation (MWh, variable STNGENAN), converted to tCH4 using tch4_per_mmbtu_pipeline_gas=0.017031 (constants.py; see paper §1.1.2; four-component CH4/C2H6/CO2/N2 mix)
+    grid_tco2_per_mwh: 0.34537                # (761.4 lb CO2/MWh) / (2204.623 lb/metric ton); LA state average, EPA eGRID rev 2, 2025, 2023 data (https://www.epa.gov/egrid/summary-data -- table 3 of summary_tables_rev2_2.xlsx)
+    grid_ng_heat_rate_mmbtu_per_mwh: 7.165356822097913    # (494,198,015.7 MMBtu)/(68,970,468.32 MWh)(LA NG fleet avg heat rate is obtained using the detailed generating Plant data from the eGRID2023 electricity data assembled by EPA (EGRID2023_data_rev2.xlsx, specifically the PLNT23 sheet). We sum the MMBtu heat input from combustion values (PLHTIAN) and MWh total generation values (PLGENAGS) for all primarily natural-gas plants in Louisiana (PSTATABB==LA and PLPRMFL==NG)(494,198,015.7 MMBtu)/(68,970,468.32 MWh)
+    coal_tco2_per_mmbtu: 0.09772              # using lignite
+
+# ----- STORAGE -----
+# NETL CO2-EOR gate-to-gate LCA, Permian Basin “best-practice” case:
+# https://www.osti.gov/biblio/1515235
+# Per 1 kg of crude, the model reports 0.424 kWh of total field electricity
+# and 1.76 kg of fresh, pipeline-supplied CO2.
+# Calculation: (0.424 kWh/kg crude) / (1.76 kg CO2/kg crude)
+#              = 0.2409 kWh/kg CO2
+#              = about 241 kWh per metric tonne of fresh CO2 supplied.
+# The electricity total includes CO2 compression/pumping, artificial lift,
+# and brine pumping; it is not just the electricity to deliver or inject CO2.
+#
+# NETL saline-aquifer sequestration LCA, expected case:
+# Source: [Official NETL report](https://www.osti.gov/biblio/1515271)
+#
+# Estimated site electricity for CO2 injection and brine reinjection:
+#   CO2 injection pump: 5.33e-4 MW per (tonne CO2/day) × 10,000 tonnes/day
+#                      = 5.33 MW
+#                      = 5.33 MW × 24 h/day ÷ 10,000 tonnes/day
+#                      = 12.792 kWh per tonne CO2
+#   Brine reinjection: 1.4 kg brine/kg CO2 × 4.30e-4 kWh/kg brine
+#                      = 0.602 kWh per tonne CO2
+#   Total:             12.792 + 0.602 = 13.394 ≈ 13.4 kWh/t CO2
+#
+# This is a calculation from NETL's expected-case parameters, not a single
+# kWh/t result stated by NETL. It covers these two electricity loads only;
+# it excludes CO2 capture and pipeline transport, and is not total life-cycle
+# energy use.
+storage:
+  - co2_destination: eor # Based on NETL LCA -- see explanation above; assume recycled-CO2 compression and other oil-field electrical needs is driven by open-cycle gas turbine with thermal efficiency of 38% (IPIECA & IOGP 2022 Open-Cycle Gas Turbines Energy Efficiency Compendium, midpoint of 33-43% range)
+    mwh_per_tco2_stored: 0.241 # requires more energy than GS because of CO2 onsite recycling/onsite compression.
+  - co2_destination: gs # Based on NETL LCA -- see explanation above; assume injection is driven by electric compressor with same tco2e as the local electric grid
+    mwh_per_tco2_stored: 0.0134 # Because the CO2 arrives to the injection location already compressed and there is no recycling of produced CO2 or lift, this is much lower than the value for EOR
+
+# ----- TRANSPORT -----
+# Grid electricity for booster pumps along the pipeline ONLY. Compression of captured CO2 to
+# pipeline pressure (~15 MPa; ~0.1 MWh/t) is counted once, in the capture factors (e.g.,
+# Hughes & Zoelle 2023, p. 12: CO2 leaves the capture boundary at 2,200 psig), not here.
+#
+# Value used: 3.2e-5 MWh/t per pipeline mile (2.0e-5 per km).
+#   NASEM (2019), Negative Emissions Technologies and Reliable Sequestration, App. F
+#   (doi:10.17226/25259): pipeline pumps moving 10 MtCO2/yr use 2,700 MWh/yr for a 10-mile
+#   segment and 32,000 MWh/yr for a 100-mile segment -> ~0.0003-0.0032 MWh/t.
+#   The 200-mile case is the upper end of the sources below.
+#   For near/average/far, multiply each representative pipeline length (mi) by 3.2e-5.
+#
+transport:
+  - distance: 'near'
+    mwh_per_tco2_transported: 0.0016  # assume 50-mile pipeline: 3.2x10^-5 MWh/t per mile * 50 miles = 0.0016 MWh/t
+  - distance: 'average'
+    mwh_per_tco2_transported: 0.0032   # Average distance of 100 mile pipeline: 3.2x10^-5 MWh/t per mile * 100 miles = 0.0032 MWh/t
+  - distance: 'far'
+    mwh_per_tco2_transported: 0.0064  # Long distance assumed to be 200 miles: 3.2x10^-5 MWh/t per mile * 200 miles = 0.0064 MWh/t

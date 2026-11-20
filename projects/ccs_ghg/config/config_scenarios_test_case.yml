@@ -1,0 +1,97 @@
+# === Paths to input data ===
+# Writable outputs from the pipeline. These land under <repo>/data/test_out/
+# and are regenerated on every pytest run.
+emissions_for_industries_path: ${CCS_GHG_DEV_DIR}/data/test_out/industrial_emissions.csv
+# Committed project-fixture CSV used by the test case.
+projects_info_path: ${CCS_GHG_DEV_DIR}/config/ccs_projects_test_case.csv
+# Pre-computed CCS emissions factors (also a writable test-run output).
+ccs_emissions_factors_path: ${CCS_GHG_DEV_DIR}/data/test_out/emissions_factors.csv
+#
+# --- file information for industry-specific ghg emissions file ---
+# file details for the industry-specific emissions factors
+industrial_product_with_detail_col_name: &ipcn industrial_product
+product_col_name: &pcn simple_product_name
+adjusted_capt_frac_col_name: &capfrac adjusted_capture_fraction_tco2e
+# which columns to keep
+industry_emissions_cols:
+- *ipcn
+- *pcn
+- *capfrac
+- adjusted_capture_fraction_tco2
+# 'industrial product' rows to include: for most instances, you need one row per industry
+industry_emissions_which_flavor:
+- hydrogen
+- ammonia
+- power_ng
+- power_ng_data_center
+- 'carbon credits' #dac placeholder
+#
+# --- file information for facility-information file ---
+# columns to keep from the CCS facility data file
+facility_keep_cols:
+#- include
+- project_name
+- project_state
+- project_owner_operator
+- project_status
+- lat_degrees_n
+- lon_degrees_e
+- lat_lon_confidence
+- carbon_fate
+- project_announced
+- project_start
+- product
+- product_amount
+- product_unit
+- nameplate_captured_mtco2_per_yr
+- unabated_mtco2_per_yr
+- unabated_mtco2e_per_yr
+- retrofit_newbuild
+#
+# how to merge ccs_emissions_info with project_info (project/product classification and co2 destination columns)
+projects_merge_on:
+- product
+- carbon_fate
+ccs_emissions_merge_on:
+- product
+- stated_co2_destination
+#
+# Weighted destination-mix scenarios for emissions factors
+weighted_scenarios:
+  - name: current_mix
+    destination_pct:
+      eor: 80
+      gs: 20
+include_nameplate_case: False # compute emissions reductions using the nameplate capture capacity as the reduction amt.
+nameplate_ccs_col: nameplate_captured_mtco2_per_yr
+project_start_col: project_start
+project_unabated_mtco2e_col: unabated_mtco2e_per_yr
+#
+# use this list to filter the industries used in the calculation
+which_industries:
+- dac
+- hydrogen
+- ammonia
+- power_ng
+# 45q settings
+usd_per_tco2_45q_eor: 85
+usd_per_tco2_45q_gs: 85
+usd_per_tco2_45q_dac: 180   # IRC §45Q(b)(1)(A)(ii): direct-air-capture facilities earn $180/tCO2 for both destinations
+solar_lcoe_usd_per_mwh: 60
+solar_lcoe_escalation_rate: 0.0
+recovery_factor_bbl_per_tco2: 3
+#
+# --- Pipeline mode ---
+# use_precomputed: true (default) reads CSVs from ccs_emissions_factors_path and
+# emissions_for_industries_path.  Set to false to compute factors and industrial
+# emissions on the fly, varying methane_scenarios.
+use_precomputed: False
+infrastructure_config_path: ${CCS_GHG_DEV_DIR}/config/config_infrastructure_test_case.yml
+industries_config_path: ${CCS_GHG_DEV_DIR}/config/config_industries_test_case.yml
+#methane_scenarios:
+#  - name: gwp20_base_leak
+#    gwp_ch4: 86
+#    methane_leak_rate: 0.035
+#  - name: gwp100_low_leak
+#    gwp_ch4: 29.8
+#    methane_leak_rate: 0.02

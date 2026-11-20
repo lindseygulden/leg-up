@@ -1,0 +1,1458 @@
+% Methods section for CCS climate impact paper
+
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{array}           % enables >{...}p{...} column-formatting overrides
+\usepackage[table]{xcolor}   % enables \rowcolors for zebra-striped tables
+\usepackage{pdflscape}       % enables \begin{landscape} for the wide per-industry summary table
+\usepackage[margin=1in]{geometry}
+
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+% specify some stuff
+\hypersetup{
+  colorlinks=true,
+  urlcolor=blue,    % web links from \url and \href
+  linkcolor=black,  % internal links (sections, equations)
+  citecolor=black   % citations
+}
+
+% Page footer on every page (including the first).
+\pagestyle{fancy}
+\fancyhf{}                                        % clear default headers/footers
+\fancyfoot[C]{\footnotesize\itshape Federally subsidized CCS supports a CH4-based industrial buildout \& provides little or no emissions benefit}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}                % no header rule
+\fancypagestyle{plain}{                           % same footer on \maketitle / chapter openings
+  \fancyhf{}
+  \fancyfoot[C]{\footnotesize\itshape Federally subsidized CCS supports a CH4-based industrial buildout \& provides little or no emissions benefit}
+  \fancyfoot[R]{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+\newcommand{\cotwo}{\ensuremath{\mathrm{CO_2}}}
+\newcommand{\cotwoe}{\ensuremath{\mathrm{CO_{2}e}}}
+\newcommand{\chfour}{\ensuremath{\mathrm{CH_4}}}
+
+\begin{document}
+
+\section{Detailed Methods}
+
+We compute the net greenhouse gas (GHG) impact of industrial facilities coupled to carbon capture and storage (CCS).
+First, we calculate each industry's unabated emissions per unit of product, accounting for both carbon dioxide (\cotwo{}) and methane (\chfour{}). We consider emissions from the industrial process itself, from combustion used to power and heat the industrial process (Section~\ref{sec:industrial}), and from the production of electricity that the industrial process draws from the grid.
+Second, for each industry considered, we compute a CCS lifecycle emissions rate, defined as the tonnes of GHGs emitted per tonne of \cotwo{} injected with CCS. That emissions factor is defined as the sum of GHG emissions for the industry-specific implementation of CCS across all stages of the CCS supply chain: capture, transport, underground storage, and, for enhanced oil recovery (EOR), combustion of the oil produced (Section~\ref{sec:lifecycle}).
+Third, we combine these results at the project level, calculating each facility's unabated GHG emissions rate per unit product produced and the emissions rate per unit product when facility CCS is operational. All emissions rates are reported both in terms of \cotwo{} alone and \cotwoe{}. We further quantify associated 45Q tax credits, oil production, and oil revenue (Section~\ref{sec:project}).
+
+\paragraph{Industries considered.} We consider CCS installations linked to a set of heavy industries~$I$ that includes fossil-based hydrogen, ammonia, methanol, ethanol, liquefied natural gas (LNG), natural gas processing (NGP), petroleum refining, petrochemical fabrication, natural-gas-fired power generation (including gas-powered data centers), coal-fired power generation, and direct-reduced iron steel fabrication. We also consider direct air capture (DAC) projects: a DAC project is effectively stand-alone CCS in which energy is used to separate \cotwo{} from the ambient air and then, like other forms of CCS, injected for EOR or into deep saline aquifers. As stand-alone CCS, DAC has no associated heavy industry.
+
+\paragraph{Notation.}
+All computations are carried out in both \cotwo{} and \cotwoe{} terms.
+Throughout, a bar ($\bar{\cdot}$) denotes the \cotwoe{} variant of a quantity, which accounts for the climate-warming effects of both emitted \cotwo{} and emitted methane. The warming impact of methane is expressed in terms of the amount of \cotwo{} that would cause equivalent warming: to normalize, we multiply mass of methane by global warming potential $\gamma$. For example, $e$ is the electric grid's \cotwo{} intensity (t\cotwo{}/MWh) and $\bar{e}$ is the grid's corresponding \cotwoe{} intensity, accounting for both \cotwo{} and \chfour{}.
+
+\paragraph{Methane global-warming potential and supply chain leak rates.}
+We take the 20-year GWP for fossil methane from IPCC AR6, $\gamma_{20} = 82.5$ (Forster et al.\ 2021), as our \emph{primary} metric throughout this study. We adopt the 20-year horizon because the time scales that govern the system --- the $D = 12$~year 45Q eligibility window (Section~\ref{sec:45q}) and the $L = 30$~year facility operating lives (Section~\ref{sec:facility_timing}) --- both fall well inside the 20-year window, whereas much of the atmospheric warming attributable to a pulse of methane emitted during a project's operating life has already dissipated well before the end of a 100-year accounting window (Section~\ref{sec:limitations}). For completeness, we also compute and report every GHG quantity at the AR6 100-year GWP for fossil methane, $\gamma_{100} = 29.8$ (Forster et al.\ 2021), as an alternate. All GHG quantities are tagged with their horizon (GWP$_{20}$ or GWP$_{100}$) in the results.
+
+We assume a supply-chain methane leak rate of $\lambda = 2.3\%$ following Alvarez et al.\ (2018). Although upstream methane emission rates are known to vary substantially by producing basin---with recent measurement campaigns finding rates as high as 3--9\% in the Permian Basin (Zhang et al.\ 2020; Chen et al.\ 2022; Yu et al.\ 2022) and elevated but less extreme values in the Haynesville Shale (Cusworth et al.\ 2021)---we  apply Alvarez's national-average rate uniformly across all states to provide a conservative lower bound on methane emissions from a CCS-enabled industrial buildout.
+
+\paragraph{State-level parameters.}
+Because grid composition and fleet performance vary across U.S.\ states, three inputs are specified per state: the electricity grid's \cotwo{} intensity ($e$), the grid's \chfour{} intensity ($\mu$), and the coal combustion emission factor ($\mathrm{EF}_{\text{coal}}$), which varies based on what type of coal (lignite or anthracite) is used. For computation of industry specific emissions rates for CCS retrofits on existing natural gas power plants, we also use state-specific values for the average efficiency of the state's generation fleet.
+
+Each facility in the project database is tagged with its host state, and the model applies the corresponding state-level parameters when computing that facility's emissions. All other parameters, including the methane leak rate $\lambda$ (see Notation), are the U.S. national average.
+
+Baseline state values (Texas and Louisiana) appear in Table~\ref{tab:grid_params}.
+
+% ===========================================================================
+\subsection{Energy Emission Intensities and Conversion Factors}
+\label{sec:energy_params}
+% ===========================================================================
+
+Both grid electricity and on-site natural-gas combustion are used to power various industrial operations (Section~\ref{sec:industrial}) and CCS operations (Section~\ref{sec:lifecycle}). We define emission intensities for each energy source below; the natural-gas methane coefficient $\kappa$, used wherever a mass of methane is derived from a gas heat input, is derived in Section~\ref{sec:kappa}. All parameter values used here appear in Table~\ref{tab:grid_params}.
+
+% ---------------------------------------------------------------------------
+\subsubsection{Energy Emission Intensities}
+\label{sec:energy}
+% ---------------------------------------------------------------------------
+
+We treat any use of electricity to power industrial or CCS operations as having the carbon-emissions intensity of grid electricity because even 100\% renewable power used for CCS is renewable power not available to decarbonize the grid, effectively forcing use of fossil generation elsewhere.
+
+On-site natural gas combustion is used for several purposes: in many industrial applications, natural gas combustion produces heat necessary for the industrial process (e.g., in ethanol fermentation and steam methane reforming for hydrogen production). Natural gas is also used to power on-site electrical generation, either with a high-efficiency gas turbine (e.g., for new gas-fired power generation and for gas-fired data centers) or with an open-cycle gas turbine (as is often used in enhanced oil recovery). The drawing of grid electricity and the on-site energy use both result in emission of \cotwo{} and \chfour{}.
+
+\paragraph{Grid electricity} ($e$, $\bar{e}$; per MWh).
+Both the \cotwo{} intensity~$e$ (t\cotwo{}/MWh) and the \chfour{} intensity~$\mu$ (t\chfour{}/MWh) of the Texas and Louisiana electric grids are derived from electricity-grid data assembled by the U.S. EPA\footnote{EPA Emissions and Generation Resource Integrated Database (eGRID) rev.\ 2, released 2025, with 2023 data, accessed at \url{https://www.epa.gov/egrid}}.
+
+$e$ is the average rate of \cotwo{} emission per MWh of electricity generated by the grid, taking into account the state-specific fuel mix that supplies the grid. We use the state-specific electric-grid \cotwo{} emission rates in units of t\cotwo{}/yr.\footnote{Drawn for Texas and Louisiana from Table 3 of the eGRID2023 summary tables, accessed at \url{https://www.epa.gov/egrid/summary-data}. Emissions rates are expressed in units of lbs \cotwo{}/yr, which we convert to t\cotwo{}/yr by multiplying by the constant 2204.623 lb/tonne}
+
+$\mu$ is the mass of methane whose combustion in natural-gas power plants is required to generate one MWh of grid electricity (from any fuel). We compute $\mu$ per state via the following three steps using detailed data from EPA's eGRID2023 assessment,\footnote{Detailed data for revision 2 of the eGRID2023 data were accessed at \url{https://www.epa.gov/egrid/detailed-data}.} and provide the resulting per-state values as inputs to the model:
+%
+\begin{enumerate}
+  \item For the state, sum the annual heat input (MMBtu/yr) for all generating units whose primary fuel is natural gas\footnote{To identify all generating facilities in a state whose primary fuel is natural gas, we use the eGRID2023 unit-level information provided on sheet \texttt{UNIT23}. We total the annual heat input, identified in column \texttt{HTIAN}, for each gas-powered facility on the state grid. Column PSTATABB is used to locate facilities in the state}.
+  \item Divide the total natural-gas-generated electricity in the state (see 1 above) by the state's annual net electricity generation (MWh/yr) across all fuels, yielding a state-level ``gas heat input per MWh of grid electricity'' in units of MMBtu/MWh.\footnote{On sheet ST23, annual total net generation for a state is identified in the column \texttt{STNGENAN})}
+  \item Convert MMBtu of gas heat to mass of methane by multiplying the gas heat input per MWh of grid electricity by $\kappa$, which defines the mass of methane contained in each MMBtu of U.S. pipeline-quality natural gas (see detailed definition in Section~\ref{sec:kappa}), yielding the state's methane-mass use rate per unit of electricity generated, $\mu$, in units of t\chfour{}/MWh.
+\end{enumerate}
+%
+Resulting values are $\mu = 0.0789$~t\chfour{}/MWh for the Texas grid and $\mu = 0.1124$~t\chfour{}/MWh for the Louisiana grid, which depends more heavily on methane-fired power generation. We note that dividing heat input to gas plants by total state generation attributes methane to the grid as a whole, so that a MWh drawn from the grid can be expressed as the mass of methane that had to be burned by the gas fraction of the fleet in the generation of that MWh.
+
+We compute the \cotwoe{} intensity of the grid, $\bar{e}$, from the \cotwo{} emissions intensity $e$ and the warming contribution of fugitive emission of methane used to power electricity generation:
+%
+\begin{equation}
+  \bar{e} = e + \lambda\,\gamma\,\mu,
+  \label{eq:grid_co2e}
+\end{equation}
+%
+where $\lambda$ and $\gamma$ are the leak rate and GWP, as defined above.
+
+\paragraph{On-site natural gas combustion} ($e_g$, $\bar{e}_g$; per MMBtu).
+To quantify the \cotwo{} emitted with combustion of each MMBtu of natural gas (used for both heat and electricity generation, depending on industry), we apply EPA's Mandatory Greenhouse Gas Reporting Rule conversion factor, $EF_\text{NG}$, which defines emission of t\cotwo{} released with the combustion of one MMBtu of U.S. natural gas.\footnote{The EPA defines $EF_\text{NG}=0.05306~t\cotwo{}/\text{MMBtu}$. See 40 CFR Part 98, Subpart C, Table~C-1 at \url{https://www.ecfr.gov/current/title-40/part-98/appendix-Table C-1 to Subpart C of Part 98}} The mass of \chfour{} delivered per MMBtu of natural gas is the constant $\kappa$ (Section~\ref{sec:kappa}):
+%
+\begin{equation}
+  e_g = \mathrm{EF}_{\text{NG}}, \qquad
+  \bar{e}_g = \mathrm{EF}_{\text{NG}} + \lambda\,\gamma\,\kappa.
+  \label{eq:onsite_gas}
+\end{equation}
+
+\paragraph{Open-cycle gas turbines used for EOR} ($e_t$, $\bar{e}_t$; per MWh).
+Use of \cotwo{} for EOR presents a specialized use case for combustion of natural gas. Open-cycle gas turbines are often used for oil-field compression of \cotwo{} to enable EOR. We assume that an open-cycle gas turbine with efficiency~$\eta = 0.38$ burns natural gas to power compression of \cotwo{} used for EOR; the IPIECA/IOGP (2022) Open-Cycle Gas Turbines Energy Efficiency Compendium places open-cycle thermal efficiency in the 33--43\% range, and we adopt the midpoint.\footnote{IPIECA and International Association of Oil \& Gas Producers (IOGP) (2022). \emph{Open-Cycle Gas Turbines: Energy Efficiency Compendium}, Report INF027. \url{https://www.iogp.org/bookstore/wp-content/uploads/sites/2/woocommerce_uploads/2022/12/INF027_Open-Cycle-Gas-Turbines_FINAL.pdf}.}
+The gas heat input per MWh of turbine output is $q_t = \beta / (\eta\,\xi)$~MMBtu/MWh, where $\beta = 3{,}600$~MJ/MWh and $\xi = 1{,}055$~MJ/MMBtu.
+The \chfour{} throughput per MWh is then
+%
+\begin{equation}
+  \mu_t = q_t \cdot \kappa,
+  \label{eq:turbine_ch4}
+\end{equation}
+%
+with $\kappa$ from Section~\ref{sec:kappa}.
+To quantify the mass of \cotwo{} released from combustion to power the turbines, we use the EPA-defined natural-gas \cotwo{} emission factor, applied to the turbine's gas heat input:
+%
+\begin{equation}
+  e_t = q_t \cdot \mathrm{EF}_{\text{NG}}, \qquad
+  \bar{e}_t = e_t + \lambda\,\gamma\,\mu_t.
+  \label{eq:turbine}
+\end{equation}
+%
+% ---------------------------------------------------------------------------
+\subsubsection{Methane mass per MMBtu of natural gas ($\kappa$)}
+\label{sec:kappa}
+% ---------------------------------------------------------------------------
+
+The parameter $\kappa$ (t\chfour{}/MMBtu) converts gas heat input to the mass of methane carried through the supply chain. We derive $\kappa$ from standard reference values, treating U.S.\ pipeline natural gas as a four-component ideal-gas mixture of \chfour{}, C$_2$H$_6$, \cotwo{}, and N$_2$. The two inert components reflect typical U.S.\ pipeline tariff limits (quality specifications generally cap \cotwo{} at a few percent to prevent acid-gas corrosion, and allow a small amount of nitrogen); accounting for them matters because inerts raise the gas density --- and therefore the mass denominator of $\kappa$ --- without contributing any HHV.
+
+Three measured higher heating values (HHVs) are needed. At standard conditions (60\textdegree F, 14.696~psia), the EPA-defined HHV of U.S.\ pipeline natural gas is $H_{\text{gas}} = 0.001028$~MMBtu/scf.\footnote{EPA 40~CFR~98, Table~C-1, \url{https://www.ecfr.gov/current/title-40/chapter-I/subchapter-C/part-98/subpart-C}.} For the pure hydrocarbon components, we use the measured volumetric HHVs tabulated by Armstrong \& Jobe (1982),\footnote{Armstrong, G.~T.\ and Jobe, Jr., T.~L.\ (1982). \emph{Heating Values of Natural Gas and Its Components}. NBSIR~82-2401. U.S.\ Department of Commerce, National Bureau of Standards, Washington, DC. \url{https://nvlpubs.nist.gov/nistpubs/Legacy/IR/nbsir81-2401.pdf}.} measured at 60\textdegree F and 14.73~psia: $H_{\chfour} = 1014.0$~Btu/scf and $H_{\text{C}_2\text{H}_6} = 1787.92$~Btu/scf (0.0010140 and 0.00178792~MMBtu/scf, respectively). The 0.034~psia pressure difference between the EPA and Armstrong \& Jobe reference states changes the per-scf heating values by about 0.2\% and is neglected here. \cotwo{} and N$_2$ are inert diluents and contribute zero HHV.
+
+We fix the inert mole fractions at $x_{\cotwo{}} = 0.02$ and $x_{\text{N}_2} = 0.01$ (total inerts $= 3\%$, leaving 97\% hydrocarbon). Because volumetric HHV varies linearly with mole fraction in an ideal gas mixture, with inerts contributing nothing, the methane mole fraction $x_{\chfour}$ is pinned by the HHV balance $H_{\text{gas}} = x_{\chfour} H_{\chfour} + x_{\text{C}_2\text{H}_6} H_{\text{C}_2\text{H}_6}$ together with $x_{\chfour} + x_{\text{C}_2\text{H}_6} = 1 - x_{\cotwo{}} - x_{\text{N}_2} = 0.97$:
+%
+\begin{equation}
+    x_{\chfour} = \frac{H_{\text{C}_2\text{H}_6}\,(1 - x_{\cotwo{}} - x_{\text{N}_2}) - H_{\text{gas}}}{H_{\text{C}_2\text{H}_6} - H_{\chfour}} = \frac{(0.00178792)(0.97) - 0.001028}{0.00178792 - 0.0010140} = 0.9126,
+    \label{eq:mole_fraction}
+\end{equation}
+%
+and the ethane mole fraction is $x_{\text{C}_2\text{H}_6} = 0.97 - 0.9126 = 0.0574$. With molar masses of $M_{\chfour} = 16.043$~g/mol, $M_{\text{C}_2\text{H}_6} = 30.069$~g/mol, $M_{\cotwo{}} = 44.010$~g/mol, and $M_{\text{N}_2} = 28.014$~g/mol (IUPAC atomic weights, rounded), the molar mass of the gas mixture ($M$) and the mass fraction of methane ($w_{\chfour}$) are:
+%
+\begin{align}
+    M &= x_{\chfour} M_{\chfour} + x_{\text{C}_2\text{H}_6} M_{\text{C}_2\text{H}_6} + x_{\cotwo{}} M_{\cotwo{}} + x_{\text{N}_2} M_{\text{N}_2} \nonumber \\
+      &= (0.9126)(16.043) + (0.0574)(30.069) + (0.02)(44.010) + (0.01)(28.014) = 17.527~\text{g/mol}, \label{eq:molar_mass} \\
+    w_{\chfour} &= \frac{x_{\chfour} M_{\chfour}}{M} = \frac{(0.9126)(16.043)}{17.527} = 0.8353. \label{eq:mass_fraction}
+\end{align}
+%
+The density of the gas at standard conditions is its molar mass (17.527~g/mol, numerically equal to 17.527~lb/lb-mol) divided by the ideal-gas molar volume $V_m = 379.3$~scf/lb-mol, converted to kilograms at 0.4535924~kg/lb:\footnote{Unit conversions follow the National Institute of Standards and Technology (NIST) Guide for the Use of the International System of Units (SI), NIST SP~811.}
+%
+\begin{equation}
+    \rho = \frac{17.527~\text{lb/lb-mol}}{379.3~\text{scf/lb-mol}} \times 0.4535924~\text{kg/lb} = 0.02096~\text{kg/scf}.
+    \label{eq:rho}
+\end{equation}
+%
+Dividing the volumetric HHV by this density gives the mass-based HHV of the four-component mixture of pipeline natural gas:
+%
+\begin{equation}
+    H_{m} = \frac{H_{\text{gas}}}{\rho} = \frac{0.001028~\text{MMBtu/scf}}{0.02096~\text{kg/scf}} \times 1000~\text{kg/t} = 49.0456~\text{MMBtu/t}.
+    \label{eq:mass_hhv}
+\end{equation}
+%
+Finally, dividing the methane mass fraction (t\chfour{} per t of natural gas mixture) by the mass-based HHV (MMBtu per t of gas) gives the mass of methane per MMBtu of natural gas:
+%
+\begin{equation}
+    \kappa = \frac{w_{\chfour}}{H_{m}} = \frac{0.8353}{49.0456~\text{MMBtu/t}} = 0.01703~\text{t\chfour{}/MMBtu}.
+    \label{eq:kappa}
+\end{equation}
+%
+Neglecting the inert diluents (\cotwo{} and N$_2$) and back-solving $x_{\chfour}$ from a binary \chfour{}/C$_2$H$_6$ mix would overstate $\kappa$ by about 7\% (0.01833 vs.\ 0.01703); treating pipeline gas as pure \chfour{} (using the methane-only HHV and density) would overstate it by roughly 10--11\%. Either bias propagates directly to every methane-throughput term derived from a gas heat input (grid \chfour{} intensity, on-site combustion \chfour{} throughputs~$m^F$), so retaining the inerts is numerically significant.
+%
+
+% ===========================================================================
+\subsection{Unabated Greenhouse Gas Emissions by Industry}
+\label{sec:industrial}
+% ===========================================================================
+
+For each industry~$i \in I$, we specify per unit industrial product the process and on-site combustion emissions of \cotwo{}, the amount of grid electricity drawn, the throughput of \chfour{} used both as fuel and as process feedstock, and any \chfour{} vented or otherwise emitted directly at the facility:
+
+\begin{center}
+\begin{tabular}{ll}
+$P_i$ & process \cotwo{} emissions (t\cotwo{}/unit) \\
+$F_i$ & on-site combustion \cotwo{} emissions (t\cotwo{}/unit) \\
+$W_i$ & grid electricity drawn (MWh/unit) \\
+$m_i^P$ & process \chfour{} throughput (t\chfour{}/unit) \\
+$m_i^F$ & on-site combustion \chfour{} throughput (t\chfour{}/unit) \\
+$d_i$ & direct facility \chfour{} emissions (t\chfour{}/unit)
+
+\end{tabular}
+\end{center}
+
+\noindent
+For most industries, $P_i$ and $F_i$ are taken from published literature (see Section \ref{sec:constants} for industry-specific details). Process \cotwo{} emissions, $P_i$, are the emissions of \cotwo{} that come directly from the industrial process itself (e.g., \cotwo{} released during fermentation of ethanol; \cotwo{} released in steam methane reforming for hydrogen production). On-site combustion emissions $F_i$ include \cotwo{} emissions from combustion of fossil fuels (usually methane) used to power on-site electricity and heat generation (with associated methane throughput $m_i^F$; Table~\ref{tab:industry_params}). The \chfour{} throughputs $m_i^P$ and $m_i^F$ represent the total mass of methane passing through the supply chain, as feedstock for the process ($m_i^P$) and as on-site fuel ($m_i^F$); only the leaked fraction $\lambda\,m_i$ actually reaches the atmosphere. The term $d_i$ represents methane emitted directly at the facility boundary (e.g., LNG liquefaction tank venting from Balcombe et al.\ 2021; refinery and petrochemical facility emissions reported under EPA FLIGHT Subparts C, X, and Y). For both LNG and natural gas processing, \chfour{} is the product of the industrial process; however, erring on the side of conservatism to avoid double counting, we set $m_i^P=0$ for both. Because $d_i$ is already measured as emitted mass rather than as throughput, it enters $\bar{T}_i$ without a leak-rate multiplier. Where a data source separates process-side and combustion-side direct emissions (as EPA FLIGHT does for refineries and petrochemicals), we sum the two into a single $d_i$; where the source is a facility-boundary top-down measurement (as with Balcombe for LNG), the measurement enters $d_i$ as-is.
+
+For fossil-fuel power generation, on-site combustion \cotwo{} emissions are computed directly from the plant heat rate $\mathrm{HR}_i$ (MMBtu/MWh; plant-specific, distinct from any grid-average heat rate) and the EPA emission factor $\mathrm{EF}_f$ (t\cotwo{}/MMBtu) for the fuel~$f$ that is used (Table~\ref{tab:grid_params}):
+%
+\begin{equation}
+  F_i = \mathrm{HR}_i \times \mathrm{EF}_f.
+  \label{eq:heat_rate}
+\end{equation}
+%
+(Power-generation industries also have $W_i = 0$, since they produce rather than consume grid electricity.)
+
+Total \cotwo{} and \cotwoe{} per unit product are:
+%
+\begin{align}
+  T_i &= P_i + F_i + W_i\,e, \label{eq:total_co2} \\
+    \bar{T}_i &= T_i + \gamma\bigl[\lambda(m_i^P + m_i^F + W_i\,\mu) + d_i\bigr],
+  \label{eq:total_co2e}
+\end{align}
+%
+where $e$ is the state-specific grid \cotwo{} intensity, $\mu$ is the state-specific grid \chfour{} intensity (Section~\ref{sec:energy}), $\lambda$ is the supply-chain methane leak rate, and $\gamma$ is the global warming potential of \chfour{} (both defined in the Notation paragraph above). The term $W_i\,e$ in $T_i$ represents the \cotwo{} emitted at natural-gas power plants to generate the grid electricity that industry $i$ drew, per unit product; the analogous $W_i\,\mu$ term inside the leak-rate bracket of $\bar{T}_i$ represents the corresponding mass of methane whose combustion at those plants was required. Because CCS captures \cotwo{} molecules only, the fugitive \chfour{} term in $\bar{T}_i$ and the direct-facility term $d_i$ both represent emissions that CCS cannot intercept.
+
+% ===========================================================================
+\subsection{Adjusted Capture Fractions}
+\label{sec:adj_cf}
+% ===========================================================================
+
+CCS captures \cotwo{} molecules only. Methane is not captured or otherwise abated.
+The mass of \cotwo{} captured per unit product for industry~$i$ is
+%
+\begin{equation}
+  Q_i = r_i \cdot X_i,
+  \label{eq:co2_captured}
+\end{equation}
+%
+where $r_i$ is the stream capture rate (Table~\ref{tab:industry_params}), $X_i = P_i$ when CCS targets the process stream, and $X_i = F_i$ when it targets the combustion stream ($P_i$ and $F_i$ as defined in Section~\ref{sec:industrial}).
+The \emph{adjusted capture fraction} expresses $Q_i$ as a share of total emissions:
+%
+\begin{equation}
+  \alpha_i = \frac{Q_i}{T_i}, \qquad
+  \bar{\alpha}_i = \frac{Q_i}{\bar{T}_i},
+  \label{eq:adj_cf}
+\end{equation}
+%
+where $T_i$ and $\bar{T}_i$ are the total \cotwo{} and \cotwoe{} per unit product (Eqs.~\ref{eq:total_co2}--\ref{eq:total_co2e}).
+Because $\bar{T}_i \geq T_i$, $\bar{\alpha}_i \leq \alpha_i$.
+For industries with large \chfour{} throughput and consequent substantial fugitive methane emissions (e.g., hydrogen via steam methane reforming), $\bar{\alpha}_i$ can be substantially lower than the stream-specific \cotwo{} capture rate~$r_i$.
+
+% ===========================================================================
+\subsection{CCS Emissions Factor}
+\label{sec:lifecycle}
+% ===========================================================================
+
+The CCS  emissions factor $\varepsilon_{i,d}$ quantifies the tonnes of \cotwo{} (t\cotwo{}) emitted per t\cotwo{} captured and stored, for industry~$i$ and storage destination~$d$. Regardless of location and industry of capture, CCS in which \cotwo{} gas is captured, concentrated, and compressed can only be injected either for enhanced oil recovery (EOR) or injected into deep saline aquifers for geologic storage. Therefore, $d \in \{\text{GS}, \text{EOR}\}$. Four components make up the CCS emission factor $\varepsilon_{i,d}$:
+%
+\begin{equation}
+  \varepsilon_{i,d} = \varepsilon_i^{\text{cap}}
+    + \varepsilon_i^{\text{tr}}
+    + \varepsilon_d^{\text{st}}
+    + \varepsilon_d^{\text{oil}},
+  \label{eq:ccs_total}
+\end{equation}
+%
+where $\varepsilon_i^{\text{cap}}$ is the emission rate for the capture phase of the CCS process (Section~\ref{sec:capture}); $\varepsilon_i^{\text{tr}}$ is the emissions rate for the transport phase (Section~\ref{sec:transport}); $\varepsilon_d^{\text{st}}$ is emissions rate for the storage phase (Section~\ref{sec:storage}), and $\varepsilon_d^{\text{oil}}$ is the emissions rate describing the \cotwo{} released from the combustion of incremental oil produced with EOR (Section~\ref{sec:product}). All CCS emissions rates are expressed in units of t\cotwo{} (or t\cotwoe{}) per t\cotwo{} stored.
+The net climate impact of storing one tonne of \cotwo{} with CCS is $\bar\varepsilon_{i,d} - 1$: when this quantity is positive ($\bar\varepsilon_{i,d} > 1$), CCS is a net source of GHGs emitted to the atmosphere; when negative, CCS is a net sink.
+
+The \cotwoe{} variant $\bar{\varepsilon}_{i,d}$ is obtained by replacing each energy emission intensity (defined in Section~\ref{sec:energy}) with its bar-topped counterpart, which accounts for the climate-warming impacts of methane in terms of the equivalent amount of \cotwo{} that would cause the same amount of warming. The oil-combustion term is unchanged between $\bar{\varepsilon}_{i,d}$ and $\varepsilon_{i,d}$ (it is pure \cotwo{}).
+
+% ---------------------------------------------------------------------------
+\subsubsection{Capture ($\varepsilon_i^{\text{cap}}$)}
+\label{sec:capture}
+% ---------------------------------------------------------------------------
+
+Capturing \cotwo{} from an industrial exhaust stream requires energy. Depending on the industrial application, energy for carbon capture can be drawn from the electric grid, from on-site combustion of natural gas, or from both.
+
+We characterize each industry's capture facility with three quantities that feed the component-wise buildup of $\varepsilon_i^{\text{cap}}$ below:
+\begin{itemize}
+  \item $r_i$: the stream capture rate, which is the fraction of the \cotwo{} in the targeted \cotwo{} emission stream (process or combustion) that is captured (Table~\ref{tab:industry_params});
+  \item $w_i$: the grid-electricity intensity of capture (MWh drawn per t\cotwo{} captured);
+  \item $g_i$: the on-site natural-gas intensity of capture (MMBtu combusted per t\cotwo{} captured).
+\end{itemize}
+
+\noindent
+The quantity $r_i$ is specified by industry (Table~\ref{tab:industry_params}). Depending on the source data available for a given industry, $w_i$ and $g_i$ are obtained in one of two ways; which path is used for each industry is indicated in Table~\ref{tab:capture_energy}.
+
+\paragraph{Path 1: direct specification of the emission intensities for carbon capture.}
+For industries whose source reports the per-t\cotwo{}-captured energy intensities directly (e.g., natural-gas- and coal-fired power generation, refined fuels, and petrochemicals from the National Petroleum Council's CCUS Supply Chains chapter, Table 2-6; DAC from a published DAC energy assessment), we take $w_i$ and $g_i$ from that source without further derivation.
+
+\paragraph{Path 2: capture emission intensities derived from facility-level equipment parameters.}
+For industries whose source reports the physical capture plant rather than per-t\cotwo{} intensities (e.g., hydrogen, ammonia, methanol, ethanol, LNG, NGP, and iron \& steel, all from NETL case studies), we specify the plant's annual \cotwo{} throughput, rated electricity demand, and on-site natural gas consumption:
+\begin{itemize}
+  \item $\dot{Q}_i$: the \cotwo{} available in the capture stream (t\cotwo{}/yr), representing the actual annual throughput of \cotwo{} at the facility's expected utilization rate;
+  \item $P_i^{\text{cap}}$: the rated electricity demand of the capture equipment (MW);
+  \item $G_i$: the on-site natural-gas consumption of the capture equipment (MMBtu/day).
+\end{itemize}
+\noindent
+From these, the intensities are:
+%
+\begin{equation}
+  w_i = \frac{P_i^{\text{cap}} \times 8{,}760}{r_i\,\dot{Q}_i}, \qquad
+  g_i = \frac{G_i \times 365}{r_i\,\dot{Q}_i},
+  \label{eq:cap_intensities}
+\end{equation}
+%
+where $8{,}760$ is the number of hours in a year (converting MW rated demand to MWh/yr) and $365$ converts daily gas consumption to equivalent annual consumption; the denominator $r_i \cdot \dot{Q}_i$ is the actual annual tonnes of \cotwo{} captured.
+
+
+Capture emissions include \cotwo{} from grid electricity consumed by the capture equipment and \cotwo{} from on-site natural gas combustion that provides capture-process heat. Each component is expressed in units of t\cotwo{} per t\cotwo{} captured:
+%
+\begin{align}
+  \varepsilon_i^{e}
+    &= w_i \cdot e
+    && \text{(grid electricity),}
+  \label{eq:cap_elec} \\
+  \varepsilon_i^{g}
+    &= g_i \cdot e_g
+    && \text{(on-site gas combustion).}
+  \label{eq:cap_gas}
+\end{align}
+%
+Here $e$ is the grid \cotwo{} intensity (Eq.~\ref{eq:grid_co2e}) and $e_g$ is the on-site gas \cotwo{} intensity (Eq.~\ref{eq:onsite_gas}).
+The total capture emissions factor is
+%
+\begin{equation}
+  \varepsilon_i^{\text{cap}}
+    = \varepsilon_i^{e} + \varepsilon_i^{g}.
+  \label{eq:cap_total}
+\end{equation}
+%
+\cotwo{} in the targeted stream that is not captured remains in the facility's unabated emissions and is already accounted for in the facility-level net calculation of Eq.~\eqref{eq:net}: unabated $\bar{U}_j$ includes the full targeted stream, and only the captured amount $C_j = S_j \cdot r_i \cdot X_i$ is subtracted, so the uncaptured portion $(1 - r_i) \cdot X_i$ remains in the atmospheric budget without being added again through $\varepsilon_i^{\text{cap}}$. The \cotwoe{} variant $\bar{\varepsilon}_i^{\text{cap}}$ substitutes $\bar{e}$ for~$e$ (Eq.~\ref{eq:grid_co2e}) and $\bar{e}_g$ for~$e_g$ (Eq.~\ref{eq:onsite_gas}).
+
+% ---------------------------------------------------------------------------
+\subsubsection{Transport of \cotwo{} ($\varepsilon_i^{\text{tr}}$)}
+\label{sec:transport}
+% ---------------------------------------------------------------------------
+
+We assume transport of \cotwo{} from points of capture to ultimate storage destinations by dedicated pipeline conveyance (rather than transportation of \cotwo{} by truck, barge, or rail), using grid electricity to power the pipeline's booster-pump stations. Each industry is assigned an average transport distance (`near', `average', or `far') with a corresponding \cotwo{}-transport energy intensity~$w_t$ (MWh per t\cotwo{} transported; Table~\ref{tab:grid_params}), which increases with the distance traversed. Industries that are concentrated close to \cotwo{} storage locations (e.g., natural gas processing) are assigned a `near' transport distance; those that are concentrated along corridors near potential storage locations (e.g., hydrogen production and LNG, both of which are concentrated along Gulf Coast industrial corridors) are assigned an `average' transport distance; those that are highly dispersed (e.g., ethanol production) are assigned a `far' distance.
+
+$w_t$ covers the electricity drawn by pipeline booster pumps only; the much larger compression step that pressurizes captured \cotwo{} to pipeline conditions (${\sim}$15~MPa) is counted once, in the capture-side intensity $w_i$ (Section~\ref{sec:capture}). The NETL case studies we use for $w_i$ (Hughes and Zoelle 2023; Hughes, p.~12) deliver \cotwo{} at the capture-plant fence line already compressed to 2{,}200~psig, so re-including initial compression under $w_t$ would double-count it. We derive $w_t$ from NASEM's (2019) \emph{Negative Emissions Technologies and Reliable Sequestration}, Appendix~F, which reports pipeline-pump energy for a 10~Mt\cotwo{}/yr pipeline of $2{,}700$~MWh/yr at 10~miles and $32{,}000$~MWh/yr at 100~miles, implying a per-mile booster-pump intensity of ${\approx}3.2\times10^{-5}$~MWh/t\cotwo{}/mile.\footnote{National Academies of Sciences, Engineering, and Medicine (2019). \emph{Negative Emissions Technologies and Reliable Sequestration: A Research Agenda}. Washington, DC: The National Academies Press, Appendix~F. \url{https://doi.org/10.17226/25259}.} Multiplying by representative pipeline lengths of 50, 100, and 200~miles yields $w_t^{\text{near}} = 0.0016$, $w_t^{\text{avg.}} = 0.0032$, and $w_t^{\text{far}} = 0.0064$~MWh/t\cotwo{} (Table~\ref{tab:grid_params}).
+Transport emissions are the product of this \cotwo{}-transport energy intensity $w_t$ and the local grid emission intensities $e$ and $\bar{e}$ from Section~\ref{sec:energy} (Eqs.~\ref{eq:grid_co2e}):
+%
+\begin{equation}
+  \varepsilon_i^{\text{tr}} = w_t \cdot e, \qquad
+  \bar{\varepsilon}_i^{\text{tr}} = w_t \cdot \bar{e}.
+  \label{eq:transport}
+\end{equation}
+
+% ---------------------------------------------------------------------------
+\subsubsection{Storage ($\varepsilon_d^{\text{st}}$)}
+\label{sec:storage}
+% ---------------------------------------------------------------------------
+
+\paragraph{Geologic storage (GS)}
+We assume injection of \cotwo{} into saline aquifers uses a grid-powered compressor with energy intensity~$w_s^{\text{GS}}$ (MWh/t\cotwo{} injected; Table~\ref{tab:grid_params}). Because the \cotwo{} arrives at the injection site already at pipeline pressure (Section~\ref{sec:transport}), no re-compression step comparable in magnitude to the initial capture-side compression is required, and because saline injection involves no produced-\cotwo{} recycling or artificial lift, $w_s^{\text{GS}}$ is substantially smaller than $w_s^{\text{EOR}}$. We adopt the NETL expected-case saline-aquifer sequestration LCA\footnote{National Energy Technology Laboratory (2018). \emph{Life Cycle Analysis of Natural Gas Combined Cycle Power with Carbon Capture and Saline Aquifer Sequestration}. OSTI Report 1515271. \url{https://www.osti.gov/biblio/1515271}.} parameters for the two site electrical loads: the CO$_2$ injection pump (expected unit load $5.33\times10^{-4}$~MW per tonne~\cotwo{} injected per day, equivalent to $5.33\times10^{-4}~\text{MW}~\times~24~\text{h/day} = 0.01279$~MWh = $12.79$~kWh per tonne \cotwo{}) and the brine reinjection pump ($1.4$~kg brine produced per kg \cotwo{} injected $\times~4.30\times10^{-4}$~kWh/kg brine $= 0.60$~kWh per tonne \cotwo{}), which together total $w_s^{\text{GS}} \approx 0.0134$~MWh/t\cotwo{}. This value covers only the site injection and brine-handling loads and excludes capture and pipeline transport (which are counted in $w_i$ and $w_t$, respectively).
+Emission of GHGs from the geologic storage of \cotwo{} in saline aquifers use the grid emission intensities $e$ and $\bar{e}$ from Section~\ref{sec:energy}:
+%
+\begin{equation}
+  \varepsilon_{\text{GS}}^{\text{st}} = w_s^{\text{GS}} \cdot e, \qquad
+  \bar{\varepsilon}_{\text{GS}}^{\text{st}} = w_s^{\text{GS}} \cdot \bar{e}.
+  \label{eq:storage_gs}
+\end{equation}
+
+\paragraph{Enhanced oil recovery (EOR)}
+Given EOR's proximity to hydrocarbon production, we assume injection of \cotwo{} for EOR is powered by an on-site open-cycle gas turbine (Section~\ref{sec:energy}) with energy intensity~$w_s^{\text{EOR}}$ (MWh/t\cotwo{} injected; Table~\ref{tab:grid_params}).
+Unlike geologic storage, an EOR site must additionally compress recycled \cotwo{} produced back from the reservoir, lift fluids from the reservoir, and pump produced brine for disposal; $w_s^{\text{EOR}}$ accordingly rolls up all of these oil-field electrical loads, not just injection-wellhead compression. We adopt the NETL gate-to-gate CO$_2$-EOR LCA for the Permian Basin ``best-practice'' case,\footnote{National Energy Technology Laboratory (2018). \emph{Life Cycle Analysis of Enhanced Oil Recovery, Best Practice CO$_2$-EOR Operations in the Permian Basin}. OSTI Report 1515235. \url{https://www.osti.gov/biblio/1515235}.} which reports $0.424$~kWh of total field electricity per kg of crude produced and $1.76$~kg of fresh, pipeline-supplied \cotwo{} per kg of crude. Dividing gives $w_s^{\text{EOR}} = 0.424/1.76 \approx 0.241$~MWh per tonne of fresh \cotwo{} supplied to the field. As with $w_s^{\text{GS}}$, this value excludes the capture and transport stages.
+Emission of GHGs resulting from the injection of \cotwo{} for EOR use the gas turbine emission intensities $e_t$ and $\bar{e}_t$ from Section~\ref{sec:energy} (Eq.~\ref{eq:turbine}):
+%
+\begin{equation}
+  \varepsilon_{\text{EOR}}^{\text{st}} = w_s^{\text{EOR}} \cdot e_t, \qquad
+  \bar{\varepsilon}_{\text{EOR}}^{\text{st}} = w_s^{\text{EOR}} \cdot \bar{e}_t.
+  \label{eq:storage_eor}
+\end{equation}
+
+% ---------------------------------------------------------------------------
+\subsubsection{Oil Product Emissions ($\varepsilon_d^{\text{oil}}$)}
+\label{sec:product}
+% ---------------------------------------------------------------------------
+
+In the case of injecting \cotwo{} into saline aquifers for geologic storage, no combustible (or, for that matter, marketable) product results from injection of \cotwo{}. Correspondingly:
+%
+\begin{equation}
+    \varepsilon_{\text{GS}}^{\text{oil}} = 0
+\end{equation}
+%
+When \cotwo{} is injected for EOR, the injected \cotwo{} enables recovery of an incremental volume of oil that would otherwise not be produced. That oil is subsequently combusted, resulting in \cotwo{} emissions from the product of CCS with EOR:
+%
+\begin{equation}
+  \varepsilon_{\text{EOR}}^{\text{oil}} = (1 - \delta_{\text{disp}}) \cdot e_{\text{oil}} \times R_f,
+  \label{eq:product_eor}
+\end{equation}
+%
+where $e_{\text{oil}}$ (t\cotwo{}/bbl) is the \cotwo{} emissions released with combustion of a barrel of oil\footnote{The value $e_{\text{oil}} = 0.432$~t\cotwo{}/bbl is derived from 40~CFR Part~98, Subpart~C, Table~C-1 (cited elsewhere in this document for $EF_{\text{NG}}$ and the pipeline-gas HHV). Table~C-1 does not state the result as ``0.432~t\cotwo{}/bbl'' directly; it provides the two inputs from which the per-barrel figure is computed: a crude-oil higher heating value of $0.138$~MMBtu/gallon and a combustion emission factor of $74.54$~kg\cotwo{}/MMBtu for crude oil. One barrel contains 42 gallons, so the per-barrel heat content is $0.138~\text{MMBtu/gal} \times 42~\text{gal/bbl} = 5.796~\text{MMBtu/bbl}$. Multiplying by the emission factor gives $5.796~\text{MMBtu/bbl} \times 74.54~\text{kg\cotwo{}/MMBtu} = 432.0~\text{kg\cotwo{}/bbl} = 0.432~\text{t\cotwo{}/bbl}$, which is the value used throughout the paper (Table~\ref{tab:grid_params}).} (Table~\ref{tab:grid_params}); $R_f$ (bbl/t\cotwo{}) is the recovery factor, defined as the number of additional barrels of oil that are produced for each tonne of \cotwo{} injected for EOR\footnote{DOE/NETL assessments assume approximately 0.3~t of purchased \cotwo{} per barrel of incremental oil ($R_f \approx 3.3$~bbl/t\cotwo{}). See \url{https://www.netl.doe.gov/projects/files/FY11_ImprovingDomesticEnergySecurityLoweringCO2EmissionsNextGenCO2EOR_060111.pdf}} (for the work reported here, we assume $R_f=3$); and $\delta_{\text{disp}} \in [0,1]$ is the EOR-oil \emph{displacement fraction}, the share of EOR-produced oil treated as backing out (displacing) an otherwise-produced non-CCS barrel elsewhere in the market. $\delta_{\text{disp}} = 0$ (our default) corresponds to the conservative assumption that EOR output is fully additional to global supply and displaces nothing, so every EOR barrel's combustion emissions are charged to the CCS scenario; $\delta_{\text{disp}} = 1$ corresponds to perfect displacement, in which every EOR barrel is matched one-for-one by an avoided non-CCS barrel elsewhere and the oil-combustion term vanishes. For the headline results in the body of the paper we set $\delta_{\text{disp}} = 0$; Section~\ref{sec:limitations} discusses the displacement literature, and we also report a single bounding sensitivity at $\delta_{\text{disp}} = 0.5$ (the maximum displacement supported by the review of Almutairi \& Pierru, 2024), presented and discussed in \S4.7. Because oil combustion releases minimal \chfour{}, $\varepsilon_{\text{EOR}}^{\text{oil}} = \bar\varepsilon_{\text{EOR}}^{\text{oil}}$.
+
+Computed with standard parameters (Table~\ref{tab:grid_params}) and $\delta_{\text{disp}} = 0$, $\varepsilon_{\text{EOR}}^{\text{oil}} = (1 - 0) \cdot 0.432 \times 3 = 1.296$~t\cotwo{}/t\cotwo{} stored, which exceeds~1 and is therefore always a source of GHG emissions to the atmosphere.
+
+% ---------------------------------------------------------------------------
+\subsubsection{Alternate \cotwo{} destination assumptions}
+\label{sec:dest_mix}
+% ---------------------------------------------------------------------------
+
+As part of our scenario analysis (detailed below), we evaluate emissions changes under different assumptions about \cotwo{} destination, changing the assumed fraction of \cotwo{} that is injected for GS and for EOR. Each destination-mix scenario~$s$ prescribes a percentage split between EOR and GS.
+With EOR fraction~$f_s$ and GS fraction~$(1 - f_s)$, the weighted lifecycle CCS emissions factor is:
+%
+\begin{equation}
+  \varepsilon_{i,s} = f_s \cdot \varepsilon_{i,\text{EOR}}
+                    + (1 - f_s) \cdot \varepsilon_{i,\text{GS}},
+  \label{eq:weighted}
+\end{equation}
+%
+where $\varepsilon_{i,\text{EOR}}$ and $\varepsilon_{i,\text{GS}}$ are the \cotwo{}destination-specific CCS emissions factors from Eq.~\eqref{eq:ccs_total}.
+The baseline scenario directly uses the emissions factor corresponding to each facility's operator-stated \cotwo{} destination (i.e., no weighting).
+
+% ===========================================================================
+\subsection{Facility-Level Emissions, Aggregates, and Financial Outputs}
+\label{sec:project}
+% ===========================================================================
+
+% ---------------------------------------------------------------------------
+\subsubsection{Scenarios evaluated}
+\label{sec:scenarios}
+% ---------------------------------------------------------------------------
+
+We report results for eight scenarios, organized in three families.
+\emph{Reference} (no CCS): \emph{unabated}, in which every facility in the project list is built but no CCS is deployed, and \emph{existing\_only}, which further strips out the proposed new-build portion of the buildout and retains only the already-operating industrial facilities, all run unabated.
+\emph{Destination-mix} (full CCS deployment): four cases --- \emph{baseline}, \emph{all\_gs}, \emph{all\_eor}, and \emph{current\_mix} --- that share all other assumptions (industries, facilities, capture rates, lifecycle emissions factors, methane parameters) and differ only in the assumed EOR/GS destination split~$f_s$ (Eq.~\eqref{eq:weighted}), or, for \emph{baseline}, in the use of facility-specific operator-stated destinations rather than a fleet-wide weighting.
+\emph{Pivot-to-EOR}: two cases --- \emph{switching} and \emph{switching\_from\_current} --- in which the \cotwo{} destination mix changes partway through each project's operating life (Section~\ref{sec:pivot_to_eor_scenarios}).
+The \emph{existing\_only} reference is constructed by restricting the facility aggregation to the subset of \texttt{retrofit}-flagged facilities --- those whose underlying industrial plant is already operating as of the model base year $y_0 = 2025$, regardless of when (or whether) its CCS equipment is placed in service --- and running each one unabated over the 30-year window; it isolates the counterfactual in which no new industrial facilities are built and no CCS is deployed. Table~\ref{tab:scenarios} enumerates characteristics of the eight scenarios.
+
+% ---------------------------------------------------------------------------
+\subsubsection{Facility operating lifetime: retrofit vs.\ new-build timing}
+\label{sec:facility_timing}
+% ---------------------------------------------------------------------------
+
+Each facility is modeled as operating for a nominal lifetime of $L = 30$ years, within which the CCS equipment operates for $D = 12$ years ($D$ matches the 45Q eligibility window used in Sections~\ref{sec:45q} and~\ref{sec:oil}). Facilities fall into one of two timing conventions, flagged in the project list by a \texttt{retrofit\_newbuild} column:
+
+\begin{itemize}
+  \item \emph{Retrofit}: the industrial facility is already in operation as of the base year $y_0$. CCS equipment is added at the project-specific start year $y_j$ and operates for $D$ years. For the typical case $y_j \geq y_0$ (CCS retrofit placed in service during or after the base year), the facility's 30-year operating window is $[y_0,\,y_0 + L]$: unabated during $[y_0,\,y_j]$, with CCS during $[y_j,\,y_j + D]$, and unabated again during $[y_j + D,\,y_0 + L]$. A small number of legacy-capture facilities have $y_j < y_0$ (Terrell, 1972; Nutrien-Geismar, 2013; Valero-Port-Arthur, 2013; Petra Nova, 2016; Campo Viejo, 2019). Their on-site CCS operation is modeled the same way (the lifetime total still carries the two-period structure $D \cdot R_{\text{CCS}} + (L - D) \cdot R_{\text{unab}}$ over the window $[y_j,\,y_j + L]$), but all of them fall outside the 45Q accounting of Section~\ref{sec:45q} because they were placed in service before $y_{\min} = 2023$ (Table~\ref{tab:financial_params}): they predate the Inflation Reduction Act's higher credit amounts and qualify only for the smaller 2008/2018-rule credits that we do not include.
+  \item \emph{New build}: both the industrial facility and the CCS equipment come online at $y_j$; the facility operates until $y_j + L$. CCS runs during the first $D$ of those years; the remaining $L - D$ years are unabated.
+\end{itemize}
+
+The per-year emission \emph{rates} reported throughout Sections~\ref{sec:industrial}--\ref{sec:lifecycle} (which are per unit of annual product output) are identical for both timing conventions, as are the PV-based financial quantities of Sections~\ref{sec:45q} and~\ref{sec:oil} (which are anchored to the CCS start year $y_j$ and duration $D$ regardless of retrofit vs.\ new build). The retrofit vs.\ new-build distinction only affects \emph{calendar-year} quantities, such as time-series plots and cumulative emissions over a fixed calendar window: a retrofit facility contributes unabated emissions in every calendar year from $y_0$ onward, whereas a new-build facility contributes nothing before $y_j$. For the non-pivot scenarios, the lifetime-total emissions metric reported in the results is the same 30-year total $D \cdot R_{\text{CCS}} + (L - D) \cdot R_{\text{unab}}$ regardless of timing convention, where $R_{\text{CCS}}$ and $R_{\text{unab}}$ are the facility's annual \cotwoe{} rates with and without CCS; only the calendar window on which that total accrues differs. The pivot-to-EOR scenarios replace the post-$D$ unabated segment with a continued-CCS segment at a 100\%-EOR destination mix, as described in Section~\ref{sec:pivot_to_eor_scenarios}.
+
+% ---------------------------------------------------------------------------
+\subsubsection{Pivot-to-EOR scenarios: CCS continues after 45Q expires}
+\label{sec:pivot_to_eor_scenarios}
+% ---------------------------------------------------------------------------
+
+The two \emph{pivot-to-EOR} scenarios (identified in the code and in Table~\ref{tab:scenarios} by the labels \emph{switching} and \emph{switching\_from\_current}; so named because each pivots its captured-\cotwo{} destination toward 100\% EOR once 45Q eligibility ends) relax the assumption, used in all other CCS scenarios, that CCS equipment operates only during the 45Q credit window $[y_j,\,y_j + D]$. In the pivot-to-EOR scenarios we instead assume that once 45Q eligibility ends, the operator continues to run its already-built CCS equipment but redirects \emph{all} captured \cotwo{} to EOR (the only post-45Q use of captured \cotwo{} with a direct revenue stream). CCS therefore operates for the full facility lifetime $[y_j,\,y_j + L]$ in these scenarios, not just for the first $D$ years.
+
+Concretely, each pivot-to-EOR scenario splits the operating life into two sub-periods:
+\begin{enumerate}
+  \item \emph{First-period (years $y_j$ to $y_j + D - 1$).} CCS operates under the first-period destination mix~$s_1$, which is \emph{baseline} (operator-stated destinations) for \emph{switching} and \emph{current\_mix} ($f_{s_1} = 0.92$) for \emph{switching\_from\_current}. Annual GHGs, 45Q credits, and oil revenue are computed using the same equations as the corresponding non-pivot scenario.
+  \item \emph{Second-period (years $y_j + D$ to $y_j + L - 1$).} CCS operates under $s_2 = \text{all\_eor}$ ($f_{s_2} = 1$). Annual GHGs and oil revenue are computed using the $s_2$ emissions factor and EOR fraction; no 45Q credit accrues in this period.
+\end{enumerate}
+
+Let $R^{s}_j$ denote facility~$j$'s annual \cotwoe{} rate under scenario~$s$ (Eq.~\ref{eq:net}), and let $O^{s}_j$, $V^{s}_j$ denote the corresponding annual oil production and base annual oil revenue (Eqs.~\ref{eq:oil_prod}--\ref{eq:oil_rev}). For a pivot-to-EOR scenario built from first-period $s_1$ and second-period $s_2 = \text{all\_eor}$, the reported lifetime totals are:
+%
+\begin{align}
+  \text{Lifetime \cotwoe{}:} \quad & N_j^{\text{life}} \;=\; D \cdot R^{s_1}_j + (L - D) \cdot R^{s_2}_j, \label{eq:switching_emissions} \\
+  \text{Lifetime oil:}       \quad & O_j^{\text{life}} \;=\; D \cdot O^{s_1}_j + (L - D) \cdot O^{s_2}_j, \label{eq:switching_oil} \\
+  \text{Nominal oil revenue:} \quad & \sum_{y=y_j}^{y_j + L - 1} V_j^{s(y)}(y), \qquad s(y) = \begin{cases} s_1 & y < y_j + D \\ s_2 & y \geq y_j + D \end{cases} \label{eq:switching_oil_rev}
+\end{align}
+%
+where $V_j^{s(y)}(y) = O_j^{s(y)} \cdot \pi(y)$ follows the oil-price escalation convention of Eq.~\eqref{eq:oil_rev} (escalation anchored to each facility's start year $y_j$). The present value of oil revenue is computed by discounting the year-by-year $V_j^{s(y)}(y)$ stream at the nominal rate $\delta$ to the valuation date $y_{\text{val}}$ (Eq.~\ref{eq:pv} applied to the full $L$-year stream in place of the $D$-year 45Q stream). 45Q credits and their PV (Section~\ref{sec:45q}) are computed exactly as in the first-period scenario $s_1$ --- i.e., from the first-period captured-\cotwo{} stream over years $y_j$ through $y_j + D - 1$ only --- and are identical to the corresponding non-pivot scenario.
+
+Because second-period EOR carries the full $\bar\varepsilon_{i,\text{EOR}}^{\text{oil}}$ oil-combustion term (Eq.~\ref{eq:product_eor}) but no 45Q subsidy, pivot-to-EOR scenarios typically produce more lifetime \cotwoe{} than their first-period parent and more lifetime oil and profit than any single-destination-mix scenario. Operationally, the pivot-to-EOR rows are synthesized from the non-pivot scenario outputs post-run: for time-weighted per-year rates and lifecycle emissions factors we take $(D \cdot \text{first-period} + (L - D) \cdot \text{second-period})/L$; for extensive lifetime columns (emissions, oil, revenue) we take the exact two-period sum in Eqs.~\eqref{eq:switching_emissions}--\eqref{eq:switching_oil_rev}.
+
+% ---------------------------------------------------------------------------
+\subsubsection{Facility-Level Unabated Emissions}
+\label{sec:co2e_adjust}
+% ---------------------------------------------------------------------------
+
+For each facility~$j$ in industry~$i$, we compute the annual unabated \cotwo{} emissions $U_j$ (Mt\cotwo{}/yr), which is the total \cotwo{} the facility emits each year in the absence of CCS, directly from the facility's annual output of its primary (non-\cotwo{}) product, $S_j$ (units of product per year; e.g., tonnes H$_2$/yr, MWh/yr, bbl refined fuel/yr), and the industry-specific total \cotwo{} emission factor $T_i$ (t\cotwo{}/unit; Eq.~\ref{eq:total_co2}):
+%
+\begin{equation}
+  U_j = 10^{-6}\, S_j\, T_i,
+  \label{eq:unabated}
+\end{equation}
+%
+where the factor $10^{-6}$ converts tonnes to megatonnes.
+$U_j$ is independent of methane assumptions.  $U_j$ depends on the facility's state because of the use of state-specific grid \cotwo{} intensity (for facilities that draw grid electricity) and the coal emission factor (for coal-fired power), both of which enter $T_i$.
+
+Unabated \cotwoe{} is obtained in the same way from the total \cotwoe{} emission factor $\bar{T}_i$ (Eq.~\ref{eq:total_co2e}):
+%
+\begin{equation}
+  \bar{U}_j = 10^{-6}\, S_j\, \bar{T}_i = U_j \times \frac{\bar{T}_i}{T_i},
+  \label{eq:co2e_adjust}
+\end{equation}
+%
+such that $\bar{U}_j$ is consistent with the specified GWP ($\gamma$) and methane-supply-chain leak rate ($\lambda$).
+
+% ---------------------------------------------------------------------------
+\subsubsection{Facility-level emissions after implementation of CCS}
+\label{sec:captured}
+% ---------------------------------------------------------------------------
+
+We then compute for each facility GHG emissions after CCS is applied. Because CCS captures only \cotwo{}, the mass of \cotwo{} captured from facility $j$ is computed as:
+%
+\begin{equation}
+  C_j = U_j \cdot \alpha_i,
+  \label{eq:proj_captured}
+\end{equation}
+%
+where $U_j$ is the facility's unabated \cotwo{} (Section~\ref{sec:co2e_adjust}) and $\alpha_i$ is the adjusted capture fraction (Eq.~\ref{eq:adj_cf}).
+
+The \cotwoe{} emitted as a consequence of operating CCS for facility~$j$ under scenario~$s$ is:
+%
+\begin{equation}
+  \bar{B_j} = C_j \cdot \bar{\varepsilon}_{i,s},
+  \label{eq:ccs_emitted}
+\end{equation}
+%
+where $\bar{\varepsilon}_{i,s}$ is the \cotwoe{} lifecycle factor from Eq.~\eqref{eq:weighted} (with barred energy intensities).
+Net \cotwoe{} emissions including CCS:
+%
+\begin{equation}
+  \bar{N_j} = \bar{U}_j - C_j + \bar{B_j},
+  \label{eq:net}
+\end{equation}
+%
+where $\bar{U}_j$ is the unabated \cotwoe{} from Eq.~\eqref{eq:co2e_adjust}.
+When $\bar{\varepsilon} > 1$, we have $\bar{B_j} > C_j$ and thus $\bar{N_j} > \bar{U}_j$: CCS increases the facility's total emissions.
+For nameplate scenarios, $\bar{\varepsilon} = 0$, so $\bar{N}_j = \bar{U}_j - C_j$.
+
+The corresponding \cotwo{}-only quantities are computed and reported alongside the \cotwoe{} versions; they use the CO$_2$-only lifecycle factor $\varepsilon_{i,s}$ (Eq.~\ref{eq:weighted} evaluated with the non-barred energy intensities, dropping the methane-in-fuel term):
+%
+\begin{align}
+    B_j &= C_j \cdot \varepsilon_{i,s}, & N_j &= U_j - C_j + B_j.
+    \label{eq:ccs_emitted_co2}
+\end{align}
+
+% ---------------------------------------------------------------------------
+\subsubsection{State- and Region-Level Emissions Totals}
+\label{sec:state_totals}
+% ---------------------------------------------------------------------------
+
+Facility-level quantities aggregate to state and multi-state totals by simple summation over all facilities located in a given state.
+For a per-facility quantity $Y_j$ (where $Y \in \{U, \bar{U}, C, B, \bar{B}, N, \bar{N}\}$; see Sections~\ref{sec:co2e_adjust}--\ref{sec:captured}) and a state $\mathcal{S}$ (in this study, either Texas or Louisiana), the state total is:
+%
+\begin{equation}
+  Y_{\mathcal{S}} = \sum_{j\,\in\,\mathcal{S}} Y_j,
+  \label{eq:state_total_generic}
+\end{equation}
+%
+and the Gulf Coast total (Texas and Louisiana combined) is:
+%
+\begin{equation}
+  Y_{\text{GC}} = Y_{\text{TX}} + Y_{\text{LA}}.
+  \label{eq:gc_total_generic}
+\end{equation}
+%
+Using Eq.~\eqref{eq:net}, the net state total emissions after the full CCS-enabled buildout can be written directly in terms of state-total unabated, captured, and CCS-caused emissions:
+%
+\begin{align}
+  N_{\mathcal{S},s} &= U_{\mathcal{S}} - C_{\mathcal{S}} + B_{\mathcal{S},s} \\
+    \bar{N}_{\mathcal{S},s} &= \bar{U}_{\mathcal{S}} - C_{\mathcal{S}} + \bar{B}_{\mathcal{S},s}. \label{eq:state_net}
+    \label{eq:state_net_co2}
+\end{align}
+%
+Because each per-facility quantity is evaluated with that facility's home-state emission factors (grid \cotwo{} intensity, coal emission factor, and, for retrofit gas-fired power, plant-specific heat rate), state-to-state differences in those parameters are correctly preserved through the sums in Eqs.~\eqref{eq:state_total_generic} and \eqref{eq:gc_total_generic}: no state-level averaging of emission intensities is performed prior to aggregation.
+
+The same additive convention applies to the financial quantities reported in the following sections (45Q tax credits, oil production, and oil revenue). State totals are computed as sums over facilities within the state; Gulf Coast totals are computed as the sum of the state totals for Texas and Louisiana.
+
+\paragraph{Effective GHG intensity per tonne injected.}
+Alongside annual and lifetime emissions, we report a scenario-level \emph{effective GHG intensity}, defined as the region's total annual \cotwoe{} emissions when the full CCS buildout is operational divided by the region's total annual \cotwo{} captured and stored:
+%
+\begin{equation}
+  \bar{\iota}_{\mathcal{S},s} \;=\; \frac{\bar{N}_{\mathcal{S},s}}{C_{\mathcal{S}}}
+  \;=\; \frac{\bar{U}_{\mathcal{S}} - C_{\mathcal{S}} + \bar{B}_{\mathcal{S},s}}{C_{\mathcal{S}}},
+  \label{eq:intensity_per_tonne}
+\end{equation}
+%
+with region $\mathcal{S}$ either a single state (TX or LA) or the Gulf Coast total, and with $\bar{N}$, $\bar{U}$, $C$, and $\bar{B}$ from Eqs.~\eqref{eq:net}--\eqref{eq:state_net}. Equivalently, $\bar{\iota}_{\mathcal{S},s}$ is the net regional \cotwoe{} burden expressed per tonne of \cotwo{} delivered to storage: because the numerator carries all residual unabated emissions from the underlying industrial facilities in addition to the CCS-caused term $\bar{B}_{\mathcal{S},s}$, $\bar{\iota}_{\mathcal{S},s}$ is a buildout-level metric rather than a pure lifecycle factor~$\bar\varepsilon_{i,d}$. It is undefined ($C_{\mathcal{S}} = 0$) for the \emph{unabated} reference (no CCS anywhere) and for \emph{existing\_only} (CCS is zeroed for every retained facility; Section~\ref{sec:scenarios}), and for any sub-portfolio in which no facility operates CCS.
+
+\paragraph{Net additional \cotwoe{} per tonne of \emph{additional} captured \cotwo{}.}
+To isolate the marginal climate impact of the proposed new CCS buildout --- separately from the pre-existing legacy-capture fleet --- we also report a net-additional variant of the per-tonne intensity, taken relative to the \emph{existing\_only} counterfactual (Table~\ref{tab:scenarios}):
+%
+\begin{equation}
+  \bar{\iota}^{\,\text{new}}_{\mathcal{S},s} \;=\; \frac{\bar{N}_{\mathcal{S},s} - \bar{N}_{\mathcal{S}}^{\text{existing}}}{C_{\mathcal{S},s} - C_{\mathcal{S}}^{\text{existing}}},
+  \label{eq:intensity_per_tonne_new}
+\end{equation}
+%
+where $\bar{N}^{\text{existing}}_{\mathcal{S}}$ and $C^{\text{existing}}_{\mathcal{S}}$ are the region's totals under the \emph{existing\_only} reference. The numerator is the additional annual \cotwoe{} burden caused by building the new fleet (over and above the legacy fleet's own ongoing emissions); the denominator is the additional \cotwo{} captured by that new fleet. $\bar{\iota}^{\,\text{new}}$ answers the question ``per tonne of \emph{newly} captured \cotwo{}, how much is the atmospheric burden increased?'' and is well-defined whenever the buildout adds any new captured \cotwo{} relative to the legacy baseline.
+
+% ---------------------------------------------------------------------------
+\subsubsection{Industry-level percent-change aggregation}
+\label{sec:industry_pct_change}
+% ---------------------------------------------------------------------------
+
+Table~7 reports, for each industry $i \in I$, the fleet-wide percent change in \emph{30-year lifetime} \cotwoe{} emissions caused by the CCS buildout, together with the component contributions that make up that change. The industry-level aggregation sums over all facilities $j$ assigned to that industry regardless of host state, so each row of Table~7 is state-mix-weighted by that industry's observed facility distribution. For industry $i$ and scenario $s$, the fleet-wide lifetime percent change relative to the unabated reference is
+%
+\begin{equation}
+  \Delta_{i,s} \;=\; \frac{\sum_{j \in i} \bar{N}^{\text{life}}_{j,s} - \sum_{j \in i} \bar{U}^{\text{life}}_{j}}{\sum_{j \in i} \bar{U}^{\text{life}}_{j}}
+  \;=\; \frac{D\,\bigl(\bar{B}_{i,s} - C_{i}\bigr)}{L\,\bar{U}_{i}},
+  \label{eq:industry_pct_change}
+\end{equation}
+%
+where $\bar{U}^{\text{life}}_j = L\,\bar{U}_j$ is the facility's 30-year unabated \cotwoe{} total, $\bar{N}^{\text{life}}_{j,s} = D\,\bar{N}_{j,s} + (L - D)\,\bar{U}_j$ is its 30-year net total (Section~\ref{sec:facility_timing}), and the industry-aggregate annual quantities $\bar{U}_i = \sum_{j \in i} \bar{U}_j$, $C_i = \sum_{j \in i} C_j$, and $\bar{B}_{i,s} = \sum_{j \in i} \bar{B}_{j,s}$ follow the facility-sum convention of Eqs.~\eqref{eq:state_total_generic}--\eqref{eq:state_net}. The closed form on the right drops out after substituting $\bar{N}_{j,s} = \bar{U}_j - C_j + \bar{B}_{j,s}$: the unabated-tail years ($L - D$ of them) cancel, leaving the CCS-active $D$-year window as the only contributor to the difference, diluted by the full $L$-year denominator. $\Delta_{i,s}$ is thus the \emph{lifetime} impact and runs smaller by a factor $D/L$ than an annual-rate variant that compares only CCS-operational years. We report it as a signed percent: positive values indicate that CCS \emph{increases} the industry's 30-year \cotwoe{} burden relative to the no-CCS reference, negative values indicate a reduction. We also report the same quantity split into its two drivers --- the \cotwo{} actually captured ($-D\,C_i / (L\,\bar{U}_i)$, always a reduction) and the lifecycle emissions caused by operating CCS ($D\,\bar{B}_{i,s} / (L\,\bar{U}_i)$, always an increase) --- so that the sign of $\Delta_{i,s}$ can be traced to the balance of the two. The percent-change formulation (as opposed to an absolute MtCO$_2$e change) makes industries with very different nameplate throughputs directly comparable; for industries with a single CCS facility in the project list the ``fleet'' collapses to that facility.
+
+% ---------------------------------------------------------------------------
+\subsubsection{45Q Tax Credits}
+\label{sec:45q}
+% ---------------------------------------------------------------------------
+
+Each facility earns a Section~45Q tax credit for every tonne of \cotwo{} it captures and stores. The base annual credit is:
+%
+\begin{equation}
+  K_j = C_j \cdot p_d,
+  \label{eq:45q}
+\end{equation}
+%
+where $C_j$ is the captured \cotwo{} (Eq.~\ref{eq:proj_captured}) and $p_d$ is the credit rate (\$/t\cotwo{}) for storage destination~$d$.\footnote{For a scenario whose destination mix allocates fraction $f_s$ to EOR (Section~\ref{sec:dest_mix}), $p_d$ is the destination-weighted blend $f_s\,p_{\text{EOR}} + (1-f_s)\,p_{\text{GS}}$; under current law $p_{\text{EOR}} = p_{\text{GS}}$ so this blend collapses to a single value, but the implementation retains the blended form so that historical rate structures (e.g., pre-2025 $p_{\text{EOR}} = \$60$/t\cotwo{}) remain representable.} Only facilities with project start year $\geq y_{\min}$ are eligible. For direct-air-capture (DAC) facilities, IRC~\S45Q(b)(1)(A)(ii) provides a separate, higher credit rate $p_{\text{DAC}} = \$180$/t\cotwo{} that applies to both GS and EOR destinations.\footnote{The Inflation Reduction Act (2022) established the \$180/t\cotwo{} rate for DAC; it is retained by the 2025 One Big Beautiful Bill Act. All DAC-eligible facilities in the project set receive $p_{\text{DAC}}$ in place of $p_{\text{GS}}$ or $p_{\text{EOR}}$ regardless of the \cotwo{} destination.}
+
+Under current law, $p_{\text{GS}} = p_{\text{EOR}} = \$85$/t\cotwo{} for non-DAC capture equipment placed in service after July~4, 2025 (26~U.S.C.\ \S45Q, as amended by the One Big Beautiful Bill Act of 2025).\footnote{The Inflation Reduction Act (2022) had set $p_{\text{EOR}} = \$60$/t\cotwo{}; the 2025 Act raised the EOR rate to match geologic storage.} These base rates apply through 2026 and then adjust annually for inflation.\footnote{IRC \S45Q(b)(1)(B) specifies that the applicable dollar amount for taxable years beginning after 2026 is adjusted by the inflation-adjustment factor for the calendar year.} We approximate this adjustment as a flat $\upsilon = 2.5\%$/yr escalation (Table~\ref{tab:financial_params}) starting in $y_{\text{esc}} = 2027$:
+%
+\begin{equation}
+  p_d(y) = \begin{cases}
+    p_d & y < y_{\text{esc}} \\
+    p_d \cdot (1 + \upsilon)^{y - y_{\text{esc}} + 1} & y \geq y_{\text{esc}}.
+  \end{cases}
+  \label{eq:45q_escalation}
+\end{equation}
+%
+Over the $D = 12$-year 45Q eligibility window (project duration from Section~\ref{sec:facility_timing} and Table~\ref{tab:financial_params}), the flat rate matches the year-by-year IRS chained-CPI adjustment to within 1--2\% in cumulative value.
+
+The nominal annual credit is then $K_j(y) = C_j \cdot p_d(y)$. We report two summaries: the average annual credit over the project's $D$ operating years,
+%
+\begin{equation*}
+  \overline{K_j} = \tfrac{1}{D}\sum_{y=y_j}^{y_j+D-1} K_j(y),
+\end{equation*}
+%
+and the present value in nominal dollars, discounting each year's nominal (escalated) credit $K_j(y) = C_j \cdot p_d(y)$ at the nominal rate $\delta$ to the valuation date $y_{\text{val}}$:
+%
+\begin{equation}
+  \text{PV}_j^{45Q} = \sum_{y=y_j}^{y_j + D - 1} \frac{K_j(y)}{(1 + \delta)^{\,\max\!\bigl(0,\,(y + 1) - y_{\text{val}}\bigr)}},
+  \label{eq:pv}
+\end{equation}
+%
+where $p_d(y)$ is the (possibly escalated) nominal credit rate from Eq.~\eqref{eq:45q_escalation}, $\delta$ is the nominal discount rate, $y_j$ the project start year, and $y_{\text{val}}$ the valuation date (all in Table~\ref{tab:financial_params}). Each year's payment is treated as received at year-end $y + 1$. The discount exponent is clipped at zero so that payments on or before $y_{\text{val}}$ are taken at their nominal (escalated) face value --- i.e., they are treated as already expressed in $y_{\text{val}}$ purchasing power rather than compounded forward from the actual payment date. Only payments after $y_{\text{val}}$ are discounted. The clip is active for the small set of IRA-eligible projects whose first few 45Q payments fall before the valuation date $y_{\text{val}} = 2026.5$: facilities placed in service in 2023 or 2024 have one or two such pre-valuation years inside their 12-year credit window; for the majority of eligible projects (placed in service from 2026 on) $y_j \geq y_{\text{val}}$ and the clip never triggers. Under our assumption that the statutory 45Q escalation~$\upsilon$ tracks CPI inflation, the clipped nominal/nominal formulation is, for payments after $y_{\text{val}}$, numerically equivalent to a real/real one that discounts the constant real credit $K_j$ at the corresponding real rate; we retain the nominal form in the implementation because it requires no separate inflation deflator and keeps the escalated cash stream explicit.
+
+% ---------------------------------------------------------------------------
+\subsubsection{Opportunity cost of 45Q: equivalent solar energy and avoided emissions}
+\label{sec:solar_counterfactual}
+% ---------------------------------------------------------------------------
+
+To contextualize the magnitude of federal spending on 45Q tax credits, we report the \emph{in-kind opportunity cost} of that spending: the equivalent amount of utility-scale solar electricity the same dollars could purchase, and the corresponding greenhouse-gas emissions that would be avoided if that solar generation displaced grid electricity instead of subsidizing CCS. The dollar opportunity cost is simply the undiscounted nominal 45Q outlay $\sum_{y=y_j}^{y_j+D-1} K_j(y)$ (reported alongside the PV in Eq.~\ref{eq:pv}); the quantities defined below convert that outlay to the physical in-kind units in which the alternative use would be measured. This is a back-of-the-envelope counterfactual rather than a procurement proposal; in each year of the 12-year 45Q window it converts that year's nominal credit payment to MWh of solar at that year's nominal LCOE, sums the resulting MWh across years, and then converts the total MWh to \cotwoe{} using the \emph{home-state} grid emission intensities --- Texas values for Texas projects, Louisiana values for Louisiana projects --- so that interstate differences in generation mix propagate through the comparison rather than being averaged away.
+
+We take $\ell_0 = \$60$/MWh as a representative base-year levelized cost of electricity (LCOE) for utility-scale photovoltaic solar in the United States, consistent with values reported in Lawrence Berkeley National Laboratory's \emph{Utility-Scale Solar} report and in Lazard's annual \emph{Levelized Cost of Energy+} analysis.\footnote{Lawrence Berkeley National Laboratory, \emph{Utility-Scale Solar} data update, 2025 edition (\url{https://emp.lbl.gov/utility-scale-solar}); Lazard, \emph{Levelized Cost of Energy+}, 2025 edition (\url{https://www.lazard.com/research-insights/levelized-cost-of-energyplus/}). The $\ell_0 = \$60$/MWh value is a round-number anchor near the center of the current unsubsidized utility-PV LCOE range; the exact figure should be read as a back-of-the-envelope representative value rather than a procurement price.} The nominal LCOE in year~$y$ is
+%
+\begin{equation}
+  \ell(y) \;=\; \ell_0 \cdot (1 + r_\ell)^{\, y - y_0},
+  \label{eq:lcoe_escalation}
+\end{equation}
+%
+where $r_\ell$ is a configurable annual nominal LCOE escalation rate (Table~\ref{tab:financial_params}) and $y_0 = 2025$ is the LCOE base year (Table~\ref{tab:financial_params}); note that $y_0$ is distinct from both the 45Q escalation anchor $y_{\text{esc}} = 2027$ and from each facility's own CCS start year $y_j$. By default $r_\ell = 0$, i.e.\ a flat nominal $\$60$/MWh across the 12-year 45Q window; this reflects the strong secular downward trend in utility-PV costs that has historically more than offset general inflation. Setting $r_\ell = \upsilon$ would hold the real-dollar LCOE constant, and larger values would represent net real cost pressure. The equivalent solar energy a facility's 45Q payment stream could purchase is then evaluated year-by-year, dividing each year's nominal credit $K_j(y)$ (Section~\ref{sec:45q}) by that year's nominal LCOE $\ell(y)$ and summing across the operating window:
+%
+\begin{equation}
+  E_j^{\text{solar}} \;=\; \sum_{y=y_j}^{y_j+D-1} \frac{K_j(y)}{\ell(y)},
+  \label{eq:solar_equiv}
+\end{equation}
+%
+giving a total MWh purchased over the 12-year 45Q window. This nominal-over-nominal convention answers a physical rather than a financial question --- the cumulative MWh that would be acquired if, in each year of operation, that year's actual credit payment were spent on solar at that year's prevailing price --- and so does not require discounting the credit stream to present value before the conversion. We report $E_j^{\text{solar}}$ aggregated to state and Gulf-Coast totals via the sum convention of Section~\ref{sec:state_totals} and typically convert to TWh ($= 10^6$~MWh) because state-level totals run into the hundreds of TWh.
+
+The avoided greenhouse-gas emissions, if the equivalent solar energy displaced an equal amount of grid electricity, are evaluated per facility~$j$ at the grid intensities of the state~$s(j)$ hosting it:
+%
+\begin{equation}
+  A_j \;=\; E_j^{\text{solar}} \,\bar{e}_{s(j)}
+  \;=\; E_j^{\text{solar}} \,\bigl(e_{s(j)} + \lambda\,\gamma\,\mu_{s(j)}\bigr),
+  \label{eq:solar_avoided}
+\end{equation}
+%
+where $e_{s(j)}$ and $\mu_{s(j)}$ are the \cotwo{} and \chfour{} intensities of state~$s(j)$'s grid (Section~\ref{sec:energy}, Table~\ref{tab:grid_params}); $\lambda$ and $\gamma$ are the supply-chain methane leak rate and \chfour{} global warming potential (GWP$_{20}$ by default) for the active methane scenario; and $\bar{e}_{s(j)}$ is the resulting state-local \cotwoe{} grid intensity defined in Eq.~\eqref{eq:grid_co2e}. Grid \chfour{} is converted to \cotwoe{} by multiplying by $\gamma$, matching the convention used throughout the paper for methane-attributed warming. State-level and Gulf-Coast totals $A_{\mathcal{S}}$ follow from Eq.~\eqref{eq:solar_avoided} by the aggregation convention of Section~\ref{sec:state_totals} --- each facility is scored with its own state's $\bar{e}_{s(j)}$ before summing, so state-to-state differences in grid intensity are preserved through the sum rather than averaged out. This back-of-the-envelope comparison deliberately does not credit the hypothetical solar installation with any lifecycle emission effects beyond grid displacement, and it assumes that the displaced marginal MWh carries the state-\emph{average} grid intensity rather than a time-matched marginal intensity --- both simplifications are appropriate to the comparison's intended scope.
+
+% ---------------------------------------------------------------------------
+\subsubsection{Oil Production and Revenue}
+\label{sec:oil}
+% ---------------------------------------------------------------------------
+
+For EOR-destined \cotwo{}, the injected volume enables production of oil that would otherwise be unrecoverable. Annual oil production (million barrels) is:
+%
+\begin{equation}
+  O_j = C_j \cdot f_s \cdot R_f,
+  \label{eq:oil_prod}
+\end{equation}
+%
+where $C_j$ is the captured \cotwo{} (Eq.~\ref{eq:proj_captured}), $f_s$ is the EOR fraction for scenario~$s$ (Section~\ref{sec:dest_mix}), and $R_f$ is the recovery factor (Eq.~\ref{eq:product_eor}; Table~\ref{tab:financial_params}).
+
+The base annual oil revenue is:
+%
+\begin{equation}
+  V_j = O_j \cdot \pi = C_j \cdot f_s \cdot R_f \cdot \pi,
+  \label{eq:oil_rev}
+\end{equation}
+%
+where $\pi$ (\$/bbl; Table~\ref{tab:financial_params}) is the profit per barrel expressed in nominal dollars in the project's start year.\footnote{The \$10/bbl starting margin is a first-order estimate equal to approximately one-third of the average first-quarter spread between the West Texas Intermediate (WTI) crude benchmark and U.S. oil and gas producers' reported breakeven cost per barrel, averaged over calendar years 2016--2026. For each year in that window, we compute the arithmetic mean of daily WTI prices in the first quarter from FRED series DCOILWTICO (U.S. Energy Information Administration, n.d.) and subtract that year's first-quarter breakeven cost from the Dallas Fed Energy Survey (Federal Reserve Bank of Dallas, 2026), reported both as an all-respondent average and as a Permian-specific response. We then average the resulting annual spreads across the 2016--2026 window. The headline \$10/bbl figure is set to one-third of this mean spread as a deliberately conservative first-order estimate of \emph{incremental} producer profit: the Dallas Fed breakeven is the producer's own ``earn the cost of capital'' threshold and does not carry any margin for operating-cost drag at the specific EOR unit, state and federal severance and income taxes, royalty burdens, nor the price discount an EOR operator typically accepts from a mid-stream purchaser relative to the Cushing benchmark. One-third of the headline spread is intended to leave room for all of these frictions without resting the calculation on project-specific accounting that we do not have access to across the inventory. The data and computation are documented in the notebook accompanying this manuscript.} Because $\pi$ tracks the oil market rather than a statutory rate, we escalate it in each subsequent year of the project's operating life at the same annual rate $\upsilon$ used for 45Q, but anchored to the project's own start year $y_j$ rather than to the fixed statutory year $y_{\text{esc}} = 2027$. The effective per-barrel profit in year $y$ is thus $\pi(y) = \pi \cdot (1 + \upsilon)^{y - y_j}$ for $y \geq y_j$.
+
+The nominal annual revenue in year~$y$ is $V_j(y) = O_j \cdot \pi(y)$, reducing to the base revenue $V_j$ (Eq.~\ref{eq:oil_rev}) in year $y_j$. Over the project's operating life we report two summaries: the undiscounted nominal total,
+%
+\begin{equation}
+  \sum_{y=y_j}^{y_j+D-1} V_j(y),
+\end{equation}
+%
+and the present value in nominal dollars, computed via Eq.~\eqref{eq:pv} with $V_j(y)$ in place of $K_j(y)$, i.e., each year's nominal (escalated) revenue discounted at the nominal rate $\delta$ to the valuation date $y_{\text{val}}$. Because oil-price escalation is anchored to each facility's own start year $y_j$ rather than to the statutory $y_{\text{esc}}$, the first-year revenue is un-escalated and subsequent years carry $(1 + \upsilon)^{y - y_j}$.
+
+% ===========================================================================
+\subsection{Limitations and Simplifying Assumptions}
+\label{sec:limitations}
+% ===========================================================================
+
+The emissions and financial accounting described above makes several simplifying assumptions that we enumerate here so that readers can judge the direction and approximate magnitude of each. Several of the assumptions are deliberately conservative (biased toward lower CCS emissions or higher climate benefit); where that is the case we say so explicitly.
+
+\paragraph{No fugitive \cotwo{} during transport or storage.} The transport and storage terms $\varepsilon_i^{\text{tr}}$ and $\varepsilon_d^{\text{st}}$ (Sections~\ref{sec:transport}--\ref{sec:storage}) account for the \emph{energy} required to move and inject \cotwo{} but assume zero loss of the \cotwo{} itself through pipeline leaks, surface releases at injection and reinjection wellheads, or long-term seepage out of the storage reservoir. In practice all three pathways emit some fraction of the stored \cotwo{} back to the atmosphere; peer-reviewed loss estimates for pipeline transport and geologic injection are typically \texttt{<}1\%\,/yr but can be substantially higher for poorly instrumented EOR operations with high recycle ratios. Omitting these pathways biases our CCS emissions factors $\varepsilon_{i,d}$ \emph{downward} and is therefore conservative for the headline finding that CCS is often a net GHG source.
+
+\paragraph{Exclusion of coalbed methane.} Our supply-chain methane leak rate $\lambda = 2.3\%$ is sourced from Alvarez et al.\ (2018) and reflects the US oil-and-gas sector only; it does not include methane emitted from coal mining (coalbed methane) that is attributable to the coal burned at coal-fired power facilities with CCS. Because coalbed methane releases are not channeled through the oil-and-gas supply chain and are omitted from $\lambda$, the methane footprint of coal-fired CCS in our accounting is zero on the fuel-supply side. This understates the full-chain \cotwoe{} impact of coal CCS; the direction of the bias is toward \emph{under-stating} the climate burden of the single coal row of Table~\ref{tab:industry_summary} and is again conservative.
+
+\paragraph{20-year GWP as the primary metric.} We quote GWP$_{20}$ ($\gamma = 82.5$; Forster et al.\ 2021) as the headline climate metric throughout, with GWP$_{100}$ ($\gamma_{100} = 29.8$) reported as an alternate. Our rationale is that the operational time scales of the system --- the $D = 12$~year 45Q eligibility window (Section~\ref{sec:45q}) and the $L = 30$~year facility operating lifetimes (Section~\ref{sec:facility_timing}) --- both fall well inside the 20-year window over which methane's integrated radiative forcing is more than three-and-a-half times larger than its 100-year value. A 100-year accounting horizon distributes that same radiative forcing over eight-plus additional decades during which most of the pulse has already decayed, making the 100-year metric ill-matched to decisions whose consequences play out on time scales comparable to the 20-year window. Where useful, readers who prefer the 100-year convention can use the GWP$_{100}$ columns to recover an upper-bound-conservative estimate of CCS's climate benefit (methane is weighted less, so CCS looks relatively better under GWP$_{100}$); the qualitative sign of the headline finding does not change with the horizon choice.
+
+\paragraph{No displacement of oil produced via EOR.} The oil-combustion term $\varepsilon_{\text{EOR}}^{\text{oil}}$ (Eq.~\ref{eq:product_eor}) attributes every barrel of EOR-produced crude to atmospheric \cotwo{} emissions, with no credit for the possibility that EOR-produced oil might displace a barrel of oil that would otherwise have been produced by a conventional non-CCS field. The displacement question has been debated in the literature. Van 't Veld et al.\ (2013) model partial displacement and conclude that, under a non-trivial subset of market conditions, EOR output does measurably crowd out other non-CCS production and so could be credited with a \emph{reduction} in total extracted crude. We nevertheless count all EOR oil as net-additional in the body of the paper on the grounds that (a) US crude production is set at the margin by global demand and OPEC+ supply policy rather than by domestic unit-level economics, so displacement in a wide-market model is small; (b) the recovery factor $R_f$ we use (3 bbl/t\cotwo{}) is the DOE/NETL assessment value for industry EOR performance, not a market-clearing quantity; and (c) counting all EOR oil places a conservative upper bound on $\varepsilon_{\text{EOR}}^{\text{oil}}$ against which the reader can judge the headline finding. Because Eq.~\eqref{eq:product_eor} is linear in the displacement fraction $\delta_{\text{disp}} \in [0,1]$ (with $\delta_{\text{disp}} = 0$ in the body of the paper), the oil-combustion term scales directly with any credited displacement: setting $\delta_{\text{disp}} > 0$ reduces $\varepsilon_{\text{EOR}}^{\text{oil}}$ by a factor of $(1-\delta_{\text{disp}})$ while leaving the capture, transport, and storage terms unchanged. As a bounding sensitivity we evaluate the maximum-displacement case identified by Almutairi \& Pierru (2024), $\delta_{\text{disp}} = 0.5$, in which half of every EOR barrel is treated as displacing an avoided non-CCS barrel elsewhere; results are presented and discussed in \S4.7.
+
+\paragraph{State-average grid intensities rather than marginal rates.} The grid \cotwo{} and \chfour{} intensities $e$ and $\mu$ (Section~\ref{sec:energy}) are state fleet averages drawn from EPA eGRID: every MWh drawn (or displaced) is scored at the state's average emission rate rather than at the emission rate of the specific generator that would ramp up or down to serve that marginal MWh. In a grid dominated by inflexible renewables and nuclear baseload, the marginal generator is typically the state's residual gas fleet and is dirtier than the fleet average; the state-average convention therefore tends to \emph{understate} the \cotwoe{} that a MWh of CCS draws from the grid and to \emph{overstate} the \cotwoe{} that a MWh of equivalent solar would displace. The direction of the bias is opposite for the two counterfactuals and roughly offsets in the solar-equivalence comparison.
+
+\paragraph{No grid decarbonization or early retirement.} We treat each state's grid emission intensities ($e$, $\mu$) as fixed across the full 30-year facility lifetime at their EPA eGRID2023 values. In reality both states' grids are projected to add non-fossil generation over the 2025--2055 window; a steadily decarbonizing grid would lower the capture-side and transport-side $\varepsilon^{\text{cap}}$ and $\varepsilon^{\text{tr}}$ terms over time. Similarly, we assume that every industrial facility in the project list operates at its nameplate output for the full $L = 30$ years, with no early retirement from obsolescence, carbon-price pressure, or product-market shifts. Both simplifications tend to \emph{overstate} the CCS climate burden (grid decarbonization) and the CCS climate benefit (no retirement); they are both held fixed here so that the one-facility, one-scenario attribution we report is not entangled with uncertain long-horizon grid or market forecasts.
+
+\paragraph{No financing costs or non-45Q revenue sources.} The financial outputs reported in Sections~\ref{sec:45q}--\ref{sec:oil} are limited to the gross 45Q tax-credit stream and the gross oil-sales revenue stream. We do not net out either stream against the capital or operating costs of the CCS equipment itself, the financing cost of the capital spend, the counterparty discount applied to a 45Q transfer sale, or any corporate income-tax liability on the gross credit. We also do not credit CCS projects with the carbon-market value of enhanced oil recovery credits, low-carbon-fuel-standard credits, or any other state or voluntary-market instruments that EOR-destined \cotwo{} might attract. The intent of the financial tables in this study is to size the \emph{federal spend on 45Q} (and its in-kind equivalents, Section~\ref{sec:solar_counterfactual}) rather than to compute the private economics of a representative project; a complete project-economics treatment is out of scope.
+
+% ===========================================================================
+\subsection{Parameters}
+\label{sec:params}
+% ===========================================================================
+
+Table~\ref{tab:grid_params} lists infrastructure and methane assumptions.
+Table~\ref{tab:industry_params} summarizes per-industry emission profiles.
+Table~\ref{tab:capture_energy} lists CCS capture energy requirements.
+Table~\ref{tab:financial_params} lists financial and scenario parameters.
+Table~\ref{tab:scenarios} enumerates the destination-mix scenarios evaluated.
+
+\begin{table}[htbp]
+\centering
+\caption{Grid, infrastructure, and methane assumptions (baseline case).
+State-specific values are shown for Texas (TX) and Louisiana (LA), the two
+states covered by the baseline project portfolio.}
+\label{tab:grid_params}
+\footnotesize
+\rowcolors{2}{white}{gray!10}
+\begin{tabular}{@{}l l l >{\raggedright\arraybackslash}p{6cm}@{}}
+\toprule
+\textbf{Parameter} & \textbf{Symbol} & \textbf{Value} & \textbf{Source} \\
+\midrule
+\multicolumn{4}{@{}l}{\emph{State-specific inputs}} \\
+Grid \cotwo{} intensity          & $e$
+  & TX: 0.348, LA: 0.345 t\cotwo{}/MWh & EPA eGRID2023 rev.\ 2 (state avg.) \\
+Grid \chfour{} intensity         & $\mu$
+  & TX: 0.0789, LA: 0.1124 t\chfour{}/MWh & EPA eGRID2023 rev.\ 2 (derivation, \S\ref{sec:energy}) \\
+Coal emission factor             & $\mathrm{EF}_{\text{coal}}$
+  & TX: 0.09772 t\cotwo{}/MMBtu       & 40 CFR 98 Table C-1 (lignite; TX fleet) \\
+                                 &
+  & LA: 0.09772 t\cotwo{}/MMBtu       & Lignite value used; no CCS-equipped LA coal plants in the project set \\
+\addlinespace
+\multicolumn{4}{@{}l}{\emph{National constants}} \\
+GWP of \chfour{} (20-yr)        & $\gamma$
+  & 82.5                           & IPCC AR6 \\
+Supply-chain leak rate           & $\lambda$
+  & 0.023                          & Alvarez et al.\ (2018) US avg.\ (see Notation) \\
+CH$_4$ per MMBtu natural gas   & $\kappa$
+  & 0.01703 t\chfour{}/MMBtu        & Derived from EPA pipeline-gas HHV, Armstrong \& Jobe (1982) pure-component HHVs, and 2\% \cotwo{} + 1\% N$_2$ inert content; see \S\ref{sec:kappa} \\
+MMBtu to MJ conversion          & $\xi$
+  & 1,055 MJ/MMBtu                 & \\
+NG emission factor               & $\mathrm{EF}_{\text{NG}}$
+  & 0.05306 t\cotwo{}/MMBtu        & 40 CFR 98 Table C-1 \\
+\addlinespace
+\multicolumn{4}{@{}l}{\emph{Storage \& EOR}} \\
+Gas turbine efficiency           & $\eta$
+  & 0.38                          & IPIECA/IOGP (2022), midpoint of 33--43\% \\
+Oil combustion \cotwo{}          & $e_{\text{oil}}$
+  & 0.432 t\cotwo{}/bbl           & Derived from 40~CFR~98 Table~C-1 (crude oil HHV $\times$ EF); see \S\ref{sec:product} footnote \\
+EOR recovery factor              & $R_f$
+  & 3 bbl/t\cotwo{}               & Industry average \\
+EOR field electricity            & $w_s^{\text{EOR}}$
+  & 0.241 MWh/t\cotwo{}           & NETL (2018) Permian Basin CO$_2$-EOR LCA, OSTI 1515235: $0.424$~kWh/kg crude $\div 1.76$~kg \cotwo{}/kg crude (see \S\ref{sec:storage}) \\
+GS injection energy              & $w_s^{\text{GS}}$
+  & 0.0134 MWh/t\cotwo{}          & NETL (2018) saline-aquifer sequestration LCA, OSTI 1515271: injection pump ($12.79$~kWh/t\cotwo{}) + brine reinjection ($0.60$~kWh/t\cotwo{}) (see \S\ref{sec:storage}) \\
+\addlinespace
+\multicolumn{4}{@{}l}{\emph{Distance between \cotwo{} capture and storage location} (pipeline-booster electricity only; initial compression counted in $w_i$)} \\
+Near (50~mi.)                    & $w_t^{\text{near}}$
+  & 0.0016 MWh/t\cotwo{}          & NASEM (2019) App.~F: $3.2\times 10^{-5}$~MWh/t\cotwo{}/mi.~$\times$~50~mi.\ (see \S\ref{sec:transport}) \\
+Average (100~mi.)                & $w_t^{\text{avg.}}$
+  & 0.0032 MWh/t\cotwo{}          & NASEM (2019) App.~F: $3.2\times 10^{-5}$~MWh/t\cotwo{}/mi.~$\times$~100~mi.\ (see \S\ref{sec:transport}) \\
+Far (200~mi.)                    & $w_t^{\text{far}}$
+  & 0.0064 MWh/t\cotwo{}          & NASEM (2019) App.~F: $3.2\times 10^{-5}$~MWh/t\cotwo{}/mi.~$\times$~200~mi.\ (see \S\ref{sec:transport}) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Per-industry emission profiles.
+Process and combustion \cotwo{} are per unit of product; process and combustion \chfour{} throughputs
+are the total mass passing through the supply chain (not leaked mass).
+The direct-facility \chfour{} column $d_i$ captures process- or combustion-derived methane that is emitted at the facility boundary and is not reducible by CCS (see \S\ref{sec:industrial}).
+The CCS target column indicates which emission stream CCS captures;
+$r_i$ is the fraction of that stream actually captured.
+Sources: Howarth \& Jacobson (2021) (hydrogen); Lee et al.\ (2022) (ammonia); NETL (2014) ``Baseline Analysis of Crude Methanol Production from Coal and Natural Gas'' (DOE/NETL-341/101514), Case~3 (methanol); Argonne GREET1 2025 (ethanol); Howarth (2024) and Balcombe et al.\ (2021) (LNG); NETL (2024) (NGP); NETL Fossil Energy Baseline (2022) and EPA eGRID2023 (natural-gas power); EPA FLIGHT (refining, petrochemicals); GREET and Bond et al.\ (2022) (iron \& steel); EIA (2024) and 40 CFR 98 Table C-1 (coal power); NETL DAC ``Sorbent System'' (2022) (DAC). Full derivations in Section~\ref{sec:constants}.}
+\label{tab:industry_params}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\rowcolors{2}{white}{gray!10}
+\begin{tabular}{@{}lcccccclc@{}}
+\toprule
+\textbf{Industry} & \textbf{Unit} & $P_i$ & $F_i$
+  & $m_i^P$ & $m_i^F$ & $d_i$ & \textbf{CCS target} & $r_i$ \\
+  & & \multicolumn{2}{c}{\scriptsize t\cotwo{}/unit}
+  & \multicolumn{3}{c}{\scriptsize t\chfour{}/unit}
+  & & \\
+\midrule
+Hydrogen                & ton H$_2$      & 5.474 & 4.521 & 1.991 & 1.649 & 0                    & process    & 0.90 \\
+Ammonia                 & ton NH$_3$     & 1.362 & 0.503 & 0.347 & 0.117 & 0.014                & process    & 0.95 \\
+Methanol                & ton MeOH       & 0.287 & 0     & 0.546 & 0     & 0                    & process    & 0.90 \\
+Ethanol                 & ton EtOH       & 0.955 & 0.438 & 0     & 0.141 & 0                    & process    & 0.99 \\
+LNG                     & ton LNG        & 0.057 & 0.288 & 0     & 0.092 & $3.5{\times}10^{-3}$ & process    & 0.975 \\
+NG processing           & MMBtu          & $3.6{\times}10^{-4}$ & $1.38{\times}10^{-3}$
+  & 0 & $4.4{\times}10^{-4}$ & 0                    & process & 0.975 \\
+Power (CCGT, retrofit)  & MWh            & 0     & $^*$  & 0     & $^*$  & 0                    & combustion & 0.87 \\
+Power (CCGT, new build)$^{\dagger}$ & MWh & 0    & 0.338 & 0     & 0.108 & 0                    & combustion & 0.87 \\
+Power (coal)            & MWh            & 0     & 1.053 & 0     & 0     & 0                    & combustion & 0.90 \\
+Refined fuels           & bbl/yr         & 0.011 & 0.019 & 0     & 0.0031 & $1.1{\times}10^{-5}$ & process    & 0.53 \\
+Petrochemicals          & ton C$_2$H$_4$ & 0.026 & 0.256 & 0     & 0     & $9.4{\times}10^{-5}$ & combustion & 0.81 \\
+Iron \& steel           & ton DRI        & 0.362 & 0.377 & 0.104 & 0.077 & 0                    & process    & 0.96 \\
+DAC                     & ton \cotwo{}   & 0     & 0     & 0     & 0     & 0                    & process    & 1.00 \\
+\bottomrule
+\multicolumn{9}{@{}l}{\footnotesize $^*$State-dependent; derived from the state grid's average natural-gas heat rate via Eq.~\eqref{eq:heat_rate} with $EF_{\text{NG}}$ (Table~\ref{tab:grid_params}).} \\
+\multicolumn{9}{@{}l}{\footnotesize $^{\dagger}$Same parameters used for gas-fired data centers (both use the NETL NGCC F-class heat rate, 6.363~MMBtu/MWh).}
+\end{tabular}
+\end{table}
+
+\begin{landscape}
+\begin{table}[htbp]
+\centering
+\caption{Per-industry roll-up table combining Table~\ref{tab:industry_params} inputs with the stream capture rate $r_i$, the adjusted capture fractions $\alpha_i$ (CO$_2$-only) and $\bar\alpha_i$ (CO$_2$e), the CCS lifecycle emission factors $\bar\varepsilon_{i,d}$ at both destinations $d \in \{\text{GS, EOR}\}$ (Eq.~\eqref{eq:ccs_total}), the primary sources, and per-industry notes. \emph{This table substantially reproduces the per-industry input parameters from Table~\ref{tab:industry_params}} ($P_i$, $F_i$, $m_i^P$, $m_i^F$, $d_i$, the CCS target stream, and $r_i$); the adjusted capture fractions, the $\bar\varepsilon_{i,\text{GS}}$ / $\bar\varepsilon_{i,\text{EOR}}$ columns, per-row sources, and notes columns are new. CCS stream = which emission stream capture is applied to (process or combustion). $P_i, F_i$ are in t\cotwo{} per unit of product; $m_i^P, m_i^F, d_i$ in t\chfour{} per unit of product; units match those in Table~\ref{tab:industry_params}. The lifecycle factors $\bar\varepsilon_{i,\text{GS}}$ and $\bar\varepsilon_{i,\text{EOR}}$ are quoted for the central methane scenario ($\lambda = 2.3\%$ from Alvarez et al.\ 2018; $\gamma = 82.5$ for GWP$_{20}$ from IPCC AR6); values vary with the methane scenario. Full industry-specific derivations are in Section~\ref{sec:constants}.}
+\label{tab:industry_summary}
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\rowcolors{2}{white}{gray!10}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}p{2.1cm}cccccccccccc>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{4.3cm}@{}}
+\toprule
+\textbf{Industry} & \textbf{CCS stream} & $r_i$ & $\alpha_i$ & $\bar\alpha_i$ & $P_i$ & $F_i$ & $m_i^P$ & $m_i^F$ & $d_i$ & $\bar\varepsilon_{i,\text{GS}}$ & $\bar\varepsilon_{i,\text{EOR}}$ & \textbf{Sources} & \textbf{Notes} \\
+\midrule
+Hydrogen & process & 0.90 & 0.49 & 0.29 & 5.474 & 4.521 & 1.991 & 1.649 & 0 & 0.45 & 1.79 & Howarth \& Jacobson (2021); Wang et al.\ GREET1 2025 (electricity) & SMR-based gray H$_2$; CO$_2$ attributed by physical exit stream (concentrated process vs.\ dilute flue). \\
+Ammonia & process & 0.95 & 0.69 & 0.33 & 1.362 & 0.503 & 0.347 & 0.117 & 0.014 & 0.26 & 1.59 & Lee et al.\ (2022) Table~S6 & NG-based process; $d_i$ captures aMDEA solvent CH$_4$ slip at facility boundary. \\
+Methanol & process & 0.90 & 0.90 & 0.20 & 0.287 & 0 & 0.546 & 0 & 0 & 0.28 & 1.61 & NETL (2014) Case~3 (DOE/NETL-341/101514) & ATR crude-methanol baseline; tail-gas combustion CO$_2$ counted in process via integrated carbon balance. \\
+Ethanol & process & 0.99 & 0.65 & 0.53 & 0.955 & 0.438 & 0 & 0.141 & 0 & 0.27 & 1.60 & Argonne GREET1 2025 & Corn-fermentation facility; process CO$_2$ is biogenic (fermentation) but still counted at facility boundary. \\
+LNG & process & 0.975 & 0.16 & 0.07 & 0.057 & 0.288 & 0 & 0.092 & $3.5{\times}10^{-3}$ & 0.25 & 1.58 & Howarth (2024); Balcombe et al.\ (2021) & $d_i$ is a top-down facility-boundary measurement; $m_i^P = 0$ to avoid double-counting feed-gas methane. \\
+NG processing & process & 0.975 & 0.20 & 0.14 & $3.6{\times}10^{-4}$ & $1.38{\times}10^{-3}$ & 0 & $4.4{\times}10^{-4}$ & 0 & 0.24 & 1.57 & NETL (2024) Natural Gas and Power LCA & PAD~III average; $m_i^P = 0$ to avoid double-counting the processed gas as feedstock methane. \\
+Power (CCGT, retrofit) & combustion & 0.87 & 0.87 & 0.54 & 0 & $0.388^*$ & 0 & $0.124^*$ & 0 & $0.53^*$ & $1.86^*$ & EPA eGRID2023 (state heat rate); 40~CFR~98 Table~C-1 (EF$_{\text{NG}}$) & State-dependent: heat rate TX 7.48 / LA 7.17~MMBtu/MWh; $F_i$ TX 0.397 / LA 0.380; $m_i^F$ TX 0.127 / LA 0.122. \\
+Power (CCGT, new build)$^{\dagger}$ & combustion & 0.87 & 0.87 & 0.54 & 0 & 0.338 & 0 & 0.108 & 0 & $0.53^*$ & $1.86^*$ & NETL Fossil Energy Baseline (2022) NGCC F-class; 40~CFR~98 Table~C-1 & NGCC F-class heat rate (6.363~MMBtu/MWh); same values used for gas-fired data centers. \\
+Power (coal) & combustion & 0.90 & 0.90 & 0.90 & 0 & 1.053 & 0 & 0 & 0 & $0.51^*$ & $1.84^*$ & EIA (2024) \emph{Electric Power Annual} Table~8.1; 40~CFR~98 Table~C-1 lignite EF & US fleet-average heat rate (10.78~MMBtu/MWh); lignite EF representative of TX coal fleet. \\
+Refined fuels & process & 0.53 & 0.19 & 0.15 & 0.011 & 0.019 & 0 & 0.0031 & $1.1{\times}10^{-5}$ & 0.50 & 1.83 & EPA FLIGHT (2023 Big Spring); EIA 2024 Petroleum Refinery Capacity Report (PAD~III) & Capture target = FCCU regenerator stream; $m_i^F$ from PAD~III NG purchases (Table~10a); $d_i$ = Subpart~Y+C CH$_4$ reported at facility. \\
+Petrochemicals & combustion & 0.81 & 0.73 & 0.71 & 0.026 & 0.256 & 0 & 0 & $9.4{\times}10^{-5}$ & 0.51 & 1.84 & EPA FLIGHT (2022 Shell Deer Park); Clark \& Ramsey (2023) & Capture target = olefins cracking-furnace + hydrotreater heaters (636{,}834~t\cotwo{}/yr); excludes boilers/incinerators from scope. \\
+Iron \& steel & process & 0.96 & 0.43 & 0.29 & 0.362 & 0.377 & 0.104 & 0.077 & 0 & 0.27 & 1.60 & Argonne GREET1 2025 (totals); Zecca et al.\ (2023, $r$); Bond et al.\ (2022, Table~8) & DRI with NG; $P/F$ CO$_2$ split back-solved from Bond observed capture rate and Zecca stream rate; CH$_4$ uses Bond energy split (not CO$_2$ split). \\
+DAC & process & 1.00 & $^{\ddagger}$ & $^{\ddagger}$ & 0 & 0 & 0 & 0 & 0 & 2.17 & 3.50 & Valentine \& Zoelle (2022) DAC ``Sorbent System'' case study & All-electric sorbent system; captures atmospheric CO$_2$ (no industrial product). \\
+\bottomrule
+\multicolumn{15}{@{}p{\linewidth}@{}}{\footnotesize $^*$State-dependent; see footnote to Table~\ref{tab:industry_params}. For power rows, $\bar\varepsilon$ shown is the TX/LA average: retrofit \& new-build GS 0.51 (TX) / 0.54 (LA), EOR 1.85 (TX) / 1.87 (LA); coal GS 0.49 (TX) / 0.53 (LA), EOR 1.83 (TX) / 1.85 (LA). $^{\dagger}$Same values used for the gas-fired data-center variant. $^{\ddagger}$DAC $\alpha$ and $\bar\alpha$ are undefined ($0/0$); the industry has no non-CCS emissions to adjust against.} \\
+\end{tabular}
+\end{table}
+\end{landscape}
+
+\begin{table}[htbp]
+\centering
+\caption{Capture energy requirements by industry.
+$w_i$ is the electricity intensity and $g_i$ is the on-site natural gas intensity, both per t\cotwo{} captured (Eq.~\ref{eq:cap_intensities}).
+For rows with $\dot{Q}_i$, $r_i$, $P_i^{\text{cap}}$, and $G_i$ populated, $w_i$ and $g_i$ are derived via Eq.~\eqref{eq:cap_intensities}; other rows are direct-specified per the footnotes.
+Sources: Hughes and Zoelle (2023) industrial capture case studies (hydrogen, ammonia, ethanol, LNG, NGP); Valentine and Zoelle (2022) DAC ``Sorbent System'' case study (DAC); NPC Ch.~2 (2022) Table~2-6 (natural gas power, refined fuels, petrochemicals, coal power); Pellegrini et al.\ (2015) for the LNG gas intensity $g_i$; Zecca et al.\ (2023) and Bond et al.\ (2022, Table~8) for iron \& steel})
+\label{tab:capture_energy}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\rowcolors{2}{white}{gray!10}
+\begin{tabular}{@{}lccccccc@{}}
+\toprule
+\textbf{Industry} & $\dot{Q}_i$ & $r_i$ & $P_i^{\text{cap}}$ & $G_i$ & $w_i$ & $g_i$ & Distance \\
+  & \scriptsize t\cotwo{}/yr & & \scriptsize MW
+  & \scriptsize MMBtu/day
+  & \scriptsize MWh/t\cotwo{}
+  & \scriptsize MMBtu/t\cotwo{} & \\
+\midrule
+Hydrogen        & 404,700       & 0.90  & 4.04          & 2,330         & 0.097 & 2.34  & average \\
+Ammonia         & 486,227       & 0.95  & 5.86          & 0             & 0.111 & 0     & average \\
+Methanol        & 1,052,207     & 0.90  & 14.57         & 0             & 0.135 & 0     & average \\
+Ethanol         & 143,042       & 0.99  & 1.85          & 0             & 0.114 & 0     & far \\
+LNG             & 649,255       & 0.975 & 6.12          & 0             & 0.085 & 0     & average \\
+NG processing   & 649,255       & 0.975 & 6.12          & 0             & 0.085 & 0     & near \\
+Power (CCGT)    & $^{\ddagger}$ & 0.87  & $^{\ddagger}$ & $^{\ddagger}$ & 0.16  & 2.80  & average$^{\dagger}$ \\
+Refined fuels   & 723,227       & 0.53  & $^{\ddagger}$ & $^{\ddagger}$ & 0.14  & 2.60  & average \\
+Iron \& steel   & $^{\ast}$     & 0.96  & $^{\ast}$     & $^{\ast}$     & 0.123 & 0     & average \\
+Petrochemicals  & $^{\ddagger}$ & 0.81  & $^{\ddagger}$ & $^{\ddagger}$ & 0.16  & 2.60  & average \\
+Power (coal)    & $^{\ddagger}$ & 0.90  & $^{\ddagger}$ & $^{\ddagger}$ & 0.16  & 2.60  & average \\
+DAC             & $^{\S}$       & 1.00  & $^{\S}$       & 0             & 3.723 & 0     & near \\
+\bottomrule
+\multicolumn{8}{@{}l}{\footnotesize $^{\ddagger}$$\dot{Q}_i$, $P_i^{\text{cap}}$, $G_i$ not applicable; $w_i$ and $g_i$ specified directly from NPC Ch.~2 Table~2-6.} \\
+\multicolumn{8}{@{}l}{\footnotesize $^{\S}$DAC inputs are expressed on a per-t\cotwo{}-captured basis ($\dot{Q}_i = 1$, $P_i^{\text{cap}} = 0.000425$~MW, equivalent to 50~MW across 100{,}000~t\cotwo{}/yr at 85\% capacity factor per NETL (2022) Case~0B-EB; see Section~\ref{sec:const_dac}). Path~2 arithmetic then yields $w_i = 3.723$~MWh/t\cotwo{}.} \\
+\multicolumn{8}{@{}l}{\footnotesize $^{\ast}$$\dot{Q}_i$, $P_i^{\text{cap}}$, $G_i$ not applicable; $r_i$ from Zecca et al.\ (2023), $w_i$ derived from Bond et al.\ (2022, Table~8), $g_i = 0$ (CCS adds compression only, no gas burn). See \S\ref{sec:const_steel}.} \\
+\multicolumn{8}{@{}l}{\footnotesize $^{\dagger}$Distance shown applies to the retrofit and new-build CCGT variants; the data-center variant is assigned the `near' tier.}
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Financial and scenario parameters.}
+\label{tab:financial_params}
+\footnotesize
+\rowcolors{2}{white}{gray!10}
+\begin{tabular}{@{}l l l >{\raggedright\arraybackslash}p{6.5cm}@{}}
+\toprule
+\textbf{Parameter} & \textbf{Symbol} & \textbf{Value} & \textbf{Notes} \\
+\midrule
+45Q credit rate (GS)         & $p_{\text{GS}}$    & \$85/t\cotwo{}   & IRC \S45Q; base tax-credit rate before escalation (non-DAC) \\
+45Q credit rate (EOR)        & $p_{\text{EOR}}$   & \$85/t\cotwo{}   & IRC \S45Q; base tax-credit rate before escalation (non-DAC) \\
+45Q credit rate (DAC)        & $p_{\text{DAC}}$   & \$180/t\cotwo{}  & IRC \S45Q(b)(1)(A)(ii); applies to DAC facilities for both GS and EOR \\
+45Q earliest start year      & $y_{\min}$         & 2023             & Only facilities placed in service in 2023 or later --- after the Inflation Reduction Act (2022) raised the applicable credit amounts --- receive 45Q at the current \$85/t\cotwo{} rate (\$180/t\cotwo{} for DAC) that the 2025 One Big Beautiful Bill Act extended to EOR. Earlier projects (Terrell 1972; Nutrien-Geismar 2013; Valero-Port-Arthur 2013; Petra Nova 2016; Campo Viejo 2019) qualify only for the smaller credits available under the 2008 and 2018 statutory rules, and are excluded from this study's 45Q accounting. \\
+45Q escalation start year    & $y_{\text{esc}}$   & 2027             & Statutory inflation adjustment kicks in for taxable years after 2026 (starting in 2027)\\
+Annual escalation rate       & $\upsilon$         & 2.5\%/yr         & Flat-rate approximation to the IRS chained-CPI multiplier \\
+Discount rate                & $\delta$           & 4.48\%           & Nominal; 10-year U.S. Treasury rate on July 1, 2026. Applied to the escalated 45Q and oil-revenue streams (Eq.~\eqref{eq:pv}) \\
+Project duration             & $D$                & 12 years         & 45Q eligibility window; also CCS operating period \\
+Facility lifetime            & $L$                & 30 years         & Nominal industrial-plant operating life (Section~\ref{sec:facility_timing}); $L \geq D$ enforced in code \\
+Model base year              & $y_0$              & 2025             & Calendar anchor for retrofit facilities (Section~\ref{sec:facility_timing}) and for the solar-LCOE escalation $\ell(y)$ (Eq.~\eqref{eq:lcoe_escalation}) \\
+PV valuation date            & $y_{\text{val}}$   & 2026.5           & July 1, 2026; anchor for discounting the nominal 45Q and oil-revenue streams (Eq.~\eqref{eq:pv}) \\
+Solar LCOE (base-year)       & $\ell_0$           & \$60/MWh         & Utility-scale PV; nominal in base-year dollars (LBNL / Lazard, 2025) \\
+Solar LCOE escalation rate   & $r_\ell$           & 0\%/yr           & Nominal annual LCOE growth; $0$ = flat nominal $\ell_0$ across the 45Q window \\
+Recovery factor              & $R_f$              & 3 bbl/t\cotwo{}  &  \\
+Oil profit per barrel        & $\pi$              & \$10/bbl         & Nominal, in project start-year dollars; escalates annually at $\upsilon$. First-order estimate: $\approx$ one-third of the mean Q1 WTI--to--breakeven spread, 2016--2026 (see Section~\ref{sec:oil} footnote) \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering
+\caption{Scenarios evaluated in this study.}
+\label{tab:scenarios}
+\footnotesize
+\rowcolors{2}{white}{gray!10}
+\begin{tabular}{@{}l l >{\raggedright\arraybackslash}p{5.5cm} >{\raggedright\arraybackslash}p{4.5cm}@{}}
+\toprule
+\textbf{Scenario} & \textbf{Family} & \textbf{Definition} & \textbf{Purpose} \\
+\midrule
+\emph{unabated}    & reference       & No CCS deployed at any facility; per-facility captured tonnage $C_j = 0$ and CCS-caused emissions $\bar{B}_j = 0$, so net emissions equal unabated emissions, $\bar{N}_j = \bar{U}_j$.                                              & Reference case: emissions for industrial facilities in the absence of CCS. \\
+\addlinespace
+\emph{existing\_only} & reference    & Aggregation restricted to the subset of \texttt{retrofit}-flagged facilities (industrial plants already operating as of $y_0 = 2025$), all run unabated over their 30-year window. New-build facilities are excluded. $\bar{N}_j = \bar{U}_j$ for the retained facilities; $\bar{N}_j = 0$ for the rest.                                                                                                                                                                                                 & Counterfactual in which no new industrial facilities are built and no CCS is deployed: the industrial fleet stays at its 2025 footprint, operating unabated. \\
+\addlinespace
+\emph{baseline}    & destination-mix & Each facility uses the CCS emissions factor $\varepsilon_{i,d}$ corresponding to its operator-stated \cotwo{} destination $d$ (no fleet-wide weighting).                                                          & Represents the industrial buildout with CCS deployment plan as currently announced by operators. \\
+\addlinespace
+\emph{all\_gs}     & destination-mix & $f_s = 0$: all captured \cotwo{} is routed to geologic storage.                                                                                                                                                                & Bounds the lowest-emissions case for CCS: no oil-combustion term. \\
+\addlinespace
+\emph{all\_eor}    & destination-mix & $f_s = 1$: all captured \cotwo{} is routed to EOR.                                                                                                                                                                             & Bounds the highest-emissions case for CCS: every captured tonne carries the full oil-combustion term. \\
+\addlinespace
+\emph{current\_mix} & destination-mix & $f_s = 0.92$: 92\% EOR, 8\% GS. Per the Global CCS Institute's \emph{Global Status of CCS 2025} report, 92\% of the operational U.S.\ CCS capture-facility capacity is designated for EOR.\footnote{Global CCS Institute (2025). \emph{Global Status of CCS 2025}. \url{https://www.globalccsinstitute.com/wp-content/uploads/2025/10/Global-Status-of-CCS-2025-report-9-October.pdf}.}                                                                                                                                                                                              & Represents what a full build-out of the announced CCS project slate would produce if the current EOR/GS split persists. \\
+\addlinespace
+\emph{switching}                & pivot-to-EOR    & Operates as \emph{baseline} during the first $D = 12$ years of each project's operating life (while 45Q credits are available), then pivots to $f_s = 1$ (100\% EOR, no 45Q) for the remaining $L - D = 18$ years (Section~\ref{sec:pivot_to_eor_scenarios}).                                                                                                                                                                                                     & Represents the incentive structure once 45Q eligibility ends: without the subsidy, operators are expected to redirect captured \cotwo{} to the only use with a direct revenue stream (EOR). \\
+\addlinespace
+\emph{switching\_from\_current} & pivot-to-EOR    & Operates as \emph{current\_mix} ($f_s = 0.92$) during the first $D = 12$ years of each project's operating life, then pivots to $f_s = 1$ (100\% EOR, no 45Q) for the remaining $L - D = 18$ years (Section~\ref{sec:pivot_to_eor_scenarios}).                                                                                                                                                                                                                      & As \emph{switching}, but anchored to the current observed EOR/GS split in the first period rather than to operator-stated destinations. \\
+\bottomrule
+\end{tabular}
+\end{table}% % % ===========================================================================
+% Section 2: Calculation of industry-specific constants
+% Paste below the last table (Table~\ref{tab:scenarios}) and above \end{document}.
+% Uses the \cotwo, \cotwoe, \chfour macros defined in the preamble.
+% ===========================================================================
+\clearpage
+\section{Calculation of Industry-Specific Constants}
+\label{sec:constants}
+
+This section describes how the per-industry values in Tables~\ref{tab:industry_params} and~\ref{tab:capture_energy} were obtained. For each industry, we identify the source used for the unabated industrial process and the values it provides, and show how we convert those values to the quantities defined in Section~\ref{sec:industrial} ($P_i$, $F_i$, $W_i$, $m_i^P$, $m_i^F$, $d_i$), per unit of product. We then do the same for the carbon capture applied to that industry (Section~\ref{sec:capture}). Units are carried through each conversion. Molar masses are 44.009~kg/kmol (\cotwo{}), 16.043~kg/kmol (\chfour{}), and 32.042~kg/kmol (methanol), except where a source's own values are used.
+
+For industries whose capture energy is derived from facility-level equipment parameters (Path~2), Eq.~\eqref{eq:cap_intensities} carries units as
+%
+\[
+  w_i\left[\tfrac{\text{MWh}}{\text{t\cotwo{}}}\right] = \frac{P_i^{\text{cap}}~[\text{MW}] \times 8{,}760~[\text{h/yr}]}{r_i \times \dot{Q}_i~[\text{t\cotwo{}/yr}]}, \qquad
+  g_i\left[\tfrac{\text{MMBtu}}{\text{t\cotwo{}}}\right] = \frac{G_i~[\text{MMBtu/day}] \times 365~[\text{day/yr}]}{r_i \times \dot{Q}_i~[\text{t\cotwo{}/yr}]}.
+\]
+
+% ---------------------------------------------------------------------------
+\subsection{Hydrogen}
+\label{sec:const_h2}
+% ---------------------------------------------------------------------------
+
+\subsubsection{Unabated industrial process}
+
+Howarth and Jacobson (2021, \textit{Energy Science \& Engineering} 9, 1676--1687, \url{https://doi.org/10.1002/ese3.956}), Table~1, ``Gray H$_2$'' column, provides for steam methane reforming (SMR) the \cotwo{} produced by the SMR process (38.5~g\cotwo{}/MJ H$_2$) and by the energy used to drive it (31.8~g\cotwo{}/MJ H$_2$), and the \chfour{} consumed as feedstock (14.0~g\chfour{}/MJ H$_2$) and as fuel (11.6~g\chfour{}/MJ H$_2$). We omit their indirect upstream (scope~3) terms, which our framework handles through the leak rate $\lambda$. Their per-MJ values are on a higher-heating-value basis (they give the gross calorific heat content of hydrogen as 0.286~MJ/mol). We convert each value using the HHV of hydrogen, 142.18~MJ H$_2$/kg H$_2$ (Argonne GREET, as tabulated by DOE Hydrogen Tools):
+%
+\begin{align*}
+  P &= 38.5~\tfrac{\text{g\cotwo{}}}{\text{MJ H}_2} \times 142.18~\tfrac{\text{MJ H}_2}{\text{kg H}_2} \times \tfrac{1~\text{kg}}{1{,}000~\text{g}} = 5.474~\tfrac{\text{kg\cotwo{}}}{\text{kg H}_2} = 5.474~\tfrac{\text{t\cotwo{}}}{\text{t H}_2}, \\
+  F &= 31.8~\tfrac{\text{g\cotwo{}}}{\text{MJ H}_2} \times 142.18~\tfrac{\text{MJ H}_2}{\text{kg H}_2} \times \tfrac{1~\text{kg}}{1{,}000~\text{g}} = 4.521~\tfrac{\text{t\cotwo{}}}{\text{t H}_2}, \\
+  m^P &= 14.0~\tfrac{\text{g\chfour{}}}{\text{MJ H}_2} \times 142.18~\tfrac{\text{MJ H}_2}{\text{kg H}_2} \times \tfrac{1~\text{kg}}{1{,}000~\text{g}} = 1.991~\tfrac{\text{t\chfour{}}}{\text{t H}_2}, \\
+  m^F &= 11.6~\tfrac{\text{g\chfour{}}}{\text{MJ H}_2} \times 142.18~\tfrac{\text{MJ H}_2}{\text{kg H}_2} \times \tfrac{1~\text{kg}}{1{,}000~\text{g}} = 1.649~\tfrac{\text{t\chfour{}}}{\text{t H}_2}.
+\end{align*}
+%
+We set $E = 0$ because Howarth and Jacobson's 31.8~g\cotwo{}/MJ covers the energy used to generate both heat and electricity for SMR. As an alternative, GREET's natural-gas central-plant pathway (3{,}946~Btu of electricity per MMBtu H$_2$) implies
+%
+\begin{align*}
+  E^{\text{alt}} &= 3{,}946~\tfrac{\text{Btu}}{\text{MMBtu H}_2} \times \tfrac{1~\text{MMBtu}}{10^{6}~\text{Btu}} \times 0.29307~\tfrac{\text{MWh}}{\text{MMBtu}} \\
+  &\qquad \times 0.06092~\tfrac{\text{MMBtu H}_2}{\text{lb H}_2} \times 2{,}204.623~\tfrac{\text{lb H}_2}{\text{t H}_2} = 0.155~\tfrac{\text{MWh}}{\text{t H}_2}.
+\end{align*}
+%
+Direct facility methane is not evaluated ($d = 0$).
+
+\subsubsection{Carbon capture applied to hydrogen}
+
+The hydrogen 90\%-capture case documented in Hughes and Zoelle (2023, pp.~82--95)\footnote{Hughes, S.\ and Zoelle, A.\ (2023). \emph{Cost of Capturing CO$_2$ from Industrial Sources}. National Energy Technology Laboratory, U.S.\ Department of Energy. \url{https://www.osti.gov/servlets/purl/1887586}.} provides the stream capture rate ($r = 0.90$), the \cotwo{} available in the capture stream ($\dot{Q} = 404{,}700$~t\cotwo{}/yr; p.~83), the capture power ($W = 4.04$~MW; p.~87), and the natural gas consumption ($G = 2{,}330$~MMBtu/day; p.~93). Then
+%
+\begin{align*}
+  w &= \frac{4.04~\text{MW} \times 8{,}760~\text{h/yr}}{0.90 \times 404{,}700~\text{t\cotwo{}/yr}} = 0.097~\tfrac{\text{MWh}}{\text{t\cotwo{}}}, \\
+  g &= \frac{2{,}330~\text{MMBtu/day} \times 365~\text{day/yr}}{0.90 \times 404{,}700~\text{t\cotwo{}/yr}} = 2.34~\tfrac{\text{MMBtu}}{\text{t\cotwo{}}}.
+\end{align*}
+%
+CCS targets the process stream; transport distance tier: average.
+
+% ---------------------------------------------------------------------------
+\subsection{Ammonia}
+\label{sec:const_nh3}
+% ---------------------------------------------------------------------------
+
+\subsubsection{Unabated industrial process}
+
+Lee et al.\ (2022, \textit{Green Chemistry} 24, 4830--4844, \url{https://doi.org/10.1039/d2gc00843b}) model a conventional natural-gas ammonia plant (SMR and Haber--Bosch) producing 1{,}270~t NH$_3$/day (p.~4834). Their Electronic Supplementary Information, Table~S6, provides the plant's carbon flows: \cotwo{} (1{,}638.1~kmol/h) and \chfour{} (47.2~kmol/h) in the process gas emitted from the \cotwo{}-removal (aMDEA) unit; \cotwo{} in the boiler flue gas (604.6~kmol/h); and methane in the process-gas feed (1{,}143.5~kmol/h) and fuel gas (384.7~kmol/h). Their Table~1 provides net grid electricity (0.22~GJ/t NH$_3$). Each flow $\dot{n}$ is converted to t/t NH$_3$ as
+%
+\[
+  x = \dot{n}~\tfrac{\text{kmol}}{\text{h}} \times M~\tfrac{\text{kg}}{\text{kmol}} \times 24~\tfrac{\text{h}}{\text{day}} \times \tfrac{1~\text{t}}{1{,}000~\text{kg}} \times \tfrac{1~\text{day}}{1{,}270~\text{t NH}_3},
+\]
+%
+giving
+%
+\begin{align*}
+  P &= 1{,}638.1 \times 44.009 \times 24 / (1{,}000 \times 1{,}270) = 1.362~\tfrac{\text{t\cotwo{}}}{\text{t NH}_3}, \\
+  F &= 604.6 \times 44.009 \times 24 / (1{,}000 \times 1{,}270) = 0.503~\tfrac{\text{t\cotwo{}}}{\text{t NH}_3}, \\
+  m^P &= 1{,}143.5 \times 16.043 \times 24 / (1{,}000 \times 1{,}270) = 0.347~\tfrac{\text{t\chfour{}}}{\text{t NH}_3}, \\
+  m^F &= 384.7 \times 16.043 \times 24 / (1{,}000 \times 1{,}270) = 0.117~\tfrac{\text{t\chfour{}}}{\text{t NH}_3}, \\
+  d &= 47.2 \times 16.043 \times 24 / (1{,}000 \times 1{,}270) = 0.0143~\tfrac{\text{t\chfour{}}}{\text{t NH}_3}, \\
+  E &= 0.22~\tfrac{\text{GJ}}{\text{t NH}_3} \times \tfrac{1~\text{MWh}}{3.6~\text{GJ}} = 0.0611~\tfrac{\text{MWh}}{\text{t NH}_3}.
+\end{align*}
+%
+Process \cotwo{} is feedstock carbon converted to \cotwo{} in reforming and water--gas shift; combustion \cotwo{} includes purge gas burned in the boiler. The derived $F = 0.503$ reproduces Lee et al.'s reported 0.50~t\cotwo{}/t combustion emissions (p.~4841).
+
+\subsubsection{Carbon capture applied to ammonia}
+
+Lee et al.'s ESI Table~S6 also provides the \cotwo{} captured from the process stream in their carbon-capture configuration, giving
+%
+\[
+  r = \frac{1{,}559.6~\text{kmol\cotwo{}/h captured}}{1{,}638.1~\text{kmol\cotwo{}/h in process stream}} = 0.95.
+\]
+%
+The NETL ammonia capture case documented in Hughes and Zoelle (2023, pp.~35--42) provides $\dot{Q} = 486{,}227$~t\cotwo{}/yr (p.~36), $W = 5.86$~MW (p.~38), and $G = 0$ (p.~41):
+%
+\[
+  w = \frac{5.86~\text{MW} \times 8{,}760~\text{h/yr}}{0.95 \times 486{,}227~\text{t\cotwo{}/yr}} = 0.111~\tfrac{\text{MWh}}{\text{t\cotwo{}}}, \qquad g = 0.
+\]
+%
+CCS targets the process stream; transport distance tier: average.
+
+% ---------------------------------------------------------------------------
+\subsection{Methanol}
+\label{sec:const_meoh}
+% ---------------------------------------------------------------------------
+
+\subsubsection{Unabated industrial process}
+
+NETL's \emph{Baseline Analysis of Crude Methanol Production from Coal and Natural Gas},\footnote{National Energy Technology Laboratory (2014). \emph{Baseline Analysis of Crude Methanol Production from Coal and Natural Gas}. Report DOE/NETL-341/101514, revised October~15, 2014.} Case~3 --- a natural-gas-to-methanol facility using autothermal reforming (ATR) with a nominal design capacity of about 10{,}000~t crude MeOH/day --- provides a full carbon and energy balance that we use directly. Three features of Case~3 shape how it maps to our emissions-profile fields:
+
+\begin{itemize}
+  \item \emph{No purchased fuel gas.} Case~3's reformer heat comes from partial oxidation of the methane feed inside the ATR, from heat recovery along the syngas and exothermic synthesis loops, and from combustion of synthesis-loop purge gas in a tail-gas power island; no additional natural gas is purchased as fuel (NETL 2014, Exhibit~3-2). Correspondingly we set $F = 0$ and $m^F = 0$ --- all CO$_2$ is routed into the \emph{process} term, and all methane throughput is counted on the feed (\emph{process}) side.
+  \item \emph{Net electricity exporter.} Case~3 exports $\sim$115~MW net; the unabated plant would export more (adding back the $\sim$14.6~MW capture auxiliaries listed below). Because our framework has no export credit, we set $E = 0$ rather than attributing a negative grid draw.
+  \item \emph{All CO$_2$ as process CO$_2$ matches real blue-methanol CCS designs.} Projects such as Lake Charles Methanol~II (Topsoe SynCOR ATR) and Bia Energy capture CO$_2$ from pressurized syngas and fire a hydrogen-rich residual gas rather than carbon-containing fuel, so attributing all site CO$_2$ to the process stream is faithful to the technologies that actually appear in our facility set. NETL's Case~3 design instead burns tail gas in a gas turbine and captures post-combustion, but the integrated carbon balance is identical.
+\end{itemize}
+
+The per-tonne denominator is pure methanol in the crude product stream, 28{,}746~lbmol/h~$\times$~32.042~lb/lbmol = 921{,}079~lb MeOH/h (Exhibit~3-23, stream~716). Methane throughput excludes C$_2$+ (consistent with the ammonia and ethanol profiles). From Case~3's carbon balance (Exhibit~3-21, feed stream~3; Exhibit~3-23, product stream~716):
+%
+\begin{align*}
+  C_{\text{in}}~[\text{lbmol C/h}] &= 31{,}361~\chfour{} + 337~\cotwo{} + 2(1{,}078)~\text{C}_2\text{H}_6 + 3(236)~\text{C}_3\text{H}_8 + 4(135)~\text{C}_4\text{H}_{10} = 35{,}102, \\
+  C_{\text{out,product}}~[\text{lbmol C/h}] &= 28{,}746~\text{MeOH} + 312~\cotwo{} + 6~\chfour{} + 2(6)~\text{EtOH} + 3(3)~\text{PrOH} = 29{,}085, \\
+  C_{\text{vented,\cotwo{}}} &= C_{\text{in}} - C_{\text{out,product}} = 6{,}017~\tfrac{\text{lbmol C}}{\text{h}}.
+\end{align*}
+%
+Converting each per-tonne-of-methanol:
+%
+\begin{align*}
+  P &= \frac{6{,}017~\text{lbmol/h} \times 44.009~\text{lb/lbmol}}{921{,}079~\text{lb MeOH/h}} = 0.287~\tfrac{\text{t\cotwo{}}}{\text{t MeOH}}, \qquad F = 0, \\
+  m^P &= \frac{31{,}361~\text{lbmol \chfour{}/h} \times 16.043~\text{lb/lbmol}}{921{,}079~\text{lb MeOH/h}} = 0.546~\tfrac{\text{t\chfour{}}}{\text{t MeOH}}, \qquad m^F = 0, \qquad E = 0.
+\end{align*}
+%
+Case~3 reports no facility-boundary methane vent; we set $d = 0$. (NETL's 2013 unit-process sheet for an unrelated methanol baseline estimates $\sim$0.005~t\chfour{}/t MeOH of plant fugitive methane; the 2014 Case~3 does not report such a value and we do not substitute it in.) Two features of this treatment are worth flagging. First, Case~3 models feed preheat (to $\sim$815\,\textdegree C) as heat-exchanger duty with no fuel; real plants typically use a fired preheater, so purchased fuel and $F$ may be slightly understated in our zero-combustion treatment. Second, blue-methanol designs that fire hydrogen rather than tail gas trade some methanol yield for the gas input, which NETL's Case~3 mass balance does not reflect; our $m^P$ is therefore a plausible lower bound for such designs.
+If the crude product is distilled to refined methanol, add the 312~lbmol/h of dissolved CO$_2$ listed in stream~716 (+0.015~t\cotwo{}/t) to $P$.
+
+\subsubsection{Carbon capture applied to methanol}
+
+Case~3 integrates an amine-solvent capture train sized to remove 90\% of the plant's CO$_2$ at scale: the design captures 5{,}358~lbmol/h of CO$_2$ out of the 6{,}017~lbmol/h generated (89\% of the stream, matching NETL's 90\% design basis to rounding). We use this directly as the methanol capture case:
+%
+\begin{align*}
+  r &= 0.90, \qquad \dot{Q} = 1{,}052{,}207~\tfrac{\text{t\cotwo{}}}{\text{yr}}, \qquad W = 14.57~\text{MW}, \qquad G = 0,
+\end{align*}
+%
+where $\dot{Q}$ is the stream-available CO$_2$ computed as 6{,}017~lbmol/h~$\times$~44.009~lb/lbmol~$\times$~8{,}760~h/yr $\div$ 2{,}204.623~lb/t, and $W$ is the sum of amine-system auxiliaries (5{,}600~kW) and CO$_2$-compression train (8{,}970~kW) from Exhibit~3-6. Solvent-regeneration steam (341{,}783~lb/h) is drawn from the plant's own heat-recovery steam cycle rather than from purchased natural gas (Exhibit~3-24), so $G = 0$: the steam cost shows up as reduced power export, not as an on-site fuel burn charged to CCS. Applying Eq.~\eqref{eq:cap_intensities},
+%
+\[
+  w = \frac{14.57~\text{MW} \times 8{,}760~\text{h/yr}}{0.90 \times 1{,}052{,}207~\text{t\cotwo{}/yr}} = 0.135~\tfrac{\text{MWh}}{\text{t\cotwo{}}}, \qquad g = 0.
+\]
+%
+CCS targets the process stream; transport distance tier: average. Case~3's capture is post-combustion amine applied to the tail-gas-turbine flue gas, which is likely conservative (higher $w$) for designs such as Lake Charles Methanol~II that instead capture pre-combustion from pressurized syngas.
+
+% ---------------------------------------------------------------------------
+\subsection{Ethanol}
+\label{sec:const_etoh}
+% ---------------------------------------------------------------------------
+
+\subsubsection{Unabated industrial process}
+
+Argonne's R\&D GREET1 model (2025 Rev.~1), sheet \texttt{EtOH}, corn-ethanol dry mill with corn oil extraction, provides per gallon of ethanol: fermentation \cotwo{} (2.8544~kg\cotwo{}/gal; cell D165), plant energy use (24{,}351.91~Btu/gal LHV; D152) of which 91.472\% is natural gas process fuel (D153, D155), and gross plant electricity (0.62328~kWh/gal; \texttt{Inputs} G615). GREET reports gas energy on a lower-heating-value (LHV) basis; to stay consistent with the higher-heating-value (HHV) convention used elsewhere in this paper for $EF_{\text{NG}}$ and $\kappa$ (Section~\ref{sec:energy_params}), we convert GREET's LHV energy to HHV via the standard U.S.\ pipeline-gas ratio HHV/LHV~=~1.108 and then apply the paper's standard emission factor and methane coefficient. Per-gallon quantities are converted to per-tonne using GREET's ethanol density of 2.988~kg/gal:
+%
+\begin{align*}
+  P &= 2.8544~\tfrac{\text{kg\cotwo{}}}{\text{gal}} \times \tfrac{1~\text{gal}}{2.988~\text{kg EtOH}} = 0.955~\tfrac{\text{t\cotwo{}}}{\text{t EtOH}}, \\
+  H^F_{\text{LHV}} &= 24{,}351.91~\tfrac{\text{Btu}}{\text{gal}} \times 0.91472 \times \tfrac{1~\text{MMBtu}}{10^{6}~\text{Btu}} \times \tfrac{1~\text{gal}}{2.988~\text{kg EtOH}} \times \tfrac{1{,}000~\text{kg}}{1~\text{t}} = 7.455~\tfrac{\text{MMBtu LHV}}{\text{t EtOH}}, \\
+  H^F &= 7.455 \times 1.108 = 8.260~\tfrac{\text{MMBtu HHV}}{\text{t EtOH}}, \\
+  F &= 8.260 \times 0.05306 = 0.438~\tfrac{\text{t\cotwo{}}}{\text{t EtOH}}, \\
+  m^F &= 8.260 \times 0.01703 = 0.1407~\tfrac{\text{t\chfour{}}}{\text{t EtOH}}, \\
+  E &= 0.62328~\tfrac{\text{kWh}}{\text{gal}} \times \tfrac{1~\text{gal}}{2.988~\text{kg EtOH}} \times \tfrac{1{,}000~\text{kg}}{1~\text{t}} \times \tfrac{1~\text{MWh}}{1{,}000~\text{kWh}} = 0.209~\tfrac{\text{MWh}}{\text{t EtOH}},
+\end{align*}
+%
+with $m^P = 0$ (no natural gas feedstock) and $d = 0$. Fermentation \cotwo{} is biogenic in origin, but we include it in $P$ (and therefore in $T_i$) because our emissions boundary is facility-level \cotwo{} actually emitted at the stack, regardless of whether the carbon originated as fossil or atmospheric. Any biogenic-carbon crediting is handled separately from the mass-balance in this paper.
+
+\subsubsection{Carbon capture applied to ethanol}
+
+The NETL ethanol capture case documented in Hughes and Zoelle (2023, pp.~51--59) provides $\dot{Q} = 143{,}042$~t\cotwo{}/yr (p.~52), $W = 1.85$~MW (p.~55), and $G = 0$ (p.~58, no on-site natural gas needed for fermentation-vent capture); we use $r = 0.99$ for the nearly pure fermentation stream:
+%
+\[
+  w = \frac{1.85~\text{MW} \times 8{,}760~\text{h/yr}}{0.99 \times 143{,}042~\text{t\cotwo{}/yr}} = 0.114~\tfrac{\text{MWh}}{\text{t\cotwo{}}}, \qquad g = 0.
+\]
+%
+CCS targets the process stream; transport distance tier: far.
+
+% ---------------------------------------------------------------------------
+\subsection{Liquefied Natural Gas (LNG)}
+\label{sec:const_lng}
+% ---------------------------------------------------------------------------
+
+\subsubsection{Unabated industrial process}
+
+Howarth (2024, Table~3 and Eq.~5) provides, for LNG produced from low-\cotwo{} feed gas, 57~g\cotwo{}/kg LNG of \cotwo{} originally present in the feed gas and removed ahead of liquefaction, 270~g\cotwo{}/kg LNG from gas burned to power processing and liquefaction, and 18~g\cotwo{}/kg LNG from flaring. Balcombe et al.\ (2021, Table~1) provide a top-down, facility-boundary measurement of mean methane emissions at liquefaction facilities, 3.5~g\chfour{}/kg LNG, which Howarth (2024, Table~3) also uses; because it is measured at the facility boundary, it includes both process venting and any unburned methane from combustion. (See also IEAGHG 2019.) We convert these as
+%
+\begin{align*}
+  P &= 57~\tfrac{\text{g\cotwo{}}}{\text{kg LNG}} \times \tfrac{1~\text{kg}}{1{,}000~\text{g}} = 0.057~\tfrac{\text{t\cotwo{}}}{\text{t LNG}}, \\
+  F &= (270 + 18)~\tfrac{\text{g\cotwo{}}}{\text{kg LNG}} \times \tfrac{1~\text{kg}}{1{,}000~\text{g}} = 0.288~\tfrac{\text{t\cotwo{}}}{\text{t LNG}}, \\
+  d &= 3.5~\tfrac{\text{g\chfour{}}}{\text{kg LNG}} \times \tfrac{1~\text{kg}}{1{,}000~\text{g}} = 0.0035~\tfrac{\text{t\chfour{}}}{\text{t LNG}}.
+\end{align*}
+%
+The fuel methane throughput is inferred from the combustion \cotwo{} using $\mathrm{EF}_{\text{NG}}$ and $\kappa$ (Section~\ref{sec:kappa}):
+%
+\[
+  m^F = \frac{0.288~\text{t\cotwo{}/t LNG}}{0.05306~\text{t\cotwo{}/MMBtu}} \times 0.01703~\tfrac{\text{t\chfour{}}}{\text{MMBtu}} = 0.0924~\tfrac{\text{t\chfour{}}}{\text{t LNG}}.
+\]
+%
+Although methane is the feedstock for LNG production, we set $m^P = 0$ to avoid double-counting the supply-chain fugitive methane already attributed to methane's use as feedstock and fuel for hydrogen and ammonia fabrication (Sections~\ref{sec:const_h2} and~\ref{sec:const_nh3}), which draw from the same natural gas supply chain. Because fossil hydrogen and ammonia together account for less than 10\% of global natural gas supply (Saygin et al., 2023), the choice conservatively biases LNG (and, symmetrically, natural gas processing) climate-impact estimates downward. A small opposing bias exists because Howarth (2024) and Balcombe et al.\ (2021) both report emissions per unit of gas \emph{delivered} rather than per unit of methane throughput at the liquefaction facility; as supply-chain fugitives and burnoff rise, the delivered-mass denominator falls below the true facility-inlet mass, producing a slight anticonservative bias. We set $E = 0$ because U.S.\ LNG facilities are powered almost exclusively by natural gas, which is already included in $F$.
+
+\subsubsection{Carbon capture applied to LNG}
+
+Applying CCS to LNG is effectively the same physical process as applying CCS to natural gas processing (Section~\ref{sec:const_ngp}): a chemical solvent (typically an amine) separates \cotwo{} from a natural gas stream, and the \cotwo{}-lean gas continues downstream. The two industries differ in how much \cotwo{} is allowed to remain in the outlet gas: natural gas processing tolerates a higher residual \cotwo{} concentration in the sales-quality gas that goes to downstream distribution, whereas LNG liquefaction requires very low \cotwo{} in the feed (residual \cotwo{} would freeze at cryogenic liquefaction temperatures). Accordingly, we assign LNG the same NETL capture-case equipment parameters as natural gas processing (Hughes and Zoelle 2023, pp.~60--67; see Section~\ref{sec:const_ngp}) --- $\dot{Q} = 649{,}255$~t\cotwo{}/yr (p.~61) and $W = 6.12$~MW (p.~63), with $G = 0$ (the amine unit is electrically driven, with no separate on-site gas burn charged to capture) --- and the same stream capture rate $r = 0.975$: the amine acid-gas removal step captures essentially all of the \cotwo{} it separates, with a small fraction ($\sim 2.5\%$) lost in the subsequent compression and dehydration train before injection. This value is an engineering assumption rather than a calibrated case number; it is applied identically to NGP (Section~\ref{sec:const_ngp}) because the physical equipment is the same. The resulting capture-side intensities:
+%
+\[
+  w = \frac{6.12~\text{MW} \times 8{,}760~\text{h/yr}}{0.975 \times 649{,}255~\text{t\cotwo{}/yr}} = 0.085~\tfrac{\text{MWh}}{\text{t\cotwo{}}}, \qquad g = 0.
+\]
+%
+CCS targets the process stream (\cotwo{} removed from the feed gas ahead of liquefaction); transport distance tier: average.
+
+% ---------------------------------------------------------------------------
+\subsection{Natural Gas Processing}
+\label{sec:const_ngp}
+% ---------------------------------------------------------------------------
+
+\subsubsection{Unabated industrial process}
+
+Natural gas processing (NGP) removes acid gases (mainly \cotwo{} and H$_2$S) from raw wellhead gas so the outgoing gas meets downstream sales specifications. Unlike other industries in this section, NGP's ``product'' is natural gas itself (denominated in MMBtu delivered), so the emission factors are per MMBtu of gas processed rather than per tonne of a manufactured product. Because feed-gas composition varies substantially across fields and basins (methane fraction, NGL content, and inlet \cotwo{} concentration all differ), the values below should be treated as approximations for a representative U.S.-average feed gas. A separate, higher-\cotwo{} feed-gas case exists in our configuration but is not used in this paper.
+
+The total \cotwo{} emitted per MMBtu of gas processed is drawn from Khutal et al.\ (2025),\footnote{Khutal, H., Kirchner-Ortiz, K.~M., Blackhurst, M., Willems, N., Matthews, H.~S., Rai, S., Yanai, G., Chivukula, K., Priyadarshini, Jamieson, M.~B., and Skone, T.~J.\ (2025). \emph{Life Cycle Analysis of Natural Gas Extraction and Power Generation: U.S.\ 2020 Emissions Profile}. National Energy Technology Laboratory, Pittsburgh. Report DOE/NETL-2024/4862. \url{https://www.netl.doe.gov/projects/files/LifeCycleAnalysisofNaturalGasExtractionandPowerGenerationUS2020EmissionsProfile_012425.pdf}.} Executive Summary Fig.~1, which reports approximately 1.65~gCO$_2$/MJ of processed gas (read from the figure via plotdigitizer). Converting units:
+%
+\[
+  \text{total }\cotwo{} = 1.65~\tfrac{\text{gCO}_2}{\text{MJ}} \times 1055.056~\tfrac{\text{MJ}}{\text{MMBtu}} \times \tfrac{1~\text{t}}{10^{6}~\text{g}} = 1.741 \times 10^{-3}~\tfrac{\text{t\cotwo{}}}{\text{MMBtu}}.
+\]
+%
+The split between process (acid-gas removal vent) and combustion (on-site fuel gas burned to power compressors, dehydrators, and glycol regenerators) is derived from the U.S.\ EPA's Petroleum and Natural Gas Systems Industrial Profile,\footnote{U.S.\ Environmental Protection Agency (2024). \emph{2011--2023 Greenhouse Gas Reporting Program Industrial Profile: Petroleum and Natural Gas Systems}. \url{https://www.epa.gov/system/files/documents/2024-10/subpartw_profile_2023.pdf}.} Fig.~11: approximately 20.69\% of total NGP \cotwo{} to the process (vent) stream and 79.31\% to combustion. Applying the split:
+%
+\begin{align*}
+  P &= 1.741 \times 10^{-3} \times 0.20690 = 3.60 \times 10^{-4}~\tfrac{\text{t\cotwo{}}}{\text{MMBtu}}, \\
+  F &= 1.741 \times 10^{-3} \times 0.79310 = 1.38 \times 10^{-3}~\tfrac{\text{t\cotwo{}}}{\text{MMBtu}}.
+\end{align*}
+
+Although natural gas is the feedstock being processed, we set $m^P = 0$ for NGP to avoid double-counting the supply-chain fugitive methane that is already attributed, downstream, to industries that consume the processed gas (notably hydrogen, ammonia, LNG, and gas-fired power). This mirrors the convention used for LNG (Section~\ref{sec:const_lng}): the methane throughput of the processed gas stream is accounted for exactly once, at the point where it is consumed as feedstock or fuel. Because fossil hydrogen and ammonia together account for less than 10\% of global natural gas supply (Saygin et al., 2023), the choice conservatively biases NGP's climate impact downward on a stand-alone basis, but it prevents the much larger error of counting the same throughput twice when NGP output feeds those downstream industries.
+
+The combustion methane throughput, by contrast, is NGP-specific (the on-site fuel gas burned to power compressors and dehydrators) and is retained. It is back-calculated from the combustion \cotwo{}: dividing $F$ by the natural-gas emission factor $EF_{\text{NG}} = 0.05306$~t\cotwo{}/MMBtu (40 CFR 98 Table C-1) gives the MMBtu of gas burned per MMBtu processed, and multiplying by $\kappa$ (Section~\ref{sec:kappa}) converts that heat input to methane mass:
+%
+\[
+  m^F = \frac{F}{EF_{\text{NG}}} \times \kappa = \frac{1.38 \times 10^{-3}}{0.05306} \times 0.01703 = 4.43 \times 10^{-4}~\tfrac{\text{t\chfour{}}}{\text{MMBtu}}.
+\]
+%
+Grid electricity use is $E = 0$ (compressors and auxiliary loads are powered by on-site fuel gas, not the grid), and no separate direct-facility methane vent is attributed to NGP ($d = 0$).
+
+\subsubsection{Carbon capture applied to natural gas processing}
+
+CCS at an NGP facility is attached to the acid-gas removal vent, the same physical unit that already separates \cotwo{} from the raw feed gas; the new step is compressing and dehydrating the separated \cotwo{} for transport rather than venting it. The gas-cleaning step itself removes about 80\% of the incoming \cotwo{} (roughly $(10.2 - 2)/10.2$ for typical wellhead \cotwo{} content dropping to sales-spec residual); of that separated \cotwo{}, we assume the CCS unit captures a further $r = 0.975$ (a small fraction still escapes the compression and dehydration train). The capture-side power draw is $W = 6.12$~MW, from the NETL natural-gas processing case documented in Hughes and Zoelle (2023, pp.~60--67; specifically p.~63, covering compressor, water pumps, and cooling-tower fans), applied to a capture stream of $\dot{Q} = 649{,}255$~t\cotwo{}/yr (p.~61). No natural gas is burned specifically for capture ($G = 0$), so:
+%
+\[
+  w = \frac{6.12~\text{MW} \times 8{,}760~\text{h/yr}}{0.975 \times 649{,}255~\text{t\cotwo{}/yr}} = 0.085~\tfrac{\text{MWh}}{\text{t\cotwo{}}}, \qquad g = 0.
+\]
+%
+CCS targets the process stream (acid-gas vent); transport distance tier: near. The same $\dot{Q}$ and $W$ are borrowed by the LNG case (Section~\ref{sec:const_lng}) because LNG gas sweetening is the same physical unit operation.
+
+% ---------------------------------------------------------------------------
+\subsection{Natural-Gas-Fired Power Generation (and Data Centers)}
+\label{sec:const_ccgt}
+% ---------------------------------------------------------------------------
+
+\subsubsection{Unabated industrial process}
+
+We distinguish three variants of natural-gas combined-cycle (CCGT) power: retrofit of an existing plant, new-build utility-scale generation, and gas-fired co-located generation for data centers. All three share the same functional form for per-MWh emissions and differ only in the assumed heat rate. The process fraction $P$, direct facility \chfour{} $d$, and grid electricity draw $E$ are all zero because the plant is itself the generator; combustion emissions scale linearly with the gas heat input.
+
+For each variant, applying Eq.~\eqref{eq:heat_rate} with $EF_{\text{NG}} = 0.05306$~t\cotwo{}/MMBtu (EPA 40~CFR~98 Table~C-1) and $\kappa = 0.01703$~t\chfour{}/MMBtu (Section~\ref{sec:kappa}):
+%
+\[
+  F = \mathrm{HR} \times EF_{\text{NG}}, \qquad m^F = \mathrm{HR} \times \kappa.
+\]
+%
+The heat rates and derived per-MWh emissions for each variant are shown in Table~\ref{tab:ccgt_variants}.
+
+\begin{table}[htbp]
+\centering
+\caption{Heat rates and derived per-MWh combustion emissions for the three natural-gas power variants.}
+\label{tab:ccgt_variants}
+\footnotesize
+\rowcolors{2}{white}{gray!10}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Variant} & \textbf{HR} & \textbf{$F$} & \textbf{$m^F$} \\
+                 & \scriptsize MMBtu/MWh & \scriptsize t\cotwo{}/MWh & \scriptsize t\chfour{}/MWh \\
+\midrule
+New build (F-class)$^{\dagger}$          & 6.363 & 0.338 & 0.108 \\
+Data center$^{\ddagger}$                 & 6.363 & 0.338 & 0.108 \\
+Retrofit (Texas)$^{\S}$                  & 7.484 & 0.397 & 0.127 \\
+Retrofit (Louisiana)$^{\S}$              & 7.165 & 0.380 & 0.122 \\
+\bottomrule
+\multicolumn{4}{@{}p{0.95\linewidth}@{}}{\footnotesize $^{\dagger}$NETL Fossil Energy Baseline (2022), NGCC F class, p.~9. $^{\ddagger}$Assumed identical to new build (see §\ref{sec:const_ccgt} text). $^{\S}$Derived from EPA eGRID2023 (rev.~2, 2023) sheet \texttt{PLNT23}: for each state, sum plant-level combustion heat input (\texttt{PLHTIAN}, MMBtu/yr) and plant-level net generation (\texttt{PLGENAGS}, MWh/yr) across all plants whose primary fuel is natural gas (\texttt{PSTATABB}~=~TX or LA and \texttt{PLPRMFL}~=~NG), then divide. Texas: $2{,}066{,}353{,}449 / 276{,}099{,}467.3 = 7.484$; Louisiana: $494{,}198{,}015.7 / 68{,}970{,}468.32 = 7.165$.}
+\end{tabular}
+\end{table}
+
+The retrofit heat rates are drawn from EPA's eGRID2023 data (rev.~2, 2023 data)\footnote{Detailed data accessed at \url{https://www.epa.gov/egrid/detailed-data}.} sheet \texttt{PLNT23}, using plant-level aggregates: for each state, we sum the annual combustion heat input (column \texttt{PLHTIAN}, MMBtu/yr) and the annual net generation (column \texttt{PLGENAGS}, MWh/yr) across all plants whose primary fuel is natural gas (i.e., \texttt{PSTATABB}~=~TX or LA and \texttt{PLPRMFL}~=~NG), and divide, yielding an MMBtu-per-MWh fleet-average heat rate for the state. Retrofit facilities inherit their host state's fleet efficiency; new-build and data-center generation use the F-class heat rate.
+
+The distinction matters: a retrofit facility in Texas emits about 18\% more \cotwo{} per MWh (0.397 vs.\ 0.338~t\cotwo{}/MWh) and 18\% more \chfour{} per MWh than a new-build unit; the corresponding Louisiana excess is about 12\% (0.380 vs.\ 0.338~t\cotwo{}/MWh). Both excesses come purely from the difference in fleet-average vs.\ F-class thermal efficiency. Data centers are represented as new-build for the same reason: newly-sited gas capacity serving load growth is assumed to use current best-available NGCC technology rather than fleet-average efficiency.
+
+\subsubsection{Carbon capture applied to natural-gas-fired power}
+
+NPC Ch.~2 (2022) Table~2-6 provides post-combustion amine capture parameters for a natural-gas combined-cycle plant: capture-stream capture rate $r = 0.87$, electricity intensity $w = 0.16$~MWh/t\cotwo{}, and natural-gas intensity $g = 2.80$~MMBtu/t\cotwo{}. These are used directly (Path~1) for all three variants (retrofit, new build, and data center); NPC Table~2-6 does not differentiate between retrofit and new-build integrated capture, and we adopt the single set of values for all three. CCS targets the flue-gas (combustion) stream. Transport distance tier: average for the retrofit and new-build variants; near for the data-center variant, on the assumption that new gas-fired data-center capacity would be co-located with \cotwo{} storage.
+
+The capture-side natural gas consumption ($g \times C_j$) adds to the plant's on-site combustion when CCS is operational, and the capture-side electricity ($w \times C_j$) is treated per Section~\ref{sec:capture} (charged at the local grid intensity, since capture electricity displaces grid supply available to other loads).
+
+% ---------------------------------------------------------------------------
+\subsection{Coal-Fired Power Generation}
+\label{sec:const_coal}
+% ---------------------------------------------------------------------------
+
+\subsubsection{Unabated industrial process}
+
+The coal heat rate is the U.S.\ fleet-average operating heat rate for coal in 2024, 10.78~MMBtu/MWh, reported by the U.S.\ Energy Information Administration in Table~8.1 of the \emph{Electric Power Annual}.\footnote{U.S.\ Energy Information Administration, \emph{Average Operating Heat Rate for Selected Energy Sources}, Table~8.1, \url{https://www.eia.gov/electricity/annual/html/epa_08_01.html}. The table draws on EIA Form 923 (``Power Plant Operations Report'') and EIA Form 860 (``Annual Electric Generator Report'').} Combining with the lignite emission factor from 40~CFR~98 Table~C-1:
+%
+\[
+  F = \mathrm{HR}_{\text{coal}}~\tfrac{\text{MMBtu}}{\text{MWh}} \times 0.09772~\tfrac{\text{t\cotwo{}}}{\text{MMBtu}} = 10.78 \times 0.09772 = 1.053~\tfrac{\text{t\cotwo{}}}{\text{MWh}};
+\]
+%
+all other terms are zero.
+
+\subsubsection{Carbon capture applied to coal-fired power}
+
+NPC Ch.~2 Table~2-6 provides $r = 0.90$, $w = 0.16$~MWh/t\cotwo{}, and $g = 2.60$~MMBtu/t\cotwo{}, used directly (Path~1). CCS targets the flue gas; transport distance tier: average.
+
+% ---------------------------------------------------------------------------
+\subsection{Petroleum Refining (Refined Fuels)}
+\label{sec:const_refining}
+% ---------------------------------------------------------------------------
+
+\subsubsection{Unabated industrial process}
+
+The refined-fuels reference facility is the Delek Big Spring Refinery (Section~\ref{sec:const_refining} capture subsection below). Facility-level \cotwo{} and \chfour{} come from the EPA Greenhouse Gas Reporting Program (``FLIGHT''), 2023 reporting year, facility 1006961, splitting process emissions (Subpart~Y, petroleum refineries) from stationary-combustion emissions (Subpart~C). Purchased-utility intensities --- natural gas consumed for refinery fuel and purchased electricity --- are not reported per-facility by EPA FLIGHT, so these are taken from the EIA Petroleum Refinery Capacity Report 2024 edition (2023 data) at the PAD~III (Gulf Coast) average level.
+
+\paragraph{Annual throughput denominator.} Big Spring nameplate crude capacity is 73{,}000~bbl/day (EIA 2024 Table~3).\footnote{\url{https://www.eia.gov/petroleum/refinerycapacity/archive/2024/table3.pdf}} We assume 90\% utilization, consistent with the historical U.S.\ monthly refinery utilization series,\footnote{\url{https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=MOPUEUS2&f=M}} giving an annual throughput of
+%
+\[
+  73{,}000 \times 365 \times 0.90 = 23{,}980{,}500~\text{bbl/yr}.
+\]
+
+\paragraph{Facility \cotwo{} ($P$ and $F$).} 2023 EPA FLIGHT reports for Big Spring:
+%
+\begin{align*}
+  P &= \frac{273{,}814.7~\text{t\cotwo{}/yr (Subpart Y)}}{23{,}980{,}500~\text{bbl/yr}} = 0.01142~\tfrac{\text{t\cotwo{}}}{\text{bbl}}, \\[3pt]
+  F &= \frac{449{,}411.9~\text{t\cotwo{}/yr (Subpart C)}}{23{,}980{,}500~\text{bbl/yr}} = 0.01874~\tfrac{\text{t\cotwo{}}}{\text{bbl}}.
+\end{align*}
+
+\paragraph{Facility \chfour{} ($d$).} 2023 EPA FLIGHT also reports direct methane emissions under both subparts (process venting, combustion slip, tank vents, etc.), which the paper's framework collects into the facility-boundary term $d$:
+%
+\[
+  d = \frac{244.75~\text{t\chfour{}/yr (Subpart Y)} + 24.69~\text{t\chfour{}/yr (Subpart C)}}{23{,}980{,}500~\text{bbl/yr}} = 1.12\times10^{-5}~\tfrac{\text{t\chfour{}}}{\text{bbl}}.
+\]
+
+\paragraph{Combustion-side \chfour{} throughput ($m^F$).} Big Spring's natural-gas purchases are not disclosed in EPA FLIGHT, so we use the PAD~III refinery average. The 2024 EIA Petroleum Refinery Capacity Report (Table~10a, 2023 data) reports 575{,}110~MMcf of natural gas consumed at PAD~III refineries,\footnote{\url{https://www.eia.gov/petroleum/refinerycapacity/archive/2024/table10.pdf}. Table~10a reports fuel consumed at refineries by PAD district; the 575{,}110~MMcf figure excludes natural gas used as feedstock for on-site hydrogen production, which is a separate line item.} against 3{,}288{,}626~thousand barrels of PAD~III crude receipts (Table~9):\footnote{\url{https://www.eia.gov/petroleum/refinerycapacity/archive/2024/table9.pdf}.}
+%
+\[
+  \frac{575{,}110\!\times\!10^{6}~\text{scf} \times 1{,}028~\text{Btu/scf}}{3{,}288{,}626\!\times\!10^{3}~\text{bbl}} = 0.1798~\tfrac{\text{MMBtu}}{\text{bbl}},
+\]
+%
+where $1{,}028$~Btu/scf is the EPA default HHV for pipeline natural gas (40~CFR~98 Table~C-1). Converting to on-site methane throughput via $\kappa = 0.01703$~t\chfour{}/MMBtu (Section~\ref{sec:kappa}):
+%
+\[
+  m^F = 0.1798 \times 0.01703 = 0.00306~\tfrac{\text{t\chfour{}}}{\text{bbl}}.
+\]
+
+\paragraph{Purchased electricity ($E$).} From EIA Table~10a, PAD~III refineries purchased 22{,}354~million~kWh of electricity in 2023:
+%
+\[
+  E = \frac{22{,}354\!\times\!10^{6}~\text{kWh}}{3{,}288{,}626\!\times\!10^{3}~\text{bbl}} = 6.80~\tfrac{\text{kWh}}{\text{bbl}} = 0.00680~\tfrac{\text{MWh}}{\text{bbl}}.
+\]
+
+No process-side methane throughput is tracked for refining ($m^P = 0$): on-site natural gas burned for refinery heat is captured in $m^F$; residual methane that escapes to the atmosphere (e.g., FCCU slip, equipment vents) is captured in $d$.
+
+\subsubsection{Carbon capture applied to refining}
+
+The reference capture case is the Delek Big Spring Refinery CCS project (Howard County, TX; EPA FLIGHT facility ID 1006961), which the U.S.\ Department of Energy selected in February 2024 for development support.\footnote{Delek US Holdings (2024). ``Delek US Holdings' Big Spring Refinery Selected by the Department of Energy for Carbon Capture Project,'' press release dated February~2, 2024. \url{https://delekus.com/about-us/newsroom/news-details/2024/Delek-US-Holdings-Big-Spring-Refinery-Selected-by-the-Department-of-Energy-for-Carbon-Capture-Project-02-02-2024/default.aspx}.} The CCS unit targets the fluid-catalytic-cracking-unit (FCCU) regenerator stack --- the dominant process-stream \cotwo{} source at a refinery --- which is reported under EPA Greenhouse Gas Reporting Program Subpart~Y (petroleum refineries).
+
+The capture stream's annual \cotwo{} throughput is taken from the facility-level EPA FLIGHT 2023 detail report for Big Spring:\footnote{U.S.\ Environmental Protection Agency, Greenhouse Gas Reporting Program (FLIGHT), facility 1006961 (Big Spring Refinery), 2023 reporting year. \url{https://enviro.epa.gov/envirofacts/ghg/facility-report?facilityId=1006961&selectedReportingYear=2023&repDeadLine=2024-08-18}.}
+%
+\[
+  \dot{Q} = 723{,}227~\tfrac{\text{t\cotwo{}}}{\text{yr}} \qquad \text{(2023 Big Spring facility total)}.
+\]
+%
+The stream capture rate is computed from Delek's publicly stated capture target divided by the 2023 Subpart~Y refinery-process \cotwo{} (273{,}814.7~t\cotwo{}/yr for Big Spring):
+%
+\[
+  r = \frac{145{,}000~\text{t\cotwo{}/yr captured}}{273{,}814.7~\text{t\cotwo{}/yr Subpart Y}} = 0.53.
+\]
+%
+NPC Ch.~2 Table~2-6 provides $w = 0.14$~MWh/t\cotwo{} and $g = 2.60$~MMBtu/t\cotwo{} for refinery capture, used directly (Path~1). CCS targets the process stream; transport distance tier: average.
+
+The 244.75~t\chfour{}/yr of direct \chfour{} that EPA Subpart~Y also reports for Big Spring (methane slipping to atmosphere from the process stream) is already carried in the industry's facility-boundary term $d$ computed above (sum of Subpart~Y and Subpart~C direct \chfour{} divided by annual production); CCS does not reduce this term because methane is not captured by amine systems.
+
+% ---------------------------------------------------------------------------
+\subsection{Petrochemicals}
+\label{sec:const_petchem}
+% ---------------------------------------------------------------------------
+
+\subsubsection{Unabated industrial process}
+
+EPA's Greenhouse Gas Reporting Program (FLIGHT) provides 2022 emissions for Shell's Deer Park Chemicals complex (Texas): 76{,}977.3~t\cotwo{}/yr and 232.36~t\chfour{}/yr from petrochemical production (Subpart~X), and 746{,}663.7~t\cotwo{}/yr and 42.25~t\chfour{}/yr from stationary combustion (Subpart~C). Annual ethylene production is taken as $8{,}000$~t/day, the plant capacity reported in a 2013 U.S.\ EPA news release announcing Shell's agreement to resolve alleged Clean Air Act violations at the Deer Park complex.\footnote{U.S.\ Environmental Protection Agency (2013). ``Shell to Spend Approximately \$115 Million to Control Toxic Air Pollution at Deer Park Chemical Plant.'' News release, July~10, 2013. \url{https://www.epa.gov/archive/epapages/newsroom_archive/newsreleases/2eea246fc5060f0985257ba4004d00c8.html}.} Dividing each FLIGHT quantity by that annual production:
+%
+\begin{align*}
+  S &= 8{,}000~\tfrac{\text{t}}{\text{day}} \times 365.25~\tfrac{\text{day}}{\text{yr}} = 2{,}922{,}000~\tfrac{\text{t}}{\text{yr}}, \\
+  P &= \frac{76{,}977.3~\text{t\cotwo{}/yr}}{2{,}922{,}000~\text{t/yr}} = 0.0263~\tfrac{\text{t\cotwo{}}}{\text{t}}, \qquad
+  F = \frac{746{,}663.7~\text{t\cotwo{}/yr}}{2{,}922{,}000~\text{t/yr}} = 0.256~\tfrac{\text{t\cotwo{}}}{\text{t}}, \\
+  d &= \frac{(232.36 + 42.25)~\text{t\chfour{}/yr}}{2{,}922{,}000~\text{t/yr}} = 9.4\times10^{-5}~\tfrac{\text{t\chfour{}}}{\text{t}}.
+\end{align*}
+%
+Steam is purchased from the adjacent Calpine cogeneration plant, so its emissions are outside this boundary.
+
+\subsubsection{Carbon capture applied to petrochemicals}
+
+The DOE/NETL front-end engineering design report for the complex (Clark and Ramsey 2023)\footnote{Clark, B.\ and Ramsey, R.\ (2023). \emph{Front-End Engineering Design for Carbon Capture from Shell's Deer Park Chemical Complex --- Final Scientific/Technical Report}. U.S.\ Department of Energy, Office of Scientific and Technical Information. DOI:~10.2172/2001054. \url{https://www.osti.gov/servlets/purl/2001054}.} provides 2022 fuel-combustion emissions from the sources targeted for capture (olefins-unit heaters and a hydrotreater; 636{,}834~t\cotwo{}/yr) and a CANSOLV capture rate of 95\%. As a fraction of all Subpart~C combustion emissions,
+%
+\[
+  r = \frac{0.95 \times 636{,}834~\text{t\cotwo{}/yr}}{746{,}663.7~\text{t\cotwo{}/yr}} = \frac{604{,}992~\text{t\cotwo{}/yr}}{746{,}663.7~\text{t\cotwo{}/yr}} = 0.81.
+\]
+%
+The 636{,}834~t\cotwo{}/yr figure is the sum of the specific emission points named by Clark and Ramsey (2023) as targeted by the CCS retrofit --- namely the olefins-unit cracking-furnace heaters and the hydrotreater heater. It excludes other Subpart~C stationary-combustion sources at the complex that the FEED study did not include in the capture scope (boilers and incinerators), which is why 636{,}834 is smaller than the full Subpart~C total (746{,}663.7~t\cotwo{}/yr).
+
+NPC Ch.~2 Table~2-6 provides $w = 0.16$~MWh/t\cotwo{} and $g = 2.60$~MMBtu/t\cotwo{} (Path~1). CCS targets the combustion stream; transport distance tier: average.
+
+% ---------------------------------------------------------------------------
+\subsection{Iron and Steel (Direct-Reduced Iron)}
+\label{sec:const_steel}
+% ---------------------------------------------------------------------------
+
+\subsubsection{Unabated industrial process}
+
+We model iron and steel as natural-gas-based direct-reduced iron (DRI), the technology used by the Nucor and Energiron plants in the Gulf Coast. Natural gas is reformed to CO and H$_2$, which react with iron oxide to produce metallic iron. Two distinct CO$_2$ streams result: a \emph{process} stream produced inside the reducing-gas loop by the reaction $\text{CO} + \text{FeO} \rightarrow \text{Fe} + \text{CO}_2$, and a \emph{combustion} stream from the firebox that supplies process heat.
+
+Our iron-and-steel treatment draws on three sources, each used for a specific role:
+%
+\begin{itemize}
+  \item \emph{Argonne GREET} (R\&D~GREET1 2025) provides the total gross \cotwo{} and natural-gas heat input per ton of DRI produced. GREET's totals are realistic in that they include heat losses and the makeup-fuel burn of excess top gas; however, GREET assigns 100\% of DRI \cotwo{} to the combustion category, which is physically incorrect because much of the \cotwo{} originates from the reduction reaction $\text{CO} + \text{FeO} \to \text{Fe} + \text{CO}_2$ within the gas-recycle loop (a process stream, not a flue gas).
+  \item \emph{Zecca et al.\ (2023)}\footnote{Zecca et al., 2023, ``SEWGS integration in a direct reduction steelmaking process for CO2 mitigation,'' \emph{International Journal of Greenhouse Gas Control}, \url{https://doi.org/10.1016/j.ijggc.2023.103991}.} provides the stream-level CCS capture rate for a sorbent-enhanced water-gas-shift (SEWGS) or equivalent process stream capture unit integrated into a DRI plant, $r = 0.96$.
+  \item \emph{Bond et al.\ (2022)}\footnote{Bond, N., Symonds, R., and Hughes, R.\ (2022). ``Pressurized Chemical Looping for Direct Reduced Iron Production: Carbon Neutral Process Configuration and Performance.'' \emph{Energies} 15(14): 5219. \url{https://doi.org/10.3390/en15145219}.} provides, in Table~8, the fraction of plant \cotwo{} that is captured in a representative DRI-plus-capture configuration (``Base~E~+~Comp''): 47\% captured, 53\% emitted. Bond also reports the incremental electricity for compression (0.082~MWh$_e$/tDRI with compression vs.\ 0.056~MWh$_e$/tDRI without), which we use to derive the capture energy intensity $w$ below.
+\end{itemize}
+
+GREET's iron-and-steel pathway gives:
+%
+\begin{align*}
+  Q_{\text{gross}}^{\cotwo{}} &= 738{,}465~\tfrac{\text{g\cotwo{}}}{\text{t DRI}} = 0.738465~\tfrac{\text{t\cotwo{}}}{\text{t DRI}}, \quad \text{(GREET row 119, col AI)} \\
+  H^{\text{NG}} &= 10.6026~\tfrac{\text{MMBtu}}{\text{t DRI}}, \quad \text{(GREET row 90)} \\
+  E &= 0.6355~\tfrac{\text{MMBtu}}{\text{t DRI}} \times 0.29307~\tfrac{\text{MWh}}{\text{MMBtu}} = 0.1863~\tfrac{\text{MWh}}{\text{t DRI}}. \quad \text{(GREET row 92)}
+\end{align*}
+
+Because GREET does not split process from combustion \cotwo{}, we back-solve the split from Bond's observed 47\% overall capture rate and Zecca's stream capture rate. If the capture unit targeting the process stream achieves $r = 0.96$ on its target, then matching Bond's observed overall capture of 47\% requires the process stream to contain
+%
+\[
+  \phi_{\cotwo{}}^P = \frac{0.47}{r} = \frac{0.47}{0.96} = 0.49, \qquad \phi_{\cotwo{}}^F = 1 - \phi_{\cotwo{}}^P = 0.51,
+\]
+%
+of total \cotwo{}. Applying this split to GREET's total:
+%
+\begin{align*}
+  P &= 0.738465 \times 0.49 = 0.362~\tfrac{\text{t\cotwo{}}}{\text{t DRI}}, \\
+  F &= 0.738465 \times 0.51 = 0.377~\tfrac{\text{t\cotwo{}}}{\text{t DRI}}.
+\end{align*}
+%
+(Any alternative DRI capture technology that targets a different stream or achieves a different $r$ would imply a different implicit process:combustion split, so these fractions should be interpreted as specific to the Zecca/Bond reference configuration we adopt.)
+
+Methane throughputs use the \emph{energy} split from Bond's Table~8 natural-gas inventory --- a firebox heat input of 4.54~GJ/t DRI within a total of 10.7~GJ/t DRI, so firebox share $\phi^F = 4.54/10.7 = 0.4243$ and feedstock share $\phi^P = 1 - 0.4243 = 0.5757$. We adopt GREET's higher total ($H^{\text{NG}} = 10.6026$~MMBtu/t DRI, equivalent to 11.19~GJ/t DRI) for the methane mass balance because Bond's absolute totals are minima (they exclude heat losses and makeup-fuel top-gas burn); only the firebox/feedstock \emph{ratio} is borrowed from Bond. Applying this split with the paper's $\kappa = 0.01703$~t\chfour{}/MMBtu (Section~\ref{sec:kappa}):
+%
+\begin{align*}
+  m^{\text{total}} &= H^{\text{NG}} \times \kappa = 10.6026 \times 0.01703 = 0.1806~\tfrac{\text{t\chfour{}}}{\text{t DRI}}, \\
+  m^P &= 0.1806 \times 0.5757 = 0.104~\tfrac{\text{t\chfour{}}}{\text{t DRI}}, \\
+  m^F &= 0.1806 \times 0.4243 = 0.077~\tfrac{\text{t\chfour{}}}{\text{t DRI}}.
+\end{align*}
+%
+Direct facility \chfour{} is not separately reported for this pathway; we set $d = 0$.
+
+\subsubsection{Carbon capture applied to iron and steel}
+
+Capture equipment is modeled on the SEWGS-based pre-combustion unit of Zecca et al.\ (2023), which gives the stream capture rate $r = 0.96$. The capture-side electricity intensity is derived from Bond et al.\ (2022, Table~8), which reports base-plant electricity of 0.056~MWh$_e$/t DRI and base-plus-compression electricity of 0.082~MWh$_e$/t DRI for a configuration that captures 47\% of produced \cotwo{} (0.47~of 0.450~t\cotwo{}/t DRI produced):
+%
+\[
+  w = \frac{(0.082 - 0.056)~\text{MWh}_e/\text{t DRI}}{0.450~\text{t\cotwo{}/t DRI} \times 0.47} = \frac{0.026}{0.2115} = 0.123~\tfrac{\text{MWh}}{\text{t\cotwo{}}}.
+\]
+%
+The 0.47 here is Bond's reported overall capture rate (the same quantity used to derive the process:combustion split above); it functions here as the denominator converting incremental electricity to a per-tonne-captured intensity, and is distinct from the paper's modeled stream capture rate $r = 0.96$.
+
+The \cotwo{} absorber is standard equipment in the base DRI plant (used to clean the reducing gas regardless of whether CCS is deployed), so the energy attributable specifically to CCS is only the compression step; we therefore set $g = 0$. CCS targets the process stream (the pre-liquefaction reformed-gas \cotwo{} that would otherwise vent from the stripping vent). Transport distance tier: average.
+
+% ---------------------------------------------------------------------------
+\subsection{Direct Air Capture (DAC)}
+\label{sec:const_dac}
+% ---------------------------------------------------------------------------
+
+Unlike the other industries described in this section, DAC has no upstream industrial process. It is a standalone activity in which energy is used to separate \cotwo{} from ambient air, and the captured \cotwo{} is then transported and injected in the same way as CCS applied to any other source. Because there is no industrial product being made, the process, combustion, and grid-electricity terms defined in Section~\ref{sec:industrial} are inapplicable: the entire energy demand of a DAC facility is charged to the capture step described below.
+
+The NETL DAC ``Sorbent System'' case study (Valentine and Zoelle 2022)\footnote{Valentine, J.\ and Zoelle, A.\ (2022). \emph{Direct Air Capture Case Studies: Sorbent System}. National Energy Technology Laboratory, U.S.\ Department of Energy. \url{https://www.netl.doe.gov/projects/files/DirectAirCaptureCaseStudiesSorbentSystem_070822.pdf}.} describes an all-electric DAC configuration (case 0B-EB) and a variant powered by a dedicated on-site natural-gas combined-cycle (NGCC) turbine. This paper treats only the all-electric variant. The NGCC-powered configuration likely carries a substantially larger climate-warming footprint, driven both by the combustion \cotwo{} from the on-site turbine and by the fugitive-methane emissions associated with the natural gas it consumes; a full accounting is beyond the scope of this work.
+
+\subsubsection{Carbon capture applied to DAC}
+
+For the all-electric DAC case (Valentine and Zoelle 2022, Case 0B-EB), which the report describes as ``a scenario where the DAC steam requirement and electrical auxiliary load are fulfilled by purchased electricity,'' NETL specifies a plant with 50~MW of continuous electrical draw, an 85\% capacity factor, and 100{,}000~t\cotwo{}/yr capture capacity (p.~65). The per-tonne electricity intensity is:
+%
+\[
+  w = \frac{50~\text{MW} \times 0.85 \times 365~\text{d/yr} \times 24~\text{h/d}}{100{,}000~\text{t\cotwo{}/yr}} = 3.723~\tfrac{\text{MWh}}{\text{t\cotwo{}}}.
+\]
+%
+This value covers all of NETL's ``steam requirement and electrical auxiliary load'' --- i.e., sorbent regeneration (originally steam-driven, here electrified), air-contactor blower power, and \cotwo{} compression --- so no separate on-site gas burn is charged and $g = 0$. The stream capture rate is $r = 1$ by construction: the air stream at the contactor inlet has an ambient \cotwo{} concentration, and the ``captured stream'' equals the amount actually captured (there is no bypass loss analogous to unabated combustion \cotwo{} in a flue-gas application). Transport distance tier: near, on the assumption that a small, siting-flexible DAC facility would be located adjacent to its injection well to minimize transport distance.
+
+\end{document}

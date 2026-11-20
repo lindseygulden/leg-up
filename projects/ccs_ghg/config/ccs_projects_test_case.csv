@@ -1,0 +1,8 @@
+project_name,project_state,project_owner_operator,project_status,lat_degrees_n,lon_degrees_e,lat_lon_confidence,carbon_fate,project_announced,project_start,product,product_amount,product_unit,nameplate_captured_mtco2_per_yr,unabated_mtco2_per_yr,unabated_mtco2e_per_yr
+ENEOS/MVCE Gulf Coast,gulf coast,ENEOS Holdings Inc. / MVCE (Azimuth Capital Management),Planning,,,low,eor,2024.0,2030.0,hydrogen,220000.0,ton/yr,0.96558,1.85592,3.8873085592
+ExxonMobil Baytown Blue Hydrogen,TX,ExxonMobil Corporation,Paused,29.744763,-95.005705,very high,gs,2022.0,2027.0,hydrogen,879559.0,ton/yr,3.860382366,7.419955717,15.541433557254123
+Calpine Baytown Energy Center CCS Retrofit,TX,Calpine Corporation,Planning,29.7729069,-94.90153781,high,eor,2022.0,2030.0,power_ng,2454480.0,MWh/yr,0.86,0.983011582,2.058968136308282
+Calpine Deer Park Energy Center CCS Retrofit,TX,Calpine Corporation,Planning,29.712658,-95.133846,high,gs,2021.0,2029.0,power_ng,5399856.0,MWh/yr,1.88,2.16262548,4.5297298990404
+Houston Ship Channel Ammonia,TX,"Vopak Moda, INPEX, Air Liquide, LSB Industries",Planning,29.75041995,-95.10225665,moderate,gs,2023.0,2027.0,ammonia,1100000.0,ton/yr,1.6,1.847707692,3.870109534563907
+Oxy STRATOS Phase 1,TX,1PointFive (Oxy subsidiary) / BlackRock Infrastructure JV,Under Construction,31.89670878,-102.5430896,moderate,eor,2022.0,2026.0,dac,250000.0,tco2/yr,0.25,0.0,0.0
+Project Concho Phase 1,TX,Return Carbon; Verified Carbon,Under Construction,31.41550692,-100.4358355,moderate,gs,2023.0,2030.0,dac,50000.0,tco2/yr,0.05,0.0,0.0

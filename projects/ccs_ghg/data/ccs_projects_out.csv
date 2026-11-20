@@ -1,0 +1,87 @@
+uid,project_name,project_state,project_owner_operator,project_status,lat_degrees_n,lon_degrees_e,carbon_fate,project_start,product_unit,product_amount,co2_source,is_methane_based,mtco2_per_yr_captured_with_ccs
+exxonmobil-data-center,ExxonMobil Data Center,LA,ExxonMobil and nextera,Planning,30.28037415,-93.84644508,gs,2029.0,MWh/yr,11834100.0,power_ng_data_center,True,3.47603112316026
+mosaic-faustina,Mosaic Faustina,LA,Mosaic Fertilizer LLC,Planning,30.08340267,-90.915209,gs,2030.0,ton/yr,500000.0,ammonia,True,0.6471172
+ajax-amine-plant-ccs,Ajax Amine Plant CCS,LA,Energy Transfer / ET Gathering & Processing LLC,in construction,31.85172893,-93.44818,gs,2030.0,mmbtu/yr,110595000.0,ngp,True,0.038837638675303446
+donaldsonville-complex-co2-dehydration-and-compression-facility,Donaldsonville Complex CO2 Dehydration and Compression Facility,LA,"CF Industries, Inc",operational,30.086917,-90.957861,eor,2025.0,ton/yr,1900000.0,ammonia,True,2.4590453599999997
+new-generation-gas-gathering-ng3-gillis-treating-facility,New Generation Gas Gathering (NG3) Gillis Treating Facility,LA,New Generation Gas Gathering LLCÃ,operational,30.433781,-93.147961,eor,2026.0,mmbtu/yr,626705000.0,ngp,True,0.2200799524933862
+existing-nutrien-pcs-nitrogen-geismar-nitrogen-complex-co2-capture,Existing Nutrien / PCS Nitrogen Geismar nitrogen complex CO2 capture,LA,"PCS Nitrogen Fertilizer, L.P. (Nutrien Ltd.)",operational,30.225784,-91.053154,eor,2013.0,ton/yr,575000.0,ammonia,True,0.7441847799999999
+cf-industries-blue-point-complex-atr-ammonia-with-ccs,CF Industries Blue Point Complex (ATR ammonia with CCS),LA,"Blue Point Number One, LLC",in construction,30.182283,-91.026725,gs,2029.0,ton/yr,1400000.0,ammonia,True,1.8119281599999997
+entergy-franklin-farms-power-station,Entergy Franklin Farms Power Station,LA,Entergy Louisiana LLC (Meta offtake),Planning,32.534284,-91.631818,gs,2028.0,MWh/yr,11889072.0,power_ng_data_center,True,3.4921780530410595
+ascension-clean-energy-ace-clean-hydrogen-ammonia-complex-phase-1,Ascension Clean Energy (ACE) clean hydrogen-ammonia complex Phase 1,LA,Clean Hydrogen Works,Planning,30.143908,-91.023563,gs,2031.0,ton/yr,2400000.0,ammonia,True,3.106162559999999
+ascension-clean-energy-ace-clean-hydrogen-ammonia-complex-phase-2,Ascension Clean Energy (ACE) clean hydrogen-ammonia complex Phase 2,LA,Clean Hydrogen Works,Planning,30.143908,-91.023563,gs,2034.0,ton/yr,4800000.0,ammonia,True,6.212325119999998
+cf-industries-waggaman-complex-ccs,CF Industries Waggaman Complex CCS,LA,CF Industries Holdings Inc,Planning,29.958182,-90.265778,gs,2030.0,ton/yr,798322.536,ammonia,True,1.0332164883864383
+cameron-lng-facility-ccs-phase-1,Cameron LNG Facility CCS Phase 1,LA,"Cameron LNG, LLC",Planning,30.05309,-93.340307,gs,2027.0,ton/yr,14950000.0,lng,True,0.83084625
+cameron-lng-facility-ccs-phase-2,Cameron LNG Facility CCS Phase 2,LA,"Cameron LNG, LLC",Planning,30.05309,-93.340307,gs,2032.0,ton/yr,6750000.0,lng,True,0.37513124999999997
+dt-midstream-louisiana-ccs-phase-1,DT Midstream Louisiana CCS Phase 1,LA,DT Midstream Holdings LLC,Planning,31.95,-93.6,gs,2027.0,mmbtu/yr,190354438.0,ngp,True,0.06684675512712557
+dt-midstream-louisiana-ccs-phase-2,DT Midstream Louisiana CCS Phase 2,LA,DT Midstream Holdings LLC,Planning,31.95,-93.6,gs,2028.0,mmbtu/yr,237943047.0,ngp,True,0.08355844373332198
+entergy-lake-charles-power-station-ccs,Entergy Lake Charles Power Station CCS,LA,Entergy Louisiana LLC,Planning,30.241184,-93.217292,gs,2031.0,MWh/yr,4876166.4,power_ng_new_build,True,1.4322767399386793
+entergy-waterford-ccct,Entergy Waterford CCCT,LA,Entergy Louisiana LLC,Planning,29.993984,-90.471968,gs,2029.0,MWh/yr,5944536.0,power_ng_data_center,True,1.7460890265205298
+lake-charles-blue-ammonia-plant,Lake Charles Blue Ammonia Plant,LA,"Proman AG; Mitsubishi Corporation; Idemitsu Kosan Co., Ltd.",Planning,30.113611,-93.300313,gs,2030.0,ton/yr,1200000.0,ammonia,True,1.5530812799999996
+lake-charles-methanol-ii,Lake Charles Methanol II,LA,"Lake Charles Methanol II, LLC",Planning,30.19839,-93.304407,gs,2029.0,ton/yr,3600000.0,methanol,True,0.93149352
+linde-basf-post-combustion-co2-capture-at-linde-convent-smr-hydrogen-plant,Linde-BASF post-combustion CO2 capture at Linde Convent SMR hydrogen plant,LA,"Praxair, Inc. / Linde plc (plant owner and DOE recipient)",on hold,30.107898,-90.889205,eor,2031.0,ton/yr,149422.605,hydrogen,True,0.7361359921688851
+louisiana-energy-gateway-gillis-treating-ccs-facility,Louisiana Energy Gateway Gillis Treating / CCS Facility,LA,Louisiana Energy Gateway LLC (Williams Companies),in construction,30.446206,-93.209184,eor,2027.0,mmbtu/yr,1070144745.0,ngp,True,0.37580265777462585
+nucor-steel-louisiana-dri-plant-ccs,Nucor Steel Louisiana DRI plant CCS,LA,Nucor CorporationÃ,in construction,30.081306,-90.860528,gs,2026.0,ton/yr,2000000.0,iron_steel,True,0.694747872
+pelican-gulf-coast-carbon-removal-project-dac,Pelican Gulf Coast Carbon Removal Project (DAC),LA,"Shell, Mitsubishi, Origin",Planning,30.21889806,-90.63745489,gs,2029.0,ton/yr,50000.0,dac,False,0.05
+st-rose-blue-ammonia-facility-train-1,St. Rose Blue Ammonia Facility Train 1,LA,St. Charles Clean Fuels LLC (Copenhagen Infrastructure Partners and Sustainable Fuels Group),on hold,29.948113,-90.330089,gs,2030.0,ton/yr,1460000.0,ammonia,True,1.889582224
+st-rose-blue-ammonia-facility-train-2,St. Rose Blue Ammonia Facility Train 2,LA,St. Charles Clean Fuels LLC (Copenhagen Infrastructure Partners and Sustainable Fuels Group),on hold,29.948113,-90.330089,gs,2032.0,ton/yr,1460000.0,ammonia,True,1.889582224
+venture-global-plaquemines-lng-terminal,Venture Global Plaquemines LNG Terminal,LA,"Venture Global Plaquemines LNG, LLC",in construction,29.601469,-89.88232,gs,2027.0,ton/yr,28000000.0,lng,True,1.5561
+venture-global-plaquemines-lng-terminal-expansion,Venture Global Plaquemines LNG Terminal Expansion,LA,"Venture Global LNG, Inc.",in construction,29.601469,-89.88232,gs,2029.0,ton/yr,25800000.0,lng,True,1.433835
+venture-global-calcasieu-pass-lng-terminal-ccs,Venture Global Calcasieu Pass LNG Terminal CCS,LA,"Venture Global LNG, Inc.",Planning,29.773386,-93.335074,gs,2026.0,ton/yr,11200000.0,lng,True,0.6224399999999999
+venture-global-cp2-lng-terminal-ccs,Venture Global CP2 LNG Terminal CCS,LA,"Venture Global LNG, Inc.",in construction,29.773386,-93.335074,gs,2029.0,ton/yr,29000000.0,lng,True,1.6116750000000002
+venture-global-cp2-expansion-lng-terminal-ccs,Venture Global CP2 Expansion LNG Terminal CCS,LA,"Venture Global LNG, Inc.",Planning,29.773386,-93.335074,gs,2031.0,ton/yr,9700000.0,lng,True,0.5390774999999999
+robeline-plant,Robeline Plant,LA,Energy transfer partners,Planning,31.658716,-93.324988,gs,2029.0,mmbtu/yr,4288407.0,ngp,True,0.001505959596352837
+wiggins-facility-carbon-capture,Wiggins Facility Carbon Capture,LA,Energy transfer partners,Planning,32.23,-93.3453,gs,2029.0,mmbtu/yr,562119.0,ngp,True,0.00019739929123850893
+clear-lake-amine-plant-carbon-capture,Clear Lake Amine Plant Carbon Capture,LA,Energy transfer partners,Planning,32.239218,-93.520564,gs,2029.0,mmbtu/yr,1242744.0,ngp,True,0.00043641432648764685
+west-bistineau-treating-plant-ccs,West Bistineau Treating Plant CCS,LA,ETC Texas Pipeline LTD,Planning,32.2107,-93.4413,gs,2030.0,mmbtu/yr,1378477.0,ngp,True,0.0004840796749239683
+magnolia-amine-plant-ccs-ccs,Magnolia Amine Plant CCS CCS,LA,,Planning,32.267848,-93.298611,gs,2030.0,mmbtu/yr,6667647.0,ngp,True,0.0023414771463490303
+commonwealth-lng-terminal-ccs,Commonwealth LNG Terminal CCS,LA,Commonwealth LNG LLC ; Caturus,under construction,29.774008,-93.352869,gs,2029.0,ton/yr,9500000.0,lng,True,0.5279624999999999
+methanex-geismar-methanol-plant-ccs,Methanex Geismar Methanol Plant CCS,LA,Methanex USA Services LLC,Planning,30.206733,-91.021038,gs,2032.0,ton/yr,4000000.0,methanol,True,1.0349928
+heirloom-port-of-caddo-bossier-dac-facility-privately-funded-phase-1,Heirloom Port of Caddo-Bossier DAC facility: privately funded (Phase 1),LA,"Heirloom Carbon Technologies, Inc.",Planning,32.354732,-93.628172,gs,2026.0,ton/yr,17000.0,dac,False,0.017
+project-cypress-northwest-dac-facility-publicly-funded-phase-2,Project Cypress Northwest DAC Facility: Publicly funded (Phase 2),LA,"Battelle Memorial Institute, Heirloom Carbon Technologies",Planning,32.354732,-93.628172,gs,2027.0,ton/yr,100000.0,dac,False,0.1
+heirloom-port-of-caddo-bossier-dac-facility-phase-3,Heirloom Port of Caddo-Bossier DAC facility (Phase 3),LA,,Planning,32.354732,-93.628172,gs,2030.0,ton/yr,200000.0,dac,False,0.2
+project-cypress-southwest-dac-facility-climeworks,Project Cypress Southwest DAC Facility (Climeworks),LA,Battelle Memorial Institute; Climeworks CorporationÃ,on hold,30.158437,-93.50645,gs,2030.0,ton/yr,1000000.0,dac,False,1.0
+bia-energy-methanol,Bia Energy Methanol,LA,Bia Energy LLC,Planning,32.35161947,-93.63217315,gs,2029.0,ton/yr,550000.0,methanol,True,0.14231151
+sabine-pass-lng-expansion-project,Sabine Pass LNG expansion project,LA,"Sabine Pass LNG LP; Cheniere Energy, Inc.",on hold,29.749136,-93.867257,gs,2032.0,ton/yr,6500000.0,lng,True,0.36123750000000004
+houston-ship-channel-ammonia,Houston Ship Channel Ammonia,TX,"Vopak Moda, INPEX, Air Liquide, LSB Industries",Planning,29.75041995,-95.10225665,gs,2027.0,ton/yr,1100000.0,ammonia,True,1.4236578400000002
+cormorant-clean-energy-project,Cormorant Clean Energy Project,TX,"8 Rivers Capital, LLC",Planning,29.89145052,-93.94226742,gs,2027.0,ton/yr,880000.0,ammonia,True,1.138926272
+project-yaren-phase-1,Project YaRen Phase 1,TX,ICAP Ã¢ÂÂ 50/50 JV: Enbridge Inc. + Yara Clean Ammonia,Planning,27.83579164,-97.20284051,gs,2028.0,ton/yr,1300000.0,ammonia,True,1.6825047199999998
+project-yaren-phase-2,Project YaRen Phase 2,TX,ICAP Ã¢ÂÂ 50/50 JV: Enbridge Inc. + Yara Clean Ammonia,Planning,27.83579164,-97.20284051,gs,2029.0,ton/yr,1300000.0,ammonia,True,1.6825047199999998
+corpus-christi-integrated-clean-ammonia-production,Corpus Christi Integrated Clean Ammonia Production,TX,"RWE, LOTTE Chemical, Mitsubishi Corporation JV (and/or other partners)",Planning,27.8116873,-97.39778335,gs,2030.0,ton/yr,10000000.0,ammonia,True,12.942343999999999
+eneos-mvce-gulf-coast,ENEOS/MVCE Gulf Coast,TX,ENEOS Holdings Inc. / MVCE (Azimuth Capital Management),Planning,,,eor,2030.0,ton/yr,220000.0,hydrogen,True,1.0838381400000001
+exxonmobil-baytown-blue-hydrogen,ExxonMobil Baytown Blue Hydrogen,TX,ExxonMobil Corporation,Paused,29.744763,-95.005705,gs,2027.0,ton/yr,879559.0,hydrogen,True,4.333179957183
+beaumont-new-ammonia-phase-1,Beaumont New Ammonia Phase 1,TX,Woodside,Operational,29.77,-94.043132,gs,2026.0,ton/yr,1100000.0,ammonia,True,1.4236578400000002
+beaumont-new-ammonia-phase-2,Beaumont New Ammonia Phase 2,TX,Woodside,Planning,29.77,-94.043132,gs,2030.0,ton/yr,1100000.0,ammonia,True,1.4236578400000002
+bp-linde-houston-area,BP/Linde Houston Area,TX,BP/Linde,Planning,29.651494,-95.053576,gs,2026.0,ton/yr,452843.0,hydrogen,True,2.230947794691
+project-concho-phase-1,Project Concho Phase 1,TX,Return Carbon; Verified Carbon,Under Construction,31.41550692,-100.4358355,gs,2030.0,tco2/yr,50000.0,dac,False,0.05
+project-concho-phase-2,Project Concho Phase 2,TX,Return Carbon; Verified Carbon,Planning,31.41550692,-100.4358355,gs,2032.0,tco2/yr,450000.0,dac,False,0.45
+oxy-stratos-phase-1,Oxy STRATOS Phase 1,TX,1PointFive (Oxy subsidiary) / BlackRock Infrastructure JV,Under Construction,31.89670878,-102.5430896,gs,2026.0,tco2/yr,250000.0,dac,False,0.25
+oxy-stratos-phase-2,Oxy STRATOS Phase 2,TX,1PointFive (Oxy subsidiary) / BlackRock Infrastructure JV,Under Construction,31.89670878,-102.5430896,gs,2027.0,tco2/yr,250000.0,dac,False,0.25
+oxy-south-texas-dac-hub-phase-1,Oxy South Texas DAC Hub Phase 1,TX,1PointFive (Occidental subsidiary),Planning,28.32313684,-97.83837184,gs,2028.0,tco2/yr,500000.0,dac,False,0.5
+oxy-south-texas-dac-hub-phase-2,Oxy South Texas DAC Hub Phase 2,TX,1PointFive (Occidental subsidiary),Planning,28.32313684,-97.83837184,gs,2032.0,tco2/yr,500000.0,dac,False,0.5
+calpine-baytown-energy-center-ccs-retrofit,Calpine Baytown Energy Center CCS Retrofit,TX,Calpine Corporation,Planning,29.7729069,-94.90153781,eor,2030.0,MWh/yr,2454480.0,power_ng_new_build,True,0.720954603322128
+calpine-deer-park-energy-center-ccs-retrofit,Calpine Deer Park Energy Center CCS Retrofit,TX,Calpine Corporation,Planning,29.712658,-95.133846,gs,2029.0,MWh/yr,5399856.0,power_ng_new_build,True,1.5861001273086817
+shell-deer-park-petrochemicals,Shell Deer Park Petrochemicals,TX,Shell/WSP/NETL,Planning,29.722222,-95.126944,gs,2031.0,ton/yr,2922000.0,petrochemicals,True,0.604797597
+petra-nova,Petra Nova,TX,Eneos Holdings / JX Nippon (100% since Sep 2022); previously 50/50 NRG+JX Nippon,Operational,29.47272218,-95.6438592,eor,2016.0,MWh/yr,1472688.0,power_coal,False,1.3958366544420482
+hereford-ethanol-plant,Hereford Ethanol Plant,TX,"Haslam Family office, HF capital seems to have bought this per https://oceanpk.com/wp-content/uploads/2024_biofuels_review.pdf",Planning,34.85103886,-102.3107148,eor,2026.0,ton/yr,370497.0,ethanol,False,0.35039092437855
+plainview-ethanol-plant,Plainview Ethanol Plant,TX,"Haslam Family office, HF capital seems to have bought this per https://oceanpk.com/wp-content/uploads/2024_biofuels_review.pdf",Planning,34.180558,-101.62726,eor,2026.0,ton/yr,370497.0,ethanol,False,0.35039092437855
+campo-viejo-gas-processing-plant,Campo Viejo Gas Processing Plant,TX,Stakeholder Midstream,Operational,33.161087,-102.992248,gs,2019.0,mmbtu/yr,40036075.0,ngp,True,0.01405946575186355
+terrell-natural-gas-processing-plant,Terrell Natural Gas Processing Plant,TX,Occidental Petroleum (Oxy),Operational,30.3736,-101.8433,eor,1972.0,mmbtu/yr,6041103.0,ngp,True,0.0021214537322147625
+big-spring-refinery-ccs-pilot,Big Spring Refinery CCS Pilot,TX,Delek US Holdings,Planning,32.2679079,-101.4100982,eor,2028.0,bbl/yr,23996925.0,refined_fuels,False,0.1452183515145
+valero-port-arthur-refinery-ccs,Valero Port Arthur Refinery CCS,TX,Valero Energy Corporation and air products,Operational,29.86650267,-93.96518758,eor,2013.0,ton/yr,241527.0,hydrogen,True,1.189891701999
+bkv-east-texas-ccs-project,BKV East Texas CCS Project,TX,"BKV, copenhagen infrastructure partners (?) BKV IS, ACCORDING TO GHGDATA.EPA.GOV, 100% OWNED BY EXXONMOBIL",Planning,32.1401337,-94.14515146,gs,2027.0,mmbtu/yr,131650462.0,ngp,True,0.04623168384278463
+bkv-las-tiendas-south-texas,BKV Las Tiendas South Texas,TX,"BKV, copenhagen infrastructure partners (?) BKV IS, ACCORDING TO GHGDATA.EPA.GOV, 100% OWNED BY EXXONMOBIL",Under Construction,28.03181285,-98.77818069,gs,2026.0,mmbtu/yr,169264880.0,ngp,True,0.059440736469628795
+bkv-cotton-cove,BKV Cotton Cove,TX,"BKV, copenhagen infrastructure partners (?) BKV IS, ACCORDING TO GHGDATA.EPA.GOV, 100% OWNED BY EXXONMOBIL",Under Construction,32.907723,-97.465856,gs,2026.0,mmbtu/yr,60183069.0,ngp,True,0.021134484273184644
+bkv-barnett-zero,BKV Barnett Zero,TX,"EnLink Midstream LLC, BKV Corporation",Operational,33.198462,-97.812648,gs,2023.0,mmbtu/yr,394951387.0,ngp,True,0.13869505187952383
+sandpiper-blue-methanol,Sandpiper Blue Methanol,TX,"Sandpiper Chemicals, LLC",Planning,29.38124475,-94.89370948,gs,2030.0,ton/yr,1100000.0,methanol,True,0.28462302
+ten08-ammonia-phase-1,Ten08 Ammonia Phase 1,TX,Attis Clean Energy; Navigator Gas; Ten08,Planning,25.95719039,-97.4105166,gs,2030.0,ton/yr,1400000.0,ammonia,True,1.81192816
+project-laborador-crescent-bayou,Project Laborador/Crescent Bayou,TX,Chevron,Planning,29.876186,-93.981492,gs,2032.0,ton/yr,1461000.0,ammonia,True,1.8908764584000002
+blue-bayou-ammonia-plant,Blue Bayou Ammonia Plant,TX,"Blue Bayou Ammonia LLC, Starwood Energy Group (SEG)",Paused,29.370351,-94.903612,gs,2032.0,ton/yr,3000000.0,ammonia,True,3.8827031999999995
+freeport-lng,Freeport LNG,TX,Freeport LNG ,Paused,28.92730605,-95.31917783,gs,2031.0,ton/yr,20000000.0,lng,True,1.1115
+javelina-blue-hydrogen,Javelina Blue Hydrogen,TX,Howard Energy Partners LLC (HEP LLC),Paused,27.805556,-97.45805,gs,2030.0,ton/yr,52774.0,hydrogen,True,0.25999306363800007
+port-arthur-lng-titan-carbon-sequestration-phase-1,Port Arthur LNG Titan Carbon Sequestration Phase 1,TX,"Sempra, ConocoPhillips, KKR; ",Under Construction,29.788484,-93.959311,gs,2028.0,ton/yr,13000000.0,lng,True,0.7224750000000001
+port-arthur-lng-titan-carbon-sequestration-phase-2,Port Arthur LNG Titan Carbon Sequestration Phase 2,TX,Sempra,Planning,29.784462,-93.953132,gs,2031.0,ton/yr,13000000.0,lng,True,0.7224750000000001
+coastal-bend-lng,Coastal Bend LNG,TX,Coastal Bend LNG,Planning,27.82348074,-97.45497361,gs,2032.0,ton/yr,22500000.0,lng,True,1.2504374999999999
+chevron-engine-no-1-permian-data-center,Chevron/Engine No. 1 Permian Data Center,TX,"Chevron, Engine No. 1",Planning,31.859379,-102.033122,eor,2027.0,MWh/yr,19723500.0,power_ng_data_center,True,5.7933852052671
+net-power-permian-basin-phase-1,Net Power Permian Basin Phase 1,TX,Net Power,Planning,31.86249,-102.367419,eor,2029.0,MWh/yr,392717.0,power_ng_new_build,True,0.11535279527755621
+air-liquide-corpus-christi-smr,Air Liquide Corpus Christi SMR,TX,Air Liquide,Planning,27.81515554,-97.47837719,gs,2030.0,ton/yr,34002.0,hydrogen,True,0.16751211107400002
+texas-critical-data-center,Texas Critical Data Center,TX,"New Era Energy & Digital, Inc.",Planning,31.75183544,-102.4464506,eor,2030.0,MWh/yr,7889400.0,power_ng_data_center,True,2.31735408210684
