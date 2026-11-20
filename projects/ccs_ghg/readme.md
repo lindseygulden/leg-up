@@ -21,7 +21,7 @@ cd leg-up/projects/ccs_ghg
 Every command and relative path in this README is given from
 `projects/ccs_ghg/`.
 
-**Install dependencies.** Python 3.9+ is required. Use either tool:
+**Install dependencies.** Python 3.9+ is required. Use either pip or poetry:
 
 ```bash
 # Option A — pip (works everywhere, no extra tooling)
@@ -182,7 +182,7 @@ and the WTI/GCCSI cross-check cells will similarly fail, but every other
 figure and every table builds normally from the pipeline CSVs in
 `data/`.
 
-## Methodology summary
+## Methods summary
 
 **Scope coverage.** The model covers Scope 1, Scope 2, and selected
 Scope 3 emissions. Results are reported in both tCO₂ (CO₂ only) and
