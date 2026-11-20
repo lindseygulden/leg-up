@@ -4,7 +4,7 @@ This repository contains the code, configuration, and intermediate data
 needed to reproduce every figure and table in the paper. The analysis
 models the greenhouse-gas (GHG) emissions consequences of the 86
 federally subsidized CCS-linked industrial facilities announced for the
-U.S. Gulf Coast (Texas + Louisiana) as of 2025, under a range of
+U.S. Gulf Coast (Texas + Louisiana) as of mid 2026, under a range of
 methane-leakage, CO₂-destination, and 45Q-eligibility assumptions.
 
 ## Quick start
