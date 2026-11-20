@@ -95,15 +95,17 @@ def compute_capture_emissions(
         df["mmbtu_methane_needed_per_tco2_captured"] * onsite_tco2e_per_mmbtu
     )
 
-    # escaped co2 (not captured)
-    df["escaped_tco2_per_tco2_captured"] = (
-        df["tco2_available_in_capture_stream"] - df["captured_tco2_per_yr"]
-    ) / df["captured_tco2_per_yr"]
+    # Note: the uncaptured portion of the targeted stream, (1 - r) * X_i, is
+    # NOT included in epsilon_i^cap. It is already carried in the facility
+    # accounting at scenarios.py: `mtco2e_per_yr_emissions_including_ccs =
+    # unabated - captured + ccs_emitted`, where `unabated` includes the full
+    # X_i and we only subtract `captured = r * X_i`, leaving (1 - r) * X_i in
+    # the facility's remaining emissions. Adding (1 - r)/r to epsilon_i^cap
+    # would double-count that uncaptured amount. (See paper §1.4.1.)
 
-    # total co2 emissions per tco2 captured
+    # total co2 emissions per tco2 captured (grid electricity + on-site gas)
     computed_tco2 = (
         df["tco2_emitted_from_combustion_per_tco2_captured"]
-        + df["escaped_tco2_per_tco2_captured"]
         + df["tco2_from_electricity_per_tco2_captured"]
     )
     if "tco2_emitted_per_tco2_captured" in df.columns:
@@ -112,10 +114,9 @@ def compute_capture_emissions(
         ].fillna(computed_tco2)
     else:
         df["tco2_emitted_per_tco2_captured"] = computed_tco2
-    # total co2e emissions per tco2 captured (methane + co2)
+    # total co2e emissions per tco2 captured (co2 + methane from both sources)
     df["tco2e_emitted_per_tco2_captured"] = (
         df["tco2e_emitted_from_combustion_per_tco2_captured"]
-        + df["escaped_tco2_per_tco2_captured"]
         + df["tco2e_from_electricity_per_tco2_captured"]
     )
 
