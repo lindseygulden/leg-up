@@ -9,6 +9,7 @@ config hierarchy.
 from dataclasses import dataclass, field, fields
 from typing import Dict, List, Optional
 
+from projects.ccs_ghg.constants import KAPPA_TCH4_PER_MMBTU
 from utils.io import yaml_to_dict
 
 
@@ -16,8 +17,8 @@ from utils.io import yaml_to_dict
 class CCSConstants:
     """Configurable assumptions for CCS grid/infrastructure calculations.
 
-    Physical constants (molecular weights, unit conversions) live in
-    projects.ccs_ghg.constants.
+    Physical constants (molecular weights, unit conversions, and the derived
+    κ methane-per-MMBtu coefficient) live in projects.ccs_ghg.constants.
     """
 
     # Grid and methane
@@ -25,7 +26,6 @@ class CCSConstants:
     methane_leak_rate: float
     grid_tco2_per_mwh: float
     grid_tch4_per_mwh: float
-    tch4_per_mmbtu_pipeline_gas: float
     eor_gas_turbine_efficiency: float
     # Oil and storage
     oil_tco2_per_bbl: float
@@ -41,6 +41,23 @@ class CCSConstants:
     # to this state value * 1000). Optional so that YAMLs which never touch
     # power_ng_retrofit don't need to supply it.
     grid_ng_heat_rate_mmbtu_per_mwh: Optional[float] = None
+    # Mass of methane delivered per MMBtu of pipeline natural gas.
+    # Defaults to the derived value in projects.ccs_ghg.constants (paper
+    # §1.1.2, Eq. eq:kappa; = 0.01703 tCH4/MMBtu). Override in YAML only
+    # for what-if analyses that vary the pipeline-gas composition.
+    tch4_per_mmbtu_pipeline_gas: float = KAPPA_TCH4_PER_MMBTU
+    # EOR-oil combustion multiplier for the sensitivity analysis. Scales the
+    # combustion-emissions contribution of EOR-produced oil only (not the
+    # barrel count or oil revenue).
+    #   1.0 → EOR oil is 100% additional supply (default; reproduces the
+    #         paper's main-text numbers).
+    #   0.0 → EOR oil perfectly displaces other oil produced elsewhere, so no
+    #         net combustion emissions are charged to the CCS scenario.
+    #   x   → fraction x of the combustion emissions count as net new.
+    # Named "disp" (displacement) but note the convention: it is the fraction
+    # that is NOT displaced — i.e. the share of combustion emissions kept on
+    # the ledger.
+    eor_disp: float = 1.0
 
     @classmethod
     def from_dict(cls, d: dict) -> "CCSConstants":
@@ -64,8 +81,13 @@ class IndustryInput:
     heat_rate_btu_per_kwh: Optional[float] = None
     fuel_type: Optional[str] = None
     electricity_mwh_per_unit_product: float = 0.0
-    direct_process_tch4_per_unit_product: float = 0.0
-    direct_combustion_tch4_per_unit_product: float = 0.0
+    # Total methane emitted at the facility boundary (tCH4/unit) — from any
+    # source: process venting, boil-off/flash, tank vents, combustion slip,
+    # etc. Applied at 100% (no leak-rate multiplier). Where a data source
+    # separates process-side and combustion-side direct emissions (e.g., EPA
+    # FLIGHT Subparts X/Y vs. C), sum them into this single field with a
+    # provenance comment in the YAML.
+    direct_facility_tch4_per_unit_product: float = 0.0
     process_capture_fraction: float = 0.0
     combustion_capture_fraction: float = 0.0
     # True if natural gas / methane is a material feedstock OR primary process
@@ -94,6 +116,32 @@ class IndustryConfig:
         capture_rate = (
             primary[0].get("co2_stream_capture_rate", 0.0) if primary else 0.0
         )
+
+        # Fail loudly if two emission_profiles under the same industry share
+        # an industrial_product name. Downstream joins on industrial_product
+        # would silently cross-produce rows, inflating per-facility emissions
+        # by the number of duplicates. (See the methanol bug of 2026-10-01:
+        # two emission_profiles both named "methanol" caused each facility
+        # to be counted 4× in the scenarios output.)
+        seen_products: Dict[str, int] = {}
+        for p in d.get("emission_profiles", []) or []:
+            key = p.get("industrial_product")
+            if key is None:
+                continue
+            seen_products[key] = seen_products.get(key, 0) + 1
+        duplicates = {k: n for k, n in seen_products.items() if n > 1}
+        if duplicates:
+            dup_desc = ", ".join(
+                f"{prod!r} (x{count})" for prod, count in duplicates.items()
+            )
+            raise ValueError(
+                f"Industry {name!r} has multiple emission_profiles sharing the "
+                f"same industrial_product name: {dup_desc}. Downstream joins "
+                "would double-count each facility's emissions. Fix by giving "
+                "each profile a unique industrial_product (e.g., add a suffix "
+                "like '_alternate' or '_high_co2'), or by removing the "
+                "redundant entry."
+            )
 
         profiles = []
         for p in d.get("emission_profiles", []) or []:
