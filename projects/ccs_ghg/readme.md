@@ -9,11 +9,17 @@ methane-leakage, CO₂-destination, and 45Q-eligibility assumptions.
 
 ## Quick start
 
+The paper's code and data live under `projects/ccs_ghg/` in
+<https://github.com/lindseygulden/leg-up>. Clone the parent repo and
+enter that subdirectory:
+
 ```bash
-# 1. Clone and enter the directory
-git clone https://github.com/lindseygulden/leg-up/blob/main/projects/ccs_ghg/
-cd ccs_ghg_paper
+git clone https://github.com/lindseygulden/leg-up.git
+cd leg-up/projects/ccs_ghg
 ```
+
+Every command and relative path in this README is given from
+`projects/ccs_ghg/`.
 
 **Install dependencies.** Python 3.9+ is required. Use either tool:
 
@@ -49,39 +55,45 @@ optional overrides.
 
 ## What's included
 
+All code and data for the paper live under `projects/ccs_ghg/` inside the
+repository:
+
 ```
-ccs_ghg_paper/
-├── README.md                        # this file
-├── LICENSE                          # CC BY-NC 4.0
-├── pyproject.toml                   # package metadata + dependencies
-├── ccs_ghg/                         # installable Python package
-│   ├── __init__.py                  # auto-registers path env vars
-│   ├── paths.py                     # DEV_DIR / DATA_DIR — portable paths
-│   ├── config.py                    # top-level dataclasses (CCSProjectConfig, etc.)
-│   ├── constants.py                 # physical constants (molecular weights, HHVs)
-│   ├── plotting.py                  # shared plotting library
-│   ├── ccs_emissions/               # CCS factor pipeline (capture + transport + storage)
-│   ├── industrial_emissions/        # Per-industry emissions pipeline
-│   ├── emissions_scenarios/         # Facility-level scenario engine (45Q, PV, oil)
-│   ├── helpers/
-│   │   ├── __init__.py
-│   │   └── figs_tables.py           # All 24 figure/table builders (standalone)
-│   └── _vendored/                   # Vendored subset of leg-up-private/utils
-├── config/
-│   ├── config_infrastructure.yml           # National + per-state constants
-│   ├── config_industries.yml               # Per-industry emission profiles
-│   ├── config_scenarios.yml                # Main scenarios config
-│   ├── config_infrastructure_eor_disp_0p5.yml   # Table S3 sensitivity
-│   └── config_scenarios_eor_disp_0p5.yml        # Table S3 sensitivity
-├── data/
-│   ├── ccs_scenarios_out.csv                      # Pipeline output for main analysis
-│   └── ccs_scenarios_out_eor_disp_0p5.csv         # Pipeline output for Table S3
-├── notebooks/
-│   └── ccs_ghg.ipynb                # Driver notebook — all paper figures + tables
-├── paper/
-│   ├── methods_2.tex                # Methods section (paper manuscript)
-│   └── table_industry_summary.tex   # Per-industry summary table
-└── tests/                           # Regression + unit test suite (optional)
+<repo-root>/
+└── projects/
+    └── ccs_ghg/                         # ← work from here
+        ├── README.md                    # this file
+        ├── LICENSE                      # CC BY-NC 4.0
+        ├── pyproject.toml               # package metadata + dependencies
+        ├── ccs_ghg/                     # installable Python package
+        │   ├── __init__.py              # auto-registers path env vars
+        │   ├── paths.py                 # DEV_DIR / DATA_DIR — portable paths
+        │   ├── config.py                # top-level dataclasses (CCSProjectConfig, etc.)
+        │   ├── constants.py             # physical constants (molecular weights, HHVs)
+        │   ├── plotting.py              # shared plotting library
+        │   ├── ccs_emissions/           # CCS factor pipeline (capture + transport + storage)
+        │   ├── industrial_emissions/    # Per-industry emissions pipeline
+        │   ├── emissions_scenarios/     # Facility-level scenario engine (45Q, PV, oil)
+        │   ├── helpers/
+        │   │   ├── __init__.py
+        │   │   └── figs_tables.py       # All 24 figure/table builders (standalone)
+        │   └── _vendored/               # Vendored subset of upstream utils
+        ├── config/
+        │   ├── config_infrastructure.yml           # National + per-state constants
+        │   ├── config_industries.yml               # Per-industry emission profiles
+        │   ├── config_scenarios.yml                # Main scenarios config
+        │   ├── config_infrastructure_eor_disp_0p5.yml   # Table S3 sensitivity
+        │   └── config_scenarios_eor_disp_0p5.yml        # Table S3 sensitivity
+        ├── data/
+        │   ├── texas_and_la_ccs_projects.csv       # Facility-level pipeline input
+        │   ├── ccs_scenarios_out.csv               # Pipeline output for main analysis
+        │   └── ccs_scenarios_out_eor_disp_0p5.csv  # Pipeline output for Table S3
+        ├── notebooks/
+        │   └── ccs_ghg.ipynb            # Driver notebook — all paper figures + tables
+        ├── paper/
+        │   ├── methods_2.tex            # Methods section (paper manuscript)
+        │   └── table_industry_summary.tex   # Per-industry summary table
+        └── tests/                       # Regression + unit test suite (optional)
 ```
 
 ## Reproducing paper figures and tables
@@ -278,8 +290,8 @@ regression cases across every industry variant.
 If you use this code, please cite:
 
 > L. Gulden, J. Buonocore, and C. Harvey, "Federally subsidized carbon
-> capture and storage will spur methane-based industrial buildout and
-> provide little or no emissions benefit," [journal / preprint], 2026.
+> capture and storage supports methane-based industrial buildout and
+> provides little or no emissions benefit," [journal / preprint], 2026.
 > [DOI]
 
 ## License
