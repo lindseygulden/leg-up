@@ -1,4 +1,4 @@
-# Code and data for "Federally subsidized carbon capture and storage will spur methane-based industrial buildout and provide little or no emissions benefit"
+# Code and data for "Federally subsidized carbon capture and storage supports methane-based industrial buildout and provides little or no emissions benefit"
 
 This repository contains the code, configuration, and intermediate data
 needed to reproduce every figure and table in the paper. The analysis
