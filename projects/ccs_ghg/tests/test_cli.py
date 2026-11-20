@@ -82,7 +82,7 @@ weighted_scenarios:
       eor: 80
       gs: 20
 
-include_nameplate_case: true
+include_nameplate_case: false
 nameplate_ccs_col: nameplate_captured_mtco2_per_yr
 project_start_col: project_start
 project_unabated_mtco2e_col: unabated_mtco2e_per_yr
