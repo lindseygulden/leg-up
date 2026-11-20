@@ -11,7 +11,7 @@ methane-leakage, CO₂-destination, and 45Q-eligibility assumptions.
 
 ```bash
 # 1. Clone and enter the directory
-git clone <repo-url>
+git clone https://github.com/lindseygulden/leg-up/blob/main/projects/ccs_ghg/
 cd ccs_ghg_paper
 ```
 
